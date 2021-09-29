@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BorrarUsuarios">
+
+
+    <ListView fx:id="listViewUsuarios" layoutX="14.0" layoutY="89.0" prefHeight="263.0" prefWidth="356.0"/>
+    <Button layoutX="393.0" layoutY="85.0" mnemonicParsing="false" onAction="#delUsuario" prefHeight="263.0"
+            prefWidth="186.0" text="Borrar">
+        <font>
+            <Font name="Forte" size="18.0"/>
+        </font>
+    </Button>
+    <Label layoutX="179.0" layoutY="29.0" prefHeight="51.0" prefWidth="134.0" text="ORRAR" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="24.0"/>
+        </font>
+    </Label>
+    <Label layoutX="132.0" prefHeight="72.0" prefWidth="60.0" text="B" textAlignment="CENTER" textOverrun="CLIP"
+           wrapText="true">
+        <font>
+            <Font name="Forte" size="80.0"/>
+        </font>
+    </Label>
+    <Label layoutX="319.0" layoutY="39.0" prefHeight="31.0" prefWidth="117.0" text="SUARIOS" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="24.0"/>
+        </font>
+    </Label>
+    <Label layoutX="270.0" prefHeight="72.0" prefWidth="60.0" text="U" textAlignment="CENTER" textOverrun="CLIP"
+           wrapText="true">
+        <font>
+            <Font name="Forte" size="80.0"/>
+        </font>
+    </Label>
+</AnchorPane>
