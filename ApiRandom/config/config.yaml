@@ -1,0 +1,3 @@
+ path_base: https://api.football-data.org/v2/
+#path_base: http://localhost:8080/JAX-RS-1.0-SNAPSHOT/
+
