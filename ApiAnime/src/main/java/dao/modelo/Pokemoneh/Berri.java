@@ -1,6 +1,7 @@
 package dao.modelo.Pokemoneh;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 @Data
@@ -22,5 +23,11 @@ public class Berri {
     private int smoothness;
     @Expose
     private int soil_dryness;
+    @Expose
+    private Item item;
+    @Expose
+    private Firmness firmness;
 
+    @SerializedName(value = "natural_gift_type")
+    private NaturalGiftType naturalGiftType;
 }

@@ -2,17 +2,13 @@
 package dao.modelo.Pokemoneh;
 
 import com.google.gson.annotations.Expose;
-import dao.modelo.marvel.*;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class Flavors {
+public class NaturalGiftType {
 
     @Expose
-    private int potency;
+    private String name;
     @Expose
-    private Flavor flavor;
+    private String url;
 }
- 
