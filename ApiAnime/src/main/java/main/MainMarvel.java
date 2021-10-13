@@ -1,9 +1,9 @@
-package gui;
+package main;
 
 import com.google.gson.*;
 import dao.modelo.ModPokemon.Pokemon;
 import dao.modelo.marvel.ApiError;
-import dao.retrofit.AnimeApi;
+import dao.retrofit.PokemonApi;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Response;
@@ -59,7 +59,7 @@ public class MainMarvel {
                 .client(clientOK)
                 .build();
 
-        AnimeApi marvelAPI = retrofit.create(AnimeApi.class);
+        PokemonApi marvelAPI = retrofit.create(PokemonApi.class);
 
         Response<Pokemon> response = marvelAPI.getAnimes().execute();
 
