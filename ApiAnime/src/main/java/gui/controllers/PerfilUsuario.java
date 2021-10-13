@@ -37,11 +37,13 @@ public class PerfilUsuario implements Initializable {
 
     @FXML
     private void editarPerfil(ActionEvent actionEvent) {
-
+        listViewPersonajes.getItems().clear();
+        listViewPersonajes.getItems().addAll(serviciosPokemon.getAllPokemon());
     }
 
     @FXML
     private void borrarCuenta(ActionEvent actionEvent) {
-        listViewPersonajes.getItems().addAll(serviciosPokemon.getAll());
+        listViewPersonajes.getItems().clear();
+        listViewPersonajes.getItems().addAll(serviciosPokemon.getAll(textFieldDatos.getText()));
     }
 }
