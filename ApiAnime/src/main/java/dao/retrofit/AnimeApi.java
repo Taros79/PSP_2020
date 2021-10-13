@@ -1,7 +1,6 @@
 package dao.retrofit;
 
-import dao.modelo.Pokemoneh.DataFlavors;
-import dao.modelo.sfdf.Pokemon;
+import dao.modelo.ModPokemon.Pokemon;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

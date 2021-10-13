@@ -1,10 +1,8 @@
 package gui;
 
 import com.google.gson.*;
-import dao.modelo.Pokemoneh.Berri;
-import dao.modelo.Pokemoneh.DataFlavors;
+import dao.modelo.ModPokemon.Pokemon;
 import dao.modelo.marvel.ApiError;
-import dao.modelo.sfdf.Pokemon;
 import dao.retrofit.AnimeApi;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
