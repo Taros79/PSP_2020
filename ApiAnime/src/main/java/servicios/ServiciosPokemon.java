@@ -13,6 +13,10 @@ public class ServiciosPokemon {
         return daoPokemons.getDatosByNombre(id);
     }
 
+    public String getSpriteId(String id, int id2) {
+        return daoPokemons.getSpriteId(id, id2);
+    }
+
     public List<ResultsItem> getAllPokemon() {
         return daoPokemons.getAllPokemon();
     }

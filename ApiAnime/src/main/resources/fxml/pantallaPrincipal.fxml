@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane fx:id="pantallaPrincipal" prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/10.0.2-internal"
@@ -20,8 +22,6 @@
                                   text="Perfil Usuario"/>
                         <MenuItem fx:id="abrirCrearPJ" mnemonicParsing="false" text="Crear/Borrar PJ"/>
                         <MenuItem fx:id="abrirTienda" mnemonicParsing="false" text="Mercado Principal"/>
-
-
                     </items>
                 </Menu>
                 <Menu fx:id="menuComun" mnemonicParsing="false" text="Menu Inicio">
@@ -34,4 +34,8 @@
             </menus>
         </MenuBar>
     </top>
+    <ImageView fitHeight="445.0" fitWidth="573.0" layoutX="37.0" layoutY="122.0" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="https://i.pinimg.com/originals/ff/dd/c8/ffddc8c8593462376febb528b3946b25.jpg"/>
+    </ImageView>
 </BorderPane>

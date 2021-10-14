@@ -6,7 +6,11 @@ import dao.modelo.ModPokemon.ResultsItem;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import servicios.ServiciosPokemon;
 
 import java.net.URL;
@@ -16,13 +20,11 @@ import java.util.stream.Collectors;
 public class PerfilUsuario implements Initializable {
 
     @FXML
-    private ListView<String> listViewPersonajes;
+    private ImageView imageView;
+    @FXML
+    private ListView<String> listViewMovimientos;
     @FXML
     private ComboBox comboBoxPokemones;
-    @FXML
-    private TextField textFieldDatos;
-    @FXML
-    private TextArea textAreaPerfil;
     @FXML
     private PantallaPrincipal pantallaPrincipal;
     private Alert a;
@@ -42,21 +44,21 @@ public class PerfilUsuario implements Initializable {
 
     @FXML
     private void editarPerfil(ActionEvent actionEvent) {
-        listViewPersonajes.getItems().clear();
-        //  listViewPersonajes.getItems().addAll(serviciosPokemon.getAllPokemon()
+        listViewMovimientos.getItems().clear();
+        //  listViewMovimientos.getItems().addAll(serviciosPokemon.getAllPokemon()
         //          .stream().map(resultsItem -> resultsItem.getName()).collect(Collectors.toList()));
     }
 
     @FXML
     private void borrarCuenta(ActionEvent actionEvent) {
-        listViewPersonajes.getItems().clear();
-        // listViewPersonajes.getItems().addAll(serviciosPokemon.getDatosByNombre(textFieldDatos.getText()));
+        listViewMovimientos.getItems().clear();
+        // listViewMovimientos.getItems().addAll(serviciosPokemon.getDatosByNombre(textFieldDatos.getText()));
     }
 
     @FXML
     private void seleccionarDatos() {
-        listViewPersonajes.getItems().clear();
-        listViewPersonajes.getItems().addAll(
+        listViewMovimientos.getItems().clear();
+        listViewMovimientos.getItems().addAll(
                 serviciosPokemon.getDatosByNombre(
                         comboBoxPokemones.getValue().toString())
                         .getMovimientos()
@@ -64,5 +66,9 @@ public class PerfilUsuario implements Initializable {
                         .map(MovesItem::getMove)
                         .map(Move::getName)
                         .collect(Collectors.toList()));
+
+        Image image = new Image(serviciosPokemon.getDatosByNombre(
+                comboBoxPokemones.getValue().toString()).getSprites().getFrontDefault());
+        imageView.setImage(image);
     }
 }
