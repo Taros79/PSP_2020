@@ -1,7 +1,6 @@
 package dao.modelo.ModPokemon;
 
 import com.google.gson.annotations.SerializedName;
-import dao.modelo.Pokemoneh.ResultsItem;
 
 import java.util.List;
 

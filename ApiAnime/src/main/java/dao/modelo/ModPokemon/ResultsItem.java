@@ -1,4 +1,4 @@
-package dao.modelo.Pokemoneh;
+package dao.modelo.ModPokemon;
 
 import com.google.gson.annotations.SerializedName;
 

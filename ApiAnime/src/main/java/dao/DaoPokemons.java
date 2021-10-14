@@ -3,8 +3,8 @@ package dao;
 import com.google.gson.Gson;
 import dao.modelo.ModPokemon.Pokemon;
 import dao.modelo.ModPokemon.Pokemones;
+import dao.modelo.ModPokemon.ResultsItem;
 import dao.modelo.Pokemoneh.ApiError;
-import dao.modelo.Pokemoneh.ResultsItem;
 import dao.retrofit.PokemonApi;
 import dao.utils.ConfigurationSingleton_OkHttpClient;
 import lombok.extern.log4j.Log4j2;
@@ -19,16 +19,16 @@ public class DaoPokemons {
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
 
-    public String getAll(String id) {
+    public Pokemon getDatosByNombre(String id) {
 
         PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
-        String resultado = null;
+        Pokemon resultado = null;
 
         try {
             Response<Pokemon> response = pokemonApi.getPokemonName(id).execute();
 
             if (response.isSuccessful()) {
-                resultado = response.body().getNombre();
+                resultado = response.body();
             } else {
                 Gson g = new Gson();
                 ApiError apierror = g.fromJson(response.errorBody().string(), ApiError.class);
