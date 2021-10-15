@@ -1,4 +1,4 @@
-package dao.modelo.Pokemoneh;
+package dao.modelo;
 
 
 public class ApiError {

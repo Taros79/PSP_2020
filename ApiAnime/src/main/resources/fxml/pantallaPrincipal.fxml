@@ -34,8 +34,10 @@
             </menus>
         </MenuBar>
     </top>
-    <ImageView fitHeight="445.0" fitWidth="573.0" layoutX="37.0" layoutY="122.0" pickOnBounds="true"
-               preserveRatio="true">
-        <Image url="https://i.pinimg.com/originals/ff/dd/c8/ffddc8c8593462376febb528b3946b25.jpg"/>
-    </ImageView>
+    <center>
+        <ImageView fitHeight="430.0" fitWidth="523.0" layoutX="37.0" layoutY="122.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="https://i.pinimg.com/originals/ff/dd/c8/ffddc8c8593462376febb528b3946b25.jpg"/>
+        </ImageView>
+    </center>
 </BorderPane>

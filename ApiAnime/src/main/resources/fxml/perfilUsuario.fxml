@@ -3,19 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="365.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+<AnchorPane prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PerfilUsuario">
    <children>
-      <ComboBox fx:id="comboBoxPokemones" layoutX="189.0" layoutY="18.0" onAction="#seleccionarDatos" prefWidth="150.0"
+      <ComboBox fx:id="comboBoxPokemones" layoutX="194.0" layoutY="23.0" onAction="#seleccionarDatos" prefWidth="150.0"
                 promptText="Pokemones"/>
-      <Button layoutX="190.0" layoutY="101.0" mnemonicParsing="false" onAction="#editarPerfil" prefHeight="35.0"
+      <Button layoutX="194.0" layoutY="160.0" mnemonicParsing="false" onAction="#editarPerfil" prefHeight="35.0"
               prefWidth="150.0" text="Editar perfil"/>
-      <Button layoutX="427.0" layoutY="118.0" mnemonicParsing="false" onAction="#borrarCuenta" text="BorrarCuenta"/>
-      <ListView fx:id="listViewMovimientos" layoutX="19.0" layoutY="183.0" prefHeight="158.0" prefWidth="563.0"/>
-      <Label layoutX="19.0" layoutY="166.0" text="Lista de personajes:"/>
-      <TextField fx:id="textFieldDatos" layoutX="190.0" layoutY="59.0" prefHeight="25.0" prefWidth="150.0"/>
-      <Label layoutX="375.0" layoutY="6.0" text="Perfil:"/>
+      <Button layoutX="233.0" layoutY="122.0" mnemonicParsing="false" onAction="#buscarPokemon" text="Buscar"/>
+      <ListView fx:id="listViewMovimientos" layoutX="352.0" layoutY="22.0" onMouseClicked="#cargarDatos"
+                prefHeight="379.0" prefWidth="230.0"/>
+      <Label layoutX="194.0" layoutY="60.0" text="Buscar por id o nombre:"/>
+      <TextField fx:id="textFieldDatos" layoutX="194.0" layoutY="85.0" prefHeight="25.0" prefWidth="150.0"
+                 promptText="id o nombre"/>
+      <Label layoutX="352.0" layoutY="6.0" text="Movimientos:"/>
       <ImageView fx:id="imageView" fitHeight="151.0" fitWidth="180.0" layoutX="7.0" layoutY="9.0" pickOnBounds="true"
                  preserveRatio="true"/>
+      <ListView fx:id="listViewDatosMovimiento" layoutX="20.0" layoutY="258.0" prefHeight="135.0" prefWidth="310.0"/>
    </children>
 </AnchorPane>

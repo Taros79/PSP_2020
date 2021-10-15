@@ -1,6 +1,8 @@
 package servicios;
 
 import dao.DaoPokemons;
+import dao.modelo.ModMovimientos.Movimiento;
+import dao.modelo.ModPokemon.MovesItem;
 import dao.modelo.ModPokemon.Pokemon;
 import dao.modelo.ModPokemon.ResultsItem;
 
@@ -13,11 +15,15 @@ public class ServiciosPokemon {
         return daoPokemons.getDatosByNombre(id);
     }
 
-    public String getSpriteId(String id, int id2) {
-        return daoPokemons.getSpriteId(id, id2);
+    public List<MovesItem> getMovimientosPorId(String id) {
+        return daoPokemons.getMovimientosPorId(id);
     }
 
     public List<ResultsItem> getAllPokemon() {
         return daoPokemons.getAllPokemon();
+    }
+
+    public Movimiento getDatosMovimiento(String id) {
+        return daoPokemons.getDatosMovimiento(id);
     }
 }

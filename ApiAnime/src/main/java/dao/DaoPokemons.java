@@ -1,11 +1,12 @@
 package dao;
 
 import com.google.gson.Gson;
+import dao.modelo.ApiError;
+import dao.modelo.ModMovimientos.Movimiento;
+import dao.modelo.ModPokemon.MovesItem;
 import dao.modelo.ModPokemon.Pokemon;
 import dao.modelo.ModPokemon.Pokemones;
 import dao.modelo.ModPokemon.ResultsItem;
-import dao.modelo.ModPokemon.Sprites;
-import dao.modelo.Pokemoneh.ApiError;
 import dao.retrofit.PokemonApi;
 import dao.utils.ConfigurationSingleton_OkHttpClient;
 import lombok.extern.log4j.Log4j2;
@@ -18,11 +19,10 @@ import java.util.logging.Logger;
 public class DaoPokemons {
 
     private Logger logger = Logger.getLogger(this.getClass().getName());
-
+    PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
 
     public Pokemon getDatosByNombre(String id) {
 
-        PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
         Pokemon resultado = null;
 
         try {
@@ -41,16 +41,16 @@ public class DaoPokemons {
         return resultado;
     }
 
-    public String getSpriteId(String id, int id2) {
+    public List<MovesItem> getMovimientosPorId(String id) {
 
-        PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
-        String resultado = null;
+        List<MovesItem> resultado = null;
 
         try {
-            Response<Sprites> response = pokemonApi.getPokemonSprite(id, id2).execute();
+            Response<Pokemon> response = pokemonApi.getPokemonName(id).execute();
 
             if (response.isSuccessful()) {
-                resultado = response.body().getFrontDefault();
+                assert response.body() != null;
+                resultado = response.body().getMovimientos();
             } else {
                 Gson g = new Gson();
                 ApiError apierror = g.fromJson(response.errorBody().string(), ApiError.class);
@@ -64,14 +64,35 @@ public class DaoPokemons {
 
     public List<ResultsItem> getAllPokemon() {
 
-        PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
         List<ResultsItem> resultado = null;
 
         try {
             Response<Pokemones> response = pokemonApi.getAnimes().execute();
 
             if (response.isSuccessful()) {
+                assert response.body() != null;
                 resultado = response.body().getResults();
+            } else {
+                Gson g = new Gson();
+                ApiError apierror = g.fromJson(response.errorBody().string(), ApiError.class);
+
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return resultado;
+    }
+
+    public Movimiento getDatosMovimiento(String id) {
+
+        Movimiento resultado = null;
+
+        try {
+            Response<Movimiento> response = pokemonApi.getMovimientoName(id).execute();
+
+            if (response.isSuccessful()) {
+                assert response.body() != null;
+                resultado = response.body();
             } else {
                 Gson g = new Gson();
                 ApiError apierror = g.fromJson(response.errorBody().string(), ApiError.class);
