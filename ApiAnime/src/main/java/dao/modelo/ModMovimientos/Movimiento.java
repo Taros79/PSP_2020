@@ -162,30 +162,9 @@ public class Movimiento {
 
     @Override
     public String toString() {
-        return
-                "Movimiento{" +
-                        "pp = '" + pp + '\'' +
-                        ",generation = '" + generation + '\'' +
-                        ",stat_changes = '" + statChanges + '\'' +
-                        ",accuracy = '" + accuracy + '\'' +
-                        ",contest_combos = '" + contestCombos + '\'' +
-                        ",priority = '" + priority + '\'' +
-                        ",super_contest_effect = '" + superContestEffect + '\'' +
-                        ",type = '" + type + '\'' +
-                        ",effect_changes = '" + effectChanges + '\'' +
-                        ",target = '" + target + '\'' +
-                        ",effect_entries = '" + effectEntries + '\'' +
-                        ",contest_type = '" + contestType + '\'' +
-                        ",past_values = '" + pastValues + '\'' +
-                        ",names = '" + names + '\'' +
-                        ",meta = '" + meta + '\'' +
-                        ",flavor_text_entries = '" + flavorTextEntries + '\'' +
-                        ",name = '" + name + '\'' +
-                        ",damage_class = '" + damageClass + '\'' +
-                        ",effect_chance = '" + effectChance + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",power = '" + power + '\'' +
-                        ",contest_effect = '" + contestEffect + '\'' +
-                        "}";
+        return "PP --> " + pp +
+                "\nPrecision --> " + accuracy +
+                "\nPotencia --> " + power +
+                "\nTipo --> " + type.getName();
     }
 }

@@ -3,22 +3,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <AnchorPane prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PerfilUsuario">
    <children>
       <ComboBox fx:id="comboBoxPokemones" layoutX="194.0" layoutY="23.0" onAction="#seleccionarDatos" prefWidth="150.0"
                 promptText="Pokemones"/>
-      <Button layoutX="194.0" layoutY="160.0" mnemonicParsing="false" onAction="#editarPerfil" prefHeight="35.0"
-              prefWidth="150.0" text="Editar perfil"/>
-      <Button layoutX="233.0" layoutY="122.0" mnemonicParsing="false" onAction="#buscarPokemon" text="Buscar"/>
+      <Button layoutX="233.0" layoutY="120.0" mnemonicParsing="false" onAction="#buscarPokemon" text="Buscar"/>
       <ListView fx:id="listViewMovimientos" layoutX="352.0" layoutY="22.0" onMouseClicked="#cargarDatos"
-                prefHeight="379.0" prefWidth="230.0"/>
+                prefHeight="183.0" prefWidth="230.0"/>
       <Label layoutX="194.0" layoutY="60.0" text="Buscar por id o nombre:"/>
       <TextField fx:id="textFieldDatos" layoutX="194.0" layoutY="85.0" prefHeight="25.0" prefWidth="150.0"
                  promptText="id o nombre"/>
-      <Label layoutX="352.0" layoutY="6.0" text="Movimientos:"/>
-      <ImageView fx:id="imageView" fitHeight="151.0" fitWidth="180.0" layoutX="7.0" layoutY="9.0" pickOnBounds="true"
+      <ImageView fx:id="imageView" fitHeight="175.0" fitWidth="188.0" layoutX="7.0" layoutY="9.0" pickOnBounds="true"
                  preserveRatio="true"/>
-      <ListView fx:id="listViewDatosMovimiento" layoutX="20.0" layoutY="258.0" prefHeight="135.0" prefWidth="310.0"/>
+      <ListView fx:id="listViewDatosMovimiento" layoutX="101.0" layoutY="295.0" prefHeight="101.0" prefWidth="134.0"/>
+      <Separator layoutX="1.0" layoutY="217.0" prefHeight="10.0" prefWidth="600.0"/>
+      <Label fx:id="labelMovimiento" alignment="CENTER" layoutX="118.0" layoutY="236.0" prefHeight="38.0"
+             prefWidth="315.0" text="Movimiento" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="System Bold" size="26.0"/>
+         </font>
+      </Label>
+      <TextArea fx:id="labelDefinicion" layoutX="312.0" layoutY="295.0" prefHeight="101.0" prefWidth="248.0"/>
    </children>
 </AnchorPane>

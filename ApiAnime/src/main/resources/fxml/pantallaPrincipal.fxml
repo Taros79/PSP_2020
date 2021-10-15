@@ -8,27 +8,14 @@
             xmlns="http://javafx.com/javafx/10.0.2-internal"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PantallaPrincipal">
     <top>
-        <MenuBar fx:id="menuPrincipal" BorderPane.alignment="CENTER">
+        <MenuBar BorderPane.alignment="CENTER">
             <menus>
-                <Menu fx:id="menuMaster" mnemonicParsing="false" text="Master">
+                <Menu mnemonicParsing="false" text="Usuario">
                     <items>
-                        <MenuItem fx:id="abrirCrearArticulo" mnemonicParsing="false" text="Crear Articulo"/>
-                        <MenuItem fx:id="abrirCrearPartida" mnemonicParsing="false" text="Crear Partida"/>
-                    </items>
-                </Menu>
-                <Menu fx:id="menuUsuario" mnemonicParsing="false" text="Usuario">
-                    <items>
-                        <MenuItem fx:id="abrirPerfil" mnemonicParsing="false" onAction="#perfilUsuario"
+                        <MenuItem mnemonicParsing="false" onAction="#perfilUsuario"
                                   text="Perfil Usuario"/>
-                        <MenuItem fx:id="abrirCrearPJ" mnemonicParsing="false" text="Crear/Borrar PJ"/>
-                        <MenuItem fx:id="abrirTienda" mnemonicParsing="false" text="Mercado Principal"/>
-                    </items>
-                </Menu>
-                <Menu fx:id="menuComun" mnemonicParsing="false" text="Menu Inicio">
-                    <items>
-                        <MenuItem fx:id="menuRegistrarse" mnemonicParsing="false" text="Registrarse"/>
-                        <MenuItem fx:id="menuIniciarSesion" mnemonicParsing="false" text="IniciarSesion"/>
-                        <MenuItem fx:id="menuSalir" mnemonicParsing="false" text="Salir"/>
+                        <MenuItem mnemonicParsing="false" text="Crear/Borrar PJ"/>
+                        <MenuItem mnemonicParsing="false" text="Mercado Principal"/>
                     </items>
                 </Menu>
             </menus>

@@ -3,8 +3,6 @@ package gui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -16,16 +14,6 @@ import java.util.logging.Logger;
 
 public class PantallaPrincipal implements Initializable {
 
-    @FXML
-    private MenuItem menuRegistrarse;
-    @FXML
-    private MenuItem menuIniciarSesion;
-    @FXML
-    private MenuItem menuSalir;
-    @FXML
-    private Menu menuMaster;
-    @FXML
-    private Menu menuUsuario;
     @FXML
     private BorderPane pantallaPrincipal;
 
@@ -40,26 +28,6 @@ public class PantallaPrincipal implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
-
-   /* @FXML
-    private void perfilUsuario() {
-        try {
-            if (pantallaPerfilUsuario == null) {
-                pantallaPerfilUsuario =
-                        fxmlLoaderPerfilUsuario.load(getClass().getResourceAsStream("/fxml/perfilUsuario.fxml"));
-                perfilUsuarioController = fxmlLoaderPerfilUsuario.getController();
-                perfilUsuarioController.setBorderPane(this);
-            }
-            pantallaPrincipal.setCenter(pantallaPerfilUsuario);
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, null, e);
-        }
-    }
-
-    @FXML
-    private void abrirPerfil(ActionEvent actionEvent) {
-        this.perfilUsuario();
-    }*/
 
     @FXML
     private void perfilUsuario() {

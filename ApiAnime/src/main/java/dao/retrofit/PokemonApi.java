@@ -15,9 +15,6 @@ public interface PokemonApi {
     @GET("pokemon/{characterId}")
     Call<Pokemon> getPokemonName(@Path("characterId") String id);
 
-    @GET("pokemon/{characterId}")
-    Call<Pokemon> getPokemonUbicacion(@Path("characterId") String id);
-
     @GET("move/{characterId}")
     Call<Movimiento> getMovimientoName(@Path("characterId") String id);
 }
