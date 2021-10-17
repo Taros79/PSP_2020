@@ -4,7 +4,6 @@ import dao.DaoPokemons;
 import dao.modelo.ModMovimientos.Movimiento;
 import dao.modelo.ModPokemon.MovesItem;
 import dao.modelo.ModPokemon.Pokemon;
-import dao.modelo.ModPokemon.ResultsItem;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class ServiciosPokemon {
         return daoPokemons.getMovimientosPorId(id);
     }
 
-    public List<ResultsItem> getAllPokemon() {
+    public List<Pokemon> getAllPokemon() {
         return daoPokemons.getAllPokemon();
     }
 
