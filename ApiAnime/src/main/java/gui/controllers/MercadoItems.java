@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 
 public class MercadoItems implements Initializable {
 
+    ServiciosItems serviciosItems = new ServiciosItems();
     @FXML
     private TextArea textDatosMovimiento;
     @FXML
@@ -27,7 +28,6 @@ public class MercadoItems implements Initializable {
     @FXML
     private PantallaPrincipal pantallaPrincipal;
     private Alert a;
-    ServiciosItems serviciosItems = new ServiciosItems();
 
     public void setBorderPane(PantallaPrincipal borderPane) {
         this.pantallaPrincipal = borderPane;
@@ -43,7 +43,7 @@ public class MercadoItems implements Initializable {
 
         listViewItems.setItems(items);
 
-        listViewItems.setCellFactory(param -> new ListCell<String>() {
+        listViewItems.setCellFactory(param -> new ListCell<>() {
             private final ImageView imageView = new ImageView();
 
             @Override
@@ -68,12 +68,15 @@ public class MercadoItems implements Initializable {
             textDatosMovimiento.setText(serviciosItems.getItemsByNombre(
                     listViewItems.getSelectionModel().getSelectedItem()).toString());
 
-          /*  labelMovimiento.setText(listViewItems.getSelectionModel().getSelectedItem());
-            labelDefinicion.setText(serviciosPokemon.getDatosMovimiento(
-                    listViewItems.getSelectionModel().getSelectedItem()).getFlavorTextEntries()
-                    .stream().filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
-                    .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("x-y"))
-                    .map(FlavorTextEntriesItem::getFlavorText).collect(Collectors.joining()));*/
+            textDatosMovimiento.clear();
+            textDatosMovimiento.setText(
+                    serviciosItems.getItemsByNombre(listViewItems.getSelectionModel().getSelectedItem()).toString()
+                            + "\nDESCRICION " + serviciosItems.getItemsByNombre(listViewItems.getSelectionModel().getSelectedItem())
+                            .getFlavorTextEntries()
+                            .stream()
+                            .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
+                            .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("ultra-sun-ultra-moon"))
+                            .collect(Collectors.toList()));
 
         }
     }

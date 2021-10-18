@@ -3,6 +3,7 @@ package gui.controllers;
 import dao.modelo.ModMovimientos.FlavorTextEntriesItem;
 import dao.modelo.ModPokemon.Move;
 import dao.modelo.ModPokemon.MovesItem;
+import dao.modelo.ModPokemon.Pokemon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class PerfilPokemon implements Initializable {
 
+    ServiciosPokemon serviciosPokemon = new ServiciosPokemon();
     @FXML
     private TextArea labelDefinicion;
     @FXML
@@ -35,8 +37,6 @@ public class PerfilPokemon implements Initializable {
     @FXML
     private PantallaPrincipal pantallaPrincipal;
     private Alert a;
-    ServiciosPokemon serviciosPokemon = new ServiciosPokemon();
-
 
     public void setBorderPane(PantallaPrincipal borderPane) {
         this.pantallaPrincipal = borderPane;
@@ -46,7 +46,7 @@ public class PerfilPokemon implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         a = new Alert(Alert.AlertType.INFORMATION);
         comboBoxPokemones.getItems().addAll(serviciosPokemon.getAllPokemon()
-                .stream().map(pokemon -> pokemon.getNombre()).collect(Collectors.toList()));
+                .stream().map(Pokemon::getNombre).collect(Collectors.toList()));
     }
 
     @FXML

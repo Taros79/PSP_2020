@@ -27,11 +27,6 @@ public class FlavorTextEntriesItem {
 
     @Override
     public String toString() {
-        return
-                "FlavorTextEntriesItem{" +
-                        "version_group = '" + versionGroup + '\'' +
-                        ",language = '" + language + '\'' +
-                        ",text = '" + text + '\'' +
-                        "}";
+        return text;
     }
 }

@@ -36,19 +36,19 @@ public class Versions {
         return generationIi;
     }
 
-	public GenerationV getGenerationV(){
-		return generationV;
-	}
+    public GenerationV getGenerationV() {
+        return generationV;
+    }
 
-	public GenerationIv getGenerationIv(){
-		return generationIv;
-	}
+    public GenerationIv getGenerationIv() {
+        return generationIv;
+    }
 
-	public GenerationVii getGenerationVii(){
-		return generationVii;
-	}
+    public GenerationVii getGenerationVii() {
+        return generationVii;
+    }
 
-	public GenerationI getGenerationI(){
+    public GenerationI getGenerationI() {
         return generationI;
     }
 

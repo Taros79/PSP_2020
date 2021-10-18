@@ -20,10 +20,6 @@ public class AttributesItem {
 
     @Override
     public String toString() {
-        return
-                "AttributesItem{" +
-                        "name = '" + name + '\'' +
-                        ",url = '" + url + '\'' +
-                        "}";
+        return "{" + name + "}";
     }
 }

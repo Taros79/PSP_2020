@@ -106,22 +106,7 @@ public class Objeto {
 
     @Override
     public String toString() {
-        return
-                "Item{" +
-                        "cost = '" + cost + '\'' +
-                        ",fling_power = '" + flingPower + '\'' +
-                        ",sprites = '" + sprites + '\'' +
-                        ",fling_effect = '" + flingEffect + '\'' +
-                        ",effect_entries = '" + effectEntries + '\'' +
-                        ",game_indices = '" + gameIndices + '\'' +
-                        ",names = '" + names + '\'' +
-                        ",baby_trigger_for = '" + babyTriggerFor + '\'' +
-                        ",flavor_text_entries = '" + flavorTextEntries + '\'' +
-                        ",name = '" + name + '\'' +
-                        ",attributes = '" + attributes + '\'' +
-                        ",id = '" + id + '\'' +
-                        ",category = '" + category + '\'' +
-                        ",held_by_pokemon = '" + heldByPokemon + '\'' +
-                        "}";
+        return "PRECIO [" + cost +
+                "] Pokedolares \nATRIBUTOS " + attributes;
     }
 }

@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 public class ConfigurationSingleton_Client {
 
     private static ConfigurationSingleton_Client config;
+    private String path_base;
 
     private ConfigurationSingleton_Client() {
 
@@ -28,7 +29,7 @@ public class ConfigurationSingleton_Client {
         if (config == null) {
             try {
                 Yaml yaml = new Yaml();
-                Iterable<Object> it = null;
+                Iterable<Object> it;
 
                 it = yaml.loadAll(new FileInputStream("config/config.yaml"));
 
@@ -45,6 +46,4 @@ public class ConfigurationSingleton_Client {
     private void setPath_base(String path_base) {
         this.path_base = path_base;
     }
-
-    private String path_base;
 }
