@@ -3,6 +3,7 @@ package dao.utils;
 import com.google.gson.*;
 import config.ConfigurationSingleton_Client;
 import lombok.extern.log4j.Log4j2;
+import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
@@ -16,6 +17,7 @@ import java.net.CookiePolicy;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit;
 
 @Log4j2
 public class ConfigurationSingleton_OkHttpClient {
@@ -30,8 +32,10 @@ public class ConfigurationSingleton_OkHttpClient {
         if (clientOK == null) {
             CookieManager cookieManager = new CookieManager();
             cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+            ConnectionPool connectionPool = new ConnectionPool(10, 1, TimeUnit.SECONDS);
 
             clientOK = new OkHttpClient.Builder()
+                    .connectionPool(connectionPool)
                     .readTimeout(Duration.of(10, ChronoUnit.MINUTES))
                     .callTimeout(Duration.of(10, ChronoUnit.MINUTES))
                     .connectTimeout(Duration.of(10, ChronoUnit.MINUTES))

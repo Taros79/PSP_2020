@@ -4,7 +4,6 @@ import dao.modelo.ModMovimientos.FlavorTextEntriesItem;
 import dao.modelo.ModPokemon.Move;
 import dao.modelo.ModPokemon.MovesItem;
 import dao.modelo.ModPokemon.Pokemon;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -33,7 +32,7 @@ public class PerfilPokemon implements Initializable {
     @FXML
     private ListView<String> listViewMovimientos;
     @FXML
-    private ComboBox comboBoxPokemones;
+    private ComboBox<String> comboBoxPokemones;
     @FXML
     private PantallaPrincipal pantallaPrincipal;
     private Alert a;
@@ -50,23 +49,23 @@ public class PerfilPokemon implements Initializable {
     }
 
     @FXML
-    private void buscarPokemon(ActionEvent actionEvent) {
+    private void buscarPokemon() {
         String pokemon = textFieldDatos.getText();
-        if (serviciosPokemon.getMovimientosPorId(pokemon) != null) {
+        if (serviciosPokemon.getMovimientosPorId(pokemon).isRight()) {
             listViewMovimientos.getItems().clear();
             listViewMovimientos.getItems().addAll(
-                    serviciosPokemon.getMovimientosPorId(pokemon)
+                    serviciosPokemon.getMovimientosPorId(pokemon).get()
                             .stream()
                             .map(movesItem -> movesItem.getMove().getName())
                             .collect(Collectors.toList()));
 
-            Image image = new Image(serviciosPokemon.getDatosByNombre(pokemon).getSprites().getFrontDefault());
+            Image image = new Image(serviciosPokemon.getDatosByNombre(pokemon).get().getSprites().getFrontDefault());
             imageView.setImage(image);
         } else {
             listViewMovimientos.getItems().clear();
             Image image = new Image("https://i.pinimg.com/originals/19/23/da/1923da24d71bc552b067ee76b93cf15e.jpg");
             imageView.setImage(image);
-            a.setContentText("WHOs IS TATH POKEMONE!!!");
+            a.setContentText(serviciosPokemon.getMovimientosPorId(pokemon).getLeft());
             a.showAndWait();
         }
     }
@@ -76,7 +75,7 @@ public class PerfilPokemon implements Initializable {
         listViewMovimientos.getItems().clear();
         listViewMovimientos.getItems().addAll(
                 serviciosPokemon.getDatosByNombre(
-                        comboBoxPokemones.getValue().toString())
+                        comboBoxPokemones.getValue()).get()
                         .getMovimientos()
                         .stream()
                         .map(MovesItem::getMove)
@@ -84,7 +83,7 @@ public class PerfilPokemon implements Initializable {
                         .collect(Collectors.toList()));
 
         Image image = new Image(serviciosPokemon.getDatosByNombre(
-                comboBoxPokemones.getValue().toString()).getSprites().getFrontDefault());
+                comboBoxPokemones.getValue()).get().getSprites().getFrontDefault());
         imageView.setImage(image);
     }
 

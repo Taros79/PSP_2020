@@ -38,7 +38,6 @@ public class DaoItems {
     }
 
     public Objeto getItemsByNombre(String id) {
-
         Objeto resultado = null;
 
         try {
