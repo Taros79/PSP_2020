@@ -24,7 +24,7 @@ public class PerfilPokemon implements Initializable {
     @FXML
     private Label labelMovimiento;
     @FXML
-    private ListView listViewDatosMovimiento;
+    private ListView<String> listViewDatosMovimiento;
     @FXML
     private TextField textFieldDatos;
     @FXML
@@ -94,7 +94,7 @@ public class PerfilPokemon implements Initializable {
             listViewDatosMovimiento.getItems().clear();
             listViewDatosMovimiento.getItems().addAll(
                     serviciosPokemon.getDatosMovimiento(listViewMovimientos.getSelectionModel()
-                            .getSelectedItem()).toString());
+                            .getSelectedItem()).getName());
 
             labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem());
             labelDefinicion.setText(serviciosPokemon.getDatosMovimiento(
