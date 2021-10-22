@@ -1,23 +1,13 @@
 package main;
 
 import com.github.javafaker.Faker;
-import pedidos.dao.modelo.Cliente;
-import pedidos.dao.modelo.Cuenta;
-import pedidos.dao.modelo.Producto;
+import pedidos.dao.modelo.*;
 import pedidos.servicios.ServiciosPedido;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.counting;
-import pedidos.dao.modelo.LineaPedido;
-import pedidos.dao.modelo.PedidoCompuesto;
-import pedidos.dao.modelo.PedidoSimple;
-
-public class MainPedidosPractica {
+public class MainProdutosPractica {
 
     public static void main(String[] args) {
         ServiciosPedido sp = new ServiciosPedido();
@@ -32,7 +22,7 @@ public class MainPedidosPractica {
         setupPedidosSimples(sp, r);
 //        sp.getTodosPedidos().forEach(System.out::println);
 
-        StreamsPedidos streamPedidos = new StreamsPedidos();
+        StreamsProductos streamProductos = new StreamsProductos();
 
         Scanner sc = new Scanner(System.in);
         int opcion;
@@ -44,42 +34,38 @@ public class MainPedidosPractica {
                         "3. Ejercicio 3 \n" +
                         "4. Ejercicio 4 \n" +
                         "5. Ejercicio 5 \n" +
-                        "6. Ejercicio 6 \n" +
-                        "7. Salir");
+                        "6. Salir");
                 opcion = sc.nextInt();
                 sc.nextLine();
-                if (opcion < 1 || opcion > 7) {
+                if (opcion < 1 || opcion > 6) {
                     System.out.println("Por favor, dime una de las opciones del menu." +
                             "Vuelvo a mostrartelo.");
                 }
-            } while (opcion < 1 || opcion > 8);
+            } while (opcion < 1 || opcion > 7);
             switch (opcion) {
                 case 1:
-                    System.out.println("PRODUCTOS AGRUPADOS POR VECES PEDIDOS");
-                    streamPedidos.productosAgrupadosPorCantidadDeVecesPedidos();
+                    System.out.println("PRODUCTO MAS CARO");
+                    streamProductos.productoMasCaro();
                     break;
                 case 2:
-                    System.out.println("CLIENTE QUE MAS DINERO HA GASTADO");
-                    streamPedidos.clienteQueMasDineroSehaGastado();
+                    System.out.println("PRODUCTO MAS BARATO");
+                    streamProductos.productoMasBarato();
                     break;
                 case 3:
-                    System.out.println("MEDIA PEDIDA DE CADA PRODUCTO");
-                    streamPedidos.lacantidadMediaPedidaDeCadaProductoEnCadaPedidoCompuesto();
+                    System.out.println("MEDIA PRECIOS DE TODOS LOS PRODUCTOS");
+                    System.out.println("La media es ");
+                    streamProductos.mediaPrecioTodosLosProductos();
                     break;
                 case 4:
-                    System.out.println("PEDIDO SIMPLE CON MAS LINEAS DE PEDIDO");
-                    streamPedidos.pedidoSimpleConMasLineasdePedido();
+                    System.out.println("PRODUCTOS AGRUPADOS POR RANGO");
+                    streamProductos.productosAgrupadosPorRangoPrecio10en10();
                     break;
                 case 5:
-                    System.out.println("TODO EL DINERO FACTURADO EN TODOS LOS PEDIDOS");
-                    streamPedidos.todoelDineroFacturadoEnTotalentodosLosPedidos();
-                    break;
-                case 6:
-                    System.out.println("FACTURA TOTAL");
-                    streamPedidos.setFacturaTotal();
+                    System.out.println("PRODUCTOS CON PRECIO Y STOCK MAYOR");
+                    streamProductos.productosConPrecio11a20YStockMayor5();
                     break;
             }
-        } while (opcion != 7);
+        } while (opcion != 6);
     }
 
     private static void setupClienteClientes(ServiciosPedido sp, Faker f) {
@@ -127,6 +113,7 @@ public class MainPedidosPractica {
                     Producto producto = sp.todosProductos().get(r.nextInt(sp.todosProductos().size()));
                     sp.addLineaPedidoAPedidoSimple(producto, cantidad, pedidoSimple);
                 }
+                
                 sp.cobrarPedidos();
             }
 
