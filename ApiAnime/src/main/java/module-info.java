@@ -1,4 +1,3 @@
-/*
 module notoques {
     //needed for JavaFX
     requires javafx.controls;
@@ -16,6 +15,7 @@ module notoques {
     requires retrofit2.adapter.rxjava2;
     requires retrofit2.converter.gson;
     requires retrofit2.converter.scalars;
+    requires io.vavr;
 
     //requires java.validation;          --module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
 
@@ -34,4 +34,3 @@ module notoques {
 
     exports gui;
 }
-*/

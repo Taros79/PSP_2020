@@ -1,0 +1,10 @@
+Para el lunes
+
+1) cargar Clientes(100), Productos(100) con precio y stock aleatorio  y
+
+Pedidos 100 compuestos, con de 10 a 20 pedidos simples, con cliente cuenta y producto aleatorio, la cantidad de la linea pedido aleatorio entre 1 y 5 y los productos de dentro entre y 1 y 4.
+
+
+2) cargar Socios (100), Productos (100 de cada tipo), rellenar 100 alquileres aleatorios con sus encuestas correspondientes, las fecha que sean aleatorias,
+
+3) entender los streams que vimos en clase

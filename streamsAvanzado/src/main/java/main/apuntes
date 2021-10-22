@@ -1,0 +1,19 @@
+filter
+limit
+skip
+sorted
+distinct
+
+map   cuando cambio tipos de objeto
+flatmap
+
+reduce un elemento
+
+anyMatch,allMatch devuelve boolean para comprabar algo.
+
+Collect
+
+grouping
+toList
+toMap
+
