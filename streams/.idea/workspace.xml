@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7a8c0bc1-5ed9-4fda-8b5b-85202e6926f5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/.idea/libraries/streamsAvanzado_1_0_SNAPSHOT.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/Enunciado" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/MainEjemplo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/MainPedidosPractica.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/MainVideoclubPractica.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/StreamsClientes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/StreamsPedidos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/StreamsProductos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/StreamsVideoClub.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/main/apuntes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/DaoClientes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/DaoPedidos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/DaoProductos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/modelo/Cliente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/modelo/Cuenta.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/modelo/Estado.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/modelo/LineaPedido.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/modelo/PedidoCompuesto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/modelo/PedidoSimple.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/dao/modelo/Producto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/gui/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/pedidos/servicios/ServiciosPedido.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/config/Configuration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/DaoAlquileres.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/DaoProductos.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/DaoSocios.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/Alquiler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/Documental.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/Encuesta.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/FormatoPelicula.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/Pelicula.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/Producto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/Socio.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/dao/modelo/Videojuego.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/gui/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/servicios/ServiciosVideoclub.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/src/main/java/videoclub/utils/Constantes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../streamsAvanzado/streamsAvanzado.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="1zrz54fpDcfwBBRGV0xR7EmkYyQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7a8c0bc1-5ed9-4fda-8b5b-85202e6926f5" name="Changes" comment="" />
+      <created>1634920810479</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1634920810479</updated>
+      <workItem from="1634920812666" duration="3000" />
+    </task>
+    <servers />
+  </component>
+</project>
