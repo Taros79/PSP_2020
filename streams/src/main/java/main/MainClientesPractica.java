@@ -82,7 +82,7 @@ public class MainClientesPractica {
 
     private static void setupClienteClientes(ServiciosPedido sp, Faker f) {
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 30; i++) {
             String nombre = f.gameOfThrones().character();
             String direccion = f.gameOfThrones().city();
             String tel = f.phoneNumber().phoneNumber();

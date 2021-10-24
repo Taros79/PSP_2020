@@ -23,7 +23,7 @@ public class MainVideoclubPractica {
         Faker f = new Faker();
         setupSocioSocios(sv, f);
 
-        System.out.println(sv.getTodosSocios());
+       // System.out.println(sv.getTodosSocios());
         setupProductos(sv, f, r);
         setAlquiler(sv, r);
         
@@ -52,14 +52,15 @@ public class MainVideoclubPractica {
                         "8. Ejercicio 8 \n" +
                         "9. Ejercicio 9 \n" +
                         "10. Ejercicio 10 \n" +
-                        "11. Salir");
+                        "11. Ejercicio 11 \n" +
+                        "12. Salir");
                 opcion = sc.nextInt();
                 sc.nextLine();
-                if (opcion < 1 || opcion > 11) {
+                if (opcion < 1 || opcion > 12) {
                     System.out.println("Por favor, dime una de las opciones del menu." +
                             "Vuelvo a mostrartelo.");
                 }
-            } while (opcion < 1 || opcion > 12);
+            } while (opcion < 1 || opcion > 13);
             switch (opcion) {
                 case 1:
                     System.out.println("NUMERO SOCIOS SANCIONADOS");
@@ -104,11 +105,15 @@ public class MainVideoclubPractica {
                     streamVideoclub.los10VideoJuegosMejorValoradas();
                     break;
                 case 10:
+                    System.out.println("numeroDocumentalesyPeliculasSegunSuFormato");
+                    streamVideoclub.numeroDocumentalesyPeliculasSegunSuFormato();
+                    break;
+                case 11:
                     System.out.println("FABRICANTES DISTINTOS DE JUEGOS");
                     streamVideoclub.todosLosFabricantesDistintosDeVideoJuegosEnUnSoloString();
                     break;
             }
-        } while (opcion != 11);
+        } while (opcion != 12);
     }
 
     private static void setupSocioSocios(ServiciosVideoclub sv, Faker f) {

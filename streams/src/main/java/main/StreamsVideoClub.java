@@ -4,12 +4,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.counting;
-import videoclub.dao.modelo.Documental;
-import videoclub.dao.modelo.FormatoPelicula;
-import videoclub.dao.modelo.Pelicula;
-import videoclub.dao.modelo.Producto;
-import videoclub.dao.modelo.Socio;
-import videoclub.dao.modelo.Videojuego;
+
+import videoclub.dao.modelo.*;
 import videoclub.servicios.ServiciosVideoclub;
 
 public class StreamsVideoClub {
@@ -20,16 +16,13 @@ public class StreamsVideoClub {
     List<Producto> productos = sv.getTodosProductos();
 
     public void numeroSociosSancionados() {
-        System.out.println(socios.stream().filter(socio -> socio.isSancionado())
-                .collect(
-                        Collectors.groupingBy((socio) -> socio.isSancionado(),
-                                counting())));
+        System.out.println(socios.stream().filter(Socio::isSancionado)
+                .collect(Collectors.groupingBy(Socio::isSancionado, counting())));
     }
 
     public void mediaEdadDeSociosSancionados() {
-        double mediaEdadSancionados = socios.stream().filter((socio) -> socio.isSancionado())
-                .mapToInt(value -> value.getEdad())
-                .average().getAsDouble();
+        double mediaEdadSancionados = socios.stream().filter(Socio::isSancionado)
+                .mapToInt(Socio::getEdad).average().getAsDouble();
         System.out.println(mediaEdadSancionados);
     }
 
@@ -89,7 +82,7 @@ public class StreamsVideoClub {
         productos.stream()
                .filter(producto -> producto instanceof Pelicula)
                .sorted(Comparator.comparing(producto -> ((Producto) producto).getEncuestas().stream()
-               .mapToInt(value -> value.getNota()).average().getAsDouble()).reversed())
+               .mapToInt(Encuesta::getNota).average().getAsDouble()).reversed())
                 .limit(10)
                .collect(Collectors.toList()));
     }
@@ -99,7 +92,7 @@ public class StreamsVideoClub {
         productos.stream()
                .filter(producto -> producto instanceof Videojuego)
                .sorted(Comparator.comparing(producto -> ((Producto) producto).getEncuestas().stream()
-               .mapToInt(value -> value.getNota()).average().getAsDouble()).reversed())
+               .mapToInt(Encuesta::getNota).average().getAsDouble()).reversed())
                 .limit(10)
                .collect(Collectors.toList()));
     }
@@ -107,6 +100,9 @@ public class StreamsVideoClub {
     // el numero de DVD y Videos que hay.
     public void numeroDocumentalesyPeliculasSegunSuFormato() {
 
+        System.out.println(productos.stream().filter(producto -> producto instanceof Documental)
+                        .map(producto -> ((Documental) producto).getFormato())
+                .collect(Collectors.groupingBy(Enum::name,Collectors.counting())));
     }
 
     // conseguir un String con todos los faricantes distintos de videojuegos separados por ,
@@ -115,7 +111,7 @@ public class StreamsVideoClub {
                 productos.stream()
                         .filter(producto -> producto instanceof Videojuego)
                         .map(producto -> (Videojuego) producto)
-                        .map(producto -> producto.getFabricante())
+                        .map(Videojuego::getFabricante)
                         .distinct()
                         .collect(Collectors.joining(", "))
         );

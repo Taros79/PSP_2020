@@ -14,13 +14,7 @@ public class MainProdutosPractica {
         Random r = new Random();
         Faker f = new Faker();
 
-        setupClienteClientes(sp, f);
         setupProductos(sp, f);
-
-//        sp.todosProductos().forEach(System.out::println);
-//        sp.getTodosClientes().forEach(System.out::println);
-        setupPedidosSimples(sp, r);
-//        sp.getTodosPedidos().forEach(System.out::println);
 
         StreamsProductos streamProductos = new StreamsProductos();
 
@@ -68,25 +62,8 @@ public class MainProdutosPractica {
         } while (opcion != 6);
     }
 
-    private static void setupClienteClientes(ServiciosPedido sp, Faker f) {
-
-        for (int i = 0; i < 100; i++) {
-            String nombre = f.gameOfThrones().character();
-            String direccion = f.gameOfThrones().city();
-            String tel = f.phoneNumber().phoneNumber();
-            String email = f.internet().emailAddress();
-            Cliente cliente = new Cliente(nombre, direccion, tel, email);
-            sp.addCliente(cliente);
-            Random r = new Random();
-            int numeroCuentas = r.nextInt(10) + 1;
-            for (int j = 0; j < numeroCuentas; j++) {
-                sp.addCuentaACliente(email, f).setSaldo(r.nextInt(100) + 100);
-            }
-        }
-    }
-
     private static void setupProductos(ServiciosPedido sp, Faker f) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             String nombre = f.dragonBall().character();
             int stock = f.number().numberBetween(100, 300);
             int precio = f.number().numberBetween(10, 300);
@@ -94,31 +71,4 @@ public class MainProdutosPractica {
             sp.addProducto(producto);
         }
     }
-
-    private static void setupPedidosSimples(ServiciosPedido sp, Random r) {
-        for (int i = 0; i < 100; i++) {
-            Cliente cliente = sp.getTodosClientes().get(i);
-            Cuenta cuenta = cliente.getCuentas().get(r.nextInt(cliente.getCuentas().size()));
-
-            PedidoCompuesto pedidoCompuesto = new PedidoCompuesto(cliente);
-            sp.addPedidoAPedidos(pedidoCompuesto);
-            int randomizau = r.nextInt(10);
-
-            for (int j = 0; j < randomizau; j++) {
-                PedidoSimple pedidoSimple = new PedidoSimple(cuenta);
-                sp.addPedidoSimpleAPedido(pedidoSimple, pedidoCompuesto);
-                int randomizau2 = r.nextInt(10);
-                for (int k = 0; k < randomizau2; k++) {
-                    int cantidad = r.nextInt(5);
-                    Producto producto = sp.todosProductos().get(r.nextInt(sp.todosProductos().size()));
-                    sp.addLineaPedidoAPedidoSimple(producto, cantidad, pedidoSimple);
-                }
-                
-                sp.cobrarPedidos();
-            }
-
-        }
-
-    }
-
 }

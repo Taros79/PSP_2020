@@ -28,8 +28,6 @@ public class MainPedidosPractica {
         setupProductos(sp, f);
         setupPedidosSimples(sp, r);
 
-//        sp.todosProductos().forEach(System.out::println);
-//        sp.getTodosClientes().forEach(System.out::println);
 //        sp.getTodosPedidos().forEach(System.out::println);
 
         StreamsPedidos streamPedidos = new StreamsPedidos();
