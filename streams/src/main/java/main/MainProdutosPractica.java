@@ -1,20 +1,12 @@
 package main;
 
-import com.github.javafaker.Faker;
-import pedidos.dao.modelo.*;
-import pedidos.servicios.ServiciosPedido;
-
-import java.util.Random;
 import java.util.Scanner;
 
 public class MainProdutosPractica {
 
     public static void main(String[] args) {
-        ServiciosPedido sp = new ServiciosPedido();
-        Random r = new Random();
-        Faker f = new Faker();
-
-        setupProductos(sp, f);
+        SetUp setUp = new SetUp();
+        setUp.setupProductos();
 
         StreamsProductos streamProductos = new StreamsProductos();
 
@@ -60,15 +52,5 @@ public class MainProdutosPractica {
                     break;
             }
         } while (opcion != 6);
-    }
-
-    private static void setupProductos(ServiciosPedido sp, Faker f) {
-        for (int i = 0; i < 20; i++) {
-            String nombre = f.dragonBall().character();
-            int stock = f.number().numberBetween(100, 300);
-            int precio = f.number().numberBetween(10, 300);
-            Producto producto = new Producto(nombre, stock, precio);
-            sp.addProducto(producto);
-        }
     }
 }

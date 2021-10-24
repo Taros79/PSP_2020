@@ -1,12 +1,13 @@
 package main;
 
+import videoclub.dao.modelo.*;
+import videoclub.servicios.ServiciosVideoclub;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import static java.util.stream.Collectors.counting;
 
-import videoclub.dao.modelo.*;
-import videoclub.servicios.ServiciosVideoclub;
+import static java.util.stream.Collectors.counting;
 
 public class StreamsVideoClub {
 
@@ -40,9 +41,9 @@ public class StreamsVideoClub {
     // numero de Peliculas Alquiladas, de Documentales y Videojuegos.
     public void numeroProductosAlquiladosPorTipo() {
         System.out.println(
-        productos.stream()
-                .filter(item -> item.getCantidadAlquilada() > 0)
-                .collect(Collectors.groupingBy(item -> item instanceof Pelicula))
+                productos.stream()
+                        .filter(item -> item.getCantidadAlquilada() > 0)
+                        .collect(Collectors.groupingBy(item -> item instanceof Pelicula, counting()))
         );
         
     }

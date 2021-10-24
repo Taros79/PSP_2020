@@ -1,20 +1,12 @@
 package main;
 
-import com.github.javafaker.Faker;
-import pedidos.dao.modelo.*;
-import pedidos.servicios.ServiciosPedido;
-
-import java.util.Random;
 import java.util.Scanner;
 
 public class MainClientesPractica {
 
     public static void main(String[] args) {
-        ServiciosPedido sp = new ServiciosPedido();
-        Faker f = new Faker();
-
-        setupClienteClientes(sp, f);
-        sp.getTodosClientes().forEach(System.out::println);
+        SetUp setUp = new SetUp();
+        setUp.setupClienteClientes();
         StreamsClientes streamsClientes = new StreamsClientes();
 
         Scanner sc = new Scanner(System.in);
@@ -78,22 +70,5 @@ public class MainClientesPractica {
                     break;
             }
         } while (opcion != 10);
-    }
-
-    private static void setupClienteClientes(ServiciosPedido sp, Faker f) {
-
-        for (int i = 0; i < 30; i++) {
-            String nombre = f.gameOfThrones().character();
-            String direccion = f.gameOfThrones().city();
-            String tel = f.phoneNumber().phoneNumber();
-            String email = f.internet().emailAddress();
-            Cliente cliente = new Cliente(nombre, direccion, tel, email);
-            sp.addCliente(cliente);
-            Random r = new Random();
-            int numeroCuentas = r.nextInt(10) + 1;
-            for (int j = 0; j < numeroCuentas; j++) {
-                sp.addCuentaACliente(email, f).setSaldo(r.nextInt(100) + 100);
-            }
-        }
     }
 }
