@@ -29,7 +29,7 @@ public class StreamsProductos {
 
     public void mediaPrecioTodosLosProductos() {
         double mediaProductos = productos.stream()
-                .mapToInt(value -> value.getPrecio())
+                .mapToInt(Producto::getPrecio)
                 .average().getAsDouble();
         System.out.println(mediaProductos);
     }

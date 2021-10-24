@@ -5,15 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7a8c0bc1-5ed9-4fda-8b5b-85202e6926f5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/main/MainClientesPractica.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/main/MainProdutosPractica.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Enunciado" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/MainEjemplo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/MainClientesPractica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MainClientesPractica.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/MainPedidosPractica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MainPedidosPractica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/MainVideoclubPractica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MainVideoclubPractica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/StreamsClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/StreamsClientes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/StreamsPedidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/StreamsPedidos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/apuntes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/StreamsProductos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/StreamsProductos.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +40,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -50,7 +48,7 @@
       <recent name="main" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainPedidosPractica">
+  <component name="RunManager" selected="Application.MainProdutosPractica">
     <configuration name="MainClientesPractica" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="main.MainClientesPractica" />
       <module name="streams" />
@@ -77,8 +75,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainProdutosPractica" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.MainProdutosPractica" />
+      <module name="streams" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MainProdutosPractica" />
         <item itemvalue="Application.MainPedidosPractica" />
         <item itemvalue="Application.MainClientesPractica" />
       </list>
@@ -92,7 +104,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1634920810479</updated>
-      <workItem from="1634920812666" duration="7054000" />
+      <workItem from="1634920812666" duration="7313000" />
+      <workItem from="1635014553721" duration="14422000" />
+      <workItem from="1635066107320" duration="674000" />
     </task>
     <task id="LOCAL-00001" summary="streamsArreglo">
       <created>1634921071553</created>
@@ -101,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1634921071553</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="streamsArreglo 1.0">
+      <created>1634928331936</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1634928331936</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -110,6 +131,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="streamsArreglo" />
-    <option name="LAST_COMMIT_MESSAGE" value="streamsArreglo" />
+    <MESSAGE value="streamsArreglo 1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="streamsArreglo 1.0" />
   </component>
 </project>

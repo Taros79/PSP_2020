@@ -11,11 +11,10 @@ public class MainClientesPractica {
 
     public static void main(String[] args) {
         ServiciosPedido sp = new ServiciosPedido();
-        Random r = new Random();
         Faker f = new Faker();
 
         setupClienteClientes(sp, f);
-//        sp.getTodosClientes().forEach(System.out::println);
+        sp.getTodosClientes().forEach(System.out::println);
         StreamsClientes streamsClientes = new StreamsClientes();
 
         Scanner sc = new Scanner(System.in);
@@ -58,7 +57,7 @@ public class MainClientesPractica {
                     streamsClientes.clientesConMasCuentasQuelaMedia();
                     break;
                 case 5:
-                    System.out.println("media de dinero de todas las cuentas");
+                    System.out.println("Media de dinero de todas las cuentas");
                     streamsClientes.mediaDineroTodasCuentas();
                     break;
                 case 6:
@@ -70,11 +69,11 @@ public class MainClientesPractica {
                     streamsClientes.clientesYSumaSaldoTodasCuentas();
                     break;
                 case 8:
-                    System.out.println("el cuarto cliente con más dinero");
+                    System.out.println("El cuarto cliente con más dinero");
                     streamsClientes.cuartoClienteConMasDinero();
                     break;
                 case 9:
-                    System.out.println("numero de clientes agrupados por dominio del correo ya@gmail.com");
+                    System.out.println("Numero de clientes agrupados por dominio del correo ya@gmail.com");
                     streamsClientes.numeroClientesPorDominioCorreo();
                     break;
             }

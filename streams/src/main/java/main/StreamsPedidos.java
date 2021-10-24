@@ -1,8 +1,7 @@
 package main;
 
-import pedidos.dao.modelo.Cliente;
+import pedidos.dao.modelo.LineaPedido;
 import pedidos.dao.modelo.PedidoCompuesto;
-import pedidos.dao.modelo.Producto;
 import pedidos.servicios.ServiciosPedido;
 
 import java.util.List;
@@ -12,8 +11,6 @@ public class StreamsPedidos {
 
     ServiciosPedido sp = new ServiciosPedido();
     List<PedidoCompuesto> pedidoCompuesto = sp.getTodosPedidos();
-    List<Producto> productos = sp.todosProductos();
-    List<Cliente> clientes = sp.getTodosClientes();
 
     // un map con nombre de producto y cantidad de veces pedido
     public void productosAgrupadosPorCantidadDeVecesPedidos() {
@@ -21,7 +18,7 @@ public class StreamsPedidos {
                 pedidoCompuesto.stream()
                         .flatMap(pedido -> pedido.getPedidosSimples().stream())
                         .flatMap(pedidoSimple -> pedidoSimple.getLineasPedido().stream())
-                        .map(pedido -> pedido.getProducto())
+                        .map(LineaPedido::getProducto)
                         .collect(Collectors.groupingBy(
                                 producto -> pedidoCompuesto.stream()
                                         .flatMap(pedidoCompuesto -> pedidoCompuesto.getPedidosSimples().stream())
@@ -34,7 +31,7 @@ public class StreamsPedidos {
                 pedidoCompuesto.stream()
                         .flatMap(pedido -> pedido.getPedidosSimples().stream())
                         .flatMap(pedidoSimple -> pedidoSimple.getLineasPedido().stream())
-                        .map(pedido -> pedido.getPrecioTotal()));
+                        .map(LineaPedido::getPrecioTotal).collect(Collectors.toList()));
     }
 
 
@@ -54,11 +51,20 @@ public class StreamsPedidos {
         System.out.println(
                 pedidoCompuesto.stream()
                         .flatMap(pedido -> pedido.getPedidosSimples().stream())
-                        .reduce((pedidoSimple, pedidoSimple2) -> pedidoSimple.getLineasPedido().size() >= pedidoSimple2.getLineasPedido().size() ? pedidoSimple : pedidoSimple2));
+                        .reduce((pedidoSimple, pedidoSimple2) -> pedidoSimple.getLineasPedido().size()
+                                >= pedidoSimple2.getLineasPedido().size() ? pedidoSimple : pedidoSimple2));
     }
 
 
     public void todoelDineroFacturadoEnTotalentodosLosPedidos() {
+        System.out.println(
+                pedidoCompuesto.stream()
+                        .flatMap(pedido -> pedido.getPedidosSimples().stream())
+                        .flatMap(pedidoSimple -> pedidoSimple.getLineasPedido().stream())
+                        .mapToInt(LineaPedido::getPrecioTotal)
+                        .sum()
+
+        );
 
     }
 

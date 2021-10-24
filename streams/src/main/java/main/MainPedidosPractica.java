@@ -26,10 +26,10 @@ public class MainPedidosPractica {
 
         setupClienteClientes(sp, f);
         setupProductos(sp, f);
+        setupPedidosSimples(sp, r);
 
 //        sp.todosProductos().forEach(System.out::println);
 //        sp.getTodosClientes().forEach(System.out::println);
-        setupPedidosSimples(sp, r);
 //        sp.getTodosPedidos().forEach(System.out::println);
 
         StreamsPedidos streamPedidos = new StreamsPedidos();
@@ -84,7 +84,7 @@ public class MainPedidosPractica {
 
     private static void setupClienteClientes(ServiciosPedido sp, Faker f) {
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             String nombre = f.gameOfThrones().character();
             String direccion = f.gameOfThrones().city();
             String tel = f.phoneNumber().phoneNumber();
@@ -100,7 +100,7 @@ public class MainPedidosPractica {
     }
 
     private static void setupProductos(ServiciosPedido sp, Faker f) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             String nombre = f.dragonBall().character();
             int stock = f.number().numberBetween(100, 300);
             int precio = f.number().numberBetween(10, 300);
@@ -110,7 +110,7 @@ public class MainPedidosPractica {
     }
 
     private static void setupPedidosSimples(ServiciosPedido sp, Random r) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             Cliente cliente = sp.getTodosClientes().get(i);
             Cuenta cuenta = cliente.getCuentas().get(r.nextInt(cliente.getCuentas().size()));
 

@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import pedidos.dao.modelo.Cliente;
+import pedidos.dao.modelo.Cuenta;
 import pedidos.servicios.ServiciosPedido;
 
 public class StreamsClientes {
@@ -19,9 +20,10 @@ public class StreamsClientes {
                         .reduce((cliente, cliente2) -> cliente.getCuentas().size() >= cliente2.getCuentas().size() ? cliente : cliente2)
                         .get());
 
-        System.out.println(clientes.stream()
+    /*    System.out.println(
+                clientes.stream()
                 .sorted(Comparator.comparing(cliente -> ((Cliente) cliente).getCuentas().size()).reversed())
-                .findFirst().get());
+                .findFirst().get());*/
     }
 
     // Cliente + Numero de cuentas de cada cliente.
@@ -38,7 +40,7 @@ public class StreamsClientes {
     public void clientesConMasCuentasQuelaMedia() {
         final double media = clientes.stream().mapToInt(value -> value.getCuentas().size()).average().getAsDouble();
 
-        System.out.println(media);
+        System.out.println("La media de cuentas seria de " + media);
         System.out.println(clientes.stream()
                 .filter(cliente -> cliente.getCuentas().size() >= media)
                 .collect(Collectors.toList()).size());
@@ -48,40 +50,38 @@ public class StreamsClientes {
     public void mediaDineroTodasCuentas() {
         double mediaCuentas = clientes.stream()
                 .flatMap(cliente -> cliente.getCuentas().stream())
-                .mapToInt(value -> value.getSaldo())
+                .mapToInt(Cuenta::getSaldo)
                 .average().getAsDouble();
         System.out.println(mediaCuentas);
     }
 
     // Clientes ordenados por el saldo total.
     public void clientesOrdenadosPorSaldoTotal() {
-        clientes.get(0).getCuentas().stream().mapToInt(value -> value.getSaldo()).sum();
-
-        clientes.stream()
-                .sorted(Comparator
-                        .comparingInt(cliente -> cliente.getCuentas().stream().mapToInt(value -> value.getSaldo()).sum()))
+        clientes.stream().sorted(Comparator
+                        .comparingInt(cliente -> cliente.getCuentas().stream().mapToInt(Cuenta::getSaldo).sum()))
                 .forEach(System.out::println);
     }
 
     // Cliente con la suma del saldo de todas sus cuentas.
     public void clientesYSumaSaldoTodasCuentas() {
         clientes.stream().forEach(cliente
-                -> System.out.println(cliente.getNombre() + " " + cliente.getCuentas().stream().mapToInt(value -> value.getSaldo()).sum()));
+                -> System.out.println(cliente.getNombre() + " " + cliente.getCuentas().stream().mapToInt(Cuenta::getSaldo).sum()));
     }
 
     // el cuarto cliente con más dinero
     public void cuartoClienteConMasDinero() {
-        clientes.stream()
+ /*       clientes.stream()
                 .sorted(Comparator
-                        .comparingInt(cliente -> ((Cliente) cliente).getCuentas().stream().mapToInt(value -> value.getSaldo()).sum()).reversed())
+                        .comparingInt(cliente -> ((Cliente) cliente).getCuentas()
+                                .stream().mapToInt(Cuenta::getSaldo).sum()).reversed())
                 .skip(3)
-                .findFirst().get();
+                .findFirst().get();*/
 
-        clientes.stream()
-                .sorted((o1, o2) -> o2.getCuentas().stream().mapToInt(value -> value.getSaldo()).sum()
-                - o1.getCuentas().stream().mapToInt(value -> value.getSaldo()).sum())
+        System.out.println(clientes.stream()
+                .sorted((o1, o2) -> o2.getCuentas().stream().mapToInt(Cuenta::getSaldo).sum()
+                - o1.getCuentas().stream().mapToInt(Cuenta::getSaldo).sum())
                 .skip(3)
-                .findFirst().get();
+                .findFirst().get());
     }
 
     // numero de clientes agrupados por dominio del correo ya@gmail.com
