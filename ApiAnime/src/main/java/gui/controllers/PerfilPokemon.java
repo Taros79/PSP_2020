@@ -44,8 +44,15 @@ public class PerfilPokemon implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         a = new Alert(Alert.AlertType.INFORMATION);
-        comboBoxPokemones.getItems().addAll(serviciosPokemon.getAllPokemon()
-                .stream().map(Pokemon::getNombre).collect(Collectors.toList()));
+        if (serviciosPokemon.getAllPokemon().isRight()) {
+            comboBoxPokemones.getItems().addAll(serviciosPokemon.getAllPokemon()
+                    .get()
+                    .stream().map(Pokemon::getNombre)
+                    .collect(Collectors.toList()));
+        } else {
+            a.setContentText(serviciosPokemon.getAllPokemon().getLeft());
+            a.showAndWait();
+        }
     }
 
     @FXML
@@ -75,7 +82,7 @@ public class PerfilPokemon implements Initializable {
         listViewMovimientos.getItems().clear();
         listViewMovimientos.getItems().addAll(
                 serviciosPokemon.getDatosByNombre(
-                        comboBoxPokemones.getValue()).get()
+                                comboBoxPokemones.getValue()).get()
                         .getMovimientos()
                         .stream()
                         .map(MovesItem::getMove)
@@ -98,7 +105,7 @@ public class PerfilPokemon implements Initializable {
 
             labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem());
             labelDefinicion.setText(serviciosPokemon.getDatosMovimiento(
-                    listViewMovimientos.getSelectionModel().getSelectedItem()).getFlavorTextEntries()
+                            listViewMovimientos.getSelectionModel().getSelectedItem()).getFlavorTextEntries()
                     .stream().filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
                     .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("x-y"))
                     .map(FlavorTextEntriesItem::getFlavorText).collect(Collectors.joining()));

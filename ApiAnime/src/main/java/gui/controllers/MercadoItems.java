@@ -36,29 +36,34 @@ public class MercadoItems implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         a = new Alert(Alert.AlertType.INFORMATION);
+        if (serviciosItems.getAllItems().isRight()) {
+            ObservableList<String> items = FXCollections.observableArrayList(
+                    serviciosItems.getAllItems().get()
+                            .stream().map(Objeto::getName).collect(Collectors.toList()));
 
-        ObservableList<String> items = FXCollections.observableArrayList(
-                serviciosItems.getAllItems()
-                        .stream().map(Objeto::getName).collect(Collectors.toList()));
+            listViewItems.setItems(items);
 
-        listViewItems.setItems(items);
+            listViewItems.setCellFactory(param -> new ListCell<>() {
+                private final ImageView imageView = new ImageView();
 
-        listViewItems.setCellFactory(param -> new ListCell<>() {
-            private final ImageView imageView = new ImageView();
-
-            @Override
-            public void updateItem(String name, boolean empty) {
-                super.updateItem(name, empty);
-                if (empty) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    imageView.setImage(new Image(serviciosItems.getItemsByNombre(name).getSprites().getJsonMemberDefault()));
-                    setText(name);
-                    setGraphic(imageView);
+                @Override
+                public void updateItem(String name, boolean empty) {
+                    super.updateItem(name, empty);
+                    if (empty) {
+                        setText(null);
+                        setGraphic(null);
+                    } else {
+                        imageView.setImage(new Image(serviciosItems.getItemsByNombre(name).getSprites().getJsonMemberDefault()));
+                        setText(name);
+                        setGraphic(imageView);
+                    }
                 }
+            });
+
+        } else {
+                a.setContentText(serviciosItems.getAllItems().getLeft());
+                a.showAndWait();
             }
-        });
     }
 
     @FXML

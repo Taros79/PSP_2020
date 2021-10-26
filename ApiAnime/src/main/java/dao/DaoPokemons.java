@@ -1,7 +1,5 @@
 package dao;
 
-import com.google.gson.Gson;
-import dao.modelo.ApiError;
 import dao.modelo.ModMovimientos.Movimiento;
 import dao.modelo.ModPokemon.MovesItem;
 import dao.modelo.ModPokemon.Pokemon;
@@ -21,14 +19,15 @@ public class DaoPokemons {
     PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
 
     public Either<String, Pokemon> getDatosByNombre(String id) {
-        Either<String, Pokemon> resultado = null;
+        Either<String, Pokemon> resultado;
+
         try {
             Response<Pokemon> response = pokemonApi.getPokemons(id).execute();
 
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("usuario no valido");
+                resultado = Either.left("Pokemon no valido");
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -38,7 +37,8 @@ public class DaoPokemons {
     }
 
     public Either<String, List<MovesItem>> getMovimientosPorId(String id) {
-        Either<String, List<MovesItem>> resultado = null;
+        Either<String, List<MovesItem>> resultado;
+
         try {
             Response<Pokemon> response = pokemonApi.getPokemons(id).execute();
 
@@ -54,44 +54,36 @@ public class DaoPokemons {
         return resultado;
     }
 
-    public List<Pokemon> getAllPokemon() {
-
-        List<Pokemon> resultado = null;
+    public Either<String, List<Pokemon>> getAllPokemon() {
+        Either<String, List<Pokemon>> resultado;
 
         try {
             Response<Recursos> response = pokemonApi.getRecursosPokemon().execute();
 
-            if (response.isSuccessful()) {
+            if (response.isSuccessful() && Objects.requireNonNull(response.body()).getResults() != null) {
                 assert response.body() != null;
-                resultado = response.body().getResults();
+                resultado = Either.right(response.body().getResults());
             } else {
-                Gson g = new Gson();
-                ApiError apierror = g.fromJson(response.errorBody().string(), ApiError.class);
-
+                resultado = Either.left("Pokemon no valido");
             }
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
+            resultado = Either.left("Error bbdd");
         }
         return resultado;
     }
 
     public Movimiento getDatosMovimiento(String id) {
-
         Movimiento resultado = null;
 
         try {
             Response<Movimiento> response = pokemonApi.getMovimientos(id).execute();
-
             if (response.isSuccessful()) {
                 assert response.body() != null;
                 resultado = response.body();
-            } else {
-                Gson g = new Gson();
-                ApiError apierror = g.fromJson(response.errorBody().string(), ApiError.class);
-
             }
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
         return resultado;
     }

@@ -2,13 +2,14 @@ package servicios;
 
 import dao.DaoItems;
 import dao.modelo.ModObjetos.Objeto;
+import io.vavr.control.Either;
 
 import java.util.List;
 
 public class ServiciosItems {
     DaoItems daoItems = new DaoItems();
 
-    public List<Objeto> getAllItems() {
+    public Either<String, List<Objeto>> getAllItems() {
         return daoItems.getAllItems();
     }
 

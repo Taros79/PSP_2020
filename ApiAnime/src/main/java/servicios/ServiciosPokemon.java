@@ -19,7 +19,7 @@ public class ServiciosPokemon {
         return daoPokemons.getMovimientosPorId(id);
     }
 
-    public List<Pokemon> getAllPokemon() {
+    public Either<String, List<Pokemon>> getAllPokemon() {
         return daoPokemons.getAllPokemon();
     }
 
