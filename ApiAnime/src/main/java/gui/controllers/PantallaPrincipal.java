@@ -1,6 +1,5 @@
 package gui.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.log4j.Log4j2;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,11 +18,20 @@ public class PantallaPrincipal implements Initializable {
     @FXML
     private BorderPane pantallaPrincipal;
 
+    private final FXMLLoader fxmlLoaderPerfilPokemon;
     private AnchorPane pantallaPerfilPokemon;
     private PerfilPokemon perfilPokemonController;
 
+    private final FXMLLoader fxmlloaderMercadoItems;
     private AnchorPane pantallaMercadoItems;
     private MercadoItems mercadoItemsController;
+
+    @Inject
+    public PantallaPrincipal(FXMLLoader fxmlLoaderPerfilPokemon, FXMLLoader fxmlloaderMercadoItems) {
+        this.fxmlLoaderPerfilPokemon = fxmlLoaderPerfilPokemon;
+        this.fxmlloaderMercadoItems = fxmlloaderMercadoItems;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,33 +39,27 @@ public class PantallaPrincipal implements Initializable {
 
     @FXML
     private void perfilPokemon() {
-        FXMLLoader loaderMenu = new FXMLLoader(
-                getClass().getResource("/fxml/perfilPokemon.fxml"));
-        try {
-            if (pantallaPerfilPokemon == null) {
-                pantallaPerfilPokemon = loaderMenu.load();
-                perfilPokemonController = loaderMenu.getController();
-                perfilPokemonController.setBorderPane(this);
+        if (pantallaPerfilPokemon == null) {
+            try {
+                pantallaPerfilPokemon = fxmlLoaderPerfilPokemon.load(getClass().getResourceAsStream("/fxml/perfilPokemon.fxml"));
+                perfilPokemonController = fxmlLoaderPerfilPokemon.getController();
+            } catch (IOException e) {
+                log.error(e.getMessage());
             }
-            pantallaPrincipal.setCenter(pantallaPerfilPokemon);
-        } catch (IOException e) {
-            log.error(e.getMessage());
         }
+        pantallaPrincipal.setCenter(pantallaPerfilPokemon);
     }
 
     @FXML
-    private void mercadoItems(ActionEvent actionEvent) {
-        FXMLLoader loaderMenu = new FXMLLoader(
-                getClass().getResource("/fxml/mercadoItems.fxml"));
-        try {
-            if (pantallaMercadoItems == null) {
-                pantallaMercadoItems = loaderMenu.load();
-                mercadoItemsController = loaderMenu.getController();
-                mercadoItemsController.setBorderPane(this);
+    private void mercadoItems() {
+        if (pantallaMercadoItems == null) {
+            try {
+                pantallaMercadoItems = fxmlloaderMercadoItems.load(getClass().getResourceAsStream("/fxml/mercadoItems.fxml"));
+                mercadoItemsController = fxmlloaderMercadoItems.getController();
+            } catch (IOException e) {
+                log.error(e.getMessage());
             }
-            pantallaPrincipal.setCenter(pantallaMercadoItems);
-        } catch (IOException e) {
-            log.error(e.getMessage());
         }
+        pantallaPrincipal.setCenter(pantallaMercadoItems);
     }
 }

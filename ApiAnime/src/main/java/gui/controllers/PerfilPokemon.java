@@ -12,13 +12,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import servicios.ServiciosPokemon;
 
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class PerfilPokemon implements Initializable {
 
-    ServiciosPokemon serviciosPokemon = new ServiciosPokemon();
+    ServiciosPokemon serviciosPokemon;
     @FXML
     private TextArea labelDefinicion;
     @FXML
@@ -39,6 +40,11 @@ public class PerfilPokemon implements Initializable {
 
     public void setBorderPane(PantallaPrincipal borderPane) {
         this.pantallaPrincipal = borderPane;
+    }
+
+    @Inject
+    public PerfilPokemon(ServiciosPokemon serviciosPokemon) {
+        this.serviciosPokemon = serviciosPokemon;
     }
 
     @Override

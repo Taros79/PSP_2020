@@ -14,13 +14,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import servicios.ServiciosItems;
 
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class MercadoItems implements Initializable {
 
-    ServiciosItems serviciosItems = new ServiciosItems();
+    ServiciosItems serviciosItems;
     @FXML
     private TextArea textDatosMovimiento;
     @FXML
@@ -31,6 +32,11 @@ public class MercadoItems implements Initializable {
 
     public void setBorderPane(PantallaPrincipal borderPane) {
         this.pantallaPrincipal = borderPane;
+    }
+
+    @Inject
+    public MercadoItems(ServiciosItems serviciosItems) {
+        this.serviciosItems = serviciosItems;
     }
 
     @Override

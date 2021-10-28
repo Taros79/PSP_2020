@@ -6,10 +6,16 @@ import dao.modelo.ModPokemon.MovesItem;
 import dao.modelo.ModPokemon.Pokemon;
 import io.vavr.control.Either;
 
+import javax.inject.Inject;
 import java.util.List;
 
 public class ServiciosPokemon {
-    DaoPokemons daoPokemons = new DaoPokemons();
+    DaoPokemons daoPokemons;
+
+    @Inject
+    public ServiciosPokemon (DaoPokemons daoPokemons) {
+        this.daoPokemons = daoPokemons;
+    }
 
     public Either<String, Pokemon> getDatosByNombre(String id) {
         return daoPokemons.getDatosByNombre(id);

@@ -27,10 +27,28 @@ module notoques {
 
     //needed for JSON
     requires java.sql;
+    requires jakarta.enterprise.cdi.api;
+    requires jakarta.inject.api;
+    requires java.validation;
 
     //needed for JavaFX
     opens gui;
     opens gui.controllers to javafx.fxml;
+    opens dao.utils;
+    opens config;
 
     exports gui;
+    exports gui.main;
+    exports gui.controllers;
+    exports dao.modelo;
+    exports dao.modelo.ModPokemon;
+    exports dao.modelo.ModMovimientos;
+    exports dao.modelo.ModObjetos;
+    exports dao.implementacion;
+    exports config;
+    exports servicios;
+    exports dao.utils;
+    exports dao.retrofit;
+
+    opens gui.main;
 }
