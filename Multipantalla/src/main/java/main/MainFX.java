@@ -18,7 +18,7 @@ public class MainFX {
         try {
             Parent fxmlParent = fxmlLoader.load(getClass().getResourceAsStream("/fxml/principal_1.fxml"));
             stage.setScene(new Scene(fxmlParent, 300, 100));
-            stage.setTitle("Hello World FXML and JavaFX");
+            stage.setTitle("Hello World FXML JavaFX");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
