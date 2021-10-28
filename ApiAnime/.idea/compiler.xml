@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ApiPokemon" />
         <module name="ApiAnimu" />
+        <module name="ApiAnime" />
       </profile>
     </annotationProcessing>
   </component>
