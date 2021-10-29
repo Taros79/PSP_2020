@@ -32,6 +32,10 @@ public class PantallaPrincipal implements Initializable {
         this.fxmlloaderMercadoItems = fxmlloaderMercadoItems;
     }
 
+    public BorderPane getPantallaPrincipal() {
+        return pantallaPrincipal;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,6 +47,7 @@ public class PantallaPrincipal implements Initializable {
             try {
                 pantallaPerfilPokemon = fxmlLoaderPerfilPokemon.load(getClass().getResourceAsStream("/fxml/perfilPokemon.fxml"));
                 perfilPokemonController = fxmlLoaderPerfilPokemon.getController();
+                perfilPokemonController.setPantallaPrincipal(this);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
@@ -56,6 +61,7 @@ public class PantallaPrincipal implements Initializable {
             try {
                 pantallaMercadoItems = fxmlloaderMercadoItems.load(getClass().getResourceAsStream("/fxml/mercadoItems.fxml"));
                 mercadoItemsController = fxmlloaderMercadoItems.getController();
+                mercadoItemsController.setBorderPane(this);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }

@@ -12,7 +12,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import servicios.ServiciosItems;
+import servicios.serviciosImplementacion.ServiciosItemsImpl;
 
 import javax.inject.Inject;
 import java.net.URL;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 public class MercadoItems implements Initializable {
 
-    ServiciosItems serviciosItems;
+    ServiciosItemsImpl serviciosItemsImpl;
     @FXML
     private TextArea textDatosMovimiento;
     @FXML
@@ -35,16 +35,16 @@ public class MercadoItems implements Initializable {
     }
 
     @Inject
-    public MercadoItems(ServiciosItems serviciosItems) {
-        this.serviciosItems = serviciosItems;
+    public MercadoItems(ServiciosItemsImpl serviciosItemsImpl) {
+        this.serviciosItemsImpl = serviciosItemsImpl;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         a = new Alert(Alert.AlertType.INFORMATION);
-        if (serviciosItems.getAllItems().isRight()) {
+        if (serviciosItemsImpl.getAllItems().isRight()) {
             ObservableList<String> items = FXCollections.observableArrayList(
-                    serviciosItems.getAllItems().get()
+                    serviciosItemsImpl.getAllItems().get()
                             .stream().map(Objeto::getName).collect(Collectors.toList()));
 
             listViewItems.setItems(items);
@@ -59,7 +59,7 @@ public class MercadoItems implements Initializable {
                         setText(null);
                         setGraphic(null);
                     } else {
-                        imageView.setImage(new Image(serviciosItems.getItemsByNombre(name).getSprites().getJsonMemberDefault()));
+                        imageView.setImage(new Image(serviciosItemsImpl.getItemsByNombre(name).getSprites().getJsonMemberDefault()));
                         setText(name);
                         setGraphic(imageView);
                     }
@@ -67,8 +67,8 @@ public class MercadoItems implements Initializable {
             });
 
         } else {
-                a.setContentText(serviciosItems.getAllItems().getLeft());
-                a.showAndWait();
+            a.setContentText(serviciosItemsImpl.getAllItems().getLeft());
+            a.showAndWait();
             }
     }
 
@@ -76,13 +76,13 @@ public class MercadoItems implements Initializable {
     private void cargarDatos(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1 && listViewItems.getSelectionModel().getSelectedItem() != null) {
             textDatosMovimiento.clear();
-            textDatosMovimiento.setText(serviciosItems.getItemsByNombre(
+            textDatosMovimiento.setText(serviciosItemsImpl.getItemsByNombre(
                     listViewItems.getSelectionModel().getSelectedItem()).toString());
 
             textDatosMovimiento.clear();
             textDatosMovimiento.setText(
-                    serviciosItems.getItemsByNombre(listViewItems.getSelectionModel().getSelectedItem()).toString()
-                            + "\nDESCRICION " + serviciosItems.getItemsByNombre(listViewItems.getSelectionModel().getSelectedItem())
+                    serviciosItemsImpl.getItemsByNombre(listViewItems.getSelectionModel().getSelectedItem()).toString()
+                            + "\nDESCRICION " + serviciosItemsImpl.getItemsByNombre(listViewItems.getSelectionModel().getSelectedItem())
                             .getFlavorTextEntries()
                             .stream()
                             .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))

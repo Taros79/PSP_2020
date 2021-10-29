@@ -33,6 +33,7 @@ module notoques {
 
     //needed for JavaFX
     opens gui;
+    opens gui.main;
     opens gui.controllers to javafx.fxml;
     opens dao.utils;
     opens config;
@@ -44,11 +45,11 @@ module notoques {
     exports dao.modelo.ModPokemon;
     exports dao.modelo.ModMovimientos;
     exports dao.modelo.ModObjetos;
-    exports dao.implementacion;
+    exports dao.daoImplementacion;
     exports config;
     exports servicios;
     exports dao.utils;
     exports dao.retrofit;
+    exports servicios.serviciosImplementacion;
 
-    opens gui.main;
 }
