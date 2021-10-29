@@ -34,7 +34,7 @@ public class ServiciosPokemonImpl implements ServiciosPokemon {
     }
 
     @Override
-    public Movimiento getDatosMovimiento(String id) {
+    public Either<String, Movimiento> getDatosMovimiento(String id) {
         return daoPokemons.getDatosMovimiento(id);
     }
 }

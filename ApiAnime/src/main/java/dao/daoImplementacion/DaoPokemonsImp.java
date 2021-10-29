@@ -68,7 +68,7 @@ public class DaoPokemonsImp implements DaoPokemons {
                 assert response.body() != null;
                 resultado = Either.right(response.body().getResults());
             } else {
-                resultado = Either.left("Pokemon no valido");
+                resultado = Either.left("Lista pokemones no valida");
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -78,17 +78,20 @@ public class DaoPokemonsImp implements DaoPokemons {
     }
 
     @Override
-    public Movimiento getDatosMovimiento(String id) {
-        Movimiento resultado = null;
+    public Either<String, Movimiento> getDatosMovimiento(String id) {
+        Either<String, Movimiento> resultado;
 
         try {
             Response<Movimiento> response = pokemonApi.getMovimientos(id).execute();
             if (response.isSuccessful()) {
-                assert response.body() != null;
-                resultado = response.body();
+                Objects.requireNonNull(response.body());
+                resultado = Either.right(response.body());
+            } else {
+                resultado = Either.left("Movimiento no valido");
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
+            resultado = Either.left("Error bbdd");
         }
         return resultado;
     }

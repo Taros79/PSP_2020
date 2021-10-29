@@ -14,5 +14,5 @@ public interface ServiciosPokemon {
 
     Either<String, List<Pokemon>> getAllPokemon();
 
-    Movimiento getDatosMovimiento(String id);
+    Either<String, Movimiento> getDatosMovimiento(String id);
 }

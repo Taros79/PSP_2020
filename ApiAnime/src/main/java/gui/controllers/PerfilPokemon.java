@@ -1,6 +1,7 @@
 package gui.controllers;
 
 import dao.modelo.ModMovimientos.FlavorTextEntriesItem;
+import dao.modelo.ModMovimientos.Movimiento;
 import dao.modelo.ModPokemon.Move;
 import dao.modelo.ModPokemon.MovesItem;
 import dao.modelo.ModPokemon.Pokemon;
@@ -129,18 +130,44 @@ public class PerfilPokemon implements Initializable {
     @FXML
     private void cargarDatos(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1 && listViewMovimientos.getSelectionModel().getSelectedItem() != null) {
-            listViewDatosMovimiento.getItems().clear();
-            listViewDatosMovimiento.getItems().addAll(
-                    serviciosPokemonImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
-                            .getSelectedItem()).getName());
-
-            labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem());
-            labelDefinicion.setText(serviciosPokemonImpl.getDatosMovimiento(
-                            listViewMovimientos.getSelectionModel().getSelectedItem()).getFlavorTextEntries()
-                    .stream().filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
-                    .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("x-y"))
-                    .map(FlavorTextEntriesItem::getFlavorText).collect(Collectors.joining()));
-
+            var tarea = new Task<Either<String, Movimiento>>() {
+                @Override
+                protected Either<String, Movimiento> call() throws Exception {
+                    return serviciosPokemonImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
+                            .getSelectedItem());
+                }
+            };
+            tarea.setOnSucceeded(workerStateEvent -> {
+                listViewDatosMovimiento.getItems().clear();
+                Try.of(() -> tarea.get()
+                                .peek(movesItems -> {
+                                    listViewDatosMovimiento.getItems().addAll(
+                                            serviciosPokemonImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
+                                                    .getSelectedItem()).get().toString());
+                                    labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem());
+                                    labelDefinicion.setText(serviciosPokemonImpl.getDatosMovimiento(
+                                                    listViewMovimientos.getSelectionModel().getSelectedItem()).get().getFlavorTextEntries()
+                                            .stream().filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
+                                            .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("x-y"))
+                                            .map(FlavorTextEntriesItem::getFlavorText).collect(Collectors.joining()));
+                                })
+                                .peekLeft(s -> {
+                                    a.setContentText(s);
+                                    a.showAndWait();
+                                }))
+                        .onFailure(throwable -> {
+                            a.setContentText(throwable.getMessage());
+                            a.showAndWait();
+                        });
+                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+            });
+            tarea.setOnFailed(workerStateEvent -> {
+                a.setContentText(workerStateEvent.getSource().getException().getMessage());
+                a.showAndWait();
+                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+            });
+            new Thread(tarea).start();
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
         }
     }
 }
