@@ -9,5 +9,5 @@ public interface DaoItems {
 
     Either<String, List<Objeto>> getAllItems();
 
-    Objeto getItemsByNombre(String id);
+    Either<String, Objeto> getItemsByNombre(String id);
 }

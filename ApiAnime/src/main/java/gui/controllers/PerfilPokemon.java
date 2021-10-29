@@ -72,7 +72,7 @@ public class PerfilPokemon implements Initializable {
         String pokemon = textFieldDatos.getText();
         var tarea = new Task<Either<String, List<MovesItem>>>() {
             @Override
-            protected Either<String, List<MovesItem>> call() throws Exception {
+            protected Either<String, List<MovesItem>> call() {
                 return serviciosPokemonImpl.getMovimientosPorId(pokemon);
             }
         };
@@ -132,7 +132,7 @@ public class PerfilPokemon implements Initializable {
         if (mouseEvent.getClickCount() == 1 && listViewMovimientos.getSelectionModel().getSelectedItem() != null) {
             var tarea = new Task<Either<String, Movimiento>>() {
                 @Override
-                protected Either<String, Movimiento> call() throws Exception {
+                protected Either<String, Movimiento> call() {
                     return serviciosPokemonImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
                             .getSelectedItem());
                 }
@@ -141,12 +141,9 @@ public class PerfilPokemon implements Initializable {
                 listViewDatosMovimiento.getItems().clear();
                 Try.of(() -> tarea.get()
                                 .peek(movesItems -> {
-                                    listViewDatosMovimiento.getItems().addAll(
-                                            serviciosPokemonImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
-                                                    .getSelectedItem()).get().toString());
+                                    listViewDatosMovimiento.getItems().addAll(movesItems.toString());
                                     labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem());
-                                    labelDefinicion.setText(serviciosPokemonImpl.getDatosMovimiento(
-                                                    listViewMovimientos.getSelectionModel().getSelectedItem()).get().getFlavorTextEntries()
+                                    labelDefinicion.setText(movesItems.getFlavorTextEntries()
                                             .stream().filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
                                             .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("x-y"))
                                             .map(FlavorTextEntriesItem::getFlavorText).collect(Collectors.joining()));

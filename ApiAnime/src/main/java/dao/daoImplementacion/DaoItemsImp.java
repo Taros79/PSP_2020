@@ -28,7 +28,7 @@ public class DaoItemsImp implements DaoItems {
                 assert response.body() != null;
                 resultado =  Either.right(response.body().getResults());
             } else {
-                resultado = Either.left("Item no valido");
+                resultado = Either.left("Lista no valida");
             }
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -38,20 +38,20 @@ public class DaoItemsImp implements DaoItems {
     }
 
     @Override
-    public Objeto getItemsByNombre(String id) {
-        Objeto resultado = null;
+    public Either<String, Objeto> getItemsByNombre(String id) {
+        Either<String, Objeto> resultado;
 
         try {
             Response<Objeto> response = pokemonApi.getItems(id).execute();
 
             if (response.isSuccessful()) {
-                resultado = response.body();
+                resultado = Either.right(response.body());
             } else {
-
-
+                resultado = Either.left("Item no valido");
             }
         } catch (Exception e) {
             log.error(e.getMessage());
+            resultado = Either.left("Error bbdd");
         }
         return resultado;
     }

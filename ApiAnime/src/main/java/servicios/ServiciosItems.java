@@ -8,5 +8,5 @@ import java.util.List;
 public interface ServiciosItems {
     Either<String, List<Objeto>> getAllItems();
 
-    Objeto getItemsByNombre(String id);
+    Either<String, Objeto> getItemsByNombre(String id);
 }

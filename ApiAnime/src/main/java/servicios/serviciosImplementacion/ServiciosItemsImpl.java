@@ -22,7 +22,7 @@ public class ServiciosItemsImpl implements ServiciosItems {
     }
 
     @Override
-    public Objeto getItemsByNombre(String id) {
+    public Either<String, Objeto> getItemsByNombre(String id) {
         return daoItems.getItemsByNombre(id);
     }
 }

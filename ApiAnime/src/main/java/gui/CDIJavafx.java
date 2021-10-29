@@ -14,13 +14,14 @@ public class CDIJavafx extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         SeContainerInitializer initializer = SeContainerInitializer.newInstance();
         final SeContainer container = initializer.initialize();
         primaryStage.setWidth(640);
-        primaryStage.setHeight(470);
+        primaryStage.setHeight(500);
         primaryStage.setResizable(true);
-        container.getBeanManager().fireEvent(primaryStage, new AnnotationLiteral<StartupScene>() {});
+        container.getBeanManager().fireEvent(primaryStage, new AnnotationLiteral<StartupScene>() {
+        });
     }
 
 }
