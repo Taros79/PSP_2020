@@ -1,10 +1,10 @@
 package dao.daoImplementacion;
 
 import dao.DaoPokemons;
-import dao.modelo.ModMovimientos.Movimiento;
-import dao.modelo.ModPokemon.MovesItem;
-import dao.modelo.ModPokemon.Pokemon;
-import dao.modelo.ModPokemon.Recursos;
+import dao.modeloPropio.MovesItemPrp;
+import dao.modeloPropio.MovimientoPrp;
+import dao.modeloPropio.PokemonPrp;
+import dao.modeloPropio.RecursosPokePrp;
 import dao.retrofit.PokemonApi;
 import dao.utils.ConfigurationSingleton_OkHttpClient;
 import io.vavr.control.Either;
@@ -20,11 +20,11 @@ public class DaoPokemonsImp implements DaoPokemons {
     PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
 
     @Override
-    public Either<String, Pokemon> getDatosByNombre(String id) {
-        Either<String, Pokemon> resultado;
+    public Either<String, PokemonPrp> getDatosByNombre(String id) {
+        Either<String, PokemonPrp> resultado;
 
         try {
-            Response<Pokemon> response = pokemonApi.getPokemons(id).execute();
+            Response<PokemonPrp> response = pokemonApi.getPokemons(id).execute();
 
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
@@ -39,11 +39,11 @@ public class DaoPokemonsImp implements DaoPokemons {
     }
 
     @Override
-    public Either<String, List<MovesItem>> getMovimientosPorId(String id) {
-        Either<String, List<MovesItem>> resultado;
+    public Either<String, List<MovesItemPrp>> getMovimientosPorId(String id) {
+        Either<String, List<MovesItemPrp>> resultado;
 
         try {
-            Response<Pokemon> response = pokemonApi.getPokemons(id).execute();
+            Response<PokemonPrp> response = pokemonApi.getPokemons(id).execute();
 
             if (response.isSuccessful() && Objects.requireNonNull(response.body()).getMovimientos() != null) {
                 resultado = Either.right(response.body().getMovimientos());
@@ -58,11 +58,11 @@ public class DaoPokemonsImp implements DaoPokemons {
     }
 
     @Override
-    public Either<String, List<Pokemon>> getAllPokemon() {
-        Either<String, List<Pokemon>> resultado;
+    public Either<String, List<PokemonPrp>> getAllPokemon() {
+        Either<String, List<PokemonPrp>> resultado;
 
         try {
-            Response<Recursos> response = pokemonApi.getRecursosPokemon().execute();
+            Response<RecursosPokePrp> response = pokemonApi.getRecursosPokemon().execute();
 
             if (response.isSuccessful() && Objects.requireNonNull(response.body()).getResults() != null) {
                 assert response.body() != null;
@@ -78,11 +78,11 @@ public class DaoPokemonsImp implements DaoPokemons {
     }
 
     @Override
-    public Either<String, Movimiento> getDatosMovimiento(String id) {
-        Either<String, Movimiento> resultado;
+    public Either<String, MovimientoPrp> getDatosMovimiento(String id) {
+        Either<String, MovimientoPrp> resultado;
 
         try {
-            Response<Movimiento> response = pokemonApi.getMovimientos(id).execute();
+            Response<MovimientoPrp> response = pokemonApi.getMovimientos(id).execute();
             if (response.isSuccessful()) {
                 Objects.requireNonNull(response.body());
                 resultado = Either.right(response.body());

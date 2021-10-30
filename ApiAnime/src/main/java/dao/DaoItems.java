@@ -1,13 +1,13 @@
 package dao;
 
-import dao.modelo.ModObjetos.Objeto;
+import dao.modeloPropio.ObjetoPrp;
 import io.vavr.control.Either;
 
 import java.util.List;
 
 public interface DaoItems {
 
-    Either<String, List<Objeto>> getAllItems();
+    Either<String, List<ObjetoPrp>> getAllItems();
 
-    Either<String, Objeto> getItemsByNombre(String id);
+    Either<String, ObjetoPrp> getItemsByNombre(String id);
 }

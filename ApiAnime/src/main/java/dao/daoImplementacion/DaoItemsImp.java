@@ -1,8 +1,8 @@
 package dao.daoImplementacion;
 
 import dao.DaoItems;
-import dao.modelo.ModObjetos.Objeto;
-import dao.modelo.ModObjetos.RecursosObj;
+import dao.modeloPropio.ObjetoPrp;
+import dao.modeloPropio.RecursosObjPrp;
 import dao.retrofit.PokemonApi;
 import dao.utils.ConfigurationSingleton_OkHttpClient;
 import io.vavr.control.Either;
@@ -18,15 +18,15 @@ public class DaoItemsImp implements DaoItems {
     PokemonApi pokemonApi = ConfigurationSingleton_OkHttpClient.getInstance().create(PokemonApi.class);
 
     @Override
-    public Either<String, List<Objeto>> getAllItems() {
-        Either<String, List<Objeto>> resultado;
+    public Either<String, List<ObjetoPrp>> getAllItems() {
+        Either<String, List<ObjetoPrp>> resultado;
 
         try {
-            Response<RecursosObj> response = pokemonApi.getRecursosItem().execute();
+            Response<RecursosObjPrp> response = pokemonApi.getRecursosItem().execute();
 
             if (response.isSuccessful() && Objects.requireNonNull(response.body()).getResults() != null) {
                 assert response.body() != null;
-                resultado =  Either.right(response.body().getResults());
+                resultado = Either.right(response.body().getResults());
             } else {
                 resultado = Either.left("Lista no valida");
             }
@@ -38,11 +38,11 @@ public class DaoItemsImp implements DaoItems {
     }
 
     @Override
-    public Either<String, Objeto> getItemsByNombre(String id) {
-        Either<String, Objeto> resultado;
+    public Either<String, ObjetoPrp> getItemsByNombre(String id) {
+        Either<String, ObjetoPrp> resultado;
 
         try {
-            Response<Objeto> response = pokemonApi.getItems(id).execute();
+            Response<ObjetoPrp> response = pokemonApi.getItems(id).execute();
 
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());

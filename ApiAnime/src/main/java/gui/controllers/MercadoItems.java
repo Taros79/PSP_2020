@@ -1,6 +1,6 @@
 package gui.controllers;
 
-import dao.modelo.ModObjetos.Objeto;
+import dao.modeloPropio.ObjetoPrp;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import javafx.collections.FXCollections;
@@ -49,7 +49,7 @@ public class MercadoItems implements Initializable {
         if (serviciosItemsImpl.getAllItems().isRight()) {
             ObservableList<String> items = FXCollections.observableArrayList(
                     serviciosItemsImpl.getAllItems().get()
-                            .stream().map(Objeto::getName).collect(Collectors.toList()));
+                            .stream().map(ObjetoPrp::getName).collect(Collectors.toList()));
 
             listViewItems.setItems(items);
 
@@ -79,9 +79,9 @@ public class MercadoItems implements Initializable {
     @FXML
     private void cargarDatos(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1 && listViewItems.getSelectionModel().getSelectedItem() != null) {
-            var tarea = new Task<Either<String, Objeto>>() {
+            var tarea = new Task<Either<String, ObjetoPrp>>() {
                 @Override
-                protected Either<String, Objeto> call() {
+                protected Either<String, ObjetoPrp> call() {
                     return serviciosItemsImpl.getItemsByNombre(listViewItems.getSelectionModel()
                             .getSelectedItem());
                 }

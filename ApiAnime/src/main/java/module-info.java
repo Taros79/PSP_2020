@@ -41,10 +41,10 @@ module notoques {
     exports gui;
     exports gui.main;
     exports gui.controllers;
-    exports dao.modelo;
     exports dao.modelo.ModPokemon;
     exports dao.modelo.ModMovimientos;
     exports dao.modelo.ModObjetos;
+    exports dao.modeloPropio;
     exports dao.daoImplementacion;
     exports config;
     exports servicios;

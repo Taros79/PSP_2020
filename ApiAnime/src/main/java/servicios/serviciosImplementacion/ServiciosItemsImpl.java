@@ -1,7 +1,7 @@
 package servicios.serviciosImplementacion;
 
 import dao.DaoItems;
-import dao.modelo.ModObjetos.Objeto;
+import dao.modeloPropio.ObjetoPrp;
 import io.vavr.control.Either;
 import servicios.ServiciosItems;
 
@@ -17,12 +17,12 @@ public class ServiciosItemsImpl implements ServiciosItems {
     }
 
     @Override
-    public Either<String, List<Objeto>> getAllItems() {
+    public Either<String, List<ObjetoPrp>> getAllItems() {
         return daoItems.getAllItems();
     }
 
     @Override
-    public Either<String, Objeto> getItemsByNombre(String id) {
+    public Either<String, ObjetoPrp> getItemsByNombre(String id) {
         return daoItems.getItemsByNombre(id);
     }
 }

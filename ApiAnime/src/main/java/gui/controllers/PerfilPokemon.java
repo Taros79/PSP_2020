@@ -1,10 +1,10 @@
 package gui.controllers;
 
 import dao.modelo.ModMovimientos.FlavorTextEntriesItem;
-import dao.modelo.ModMovimientos.Movimiento;
 import dao.modelo.ModPokemon.Move;
-import dao.modelo.ModPokemon.MovesItem;
-import dao.modelo.ModPokemon.Pokemon;
+import dao.modeloPropio.MovesItemPrp;
+import dao.modeloPropio.MovimientoPrp;
+import dao.modeloPropio.PokemonPrp;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import javafx.concurrent.Task;
@@ -59,7 +59,7 @@ public class PerfilPokemon implements Initializable {
         if (serviciosPokemonImpl.getAllPokemon().isRight()) {
             comboBoxPokemones.getItems().addAll(serviciosPokemonImpl.getAllPokemon()
                     .get()
-                    .stream().map(Pokemon::getNombre)
+                    .stream().map(PokemonPrp::getNombre)
                     .collect(Collectors.toList()));
         } else {
             a.setContentText(serviciosPokemonImpl.getAllPokemon().getLeft());
@@ -70,9 +70,9 @@ public class PerfilPokemon implements Initializable {
     @FXML
     private void buscarPokemon() {
         String pokemon = textFieldDatos.getText();
-        var tarea = new Task<Either<String, List<MovesItem>>>() {
+        var tarea = new Task<Either<String, List<MovesItemPrp>>>() {
             @Override
-            protected Either<String, List<MovesItem>> call() {
+            protected Either<String, List<MovesItemPrp>> call() {
                 return serviciosPokemonImpl.getMovimientosPorId(pokemon);
             }
         };
@@ -117,7 +117,7 @@ public class PerfilPokemon implements Initializable {
                                 comboBoxPokemones.getValue()).get()
                         .getMovimientos()
                         .stream()
-                        .map(MovesItem::getMove)
+                        .map(MovesItemPrp::getMove)
                         .map(Move::getName)
                         .collect(Collectors.toList()));
 
@@ -130,9 +130,9 @@ public class PerfilPokemon implements Initializable {
     @FXML
     private void cargarDatos(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1 && listViewMovimientos.getSelectionModel().getSelectedItem() != null) {
-            var tarea = new Task<Either<String, Movimiento>>() {
+            var tarea = new Task<Either<String, MovimientoPrp>>() {
                 @Override
-                protected Either<String, Movimiento> call() {
+                protected Either<String, MovimientoPrp> call() {
                     return serviciosPokemonImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
                             .getSelectedItem());
                 }

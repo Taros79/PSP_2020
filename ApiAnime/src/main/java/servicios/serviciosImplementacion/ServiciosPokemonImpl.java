@@ -1,9 +1,9 @@
 package servicios.serviciosImplementacion;
 
 import dao.DaoPokemons;
-import dao.modelo.ModMovimientos.Movimiento;
-import dao.modelo.ModPokemon.MovesItem;
-import dao.modelo.ModPokemon.Pokemon;
+import dao.modeloPropio.MovesItemPrp;
+import dao.modeloPropio.MovimientoPrp;
+import dao.modeloPropio.PokemonPrp;
 import io.vavr.control.Either;
 import servicios.ServiciosPokemon;
 
@@ -19,22 +19,22 @@ public class ServiciosPokemonImpl implements ServiciosPokemon {
     }
 
     @Override
-    public Either<String, Pokemon> getDatosByNombre(String id) {
+    public Either<String, PokemonPrp> getDatosByNombre(String id) {
         return daoPokemons.getDatosByNombre(id);
     }
 
     @Override
-    public Either<String, List<MovesItem>> getMovimientosPorId(String id) {
+    public Either<String, List<MovesItemPrp>> getMovimientosPorId(String id) {
         return daoPokemons.getMovimientosPorId(id);
     }
 
     @Override
-    public Either<String, List<Pokemon>> getAllPokemon() {
+    public Either<String, List<PokemonPrp>> getAllPokemon() {
         return daoPokemons.getAllPokemon();
     }
 
     @Override
-    public Either<String, Movimiento> getDatosMovimiento(String id) {
+    public Either<String, MovimientoPrp> getDatosMovimiento(String id) {
         return daoPokemons.getDatosMovimiento(id);
     }
 }

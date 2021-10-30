@@ -1,18 +1,18 @@
 package servicios;
 
-import dao.modelo.ModMovimientos.Movimiento;
-import dao.modelo.ModPokemon.MovesItem;
-import dao.modelo.ModPokemon.Pokemon;
+import dao.modeloPropio.MovesItemPrp;
+import dao.modeloPropio.MovimientoPrp;
+import dao.modeloPropio.PokemonPrp;
 import io.vavr.control.Either;
 
 import java.util.List;
 
 public interface ServiciosPokemon {
-    Either<String, Pokemon> getDatosByNombre(String id);
+    Either<String, PokemonPrp> getDatosByNombre(String id);
 
-    Either<String, List<MovesItem>> getMovimientosPorId(String id);
+    Either<String, List<MovesItemPrp>> getMovimientosPorId(String id);
 
-    Either<String, List<Pokemon>> getAllPokemon();
+    Either<String, List<PokemonPrp>> getAllPokemon();
 
-    Either<String, Movimiento> getDatosMovimiento(String id);
+    Either<String, MovimientoPrp> getDatosMovimiento(String id);
 }
