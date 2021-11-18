@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @ToString
 public class ApiError {
 
-    private String message;
-    private LocalDateTime fecha;
+  private String message;
+  private LocalDateTime fecha;
 
 
 }

@@ -1,17 +1,20 @@
 package EE.rest;
 
+
 import EE.errores.ApiError;
 import EE.filtros.Filtered;
+import EE.filtros.Writer;
 import dao.modelo.Usuario;
+import io.vavr.control.Either;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;
 import servicios.ServiciosUsuarios;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -21,11 +24,15 @@ import java.util.concurrent.atomic.AtomicReference;
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestUsuarios {
 
-    @Inject
     private ServiciosUsuarios su;
 
-    @Inject
     private ModelMapper mapper;
+
+    @Inject
+    public RestUsuarios(ServiciosUsuarios su, ModelMapper mapper) {
+        this.su = su;
+        this.mapper = mapper;
+    }
 
     //para todos los metodos
     //@Context HttpServletRequest request;
@@ -43,12 +50,22 @@ public class RestUsuarios {
                         .entity(apiError)
                         .build()));
 
+
+        Response r1 = null;
+        Either<ApiError, Usuario> resultado = su.dameUno(id);
+        if (resultado.isLeft()) {
+            r1 = Response.status(Response.Status.NOT_FOUND)
+                    .entity(resultado.getLeft())
+                    .build();
+        }
+
+
         return r.get();
 
     }
 
     @GET
-    @Filtered
+    @Writer
     @Path("/{id}")
     public Response getUnUsuario(@PathParam("id") String id,
                                  @HeaderParam("kk") String head) {
@@ -56,7 +73,10 @@ public class RestUsuarios {
         su.dameUno(id)
                 .peek(usuario -> r.set(Response.ok().entity(usuario).build()))
                 .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
-                        .entity(new ApiError("error not found", LocalDateTime.now()))
+                        .entity(ApiError.builder()
+                                .message("error not found")
+                                .fecha(LocalDateTime.now())
+                                .build())
                         .build()));
 
         return r.get();
@@ -68,13 +88,20 @@ public class RestUsuarios {
     }
 
     @POST
-    @Filtered
     public Usuario addUsuario(Usuario user) {
         return su.addUser(user);
     }
 
     @DELETE
-    public Usuario delUsuario(Usuario user) {
-        return user;
+    public Response delUsuario(@QueryParam("id") String id) {
+        if (su.borrar(id))
+            return Response.status(Response.Status.NO_CONTENT).build();
+        else
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(ApiError.builder()
+                            .message("usuario no encontrado")
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
     }
 }

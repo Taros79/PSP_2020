@@ -5,9 +5,9 @@ import EE.errores.OtraException;
 import dao.DaoUsuario;
 import dao.modelo.Usuario;
 import io.vavr.control.Either;
+import jakarta.inject.Inject;
+import jakarta.validation.Validator;
 
-import javax.inject.Inject;
-import javax.validation.Validator;
 import java.util.List;
 
 public class ServiciosUsuarios {
@@ -24,6 +24,10 @@ public class ServiciosUsuarios {
 
     public List<Usuario> dameTodos() {
         return dao.dameTodos();
+    }
+
+    public boolean borrar(String id) {
+        return dao.borrar(id);
     }
 
     public Usuario addUser(Usuario u) {
