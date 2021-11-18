@@ -1,6 +1,6 @@
 package EE.servlet;
 
-import EE.constantes;
+import EE.Constantes;
 import com.github.javafaker.Faker;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -10,15 +10,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "Servlet", value = constantes.SERVLET_PINTURA)
+@WebServlet(name = "Servlet", value = Constantes.SERVLET_PINTURA)
 public class ServletPrincipal extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Faker f = new Faker();
-        response.setContentType(constantes.TEXT_HTML);
+        response.setContentType(Constantes.TEXT_HTML);
         PrintWriter pw = response.getWriter();
-        String color = request.getParameter(constantes.COLOR_ELEGIDO);
+        String color = request.getParameter(Constantes.COLOR_ELEGIDO);
         String c = "<body BGCOLOR=" + f.color().name() + ">";
         if (color.equals("Rojo"))
             pw.println("<body BGCOLOR=#ff000>");
