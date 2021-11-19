@@ -1,10 +1,9 @@
 package EE.rest;
 
-
 import EE.errores.ApiError;
 import EE.filtros.Filtered;
 import EE.filtros.Writer;
-import dao.modelo.Usuario;
+import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;
-import servicios.ServiciosUsuarios;
+import servicios.ServiciosPokemon;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,15 +21,15 @@ import java.util.concurrent.atomic.AtomicReference;
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class RestUsuarios {
+public class RestPokemon {
 
-    private ServiciosUsuarios su;
+    private ServiciosPokemon sp;
 
     private ModelMapper mapper;
 
     @Inject
-    public RestUsuarios(ServiciosUsuarios su, ModelMapper mapper) {
-        this.su = su;
+    public RestPokemon(ServiciosPokemon su, ModelMapper mapper) {
+        this.sp = su;
         this.mapper = mapper;
     }
 
@@ -38,41 +37,13 @@ public class RestUsuarios {
     //@Context HttpServletRequest request;
 
     @GET
-    @Filtered
-    @Path("/uno")
-    public Response getUsuario(@QueryParam("id") String id,
-                               @Context HttpServletRequest request) {
-
-        AtomicReference<Response> r = new AtomicReference();
-        su.dameUno(id)
-                .peek(usuario -> r.set(Response.ok(usuario).build()))
-                .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
-                        .entity(apiError)
-                        .build()));
-
-
-        Response r1=null;
-        Either<ApiError,Usuario> resultado =su.dameUno(id);
-        if (resultado.isLeft())
-        {
-            r1 = Response.status(Response.Status.NOT_FOUND)
-                    .entity(resultado.getLeft())
-                    .build();
-        }
-
-
-        return r.get();
-
-    }
-
-    @GET
     @Writer
     @Path("/{id}")
-    public Response getUnUsuario(@PathParam("id") String id,
-                                @HeaderParam("kk") String head) {
+    public Response getPokemon(@PathParam("id") String id,
+                                 @HeaderParam("kk") String head) {
         AtomicReference<Response> r = new AtomicReference();
-        su.dameUno(id)
-                .peek(usuario -> r.set(Response.ok().entity(usuario).build()))
+        sp.getPokemon(id)
+                .peek(pokemon -> r.set(Response.ok().entity(pokemon).build()))
                 .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
                         .entity(ApiError.builder()
                                 .message("error not found")
@@ -84,23 +55,23 @@ public class RestUsuarios {
     }
 
     @GET
-    public List<Usuario> getAllUsuario() {
-        return su.dameTodos();
+    public List<Pokemon> getAllPokemon() {
+        return sp.getAll();
     }
 
     @POST
-    public Usuario addUsuario(Usuario user) {
-        return su.addUser(user);
+    public Pokemon addPokemon(Pokemon user) {
+        return sp.addPokemon(user);
     }
 
     @DELETE
-    public Response delUsuario(@QueryParam("id") String id) {
-        if (su.borrar(id))
+    public Response delPokemon(@QueryParam("id") String id) {
+        if (sp.borrarPokemon(id))
             return Response.status(Response.Status.NO_CONTENT).build();
         else
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(ApiError.builder()
-                            .message("usuario no encontrado")
+                            .message("pokemon no encontrado")
                             .fecha(LocalDateTime.now())
                             .build())
                     .build();

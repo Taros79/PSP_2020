@@ -2,38 +2,38 @@ package servicios;
 
 import EE.errores.ApiError;
 import EE.errores.OtraException;
-import dao.DaoUsuario;
-import dao.modelo.Usuario;
+import dao.DaoPokemon;
+import dao.modelo.Pokemon;
 import io.vavr.control.Either;
-
 import jakarta.inject.Inject;
 import jakarta.validation.Validator;
+
 import java.util.List;
 
-public class ServiciosUsuarios {
+public class ServiciosPokemon {
 
     @Inject
     private Validator validator;
 
     @Inject
-    private DaoUsuario dao;
+    private DaoPokemon dao;
 
-    public Either<ApiError, Usuario> dameUno(String id)
+    public Either<ApiError, Pokemon> getPokemon(String id)
     {
-        return dao.dameUno(id);
+        return dao.getPokemon(id);
     }
 
-    public List<Usuario> dameTodos()
+    public List<Pokemon> getAll()
     {
-        return dao.dameTodos();
+        return dao.getAll();
     }
 
-    public boolean borrar(String id )
+    public boolean borrarPokemon(String id )
     {
-        return dao.borrar(id);
+        return dao.borrarPokemon(id);
     }
 
-    public  Usuario addUser(Usuario u)
+    public Pokemon addPokemon(Pokemon u)
     {
         final StringBuilder error = new StringBuilder();
         validator.validate(u).stream().forEach(
@@ -41,6 +41,6 @@ public class ServiciosUsuarios {
                         error.append(testDtoConstraintViolation.getMessage()));
         if (!error.toString().isEmpty())
             throw new OtraException(error.toString());
-        return dao.addUser(u);
+        return dao.addPokemon(u);
     }
 }

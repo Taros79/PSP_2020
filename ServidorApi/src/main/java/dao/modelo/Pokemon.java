@@ -6,17 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class Pokemon {
 
     private String id;
 
-    @NotEmpty
     private String name;
-
-    private LocalDateTime primerSopapoDeMiMadre;
+    private String image;
+    private LocalDateTime fechaDescubrimiento;
+    private List<Move> moves;
 
 }
