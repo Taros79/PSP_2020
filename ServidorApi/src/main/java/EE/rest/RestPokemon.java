@@ -1,14 +1,10 @@
 package EE.rest;
 
 import EE.errores.ApiError;
-import EE.filtros.Filtered;
 import EE.filtros.Writer;
 import dao.modelo.Pokemon;
-import io.vavr.control.Either;
 import jakarta.inject.Inject;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;
@@ -18,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Path("/users")
+@Path("/pokemon")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestPokemon {
