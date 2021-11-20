@@ -6,6 +6,7 @@ import io.vavr.control.Either;
 import servicios.ServiciosPokemon;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class ServiciosPokemonImpl implements ServiciosPokemon {
     public DaoPokemons daoPokemons;
@@ -13,6 +14,11 @@ public class ServiciosPokemonImpl implements ServiciosPokemon {
     @Inject
     public ServiciosPokemonImpl(DaoPokemons daoPokemons) {
         this.daoPokemons = daoPokemons;
+    }
+
+    @Override
+    public Either<String, List<Pokemon>> getAllPokemon() {
+        return daoPokemons.getAllPokemon();
     }
 
     @Override

@@ -52,7 +52,15 @@ public class PerfilPokemon implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         a = new Alert(Alert.AlertType.INFORMATION);
-        serviciosPokemonImpl.deletePokemon("1");
+        if (serviciosPokemonImpl.getAllPokemon().isRight()) {
+            comboBoxPokemones.getItems().addAll(serviciosPokemonImpl.getAllPokemon()
+                    .get()
+                    .stream().map(Pokemon::getName)
+                    .collect(Collectors.toList()));
+        } else {
+            a.setContentText(serviciosPokemonImpl.getAllPokemon().getLeft());
+            a.showAndWait();
+        }
     }
 
     @FXML

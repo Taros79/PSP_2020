@@ -51,6 +51,7 @@ public class RestPokemon {
     }
 
     @GET
+    @Path("/getAll")
     public List<Pokemon> getAllPokemon() {
         return sp.getAll();
     }

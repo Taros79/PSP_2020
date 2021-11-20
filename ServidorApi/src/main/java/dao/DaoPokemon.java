@@ -17,6 +17,9 @@ public class DaoPokemon {
 
     static {
         pokemones.add(new Pokemon("1","Oscar", ".png",LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("2","Stefan", ".png",LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("3","Novillo", ".png",LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("4","Carlos", ".png",LocalDateTime.now(), new ArrayList<>()));
     }
 
     public DaoPokemon() {

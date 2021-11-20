@@ -5,37 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0509961-e2a3-4856-a4ff-08bebc38d86e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/config/ConfigurationSingleton_Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/DaoPokemons.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonsImp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/modelo/Move.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/modelo/Pokemon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/utils/ConfigurationSingleton_OkHttpClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/CDIJavafx.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/FXMLLoaderProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/Producers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/StartupScene.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PantallaPrincipal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilPokemon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/main/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/servicios/ServiciosPokemon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/beans.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/pantallaPrincipal.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/perfilPokemon.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/modelo/RecursosPokePrp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DaoPokemons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DaoPokemons.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonsImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonsImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilPokemon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/ServiciosPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/ServiciosPokemon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" afterDir="false" />
     </list>
@@ -76,6 +53,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Carlos\Desktop\TrabajosActuales\PSP\ClienteApi\src\main\java\servicios\serviciosImplementacion" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="dao.modelo" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="CDIJavafx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -106,7 +86,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637403463205</updated>
-      <workItem from="1637403465160" duration="5521000" />
+      <workItem from="1637403465160" duration="7979000" />
     </task>
     <servers />
   </component>

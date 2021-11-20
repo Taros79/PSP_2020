@@ -21,11 +21,11 @@ public class DaoPokemonsImp implements DaoPokemons {
         Either<String, List<Pokemon>> resultado;
 
         try {
-            Response<Pokemon> response = pokemonApi.getRecursosPokemon().execute();
+            Response<List<Pokemon>> response = pokemonApi.getRecursosPokemon().execute();
 
-            if (response.isSuccessful() && Objects.requireNonNull(response.body()).getResults() != null) {
+            if (response.isSuccessful() && Objects.requireNonNull(response.body()) != null) {
                 assert response.body() != null;
-                resultado = Either.right(response.body().getResults());
+                resultado = Either.right(response.body());
             } else {
                 resultado = Either.left("Lista pokemones no valida");
             }
