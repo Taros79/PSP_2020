@@ -19,10 +19,11 @@ public class Pokemon {
     private LocalDateTime fechaDescubrimiento;
     private List<Move> moves;
 
-    public Pokemon(String id, String name, String image) {
-        this.id = id;
+    public Pokemon(String name, String image, LocalDateTime fechaDescubrimiento, List<Move> moves) {
         this.name = name;
         this.image = image;
+        this.fechaDescubrimiento = fechaDescubrimiento;
+        this.moves = moves;
     }
 
     @Override

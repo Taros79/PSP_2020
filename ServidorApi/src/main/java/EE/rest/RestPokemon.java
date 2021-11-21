@@ -2,6 +2,7 @@ package EE.rest;
 
 import EE.errores.ApiError;
 import EE.filtros.Writer;
+import dao.modelo.Move;
 import dao.modelo.Pokemon;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -56,10 +57,21 @@ public class RestPokemon {
     }
 
     @POST
-    public Pokemon addPokemon(@QueryParam("id") String id,
-                              @QueryParam("name") String name,
-                              @QueryParam("image") String image) {
-        return sp.addPokemon(new Pokemon(id,name,image));
+    public Response addPokemon(Pokemon p) {
+        Response response;
+        Pokemon pokemon = sp.addPokemon(p);
+
+        if (pokemon != null) {
+            response = Response.ok().entity(pokemon).build();
+        } else {
+            response = Response.status(Response.Status.NOT_MODIFIED)
+                    .entity(ApiError.builder()
+                            .message("Movimiento no agregau")
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
+        }
+        return response;
     }
 
     @DELETE

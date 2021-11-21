@@ -55,12 +55,12 @@ public class RestMove {
         return sm.getAll();
     }
 
-    @POST
+    /*@POST
     public Move addMove(@QueryParam("id") String id,
                         @QueryParam("name") String name,
                         @QueryParam("descripcion") String descripcion) {
         return sm.addMove(new Move(id, name, descripcion));
-    }
+    }*/
 
     @DELETE
     public Response delMove(@QueryParam("id") String id) {
@@ -73,5 +73,23 @@ public class RestMove {
                             .fecha(LocalDateTime.now())
                             .build())
                     .build();
+    }
+
+    @POST
+    public Response addMove(Move m) {
+        Response response;
+        Move move = sm.addMove(m);
+
+        if (move != null) {
+            response = Response.ok().entity(move).build();
+        } else {
+            response = Response.status(Response.Status.NOT_MODIFIED)
+                    .entity(ApiError.builder()
+                            .message("Movimiento no agregau")
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
+        }
+        return response;
     }
 }

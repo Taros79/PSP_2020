@@ -65,11 +65,11 @@ public class DaoPokemonImp implements DaoPokemon {
     }
 
     @Override
-    public Either<String, Pokemon> addPokemon(String id, String name, String image) {
+    public Either<String, Pokemon> addPokemon(Pokemon p) {
         Either<String, Pokemon> resultado;
 
         try {
-            Response<Pokemon> response = pokemonApi.addPokemon(id, name, image).execute();
+            Response<Pokemon> response = pokemonApi.addPokemon(p).execute();
 
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());

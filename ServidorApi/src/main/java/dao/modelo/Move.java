@@ -12,5 +12,4 @@ public class Move {
     private String id;
     private String name;
     private String descripcion;
-
 }

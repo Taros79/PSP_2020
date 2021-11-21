@@ -12,7 +12,7 @@ public interface ServiciosPokemon {
 
     Either<String, Pokemon> getDatosByNombre(String id);
 
-    Either<String, Pokemon> addPokemon(String id, String name, String image);
+    Either<String, Pokemon> addPokemon(Pokemon p);
 
     Either<String, Pokemon> deletePokemon(String id);
 

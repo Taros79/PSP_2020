@@ -48,9 +48,9 @@ public class DaoMove {
         return moves;
     }
 
-    public Move addMove(Move move)
-    {
-        move.setId("" + (moves.size()+1));
+    public Move addMove(Move move) {
+        int id = Integer.parseInt(moves.get(moves.size() - 1).getId()) + 1;
+        move.setId(String.valueOf(id));
         moves.add(move);
         return move;
     }

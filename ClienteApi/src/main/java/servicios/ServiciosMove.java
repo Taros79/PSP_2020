@@ -12,7 +12,9 @@ public interface ServiciosMove {
 
     Either<String, Move> getMove(String id);
 
-    Either<String, Move> addMove(String id, String name, String descripcion);
+    Either<String, Move> addMove(Move m);
 
     Either<String, Move> deleteMove(String id);
+
+    Either<String, Move> getDatosMovimiento(String id);
 }

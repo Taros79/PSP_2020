@@ -20,9 +20,4 @@ public class Pokemon {
     private LocalDateTime fechaDescubrimiento;
     private List<Move> moves;
 
-    public Pokemon(String id, String name, String image) {
-        this.id = id;
-        this.name = name;
-        this.image = image;
-    }
 }

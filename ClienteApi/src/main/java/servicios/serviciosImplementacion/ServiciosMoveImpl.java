@@ -30,12 +30,17 @@ public class ServiciosMoveImpl implements ServiciosMove {
     }
 
     @Override
-    public Either<String, Move> addMove(String id, String name, String descripcion) {
-        return daoMove.addMove(id,name,descripcion);
+    public Either<String, Move> addMove(Move m) {
+        return daoMove.addMove(m);
     }
 
     @Override
     public Either<String, Move> deleteMove(String id) {
         return daoMove.deleteMove(id);
+    }
+
+    @Override
+    public Either<String, Move> getDatosMovimiento(String id) {
+        return daoMove.getDatosMovimiento(id);
     }
 }

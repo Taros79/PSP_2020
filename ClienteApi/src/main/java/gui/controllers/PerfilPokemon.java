@@ -5,7 +5,6 @@ import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -13,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import servicios.serviciosImplementacion.ServiciosMoveImpl;
 import servicios.serviciosImplementacion.ServiciosPokemonImpl;
 
 import javax.inject.Inject;
@@ -25,18 +25,18 @@ import java.util.stream.Collectors;
 public class PerfilPokemon implements Initializable {
 
     ServiciosPokemonImpl serviciosPokemonImpl;
+    ServiciosMoveImpl serviciosMoveImpl;
+
     @FXML
     private TextArea labelDefinicion;
     @FXML
     private Label labelMovimiento;
     @FXML
-    private ListView<String> listViewDatosMovimiento;
-    @FXML
     private TextField textFieldDatos;
     @FXML
     private ImageView imageView;
     @FXML
-    private ListView<String> listViewMovimientos;
+    private ListView<Move> listViewMovimientos;
     @FXML
     private ComboBox<Pokemon> comboBoxPokemones;
     @FXML
@@ -48,8 +48,9 @@ public class PerfilPokemon implements Initializable {
     }
 
     @Inject
-    public PerfilPokemon(ServiciosPokemonImpl serviciosPokemonImpl) {
+    public PerfilPokemon(ServiciosPokemonImpl serviciosPokemonImpl, ServiciosMoveImpl serviciosMoveImpl) {
         this.serviciosPokemonImpl = serviciosPokemonImpl;
+        this.serviciosMoveImpl = serviciosMoveImpl;
     }
 
     @Override
@@ -77,9 +78,7 @@ public class PerfilPokemon implements Initializable {
             listViewMovimientos.getItems().clear();
             Try.of(() -> tarea.get()
                             .peek(moves -> {
-                                listViewMovimientos.getItems().addAll(moves.stream()
-                                        .map(Move::getName)
-                                        .collect(Collectors.toList()));
+                                listViewMovimientos.getItems().addAll(moves);
                                 imageView.setImage(new Image(serviciosPokemonImpl
                                         .getDatosByNombre(pokemon).get()
                                         .getImage()));
@@ -117,9 +116,7 @@ public class PerfilPokemon implements Initializable {
             listViewMovimientos.getItems().clear();
             Try.of(() -> tarea.get()
                             .peek(moves -> {
-                                listViewMovimientos.getItems().addAll(moves.stream()
-                                        .map(Move::getName)
-                                        .collect(Collectors.toList()));
+                                listViewMovimientos.getItems().addAll(moves);
                                 imageView.setImage(new Image(serviciosPokemonImpl
                                         .getDatosByNombre(pokemon).get()
                                         .getImage()));
@@ -161,12 +158,11 @@ public class PerfilPokemon implements Initializable {
                                 comboBoxPokemones.getItems().addAll(
                                         new ArrayList<>(serviciosPokemonImpl.getAllPokemon()
                                         .get()));
-                                imageView.getImage().cancel();
+                                imageView.setImage(new Image("https://i.pinimg.com/originals/19/23/da/1923da24d71bc552b067ee76b93cf15e.jpg"));
                                 a.setContentText("Pokemon borrado con exito");
                                 a.showAndWait();
                             })
                             .peekLeft(s -> {
-                                imageView.setImage(new Image("https://i.pinimg.com/originals/19/23/da/1923da24d71bc552b067ee76b93cf15e.jpg"));
                                 a.setContentText(s);
                                 a.showAndWait();
                             }))
@@ -187,24 +183,19 @@ public class PerfilPokemon implements Initializable {
 
     @FXML
     private void cargarDatos(MouseEvent mouseEvent) {
-       /* if (mouseEvent.getClickCount() == 1 && listViewMovimientos.getSelectionModel().getSelectedItem() != null) {
-            var tarea = new Task<Either<String, MovimientoPrp>>() {
+        if (mouseEvent.getClickCount() == 1 && listViewMovimientos.getSelectionModel().getSelectedItem() != null) {
+            var tarea = new Task<Either<String, Move>>() {
                 @Override
-                protected Either<String, MovimientoPrp> call() {
-                    return serviciosPokemonImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
-                            .getSelectedItem());
+                protected Either<String, Move> call() {
+                    return serviciosMoveImpl.getDatosMovimiento(listViewMovimientos.getSelectionModel()
+                            .getSelectedItem().getId());
                 }
             };
             tarea.setOnSucceeded(workerStateEvent -> {
-                listViewDatosMovimiento.getItems().clear();
                 Try.of(() -> tarea.get()
                                 .peek(movesItems -> {
-                                    listViewDatosMovimiento.getItems().addAll(movesItems.toString());
-                                    labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem());
-                                    labelDefinicion.setText(movesItems.getFlavorTextEntries()
-                                            .stream().filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
-                                            .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("x-y"))
-                                            .map(FlavorTextEntriesItem::getFlavorText).collect(Collectors.joining()));
+                                    labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem().getName());
+                                    labelDefinicion.setText(movesItems.getDescripcion());
                                 })
                                 .peekLeft(s -> {
                                     a.setContentText(s);
@@ -223,8 +214,12 @@ public class PerfilPokemon implements Initializable {
             });
             new Thread(tarea).start();
             this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
-        }*/
+        }
     }
 
-
+    public void actualizar(){
+        comboBoxPokemones.getItems().clear();
+        comboBoxPokemones.getItems().addAll(new ArrayList<>(serviciosPokemonImpl.getAllPokemon()
+                .get()));
+    }
 }

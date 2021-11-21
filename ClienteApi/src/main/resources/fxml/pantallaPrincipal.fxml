@@ -14,8 +14,10 @@
             <Menu mnemonicParsing="false" text="Menu">
                 <MenuItem mnemonicParsing="false" onAction="#perfilPokemon"
                           text="Perfil Pokemon"/>
-                <MenuItem mnemonicParsing="false" onAction="#mercadoItems"
-                          text="Mercado Principal"/>
+                <MenuItem mnemonicParsing="false" onAction="#perfilMovimiento"
+                          text="Perfil movimientos"/>
+                <MenuItem mnemonicParsing="false" onAction="#addPokemon"
+                          text="Añadir Pokemones"/>
             </Menu>
         </MenuBar>
     </top>

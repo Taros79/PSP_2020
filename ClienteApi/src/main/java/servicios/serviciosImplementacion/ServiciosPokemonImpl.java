@@ -28,8 +28,8 @@ public class ServiciosPokemonImpl implements ServiciosPokemon {
     }
 
     @Override
-    public Either<String, Pokemon> addPokemon(String id, String name, String image) {
-        return daoPokemons.addPokemon(id,name,image);
+    public Either<String, Pokemon> addPokemon(Pokemon p) {
+        return daoPokemons.addPokemon(p);
     }
 
     @Override

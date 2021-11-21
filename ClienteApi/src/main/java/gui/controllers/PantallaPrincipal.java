@@ -26,10 +26,15 @@ public class PantallaPrincipal implements Initializable {
     private AnchorPane pantallaPerfilMovimiento;
     private PerfilMovimiento perfilMovimientoController;
 
+    private final FXMLLoader fxmlLoaderAddPokemon;
+    private AnchorPane pantallaAddPokemon;
+    private AddPokemon addPokemonController;
+
     @Inject
-    public PantallaPrincipal(FXMLLoader fxmlLoaderPerfilPokemon, FXMLLoader fxmlLoaderPerfilMovimiento) {
+    public PantallaPrincipal(FXMLLoader fxmlLoaderPerfilPokemon, FXMLLoader fxmlLoaderPerfilMovimiento, FXMLLoader fxmlLoaderAddPokemon) {
         this.fxmlLoaderPerfilPokemon = fxmlLoaderPerfilPokemon;
         this.fxmlLoaderPerfilMovimiento = fxmlLoaderPerfilMovimiento;
+        this.fxmlLoaderAddPokemon = fxmlLoaderAddPokemon;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -52,11 +57,12 @@ public class PantallaPrincipal implements Initializable {
                 log.error(e.getMessage());
             }
         }
+        perfilPokemonController.actualizar();
         pantallaPrincipal.setCenter(pantallaPerfilPokemon);
     }
 
     @FXML
-    private void mercadoItems() {
+    private void perfilMovimiento() {
         if (pantallaPerfilMovimiento == null) {
             try {
                 pantallaPerfilMovimiento = fxmlLoaderPerfilMovimiento.load(getClass().getResourceAsStream("/fxml/perfilMovimiento.fxml"));
@@ -67,5 +73,19 @@ public class PantallaPrincipal implements Initializable {
             }
         }
         pantallaPrincipal.setCenter(pantallaPerfilMovimiento);
+    }
+
+    @FXML
+    private void addPokemon() {
+        if (pantallaAddPokemon == null) {
+            try {
+                pantallaAddPokemon = fxmlLoaderAddPokemon.load(getClass().getResourceAsStream("/fxml/addPokemon.fxml"));
+                addPokemonController = fxmlLoaderAddPokemon.getController();
+                addPokemonController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+        pantallaPrincipal.setCenter(pantallaAddPokemon);
     }
 }

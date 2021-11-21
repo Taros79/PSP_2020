@@ -64,11 +64,10 @@ public class DaoMoveImp implements DaoMove {
     }
 
     @Override
-    public Either<String, Move> addMove(String id, String name, String descripcion) {
+    public Either<String, Move> addMove(Move m) {
         Either<String, Move> resultado;
-
         try {
-            Response<Move> response = pokemonApi.addMove(id, name, descripcion).execute();
+            Response<Move> response = pokemonApi.addMove(m).execute();
 
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
@@ -90,6 +89,25 @@ public class DaoMoveImp implements DaoMove {
             Response<Move> response = pokemonApi.deleteMove(id).execute();
 
             if (response.isSuccessful()) {
+                resultado = Either.right(response.body());
+            } else {
+                resultado = Either.left("Movimiento no valido");
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            resultado = Either.left("Error bbdd");
+        }
+        return resultado;
+    }
+
+    @Override
+    public Either<String, Move> getDatosMovimiento(String id) {
+        Either<String, Move> resultado;
+
+        try {
+            Response<Move> response = pokemonApi.getUnMovimiento(id).execute();
+            if (response.isSuccessful()) {
+                Objects.requireNonNull(response.body());
                 resultado = Either.right(response.body());
             } else {
                 resultado = Either.left("Movimiento no valido");
