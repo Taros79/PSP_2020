@@ -1,4 +1,3 @@
-/*
 module notoques {
     //needed for JavaFX
     requires javafx.controls;
@@ -43,11 +42,10 @@ module notoques {
     exports gui.main;
     exports gui.controllers;
     exports dao.modelo;
+    exports dao.daoImplementacion;
     exports config;
     exports servicios;
     exports dao.utils;
     exports dao.retrofit;
     exports servicios.serviciosImplementacion;
-
 }
-*/

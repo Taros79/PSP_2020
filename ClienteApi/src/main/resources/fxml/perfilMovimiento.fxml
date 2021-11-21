@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PerfilMovimiento">
+    <ComboBox fx:id="comboBoxMovimientos" layoutX="25.0" layoutY="57.0" onAction="#onActComboMovimientos" prefWidth="150.0" promptText="Movimientos" />
+    <Button layoutX="71.0" layoutY="152.0" mnemonicParsing="false" onAction="#onActbuscarMovimiento" text="Buscar" />
+    <Label layoutX="25.0" layoutY="94.0" text="Buscar por id o nombre:" />
+    <TextField fx:id="textFieldDatos" layoutX="25.0" layoutY="119.0" prefHeight="25.0" prefWidth="150.0" promptText="id o nombre" />
+   <Button layoutX="210.0" layoutY="203.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="365.0" text="Borrar movimiento" />
+   <Separator layoutX="7.0" layoutY="233.0" prefHeight="17.0" prefWidth="584.0" />
+   <TextArea fx:id="textAreaDescripcion" layoutX="210.0" layoutY="19.0" prefHeight="168.0" prefWidth="365.0" />
+   <Button layoutX="32.0" layoutY="203.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Actualizar" />
+</AnchorPane>

@@ -1,6 +1,7 @@
 package servicios.serviciosImplementacion;
 
-import dao.DaoPokemons;
+import dao.DaoPokemon;
+import dao.modelo.Move;
 import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 import servicios.ServiciosPokemon;
@@ -9,10 +10,10 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class ServiciosPokemonImpl implements ServiciosPokemon {
-    public DaoPokemons daoPokemons;
+    public DaoPokemon daoPokemons;
 
     @Inject
-    public ServiciosPokemonImpl(DaoPokemons daoPokemons) {
+    public ServiciosPokemonImpl(DaoPokemon daoPokemons) {
         this.daoPokemons = daoPokemons;
     }
 
@@ -27,7 +28,17 @@ public class ServiciosPokemonImpl implements ServiciosPokemon {
     }
 
     @Override
+    public Either<String, Pokemon> addPokemon(String id, String name, String image) {
+        return daoPokemons.addPokemon(id,name,image);
+    }
+
+    @Override
     public Either<String, Pokemon> deletePokemon(String id) {
         return daoPokemons.deletePokemon(id);
+    }
+
+    @Override
+    public Either<String, List<Move>> getMovimientosPorId(String id) {
+        return daoPokemons.getMovimientosPorId(id);
     }
 }

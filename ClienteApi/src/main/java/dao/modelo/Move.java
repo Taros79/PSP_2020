@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Move {
 
     private String id;
-    private String move;
+    private String name;
     private String descripcion;
 
 }

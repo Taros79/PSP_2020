@@ -22,9 +22,14 @@ public class PantallaPrincipal implements Initializable {
     private AnchorPane pantallaPerfilPokemon;
     private PerfilPokemon perfilPokemonController;
 
+    private final FXMLLoader fxmlLoaderPerfilMovimiento;
+    private AnchorPane pantallaPerfilMovimiento;
+    private PerfilMovimiento perfilMovimientoController;
+
     @Inject
-    public PantallaPrincipal(FXMLLoader fxmlLoaderPerfilPokemon) {
+    public PantallaPrincipal(FXMLLoader fxmlLoaderPerfilPokemon, FXMLLoader fxmlLoaderPerfilMovimiento) {
         this.fxmlLoaderPerfilPokemon = fxmlLoaderPerfilPokemon;
+        this.fxmlLoaderPerfilMovimiento = fxmlLoaderPerfilMovimiento;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -48,5 +53,19 @@ public class PantallaPrincipal implements Initializable {
             }
         }
         pantallaPrincipal.setCenter(pantallaPerfilPokemon);
+    }
+
+    @FXML
+    private void mercadoItems() {
+        if (pantallaPerfilMovimiento == null) {
+            try {
+                pantallaPerfilMovimiento = fxmlLoaderPerfilMovimiento.load(getClass().getResourceAsStream("/fxml/perfilMovimiento.fxml"));
+                perfilMovimientoController = fxmlLoaderPerfilMovimiento.getController();
+                perfilMovimientoController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+        pantallaPrincipal.setCenter(pantallaPerfilMovimiento);
     }
 }

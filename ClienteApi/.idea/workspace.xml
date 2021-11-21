@@ -5,16 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0509961-e2a3-4856-a4ff-08bebc38d86e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/modelo/RecursosPokePrp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/DaoPokemon.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilMovimiento.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/servicios/ServiciosMove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosMoveImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/fxml/perfilMovimiento.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestMove.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/servicios/ServiciosMove.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DaoPokemons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DaoPokemons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonsImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonsImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DaoPokemons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DaoMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonsImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoMoveImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/modelo/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/modelo/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/modelo/Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/modelo/Pokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/controllers/PantallaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PantallaPrincipal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilPokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servicios/ServiciosPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/ServiciosPokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/pantallaPrincipal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/pantallaPrincipal.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/perfilPokemon.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/perfilPokemon.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Pokemon.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +39,13 @@
   </component>
   <component name="CodeStyleSettingsInfer">
     <option name="done" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -42,18 +65,25 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/dao" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/fxml" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Carlos\Desktop\TrabajosActuales\PSP\ClienteApi\src\main\resources\fxml" />
       <recent name="C:\Users\Carlos\Desktop\TrabajosActuales\PSP\ClienteApi\src\main\java\dao" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Carlos\Desktop\TrabajosActuales\PSP\ClienteApi\src\main\java" />
       <recent name="C:\Users\Carlos\Desktop\TrabajosActuales\PSP\ClienteApi\src\main\java\servicios\serviciosImplementacion" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="servicios" />
+      <recent name="servicios.serviciosImplementacion" />
+      <recent name="dao" />
+      <recent name="dao.daoImplementacion" />
       <recent name="dao.modelo" />
     </key>
   </component>
@@ -61,7 +91,6 @@
     <configuration name="CDIJavafx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="gui.CDIJavafx" />
       <module name="ClienteApi" />
-      <option name="VM_PARAMETERS" value="--module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="gui.*" />
@@ -86,8 +115,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637403463205</updated>
-      <workItem from="1637403465160" duration="7979000" />
+      <workItem from="1637403465160" duration="14070000" />
+      <workItem from="1637422543993" duration="4371000" />
+      <workItem from="1637436351146" duration="13486000" />
+      <workItem from="1637477854637" duration="1407000" />
     </task>
+    <task id="LOCAL-00001" summary="Servidor/Cliente 1.0">
+      <created>1637411850818</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1637411850825</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -95,5 +135,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Servidor/Cliente 1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="Servidor/Cliente 1.0" />
   </component>
 </project>

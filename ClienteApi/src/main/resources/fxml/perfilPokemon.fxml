@@ -7,17 +7,22 @@
 
 <AnchorPane prefHeight="430.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.PerfilPokemon">
     <ComboBox fx:id="comboBoxPokemones" layoutX="194.0" layoutY="23.0" onAction="#seleccionarDatos" prefWidth="150.0" promptText="Pokemones" />
-    <Button layoutX="233.0" layoutY="120.0" mnemonicParsing="false" onAction="#buscarPokemon" text="Buscar" />
+    <Button layoutX="244.0" layoutY="120.0" mnemonicParsing="false" onAction="#buscarPokemon" text="Buscar" />
     <ListView fx:id="listViewMovimientos" layoutX="352.0" layoutY="22.0" onMouseClicked="#cargarDatos" prefHeight="183.0" prefWidth="230.0" />
     <Label layoutX="194.0" layoutY="60.0" text="Buscar por id o nombre:" />
     <TextField fx:id="textFieldDatos" layoutX="194.0" layoutY="85.0" prefHeight="25.0" prefWidth="150.0" promptText="id o nombre" />
     <ImageView fx:id="imageView" fitHeight="175.0" fitWidth="188.0" layoutX="1.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
     <ListView fx:id="listViewDatosMovimiento" layoutX="118.0" layoutY="304.0" prefHeight="80.0" prefWidth="137.0" />
     <Separator layoutX="1.0" layoutY="217.0" prefHeight="10.0" prefWidth="600.0" />
-    <Label fx:id="labelMovimiento" alignment="CENTER" layoutX="118.0" layoutY="236.0" prefHeight="38.0" prefWidth="315.0" text="Movimiento" textAlignment="CENTER" wrapText="true">
+    <Label fx:id="labelMovimiento" alignment="CENTER" layoutX="344.0" layoutY="239.0" prefHeight="38.0" prefWidth="240.0" text="Movimiento" textAlignment="CENTER" wrapText="true">
         <font>
             <Font name="System Bold" size="26.0" />
         </font>
     </Label>
-    <TextArea fx:id="labelDefinicion" layoutX="312.0" layoutY="295.0" prefHeight="101.0" prefWidth="248.0" />
+    <TextArea fx:id="labelDefinicion" layoutX="343.0" layoutY="283.0" prefHeight="136.0" prefWidth="248.0" />
+   <Button layoutX="201.0" layoutY="158.0" mnemonicParsing="false" onAction="#borrarPokemon" prefHeight="47.0" prefWidth="137.0" text="Borrar Pokemon">
+      <font>
+         <Font name="System Bold" size="13.0" />
+      </font>
+   </Button>
 </AnchorPane>

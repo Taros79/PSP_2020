@@ -2,30 +2,30 @@ package EE.rest;
 
 import EE.errores.ApiError;
 import EE.filtros.Writer;
-import dao.modelo.Pokemon;
+import dao.modelo.Move;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.modelmapper.ModelMapper;
-import servicios.ServiciosPokemon;
+import servicios.ServiciosMove;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-@Path("/pokemon")
+@Path("/move")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class RestPokemon {
+public class RestMove {
 
-    private ServiciosPokemon sp;
+    private ServiciosMove sm;
 
     private ModelMapper mapper;
 
     @Inject
-    public RestPokemon(ServiciosPokemon su, ModelMapper mapper) {
-        this.sp = su;
+    public RestMove(ServiciosMove sm, ModelMapper mapper) {
+        this.sm = sm;
         this.mapper = mapper;
     }
 
@@ -35,10 +35,10 @@ public class RestPokemon {
     @GET
     @Writer
     @Path("/{id}")
-    public Response getPokemon(@PathParam("id") String id) {
+    public Response getMove(@PathParam("id") String id) {
         AtomicReference<Response> r = new AtomicReference();
-        sp.getPokemon(id)
-                .peek(pokemon -> r.set(Response.ok().entity(pokemon).build()))
+        sm.getMove(id)
+                .peek(move -> r.set(Response.ok().entity(move).build()))
                 .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
                         .entity(ApiError.builder()
                                 .message("error not found")
@@ -51,25 +51,25 @@ public class RestPokemon {
 
     @GET
     @Path("/getAll")
-    public List<Pokemon> getAllPokemon() {
-        return sp.getAll();
+    public List<Move> getAllMove() {
+        return sm.getAll();
     }
 
     @POST
-    public Pokemon addPokemon(@QueryParam("id") String id,
-                              @QueryParam("name") String name,
-                              @QueryParam("image") String image) {
-        return sp.addPokemon(new Pokemon(id,name,image));
+    public Move addMove(@QueryParam("id") String id,
+                        @QueryParam("name") String name,
+                        @QueryParam("descripcion") String descripcion) {
+        return sm.addMove(new Move(id, name, descripcion));
     }
 
     @DELETE
-    public Response delPokemon(@QueryParam("id") String id) {
-        if (sp.borrarPokemon(id))
+    public Response delMove(@QueryParam("id") String id) {
+        if (sm.borrarMove(id))
             return Response.status(Response.Status.NO_CONTENT).build();
         else
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(ApiError.builder()
-                            .message("pokemon no encontrado")
+                            .message("Movimiento no encontrado")
                             .fecha(LocalDateTime.now())
                             .build())
                     .build();
