@@ -60,7 +60,7 @@ public class PerfilMovimiento implements Initializable {
     }
 
     @FXML
-    public void onActComboMovimientos() {
+    private void onActComboMovimientos() {
         var move = comboBoxMovimientos.getSelectionModel().getSelectedItem();
         var tarea = new Task<Either<String, List<Move>>>() {
             @Override
@@ -94,7 +94,7 @@ public class PerfilMovimiento implements Initializable {
     }
 
     @FXML
-    public void onActbuscarMovimiento() {
+    private void onActbuscarMovimiento() {
         String move = textFieldDatos.getText();
         var tarea = new Task<Either<String, Move>>() {
             @Override
@@ -128,11 +128,11 @@ public class PerfilMovimiento implements Initializable {
     }
 
     @FXML
-    public void onActBorrar() {
+    private void onActBorrar() {
     }
 
     @FXML
-    public void onActAdd() {
+    private void onActAdd() {
         Move m = new Move(textFieldNombreAdd.getText(), textAreaDescripcionAdd.getText());
         var tarea = new Task<Either<String, Move>>() {
             @Override
@@ -170,6 +170,9 @@ public class PerfilMovimiento implements Initializable {
     }
 
     @FXML
-    public void onActActualizar() {
+    private void onActActualizar() {
+
     }
+
+
 }

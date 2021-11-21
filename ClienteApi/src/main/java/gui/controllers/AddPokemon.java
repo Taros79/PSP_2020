@@ -49,6 +49,25 @@ public class AddPokemon implements Initializable {
         this.serviciosPokemonImpl = serviciosPokemonImpl;
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        a = new Alert(Alert.AlertType.INFORMATION);
+        if (serviciosMoveImpl.getAllMove().isRight() && serviciosPokemonImpl.getAllPokemon().isRight()) {
+            comboBoxMovimientos.getItems().clear();
+            comboBoxMovimientos.getItems().addAll(serviciosMoveImpl.getAllMove()
+                    .get());
+            listViewPokemon.getItems().clear();
+            listViewPokemon.getItems().addAll(serviciosPokemonImpl.getAllPokemon().get());
+        } else {
+            if (serviciosMoveImpl.getAllMove().isRight()) {
+                a.setContentText(serviciosPokemonImpl.getAllPokemon().getLeft());
+            } else {
+                a.setContentText(serviciosMoveImpl.getAllMove().getLeft());
+            }
+            a.showAndWait();
+        }
+    }
+
     @FXML
     private void onActAdd() {
         Pokemon p = new Pokemon(
@@ -61,9 +80,13 @@ public class AddPokemon implements Initializable {
             }
         };
         tarea.setOnSucceeded(workerStateEvent -> {
+            textFieldNombre.clear();
+            textFieldImagen.clear();
+            listViewMovimientos.getItems().clear();
             Try.of(() -> tarea.get()
                             .peek(pokemon -> {
-                                listViewMovimientos.getItems().clear();
+                                listViewPokemon.getItems().clear();
+                                listViewPokemon.getItems().addAll(serviciosPokemonImpl.getAllPokemon().get());
                                 a.setContentText("Pokemon añadido");
                                 a.showAndWait();
                             })
@@ -87,28 +110,15 @@ public class AddPokemon implements Initializable {
         this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        a = new Alert(Alert.AlertType.INFORMATION);
-        if (serviciosMoveImpl.getAllMove().isRight() && serviciosPokemonImpl.getAllPokemon().isRight()) {
-            comboBoxMovimientos.getItems().clear();
-            comboBoxMovimientos.getItems().addAll(serviciosMoveImpl.getAllMove()
-                    .get());
-            listViewPokemon.getItems().clear();
-            listViewPokemon.getItems().addAll(serviciosPokemonImpl.getAllPokemon().get());
-        } else {
-            if (serviciosMoveImpl.getAllMove().isRight()) {
-                a.setContentText(serviciosPokemonImpl.getAllPokemon().getLeft());
-            } else {
-                a.setContentText(serviciosMoveImpl.getAllMove().getLeft());
-            }
-            a.showAndWait();
-        }
-    }
-
     @FXML
     private void onActCombo() {
         listViewMovimientos.getItems().add(comboBoxMovimientos.getValue());
         comboBoxMovimientos.getSelectionModel().clearSelection();
+    }
+
+    public void actualizar(){
+        comboBoxMovimientos.getItems().clear();
+        comboBoxMovimientos.getItems().addAll(serviciosMoveImpl.getAllMove()
+                .get());
     }
 }

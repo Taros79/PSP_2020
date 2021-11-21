@@ -86,6 +86,7 @@ public class PantallaPrincipal implements Initializable {
                 log.error(e.getMessage());
             }
         }
+        addPokemonController.actualizar();
         pantallaPrincipal.setCenter(pantallaAddPokemon);
     }
 }

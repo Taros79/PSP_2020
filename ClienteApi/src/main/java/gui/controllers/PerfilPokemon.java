@@ -20,7 +20,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class PerfilPokemon implements Initializable {
 
@@ -28,7 +27,7 @@ public class PerfilPokemon implements Initializable {
     ServiciosMoveImpl serviciosMoveImpl;
 
     @FXML
-    private TextArea labelDefinicion;
+    private TextArea textAreaDefinicion;
     @FXML
     private Label labelMovimiento;
     @FXML
@@ -76,6 +75,7 @@ public class PerfilPokemon implements Initializable {
         };
         tarea.setOnSucceeded(workerStateEvent -> {
             listViewMovimientos.getItems().clear();
+            textAreaDefinicion.clear();
             Try.of(() -> tarea.get()
                             .peek(moves -> {
                                 listViewMovimientos.getItems().addAll(moves);
@@ -114,6 +114,7 @@ public class PerfilPokemon implements Initializable {
         };
         tarea.setOnSucceeded(workerStateEvent -> {
             listViewMovimientos.getItems().clear();
+            textAreaDefinicion.clear();
             Try.of(() -> tarea.get()
                             .peek(moves -> {
                                 listViewMovimientos.getItems().addAll(moves);
@@ -195,7 +196,7 @@ public class PerfilPokemon implements Initializable {
                 Try.of(() -> tarea.get()
                                 .peek(movesItems -> {
                                     labelMovimiento.setText(listViewMovimientos.getSelectionModel().getSelectedItem().getName());
-                                    labelDefinicion.setText(movesItems.getDescripcion());
+                                    textAreaDefinicion.setText(movesItems.getDescripcion());
                                 })
                                 .peekLeft(s -> {
                                     a.setContentText(s);

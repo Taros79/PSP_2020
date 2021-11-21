@@ -18,7 +18,7 @@
             <Font name="System Bold" size="26.0" />
         </font>
     </Label>
-    <TextArea fx:id="labelDefinicion" layoutX="89.0" layoutY="280.0" prefHeight="136.0" prefWidth="417.0" wrapText="true" />
+    <TextArea fx:id="textAreaDefinicion" layoutX="89.0" layoutY="280.0" prefHeight="136.0" prefWidth="417.0" wrapText="true" />
    <Button layoutX="201.0" layoutY="158.0" mnemonicParsing="false" onAction="#borrarPokemon" prefHeight="47.0" prefWidth="137.0" text="Borrar Pokemon">
       <font>
          <Font name="System Bold" size="13.0" />
