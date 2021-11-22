@@ -1,7 +1,6 @@
 package servicios;
 
 import dao.modelo.Move;
-import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 
 import java.util.List;
@@ -17,4 +16,6 @@ public interface ServiciosMove {
     Either<String, Move> deleteMove(String id);
 
     Either<String, Move> getDatosMovimiento(String id);
+
+    Either<String, Move> actualizarMove(Move m);
 }

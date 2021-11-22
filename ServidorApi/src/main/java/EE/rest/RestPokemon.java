@@ -86,4 +86,22 @@ public class RestPokemon {
                             .build())
                     .build();
     }
+
+    @PUT
+    public Response actualizarPokemon(Pokemon p) {
+        Response response;
+        Pokemon pokemon = sp.actualizarPokemon(p);
+
+        if (pokemon != null) {
+            response = Response.ok().entity(pokemon).build();
+        } else {
+            response = Response.status(Response.Status.BAD_REQUEST)
+                    .entity(ApiError.builder()
+                            .message("Error al actualizar")
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
+        }
+        return response;
+    }
 }

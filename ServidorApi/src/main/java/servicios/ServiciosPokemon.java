@@ -3,6 +3,7 @@ package servicios;
 import EE.errores.ApiError;
 import EE.errores.OtraException;
 import dao.DaoPokemon;
+import dao.modelo.Move;
 import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
@@ -36,11 +37,15 @@ public class ServiciosPokemon {
     public Pokemon addPokemon(Pokemon u)
     {
         final StringBuilder error = new StringBuilder();
-        validator.validate(u).stream().forEach(
+        validator.validate(u).forEach(
                 testDtoConstraintViolation ->
                         error.append(testDtoConstraintViolation.getMessage()));
         if (!error.toString().isEmpty())
             throw new OtraException(error.toString());
         return dao.addPokemon(u);
+    }
+
+    public Pokemon actualizarPokemon (Pokemon p) {
+        return dao.actualizarPokemon(p);
     }
 }

@@ -43,4 +43,8 @@ public class ServiciosMove {
             throw new OtraException(error.toString());
         return dao.addMove(u);
     }
+
+    public Move actualizarMove (Move m) {
+        return dao.actualizarMove(m);
+    }
 }

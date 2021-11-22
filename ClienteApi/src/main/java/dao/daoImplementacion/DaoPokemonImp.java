@@ -5,6 +5,7 @@ import dao.modelo.Move;
 import dao.modelo.Pokemon;
 import dao.retrofit.PokemonApi;
 import dao.utils.ConfigurationSingleton_OkHttpClient;
+import dao.utils.Constantes;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import retrofit2.Response;
@@ -16,7 +17,7 @@ import java.util.Objects;
 @Log4j2
 public class DaoPokemonImp implements DaoPokemon {
 
-   public ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient;
+    public ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient;
 
     @Inject
     public DaoPokemonImp(ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient) {
@@ -36,11 +37,11 @@ public class DaoPokemonImp implements DaoPokemon {
                 assert response.body() != null;
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Lista pokemones no valida");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -55,11 +56,11 @@ public class DaoPokemonImp implements DaoPokemon {
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Pokemon no valido");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -74,11 +75,11 @@ public class DaoPokemonImp implements DaoPokemon {
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Pokemon no valido");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -93,11 +94,11 @@ public class DaoPokemonImp implements DaoPokemon {
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Pokemon no valido");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -112,11 +113,29 @@ public class DaoPokemonImp implements DaoPokemon {
             if (response.isSuccessful() && Objects.requireNonNull(response.body()).getMoves() != null) {
                 resultado = Either.right(response.body().getMoves());
             } else {
-                resultado = Either.left("WHOs IS TATH POKEMONE!!!");
+                resultado = Either.left(Constantes.WHOs_IS_TATH_POKEMONE);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
+        }
+        return resultado;
+    }
+
+    @Override
+    public Either<String, Pokemon> actualizarPokemon(Pokemon p) {
+        Either<String, Pokemon> resultado;
+        try {
+            Response<Pokemon> response = pokemonApi.actualizarPokemon(p).execute();
+
+            if (response.isSuccessful()) {
+                resultado = Either.right(response.body());
+            } else {
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }

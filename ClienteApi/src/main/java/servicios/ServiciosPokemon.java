@@ -17,4 +17,6 @@ public interface ServiciosPokemon {
     Either<String, Pokemon> deletePokemon(String id);
 
     Either<String, List<Move>> getMovimientosPorId(String id);
+
+    Either<String, Pokemon> actualizarPokemon(Pokemon p);
 }

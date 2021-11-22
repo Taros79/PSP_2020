@@ -1,12 +1,9 @@
 package servicios.serviciosImplementacion;
 
 import dao.DaoMove;
-import dao.DaoPokemon;
 import dao.modelo.Move;
-import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 import servicios.ServiciosMove;
-import servicios.ServiciosPokemon;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -42,5 +39,10 @@ public class ServiciosMoveImpl implements ServiciosMove {
     @Override
     public Either<String, Move> getDatosMovimiento(String id) {
         return daoMove.getDatosMovimiento(id);
+    }
+
+    @Override
+    public Either<String, Move> actualizarMove(Move m) {
+        return daoMove.actualizarMove(m);
     }
 }

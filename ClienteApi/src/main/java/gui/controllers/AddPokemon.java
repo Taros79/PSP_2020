@@ -2,6 +2,7 @@ package gui.controllers;
 
 import dao.modelo.Move;
 import dao.modelo.Pokemon;
+import gui.utils.Constantes;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import javafx.concurrent.Task;
@@ -15,12 +16,12 @@ import servicios.serviciosImplementacion.ServiciosPokemonImpl;
 import javax.inject.Inject;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AddPokemon implements Initializable {
 
+    @FXML
+    private ComboBox<String> comboBoxImagenes;
     @FXML
     private ListView<Move> listViewMovimientos;
     @FXML
@@ -28,25 +29,24 @@ public class AddPokemon implements Initializable {
     @FXML
     private TextField textFieldNombre;
     @FXML
-    private TextField textFieldImagen;
-    @FXML
     private DatePicker datePicker;
     @FXML
     private ComboBox<Move> comboBoxMovimientos;
     @FXML
     private PantallaPrincipal pantallaPrincipal;
     private Alert a;
-    ServiciosMoveImpl serviciosMoveImpl;
-    ServiciosPokemonImpl serviciosPokemonImpl;
 
-    public void setPantallaPrincipal(PantallaPrincipal pantallaPrincipal) {
-        this.pantallaPrincipal = pantallaPrincipal;
-    }
+    private ServiciosMoveImpl serviciosMoveImpl;
+    private ServiciosPokemonImpl serviciosPokemonImpl;
 
     @Inject
     public AddPokemon(ServiciosMoveImpl serviciosMoveImpl, ServiciosPokemonImpl serviciosPokemonImpl) {
         this.serviciosMoveImpl = serviciosMoveImpl;
         this.serviciosPokemonImpl = serviciosPokemonImpl;
+    }
+
+    public void setPantallaPrincipal(PantallaPrincipal pantallaPrincipal) {
+        this.pantallaPrincipal = pantallaPrincipal;
     }
 
     @Override
@@ -66,12 +66,18 @@ public class AddPokemon implements Initializable {
             }
             a.showAndWait();
         }
+        comboBoxImagenes.getItems().addAll("http://assets.stickpng.com/images/5a8303fdabc3d121aba71231.png", "https://www.pinclipart.com/picdir/middle/333-3332784_perro-png-personajes-de-color-amarillo-clipart.png",
+                "https://img2.freepng.es/20180714/uy/kisspng-cartoon-network-drawing-character-dexter-clipart-5b4aaebd69ab67.4772045215316210534328.jpg", "https://i.pinimg.com/originals/82/a6/60/82a660275d9ec11ea48e77da34a46f65.png",
+                "https://w7.pngwing.com/pngs/844/774/png-transparent-joker-evil-clown-clown-holding-a-dagger-vertebrate-fictional-character-funny.png", "http://img3.wikia.nocookie.net/__cb20110112163657/littlebigplanet/es/images/9/98/Personaje.png",
+                "https://png.pngtree.com/png-clipart/20201204/ourmid/pngtree-banana-character-funny-fruit-glasses-kawaii-png-image_2504940.jpg", "https://www.clipartmax.com/png/middle/135-1358377_trolls-cooper-los-trolls-personajes-png.png",
+                "https://img.pixers.pics/pho_wat(s3:700/FO/18/38/84/48/9/700_FO183884489_56351a859cb90210cd4a02ced394f592,700,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,650,jpg)/cortinas-opacas-acuarela-ilustracion-personaje-de-dibujos-animados-gracioso-lavado-gris-gordo-gato.jpg.jpg", "https://toppng.com/uploads/preview/barney-personajes-barney-barney-png-transparent-11562926736e638pxyl1g.png",
+                "https://upload.wikimedia.org/wikipedia/commons/b/be/Dise%C3%B1o_personaje.png", "https://cdn.goconqr.com/uploads/media/image/15797344/desktop_a2ba667f-b742-4b96-8fbb-f4f20f7b7f05.jpg");
     }
 
     @FXML
     private void onActAdd() {
         Pokemon p = new Pokemon(
-                textFieldNombre.getText(), textFieldImagen.getText(),
+                textFieldNombre.getText(), comboBoxImagenes.getSelectionModel().getSelectedItem(),
                 datePicker.getValue().atStartOfDay(), new ArrayList<>(listViewMovimientos.getItems()));
         var tarea = new Task<Either<String, Pokemon>>() {
             @Override
@@ -81,13 +87,13 @@ public class AddPokemon implements Initializable {
         };
         tarea.setOnSucceeded(workerStateEvent -> {
             textFieldNombre.clear();
-            textFieldImagen.clear();
+            comboBoxImagenes.getSelectionModel().clearSelection();
             listViewMovimientos.getItems().clear();
             Try.of(() -> tarea.get()
                             .peek(pokemon -> {
                                 listViewPokemon.getItems().clear();
                                 listViewPokemon.getItems().addAll(serviciosPokemonImpl.getAllPokemon().get());
-                                a.setContentText("Pokemon añadido");
+                                a.setContentText(Constantes.AGREGADO_CON_EXITO);
                                 a.showAndWait();
                             })
                             .peekLeft(s -> {
@@ -112,13 +118,16 @@ public class AddPokemon implements Initializable {
 
     @FXML
     private void onActCombo() {
-        listViewMovimientos.getItems().add(comboBoxMovimientos.getValue());
         comboBoxMovimientos.getSelectionModel().clearSelection();
+        listViewMovimientos.getItems().add(comboBoxMovimientos.getValue());
     }
 
-    public void actualizar(){
+    public void actualizar() {
         comboBoxMovimientos.getItems().clear();
         comboBoxMovimientos.getItems().addAll(serviciosMoveImpl.getAllMove()
                 .get());
+        listViewPokemon.getItems().clear();
+        listViewPokemon.getItems().addAll(serviciosPokemonImpl.getAllPokemon().get());
+        listViewMovimientos.getItems().clear();
     }
 }

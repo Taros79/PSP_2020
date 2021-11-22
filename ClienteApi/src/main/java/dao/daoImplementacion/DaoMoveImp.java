@@ -4,6 +4,7 @@ import dao.DaoMove;
 import dao.modelo.Move;
 import dao.retrofit.PokemonApi;
 import dao.utils.ConfigurationSingleton_OkHttpClient;
+import dao.utils.Constantes;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import retrofit2.Response;
@@ -35,11 +36,11 @@ public class DaoMoveImp implements DaoMove {
                 assert response.body() != null;
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Lista de movimientos no valida");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -54,11 +55,11 @@ public class DaoMoveImp implements DaoMove {
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Movimiento no valido");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -72,11 +73,11 @@ public class DaoMoveImp implements DaoMove {
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Movimiento no valido");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -91,11 +92,11 @@ public class DaoMoveImp implements DaoMove {
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Movimiento no valido");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -110,11 +111,29 @@ public class DaoMoveImp implements DaoMove {
                 Objects.requireNonNull(response.body());
                 resultado = Either.right(response.body());
             } else {
-                resultado = Either.left("Movimiento no valido");
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left("Error bbdd");
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
+        }
+        return resultado;
+    }
+
+    @Override
+    public Either<String, Move> actualizarMove(Move m) {
+        Either<String, Move> resultado;
+        try {
+            Response<Move> response = pokemonApi.actualizarMove(m).execute();
+
+            if (response.isSuccessful()) {
+                resultado = Either.right(response.body());
+            } else {
+                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }

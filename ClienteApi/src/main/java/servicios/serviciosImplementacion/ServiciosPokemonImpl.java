@@ -41,4 +41,9 @@ public class ServiciosPokemonImpl implements ServiciosPokemon {
     public Either<String, List<Move>> getMovimientosPorId(String id) {
         return daoPokemons.getMovimientosPorId(id);
     }
+
+    @Override
+    public Either<String, Pokemon> actualizarPokemon(Pokemon p) {
+        return daoPokemons.actualizarPokemon(p);
+    }
 }

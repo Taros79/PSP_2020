@@ -59,4 +59,8 @@ public class DaoPokemon {
                 .filter(pokemon -> pokemon.getId().equals(id))
                 .findFirst().orElse(null));
     }
+
+    public Pokemon actualizarPokemon (Pokemon p) {
+        return pokemones.set(Integer.parseInt(p.getId())-1, p);
+    }
 }

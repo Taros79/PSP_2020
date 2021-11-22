@@ -25,24 +25,19 @@ public class DaoMove {
 
     }
 
-    public Either<ApiError, Move> getMove(String id)
-    {
+    public Either<ApiError, Move> getMove(String id) {
         Move m = moves.stream()
                 .filter(move -> move.getId().equals(id))
                 .findFirst().orElse(null);
         if (m!=null) {
             return Either.right(m);
-        }
-        else
-        {
+        } else {
             return Either.left(new ApiError("error not found", LocalDateTime.now()));
         }
     }
 
-    public List<Move> getAll()
-    {
-        if (moves.size()==0)
-        {
+    public List<Move> getAll() {
+        if (moves.size()==0) {
             throw new CustomException("lista vacia", Response.Status.NOT_FOUND);
         }
         return moves;
@@ -59,5 +54,9 @@ public class DaoMove {
         return moves.remove(moves.stream()
                 .filter(move -> move.getId().equals(id))
                 .findFirst().orElse(null));
+    }
+
+    public Move actualizarMove (Move m) {
+        return moves.set(Integer.parseInt(m.getId())-1, m);
     }
 }

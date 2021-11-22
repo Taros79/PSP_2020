@@ -55,13 +55,6 @@ public class RestMove {
         return sm.getAll();
     }
 
-    /*@POST
-    public Move addMove(@QueryParam("id") String id,
-                        @QueryParam("name") String name,
-                        @QueryParam("descripcion") String descripcion) {
-        return sm.addMove(new Move(id, name, descripcion));
-    }*/
-
     @DELETE
     public Response delMove(@QueryParam("id") String id) {
         if (sm.borrarMove(id))
@@ -92,4 +85,23 @@ public class RestMove {
         }
         return response;
     }
+
+    @PUT
+    public Response actualizarMove(Move m) {
+        Response response;
+        Move move = sm.actualizarMove(m);
+
+        if (move != null) {
+            response = Response.ok().entity(move).build();
+        } else {
+            response = Response.status(Response.Status.BAD_REQUEST)
+                    .entity(ApiError.builder()
+                            .message("Error al actualizar")
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
+        }
+        return response;
+    }
+
 }

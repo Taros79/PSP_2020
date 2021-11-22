@@ -41,6 +41,7 @@ module notoques {
     exports gui;
     exports gui.main;
     exports gui.controllers;
+    exports gui.utils;
     exports dao.modelo;
     exports dao.daoImplementacion;
     exports config;

@@ -1,10 +1,10 @@
 package gui.controllers;
 
 import dao.modelo.Move;
+import gui.utils.Constantes;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -35,15 +35,16 @@ public class PerfilMovimiento implements Initializable {
     @FXML
     private PantallaPrincipal pantallaPrincipal;
     private Alert a;
-    ServiciosMoveImpl serviciosMoveImpl;
 
-    public void setPantallaPrincipal(PantallaPrincipal pantallaPrincipal) {
-        this.pantallaPrincipal = pantallaPrincipal;
-    }
+    private ServiciosMoveImpl serviciosMoveImpl;
 
     @Inject
     public PerfilMovimiento(ServiciosMoveImpl serviciosMoveImpl) {
         this.serviciosMoveImpl = serviciosMoveImpl;
+    }
+
+    public void setPantallaPrincipal(PantallaPrincipal pantallaPrincipal) {
+        this.pantallaPrincipal = pantallaPrincipal;
     }
 
     @Override
@@ -109,7 +110,7 @@ public class PerfilMovimiento implements Initializable {
                                 textAreaDescripcion.setText(moves.getDescripcion());
                             })
                             .peekLeft(s -> {
-                               a.setContentText(s);
+                                a.setContentText(s);
                                 a.showAndWait();
                             }))
                     .onFailure(throwable -> {
@@ -125,10 +126,6 @@ public class PerfilMovimiento implements Initializable {
         });
         new Thread(tarea).start();
         this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
-    }
-
-    @FXML
-    private void onActBorrar() {
     }
 
     @FXML
@@ -148,14 +145,16 @@ public class PerfilMovimiento implements Initializable {
                                 comboBoxMovimientos.getItems().clear();
                                 comboBoxMovimientos.getItems().addAll(serviciosMoveImpl.getAllMove()
                                         .get());
+                                a.setContentText(Constantes.AGREGADO_CON_EXITO);
+                                a.showAndWait();
                             })
                             .peekLeft(s -> {
                                 a.setContentText(s);
                                 a.showAndWait();
                             }))
-                    .onFailure(throwable -> {/*
+                    .onFailure(throwable -> {
                         a.setContentText(throwable.getMessage());
-                        a.showAndWait();*/
+                        a.showAndWait();
                     });
             this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
 
@@ -170,8 +169,51 @@ public class PerfilMovimiento implements Initializable {
     }
 
     @FXML
-    private void onActActualizar() {
+    private void onActBorrar() {
+        if (!comboBoxMovimientos.getSelectionModel().isEmpty()) {
+            String id = comboBoxMovimientos.getSelectionModel().getSelectedItem().getId();
+            var task = new Task<Either<String, Move>>() {
+                @Override
+                protected Either<String, Move> call() {
+                    return serviciosMoveImpl.deleteMove(id);
+                }
+            };
+            task.setOnSucceeded(workerStateEvent -> {
+                Try.of(() -> task.get()
+                                .peek(move -> {
+                                    comboBoxMovimientos.getItems().clear();
+                                    comboBoxMovimientos.getItems().addAll(serviciosMoveImpl.getAllMove().get());
+                                    a.setContentText(Constantes.BORRADO_CON_EXITO);
+                                    a.showAndWait();
+                                })
+                                .peekLeft(s -> {
+                                    a.setContentText(s);
+                                    a.showAndWait();
+                                }))
+                        .onFailure(throwable -> {
+                            a.setContentText(throwable.getMessage());
+                            a.showAndWait();
+                        });
+                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+            });
+            task.setOnFailed(workerStateEvent -> {
+                a.setContentText(workerStateEvent.getSource().getException().getMessage());
+                a.showAndWait();
+                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+            });
+            new Thread(task).start();
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a.setContentText("Constantes.ELIGE_EL_ESTUCHE");
+            a.showAndWait();
+        }
+    }
 
+    @FXML
+    private void onActActualizar() {
+        Move nuevoM = new Move(comboBoxMovimientos.getSelectionModel().getSelectedItem().getId()
+                , textFieldNombreAdd.getText(), textAreaDescripcionAdd.getText());
+        serviciosMoveImpl.actualizarMove(nuevoM).get();
     }
 
 

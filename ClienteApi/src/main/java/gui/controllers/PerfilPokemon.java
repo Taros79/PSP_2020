@@ -2,6 +2,7 @@ package gui.controllers;
 
 import dao.modelo.Move;
 import dao.modelo.Pokemon;
+import gui.utils.Constantes;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import javafx.concurrent.Task;
@@ -23,9 +24,6 @@ import java.util.ResourceBundle;
 
 public class PerfilPokemon implements Initializable {
 
-    ServiciosPokemonImpl serviciosPokemonImpl;
-    ServiciosMoveImpl serviciosMoveImpl;
-
     @FXML
     private TextArea textAreaDefinicion;
     @FXML
@@ -45,6 +43,9 @@ public class PerfilPokemon implements Initializable {
     public void setPantallaPrincipal(PantallaPrincipal pantallaPrincipal) {
         this.pantallaPrincipal = pantallaPrincipal;
     }
+
+    private ServiciosPokemonImpl serviciosPokemonImpl;
+    private ServiciosMoveImpl serviciosMoveImpl;
 
     @Inject
     public PerfilPokemon(ServiciosPokemonImpl serviciosPokemonImpl, ServiciosMoveImpl serviciosMoveImpl) {
@@ -84,7 +85,7 @@ public class PerfilPokemon implements Initializable {
                                         .getImage()));
                             })
                             .peekLeft(s -> {
-                                imageView.setImage(new Image("https://i.pinimg.com/originals/19/23/da/1923da24d71bc552b067ee76b93cf15e.jpg"));
+                                imageView.setImage(new Image(Constantes.WHOs_IS_TATH_POKEMONE_IMG));
                                 a.setContentText(s);
                                 a.showAndWait();
                             }))
@@ -123,7 +124,7 @@ public class PerfilPokemon implements Initializable {
                                         .getImage()));
                             })
                             .peekLeft(s -> {
-                                imageView.setImage(new Image("https://i.pinimg.com/originals/19/23/da/1923da24d71bc552b067ee76b93cf15e.jpg"));
+                                imageView.setImage(new Image(Constantes.WHOs_IS_TATH_POKEMONE_IMG));
                                 a.setContentText(s);
                                 a.showAndWait();
                             }))
@@ -158,9 +159,9 @@ public class PerfilPokemon implements Initializable {
                                 comboBoxPokemones.getItems().clear();
                                 comboBoxPokemones.getItems().addAll(
                                         new ArrayList<>(serviciosPokemonImpl.getAllPokemon()
-                                        .get()));
-                                imageView.setImage(new Image("https://i.pinimg.com/originals/19/23/da/1923da24d71bc552b067ee76b93cf15e.jpg"));
-                                a.setContentText("Pokemon borrado con exito");
+                                                .get()));
+                                imageView.setImage(new Image(Constantes.WHOs_IS_TATH_POKEMONE_IMG));
+                                a.setContentText(Constantes.BORRADO_CON_EXITO);
                                 a.showAndWait();
                             })
                             .peekLeft(s -> {
@@ -218,7 +219,7 @@ public class PerfilPokemon implements Initializable {
         }
     }
 
-    public void actualizar(){
+    public void actualizar() {
         comboBoxPokemones.getItems().clear();
         comboBoxPokemones.getItems().addAll(new ArrayList<>(serviciosPokemonImpl.getAllPokemon()
                 .get()));
