@@ -1,7 +1,6 @@
 package EE.rest;
 
 import EE.errores.ApiError;
-import EE.filtros.Writer;
 import dao.modelo.Move;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -33,7 +32,6 @@ public class RestMove {
     //@Context HttpServletRequest request;
 
     @GET
-    @Writer
     @Path("/{id}")
     public Response getMove(@PathParam("id") String id) {
         AtomicReference<Response> r = new AtomicReference();

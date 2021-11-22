@@ -118,16 +118,61 @@ public class AddPokemon implements Initializable {
 
     @FXML
     private void onActCombo() {
-        comboBoxMovimientos.getSelectionModel().clearSelection();
-        listViewMovimientos.getItems().add(comboBoxMovimientos.getValue());
+        listViewMovimientos.getItems().add(comboBoxMovimientos.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    private void onActActualizar() {
+        Pokemon nuevoP = new Pokemon(listViewPokemon.getSelectionModel().getSelectedItem().getId()
+                , textFieldNombre.getText(), comboBoxImagenes.getSelectionModel().getSelectedItem()
+                , datePicker.getValue().atStartOfDay(), listViewMovimientos.getItems());
+
+        var tarea = new Task<Either<String, Pokemon>>() {
+            @Override
+            protected Either<String, Pokemon> call() {
+                return serviciosPokemonImpl.actualizarPokemon(nuevoP);
+            }
+        };
+        tarea.setOnSucceeded(workerStateEvent -> {
+            Try.of(() -> tarea.get()
+                            .peek(pokemon -> {
+                                actualizar();
+                                comboBoxMovimientos.getItems().clear();
+                                comboBoxMovimientos.getItems().addAll(
+                                        serviciosMoveImpl.getAllMove().get());
+                                a.setContentText(Constantes.AGREGADO_CON_EXITO);
+                                a.showAndWait();
+                            })
+                            .peekLeft(s -> {
+                                a.setContentText(s);
+                                a.showAndWait();
+                            }))
+                    .onFailure(throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+
+        });
+        tarea.setOnFailed(workerStateEvent -> {
+            a.setContentText(workerStateEvent.getSource().getException().getMessage());
+            a.showAndWait();
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+        });
+        new Thread(tarea).start();
+        this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
     public void actualizar() {
+        comboBoxImagenes.getSelectionModel().clearSelection();
         comboBoxMovimientos.getItems().clear();
         comboBoxMovimientos.getItems().addAll(serviciosMoveImpl.getAllMove()
                 .get());
         listViewPokemon.getItems().clear();
         listViewPokemon.getItems().addAll(serviciosPokemonImpl.getAllPokemon().get());
         listViewMovimientos.getItems().clear();
+        textFieldNombre.clear();
     }
+
+
 }

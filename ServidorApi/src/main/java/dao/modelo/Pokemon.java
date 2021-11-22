@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -20,4 +21,16 @@ public class Pokemon {
     private LocalDateTime fechaDescubrimiento;
     private List<Move> moves;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pokemon)) return false;
+        Pokemon pokemon = (Pokemon) o;
+        return Objects.equals(getId(), pokemon.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }

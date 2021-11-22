@@ -19,6 +19,9 @@ public class DaoMove {
         moves.add(new Move("1","Poner un ceraco", "Movimiento estrella de Oscar, " +
                 "el cual, mediante un sutil movimiento de mano te hunde en la miseria mas absoluta. " +
                 "Especialmente eficaz contra el alumnado."));
+
+        moves.add(new Move("2","Noche en vela", "Tu oponente se queda con un profundo, " +
+                "insomnio durante tres noches seguidas. Ganas tareas acabadas pero pierdes cordura."));
     }
 
     public DaoMove() {
@@ -57,6 +60,7 @@ public class DaoMove {
     }
 
     public Move actualizarMove (Move m) {
-        return moves.set(Integer.parseInt(m.getId())-1, m);
+        int id =  moves.indexOf(m);
+        return moves.set(id, m);
     }
 }

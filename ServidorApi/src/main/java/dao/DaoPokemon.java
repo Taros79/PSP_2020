@@ -61,6 +61,7 @@ public class DaoPokemon {
     }
 
     public Pokemon actualizarPokemon (Pokemon p) {
-        return pokemones.set(Integer.parseInt(p.getId())-1, p);
+        int id =  pokemones.indexOf(p);
+        return pokemones.set(id, p);
     }
 }

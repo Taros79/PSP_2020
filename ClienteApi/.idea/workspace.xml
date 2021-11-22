@@ -5,31 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0509961-e2a3-4856-a4ff-08bebc38d86e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/retrofit/Apuntes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/utils/Constantes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/gui/utils/Constantes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DaoMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DaoMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DaoPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DaoPokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoMoveImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoMoveImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/daoImplementacion/DaoPokemonImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/retrofit/Apuntes" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/controllers/AddPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/AddPokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilMovimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilMovimiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/controllers/PerfilPokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/gui/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/ServiciosMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/ServiciosMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/ServiciosPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/ServiciosPokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosMoveImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosMoveImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/addPokemon.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/addPokemon.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/perfilPokemon.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/perfilPokemon.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/perfilMovimiento.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/perfilMovimiento.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/filtros/Filtered.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/filtros/Reader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/filtros/RequestReaderString.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/filtros/Writer.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestMove.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoMove.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/servicios/ServiciosMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/servicios/ServiciosMove.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/Errores.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Move.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Move.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/modelo/Pokemon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/servicios/ServiciosPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/servicios/ServiciosPokemon.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +116,8 @@
       <workItem from="1637436351146" duration="13486000" />
       <workItem from="1637477854637" duration="17825000" />
       <workItem from="1637496822970" duration="7653000" />
-      <workItem from="1637515170307" duration="22108000" />
+      <workItem from="1637515170307" duration="22838000" />
+      <workItem from="1637542757872" duration="9345000" />
     </task>
     <task id="LOCAL-00001" summary="Servidor/Cliente 1.0">
       <created>1637411850818</created>
@@ -147,7 +140,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637505781088</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Servidor/Cliente 2.4 falta update poke">
+      <created>1637541745311</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1637541745311</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -158,6 +158,9 @@
     <MESSAGE value="Servidor/Cliente 1.0" />
     <MESSAGE value="Servidor/Cliente 2.2" />
     <MESSAGE value="Servidor/Cliente 2.3 falta update y borrar" />
-    <option name="LAST_COMMIT_MESSAGE" value="Servidor/Cliente 2.3 falta update y borrar" />
+    <MESSAGE value="Servidor/Cliente 2.4 falta update poke" />
+    <option name="LAST_COMMIT_MESSAGE" value="Servidor/Cliente 2.4 falta update poke" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

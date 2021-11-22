@@ -1,8 +1,6 @@
 package EE.rest;
 
 import EE.errores.ApiError;
-import EE.filtros.Writer;
-import dao.modelo.Move;
 import dao.modelo.Pokemon;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -34,7 +32,6 @@ public class RestPokemon {
     //@Context HttpServletRequest request;
 
     @GET
-    @Writer
     @Path("/{id}")
     public Response getPokemon(@PathParam("id") String id) {
         AtomicReference<Response> r = new AtomicReference();

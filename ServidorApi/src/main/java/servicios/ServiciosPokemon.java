@@ -3,7 +3,6 @@ package servicios;
 import EE.errores.ApiError;
 import EE.errores.OtraException;
 import dao.DaoPokemon;
-import dao.modelo.Move;
 import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;

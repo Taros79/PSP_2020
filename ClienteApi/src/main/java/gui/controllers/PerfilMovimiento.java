@@ -213,7 +213,42 @@ public class PerfilMovimiento implements Initializable {
     private void onActActualizar() {
         Move nuevoM = new Move(comboBoxMovimientos.getSelectionModel().getSelectedItem().getId()
                 , textFieldNombreAdd.getText(), textAreaDescripcionAdd.getText());
-        serviciosMoveImpl.actualizarMove(nuevoM).get();
+        var tarea = new Task<Either<String, Move>>() {
+            @Override
+            protected Either<String, Move> call() {
+                return serviciosMoveImpl.actualizarMove(nuevoM);
+            }
+        };
+        tarea.setOnSucceeded(workerStateEvent -> {
+            Try.of(() -> tarea.get()
+                            .peek(moves -> {
+                                textAreaDescripcionAdd.clear();
+                                textFieldNombreAdd.clear();
+                                textAreaDescripcion.clear();
+                                comboBoxMovimientos.getItems().clear();
+                                comboBoxMovimientos.getItems().addAll(
+                                        serviciosMoveImpl.getAllMove().get());
+                                a.setContentText(Constantes.AGREGADO_CON_EXITO);
+                                a.showAndWait();
+                            })
+                            .peekLeft(s -> {
+                                a.setContentText(s);
+                                a.showAndWait();
+                            }))
+                    .onFailure(throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+
+        });
+        tarea.setOnFailed(workerStateEvent -> {
+            a.setContentText(workerStateEvent.getSource().getException().getMessage());
+            a.showAndWait();
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+        });
+        new Thread(tarea).start();
+        this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
 
