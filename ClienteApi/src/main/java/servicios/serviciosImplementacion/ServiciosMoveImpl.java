@@ -9,7 +9,8 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class ServiciosMoveImpl implements ServiciosMove {
-    public DaoMove daoMove;
+
+    private DaoMove daoMove;
 
     @Inject
     public ServiciosMoveImpl(DaoMove daoMove) {

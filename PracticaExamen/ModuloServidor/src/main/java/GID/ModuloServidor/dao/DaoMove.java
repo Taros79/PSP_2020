@@ -1,9 +1,8 @@
-package dao;
+package GID.ModuloServidor.dao;
 
 import EE.errores.ApiError;
 import EE.errores.CustomException;
 import dao.modelo.Move;
-import dao.modelo.Pokemon;
 import io.vavr.control.Either;
 import jakarta.ws.rs.core.Response;
 

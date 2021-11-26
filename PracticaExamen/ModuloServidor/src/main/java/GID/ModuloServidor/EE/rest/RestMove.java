@@ -1,4 +1,4 @@
-package EE.rest;
+package GID.ModuloServidor.EE.rest;
 
 import EE.errores.ApiError;
 import dao.modelo.Move;

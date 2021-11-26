@@ -1,4 +1,4 @@
-package EE.rest;
+package GID.ModuloServidor.EE.rest;
 
 import EE.errores.ApiError;
 import dao.modelo.Pokemon;
@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicReference;
 @Path("/pokemon")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class RestPokemon {
+public class estPokemon {
 
     private ServiciosPokemon sp;
 

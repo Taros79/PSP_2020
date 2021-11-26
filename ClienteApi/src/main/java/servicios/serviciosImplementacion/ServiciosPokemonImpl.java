@@ -10,7 +10,8 @@ import javax.inject.Inject;
 import java.util.List;
 
 public class ServiciosPokemonImpl implements ServiciosPokemon {
-    public DaoPokemon daoPokemons;
+
+    private DaoPokemon daoPokemons;
 
     @Inject
     public ServiciosPokemonImpl(DaoPokemon daoPokemons) {

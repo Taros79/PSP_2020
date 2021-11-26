@@ -20,9 +20,19 @@ public class DaoPokemon {
                 new ArrayList<>(List.of(new Move("1", "Poner un ceraco", "Movimiento estrella de Oscar, " +
                         "el cual, mediante un sutil movimiento de mano te hunde en la miseria mas absoluta. " +
                         "Especialmente eficaz contra el alumnado.")))));
-        pokemones.add(new Pokemon("2", "Stefan", "https://l450v.alamy.com/450ves/2by026c/graciosos-personajes-2by026c.jpg", LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("2", "Stefan", "https://l450v.alamy.com/450ves/2by026c/graciosos-personajes-2by026c.jpg", LocalDateTime.now()
+                , new ArrayList<>(List.of(new Move("2","Noche en vela", "Tu oponente se queda con un profundo, " +
+                "insomnio durante tres noches seguidas. Ganas tareas acabadas pero pierdes cordura.")))));
         pokemones.add(new Pokemon("3", "Novillo", "https://notinerd.com/wp-content/uploads/2019/08/2-35.jpg", LocalDateTime.now(), new ArrayList<>()));
-        pokemones.add(new Pokemon("4", "Carlos", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4vIVxMfa16WzaQ4IOEXtAacXfV_9phZs65qHvI3fC_kK6kvxpfAHZINoLwUy37_jIVZk&usqp=CAU", LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("4", "Carlos", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4vIVxMfa16WzaQ4IOEXtAacXfV_9phZs65qHvI3fC_kK6kvxpfAHZINoLwUy37_jIVZk&usqp=CAU", LocalDateTime.now()
+                , new ArrayList<>(List.of(new Move("2","Noche en vela", "Tu oponente se queda con un profundo, " +
+                "insomnio durante tres noches seguidas. Ganas tareas acabadas pero pierdes cordura.")))));
+        pokemones.add(new Pokemon("5", "bot5", "https://cdn.pixabay.com/photo/2013/07/13/13/41/robot-161367_960_720.png", LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("6", "bot6", "https://cdn.pixabay.com/photo/2013/07/13/13/41/robot-161367_960_720.png", LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("7", "bot7", "https://cdn.pixabay.com/photo/2013/07/13/13/41/robot-161367_960_720.png", LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("8", "bot8", "https://cdn.pixabay.com/photo/2013/07/13/13/41/robot-161367_960_720.png", LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("9", "bot9", "https://cdn.pixabay.com/photo/2013/07/13/13/41/robot-161367_960_720.png", LocalDateTime.now(), new ArrayList<>()));
+        pokemones.add(new Pokemon("10", "bot10", "https://cdn.pixabay.com/photo/2013/07/13/13/41/robot-161367_960_720.png", LocalDateTime.now(), new ArrayList<>()));
     }
 
     public DaoPokemon() {
@@ -48,7 +58,7 @@ public class DaoPokemon {
     }
 
     public Pokemon addPokemon(Pokemon pokemon) {
-       int id = Integer.parseInt(pokemones.get(pokemones.size() - 1).getId()) + 1;
+        int id = Integer.parseInt(pokemones.get(pokemones.size() - 1).getId()) + 1;
         pokemon.setId(String.valueOf(id));
         pokemones.add(pokemon);
         return pokemon;
@@ -60,8 +70,8 @@ public class DaoPokemon {
                 .findFirst().orElse(null));
     }
 
-    public Pokemon actualizarPokemon (Pokemon p) {
-        int id =  pokemones.indexOf(p);
+    public Pokemon actualizarPokemon(Pokemon p) {
+        int id = pokemones.indexOf(p);
         return pokemones.set(id, p);
     }
 }
