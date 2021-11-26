@@ -5,39 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0509961-e2a3-4856-a4ff-08bebc38d86e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/Commons/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/Constantes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/JAXRSApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestMove.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPokemon.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/dao/DaoMove.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/dao/DaoPersona.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/dao/modelo/Persona.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/servicios/ServiciosPersona.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/webapp/WEB-INF/beans.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/webapp/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/retrofit/PokemonApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/utils/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/utils/Constantes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosMoveImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosMoveImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servicios/serviciosImplementacion/ServiciosPokemonImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/pantallaPrincipal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/pantallaPrincipal.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/Constantes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/EE/rest/RestPokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../ServidorApi/src/main/java/dao/DaoPokemon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/GID/Commons/Dao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPersona.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,6 +109,7 @@
       <workItem from="1637554982132" duration="2000" />
       <workItem from="1637605534182" duration="870000" />
       <workItem from="1637950497224" duration="310000" />
+      <workItem from="1637951820360" duration="505000" />
     </task>
     <task id="LOCAL-00001" summary="Servidor/Cliente 1.0">
       <created>1637411850818</created>
