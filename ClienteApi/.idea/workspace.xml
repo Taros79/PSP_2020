@@ -5,10 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0509961-e2a3-4856-a4ff-08bebc38d86e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/config/config.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/config/ConfigurationSingleton_Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/DaoPersona.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/daoImplementacion/DaoPersonaImp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/retrofit/PersonaApi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/utils/ConfigurationSingleton_OkHttpClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/utils/Constantes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/CDIJavafx.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/FXMLLoaderProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/Producers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/StartupScene.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/controllers/AddPersona.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/controllers/PantallaPrincipal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/main/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/utils/Constantes.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/servicios/ServiciosPersona.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/servicios/serviciosImplementacion/ServiciosPersonaImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/resources/fxml/addPersona.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/resources/fxml/pantallaPrincipal.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/GID/Commons/Dao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPersona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPersona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/dao/DaoPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/dao/DaoPersona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/servicios/ServiciosPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/servicios/ServiciosPersona.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +131,7 @@
       <workItem from="1637605534182" duration="870000" />
       <workItem from="1637950497224" duration="310000" />
       <workItem from="1637951820360" duration="505000" />
+      <workItem from="1637964900897" duration="4522000" />
     </task>
     <task id="LOCAL-00001" summary="Servidor/Cliente 1.0">
       <created>1637411850818</created>

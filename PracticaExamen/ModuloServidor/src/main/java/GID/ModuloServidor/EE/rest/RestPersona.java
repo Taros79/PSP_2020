@@ -45,5 +45,52 @@ public class RestPersona {
         return sp.getAll();
     }
 
+    @POST
+    public Response addPersona(Persona p) {
+        Response response;
+        Persona persona = sp.addPersona(p);
 
+        if (persona != null) {
+            response = Response.ok().entity(persona).build();
+        } else {
+            response = Response.status(Response.Status.NOT_MODIFIED)
+                    .entity(ApiError.builder()
+                            .message(Constantes.ERROR_CON_EL_OBJETO)
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
+        }
+        return response;
+    }
+
+    @DELETE
+    public Response delPersona(@QueryParam("id") String id) {
+        if (sp.borrarPersona(id))
+            return Response.status(Response.Status.NO_CONTENT).build();
+        else
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(ApiError.builder()
+                            .message(Constantes.ERROR_CON_EL_OBJETO)
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
+    }
+
+    @PUT
+    public Response actualizarPersona(Persona p) {
+        Response response;
+        Persona persona = sp.actualizarPersona(p);
+
+        if (persona != null) {
+            response = Response.ok().entity(persona).build();
+        } else {
+            response = Response.status(Response.Status.BAD_REQUEST)
+                    .entity(ApiError.builder()
+                            .message(Constantes.ERROR_CON_EL_OBJETO)
+                            .fecha(LocalDateTime.now())
+                            .build())
+                    .build();
+        }
+        return response;
+    }
 }

@@ -1,0 +1,44 @@
+package GID.ModuloCliente.servicios.serviciosImplementacion;
+
+import GID.Commons.dao.modelo.Persona;
+import GID.ModuloCliente.dao.DaoPersona;
+import io.vavr.control.Either;
+import GID.ModuloCliente.servicios.ServiciosPersona;
+
+import javax.inject.Inject;
+import java.util.List;
+
+public class ServiciosPersonaImpl implements ServiciosPersona {
+
+    private DaoPersona daoPersona;
+
+    @Inject
+    public ServiciosPersonaImpl(DaoPersona daoPersona) {
+        this.daoPersona = daoPersona;
+    }
+
+    @Override
+    public Either<String, List<Persona>> getAllPersona() {
+        return daoPersona.getAllPersona();
+    }
+
+    @Override
+    public Either<String, Persona> getDatosByNombre(String id) {
+        return daoPersona.getDatosByNombre(id);
+    }
+
+    @Override
+    public Either<String, Persona> addPersona(Persona p) {
+        return daoPersona.addPersona(p);
+    }
+
+    @Override
+    public Either<String, Persona> deletePersona(String id) {
+        return daoPersona.deletePersona(id);
+    }
+
+    @Override
+    public Either<String, Persona> actualizarPersona(Persona p) {
+        return daoPersona.actualizarPersona(p);
+    }
+}

@@ -8,17 +8,20 @@ module ModuloCliente {
 
     requires org.apache.logging.log4j;
     requires io.vavr;
+    requires java.sql;
+    requires retrofit2;
+    requires io.reactivex.rxjava2;
+    requires okhttp3;
+    requires retrofit2.adapter.rxjava2;
+    requires retrofit2.converter.gson;
+    requires retrofit2.converter.scalars;
+    requires gson;
+    requires jakarta.inject.api;
+    requires jakarta.enterprise.cdi.api;
+    requires java.validation;
+    requires Commons;
 
     //requires java.validation;          --module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
 
 
-    //requires javafx.swing;
-
-    //needed for HTTP
-    // requires unirest.java;
-
-    //needed for JSON
-    requires java.sql;
-
-    //needed for JavaFX
 }

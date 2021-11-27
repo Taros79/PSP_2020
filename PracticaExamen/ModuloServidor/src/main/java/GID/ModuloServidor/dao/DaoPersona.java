@@ -40,4 +40,22 @@ public class DaoPersona {
         }
         return personas;
     }
+
+    public Persona addPersona(Persona p) {
+        int id = Integer.parseInt(personas.get(personas.size() - 1).getId()) + 1;
+        p.setId(String.valueOf(id));
+        personas.add(p);
+        return p;
+    }
+
+    public boolean borrarPersona(String id) {
+        return personas.remove(personas.stream()
+                .filter(persona -> persona.getId().equals(id))
+                .findFirst().orElse(null));
+    }
+
+    public Persona actualizarPokemon(Persona p) {
+        int id = personas.indexOf(p);
+        return personas.set(id, p);
+    }
 }

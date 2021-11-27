@@ -23,4 +23,9 @@ public class ServiciosPersona {
         return dao.getAll();
     }
 
+    public Persona addPersona(Persona p) {return dao.addPersona(p);}
+
+    public boolean borrarPersona(String id) {return dao.borrarPersona(id);}
+
+    public Persona actualizarPersona(Persona p) {return dao.actualizarPokemon(p);}
 }
