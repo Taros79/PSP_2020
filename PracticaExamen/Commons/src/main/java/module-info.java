@@ -10,4 +10,6 @@ module Commons {
     requires java.sql;
 
     exports GID.Commons.dao.modelo;
+    exports GID.Commons.EE.errores;
+    exports GID.Commons.EE.utils;
 }

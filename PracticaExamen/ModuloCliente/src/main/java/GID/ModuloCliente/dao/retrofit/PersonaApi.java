@@ -2,6 +2,7 @@ package GID.ModuloCliente.dao.retrofit;
 
 import GID.Commons.dao.modelo.Persona;
 import GID.ModuloCliente.dao.utils.Constantes;
+import GID.Commons.EE.utils.ApiRespuesta;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -24,4 +25,10 @@ public interface PersonaApi {
     @PUT(Constantes.ADD_DELETE_UPDATE_PERSONA)
     Call<Persona> actualizarPersona(@Body Persona p);
 
+    @GET("Personas/")
+    Call<Persona> getCharactersByAll(@Query("name") String name,
+                                               @Query("status") String status,
+                                               @Query("species") String species,
+                                               @Query("gender") String gender,
+                                               @Query("page") int page);
 }

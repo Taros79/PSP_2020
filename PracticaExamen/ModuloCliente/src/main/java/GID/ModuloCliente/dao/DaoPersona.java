@@ -12,7 +12,7 @@ public interface DaoPersona {
 
     Either<String, Persona> addPersona(Persona p);
 
-    Either<String, Persona> deletePersona(String id);
+    String deletePersona(String id);
 
     Either<String, Persona> actualizarPersona(Persona p);
 }

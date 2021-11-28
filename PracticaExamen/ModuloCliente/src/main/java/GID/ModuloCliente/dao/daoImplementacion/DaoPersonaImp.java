@@ -1,21 +1,26 @@
 package GID.ModuloCliente.dao.daoImplementacion;
 
+import GID.Commons.EE.errores.ApiError;
 import GID.Commons.dao.modelo.Persona;
 import GID.ModuloCliente.dao.DaoPersona;
 import GID.ModuloCliente.dao.retrofit.PersonaApi;
 import GID.ModuloCliente.dao.utils.ConfigurationSingleton_OkHttpClient;
 import GID.ModuloCliente.dao.utils.Constantes;
+import GID.Commons.EE.utils.ApiRespuesta;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import retrofit2.Response;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
 @Log4j2
 public class DaoPersonaImp implements DaoPersona {
-    public ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient;
+
+    private ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient;
 
     @Inject
     public DaoPersonaImp(ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient) {
@@ -29,6 +34,7 @@ public class DaoPersonaImp implements DaoPersona {
         Either<String, List<Persona>> resultado;
 
         try {
+            PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
             Response<List<Persona>> response = personaApi.getRecursosPersona().execute();
 
             if (response.isSuccessful() && Objects.requireNonNull(response.body()) != null) {
@@ -49,6 +55,7 @@ public class DaoPersonaImp implements DaoPersona {
         Either<String, Persona> resultado;
 
         try {
+            PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
             Response<Persona> response = personaApi.getRecursosUnaPersona(id).execute();
 
             if (response.isSuccessful()) {
@@ -67,7 +74,7 @@ public class DaoPersonaImp implements DaoPersona {
     public Either<String, Persona> addPersona(Persona p) {
         Either<String, Persona> resultado;
 
-        try {
+        try {PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
             Response<Persona> response = personaApi.addPersona(p).execute();
 
             if (response.isSuccessful()) {
@@ -83,20 +90,21 @@ public class DaoPersonaImp implements DaoPersona {
     }
 
     @Override
-    public Either<String, Persona> deletePersona(String id) {
-        Either<String, Persona> resultado;
-
+    public String deletePersona(String id) {
+        String resultado;
         try {
+            PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
             Response<Persona> response = personaApi.deletePersona(id).execute();
 
             if (response.isSuccessful()) {
-                resultado = Either.right(response.body());
+                resultado = Constantes.OBJETO_BORRADO;
             } else {
-                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
+                resultado = "Objeto no encontrado";
             }
-        } catch (Exception e) {
+
+        } catch (IOException e) {
+            resultado = GID.ModuloCliente.gui.utils.Constantes.PROBLEMA_EN_SERVIDOR;
             log.error(e.getMessage(), e);
-            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }
@@ -105,6 +113,7 @@ public class DaoPersonaImp implements DaoPersona {
     public Either<String, Persona> actualizarPersona(Persona p) {
         Either<String, Persona> resultado;
         try {
+            PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
             Response<Persona> response = personaApi.actualizarPersona(p).execute();
 
             if (response.isSuccessful()) {

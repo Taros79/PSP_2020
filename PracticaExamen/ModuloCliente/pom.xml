@@ -22,6 +22,7 @@
             <groupId>GID</groupId>
             <artifactId>Commons</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <!--- LIBRERIAS DE VALIDACION -->
         <dependency>

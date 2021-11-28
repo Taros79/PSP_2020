@@ -1,6 +1,6 @@
 package GID.ModuloCliente.gui.main;
 
-import gui.StartupScene;
+import GID.ModuloCliente.gui.StartupScene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,8 +18,8 @@ public class Main {
     public void start(@Observes @StartupScene Stage stage) {
         try {
             Parent fxmlParent = fxmlLoader.load(getClass().getResourceAsStream("/fxml/pantallaPrincipal.fxml"));
-            stage.setScene(new Scene(fxmlParent, 300, 100));
-            stage.setTitle("Pokemone");
+            stage.setScene(new Scene(fxmlParent, 650, 500));
+            stage.setTitle("API");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

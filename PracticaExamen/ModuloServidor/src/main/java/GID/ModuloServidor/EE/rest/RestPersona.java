@@ -1,22 +1,24 @@
 package GID.ModuloServidor.EE.rest;
 
+import GID.Commons.EE.utils.ApiRespuesta;
 import GID.Commons.dao.modelo.Persona;
 import GID.ModuloServidor.EE.errores.ApiError;
 import GID.ModuloServidor.servicios.ServiciosPersona;
+import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
-@Path("/persona")
+@Path(Constantes.PATH_PERSONAS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestPersona {
 
-    private ServiciosPersona sp;
+    private final ServiciosPersona sp;
 
     @Inject
     public RestPersona(ServiciosPersona sp) {
@@ -25,55 +27,69 @@ public class RestPersona {
 
     @GET
     @Path("/{id}")
-    public Response getPokemon(@PathParam("id") String id) {
-        AtomicReference<Response> r = new AtomicReference();
-        sp.getPersona(id)
-                .peek(persona -> r.set(Response.ok().entity(persona).build()))
-                .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
-                        .entity(ApiError.builder()
-                                .message(Constantes.ERROR_CON_EL_OBJETO)
-                                .fecha(LocalDateTime.now())
-                                .build())
-                        .build()));
+    public Response getPersona(@PathParam("id") String id) {
+        Response response;
+        Either<ApiError, Persona> resultado = sp.getPersona(id);
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(resultado.getLeft())
+                    .build();
+        }
 
-        return r.get();
+        return response;
     }
 
     @GET
-    @Path("/getAll")
-    public List<Persona> getAllPersona() {
-        return sp.getAll();
-    }
-
-    @POST
-    public Response addPersona(Persona p) {
+    public Response getAllPersona() {
         Response response;
-        Persona persona = sp.addPersona(p);
-
-        if (persona != null) {
-            response = Response.ok().entity(persona).build();
+        Either<ApiError, List<Persona>> resultado = sp.getAll();
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
+                    .build();
         } else {
-            response = Response.status(Response.Status.NOT_MODIFIED)
-                    .entity(ApiError.builder()
-                            .message(Constantes.ERROR_CON_EL_OBJETO)
-                            .fecha(LocalDateTime.now())
-                            .build())
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(resultado.getLeft())
                     .build();
         }
         return response;
     }
 
+    @POST
+    public Response addPersona(Persona p) {
+        Response response;
+        Either<ApiError, Persona> resultado = sp.addPersona(p);
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
+                    .build();
+        } else {
+            response = Response.status(400, "error")
+                    .entity(resultado.getLeft())
+                    .build();
+        }
+
+        return response;
+    }
+
     @DELETE
     public Response delPersona(@QueryParam("id") String id) {
-        if (sp.borrarPersona(id))
-            return Response.status(Response.Status.NO_CONTENT).build();
-        else
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(ApiError.builder()
-                            .message(Constantes.ERROR_CON_EL_OBJETO)
-                            .fecha(LocalDateTime.now())
-                            .build())
+        Response response;
+        Either<ApiError, ApiRespuesta> resultado = sp.borrarPersona(id);
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
                     .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ApiError(Constantes.NO_SE_ENCONTRO_EL_OBJETO, LocalDateTime.now()))
+                    .build();
+        }
+        return response;
     }
 
     @PUT
@@ -93,4 +109,25 @@ public class RestPersona {
         }
         return response;
     }
+
+
+
+
+   /* @GET
+    public Response getPersonaByFiltro(@QueryParam("lugarNacimiento") String lugarNacimiento
+            , @QueryParam("fechaNacimiento") String fechaNacimiento
+            , @QueryParam("estadoCivil") String estadoCivil
+            , @QueryParam("hijos") int hijos) {
+        AtomicReference<Response> r = new AtomicReference();
+        sp.getPersonaByFiltro(lugarNacimiento,fechaNacimiento,estadoCivil, hijos)
+                .peek(persona -> r.set(Response.ok().entity(persona).build()))
+                .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
+                        .entity(ApiError.builder()
+                                .message(Constantes.ERROR_CON_EL_OBJETO)
+                                .fecha(LocalDateTime.now())
+                                .build())
+                        .build()));
+
+        return r.get();
+    }*/
 }

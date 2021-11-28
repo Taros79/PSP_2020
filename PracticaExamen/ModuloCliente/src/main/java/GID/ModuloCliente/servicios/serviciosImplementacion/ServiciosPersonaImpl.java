@@ -1,7 +1,9 @@
 package GID.ModuloCliente.servicios.serviciosImplementacion;
 
+import GID.Commons.EE.errores.ApiError;
 import GID.Commons.dao.modelo.Persona;
 import GID.ModuloCliente.dao.DaoPersona;
+import GID.Commons.EE.utils.ApiRespuesta;
 import io.vavr.control.Either;
 import GID.ModuloCliente.servicios.ServiciosPersona;
 
@@ -33,7 +35,7 @@ public class ServiciosPersonaImpl implements ServiciosPersona {
     }
 
     @Override
-    public Either<String, Persona> deletePersona(String id) {
+    public String deletePersona(String id) {
         return daoPersona.deletePersona(id);
     }
 

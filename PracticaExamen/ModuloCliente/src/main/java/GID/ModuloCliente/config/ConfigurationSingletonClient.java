@@ -15,16 +15,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Getter
-public class ConfigurationSingleton_Client {
+public class ConfigurationSingletonClient {
 
-    private static ConfigurationSingleton_Client config;
+    private static ConfigurationSingletonClient config;
     private String path_base;
 
-    private ConfigurationSingleton_Client() {
+    private ConfigurationSingletonClient() {
 
     }
 
-    public static synchronized ConfigurationSingleton_Client getInstance() {
+    public static synchronized ConfigurationSingletonClient getInstance() {
 
         if (config == null) {
             try {
@@ -34,10 +34,10 @@ public class ConfigurationSingleton_Client {
                 it = yaml.loadAll(new FileInputStream("config/config.yaml"));
 
                 Map<String, String> m = (Map) it.iterator().next();
-                config = new ConfigurationSingleton_Client();
+                config = new ConfigurationSingletonClient();
                 config.setPath_base(m.get("path_base"));
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(ConfigurationSingleton_Client.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConfigurationSingletonClient.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return config;

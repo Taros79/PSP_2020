@@ -1,22 +1,37 @@
 package GID.ModuloServidor.dao;
 
+import GID.Commons.EE.utils.ApiRespuesta;
 import GID.Commons.dao.modelo.Persona;
 import GID.ModuloServidor.EE.errores.ApiError;
-import GID.ModuloServidor.EE.errores.CustomException;
+import GID.ModuloServidor.EE.rest.Constantes;
 import io.vavr.control.Either;
-import jakarta.ws.rs.core.Response;
+import lombok.extern.log4j.Log4j2;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Log4j2
 public class DaoPersona {
 
     private static List<Persona> personas = new ArrayList<>();
 
     static {
-        personas.add(new Persona("1", "Carlos", "Soltero", "H",
-                "Madrid", "2", LocalDateTime.now(),new ArrayList<>()));
+        personas.add(new Persona("1", "Carlos", "Casad@", "H",
+                "Madrid", "2", LocalDateTime.now(), new ArrayList<>()));
+        personas.add(new Persona("2", "Stefan", "Casad@", "M",
+                "Madrid", "1", LocalDateTime.now(), new ArrayList<>()));
+        personas.add(new Persona("3", "looo", "Solter@", "H",
+                "Madrid", "", LocalDateTime.now(), new ArrayList<>()));
+        personas.add(new Persona("4", "lllllllll", "Solter@", "M",
+                "aqui", "", LocalDateTime.now(), new ArrayList<>()));
+        personas.add(new Persona("5", "Mauricio", "Solter@", "H",
+                "alla", "", LocalDateTime.now(), new ArrayList<>()));
+        personas.add(new Persona("6", "Gem", "Casad@", "M",
+                "paca", "7", LocalDateTime.now(), new ArrayList<>()));
+        personas.add(new Persona("7", "Novillin", "Casad@", "H",
+                "", "6", LocalDateTime.now(), new ArrayList<>()));
     }
 
     public DaoPersona() {
@@ -24,38 +39,112 @@ public class DaoPersona {
     }
 
     public Either<ApiError, Persona> getPersona(String id) {
-        Persona p = personas.stream()
-                .filter(persona -> persona.getId().equals(id))
+        Either<ApiError, Persona> resultado;
+        Persona p = personas.stream().filter(persona -> Objects.equals(persona.getId(), id))
                 .findFirst().orElse(null);
-        if (p!=null) {
-            return Either.right(p);
-        } else {
-            return Either.left(new ApiError("error not found", LocalDateTime.now()));
+        try {
+            if (p != null) {
+                resultado = Either.right(p);
+            } else {
+                resultado = Either.left(new ApiError(Constantes.NO_SE_ENCONTRO_EL_OBJETO, LocalDateTime.now()));
+            }
+        } catch (Exception e) {
+            resultado = Either.left(new ApiError(Constantes.ERROR_CON_EL_OBJETO, LocalDateTime.now()));
+            log.error(e.getMessage(), e);
         }
+        return resultado;
     }
 
-    public List<Persona> getAll() {
-        if (personas.size()==0) {
-            throw new CustomException("lista vacia", Response.Status.NOT_FOUND);
+    public Either<ApiError, List<Persona>> getAll() {
+        Either<ApiError, List<Persona>> resultado;
+        try {
+            if (personas.size() == 0) {
+                resultado = Either.left(new ApiError(Constantes.LISTA_DE_OBJETOS_VACIA, LocalDateTime.now()));
+            } else {
+                resultado = Either.right(personas);
+            }
+        } catch (Exception e) {
+            resultado = Either.left(new ApiError(Constantes.ERROR_CON_EL_OBJETO, LocalDateTime.now()));
+            log.error(e.getMessage(), e);
         }
-        return personas;
+        return resultado;
     }
 
-    public Persona addPersona(Persona p) {
+    public Either<ApiError, Persona> addPersona(Persona p) {
+        Either<ApiError, Persona> resultado;
         int id = Integer.parseInt(personas.get(personas.size() - 1).getId()) + 1;
         p.setId(String.valueOf(id));
-        personas.add(p);
-        return p;
+        try {
+            personas.add(p);
+            resultado = Either.right(p);
+        } catch (Exception e) {
+            resultado = Either.left(new ApiError(Constantes.ERROR_CON_EL_OBJETO, LocalDateTime.now()));
+            log.error(e.getMessage(), e);
+        }
+        return resultado;
     }
 
-    public boolean borrarPersona(String id) {
-        return personas.remove(personas.stream()
-                .filter(persona -> persona.getId().equals(id))
-                .findFirst().orElse(null));
-    }
+    public Either<ApiError, ApiRespuesta> borrarPersona(String id) {
+            Either<ApiError, ApiRespuesta> resultado;
+            boolean borrado = false;
+            int numeroAbandonos = 0;
+
+            Persona p = personas.stream()
+                    .filter(persona -> persona.getId().equals(id)).findFirst().orElse(null);
+
+            if (p != null) {
+                String idMujer = p.getIdPersonaCasada();
+                List<Persona> hijos = p.getHijos();
+
+                for (int i = 0; i < hijos.size(); i++) {
+                    String idHijo = hijos.get(i).getId();
+                    personas.remove(personas.stream()
+                            .filter(persona -> persona.getId().equals(idHijo))
+                            .findFirst().orElse(null));
+                }
+
+                personas.remove(personas.stream()
+                        .filter(persona -> persona.getId().equals(idMujer))
+                        .findFirst().orElse(null));
+
+                personas.remove(personas.stream()
+                        .filter(persona -> persona.getId().equals(id))
+                        .findFirst().orElse(null));
+
+
+                if (!Objects.equals(p.getIdPersonaCasada(), "")) {
+                    numeroAbandonos = 2;
+                } else {
+                    numeroAbandonos = 1;
+                }
+
+                numeroAbandonos = numeroAbandonos + p.getHijos().size();
+
+                borrado = true;
+            }
+
+            if (borrado) {
+                resultado = Either.right(new ApiRespuesta("Fueron exiliadas " + numeroAbandonos, LocalDateTime.now()));
+            } else {
+                resultado = Either.left(new ApiError("No se pudo borrar", LocalDateTime.now()));
+            }
+            return resultado;
+        }
 
     public Persona actualizarPokemon(Persona p) {
         int id = personas.indexOf(p);
         return personas.set(id, p);
     }
+
+    /*public Either<ApiError, Persona> getPersonaByFiltro(String lugarNacimiento,
+                                                        String fechaNacimiento, String estadoCivil, int hijos) {
+        Persona p = personas.stream()
+                .filter(persona -> persona.lugarNacimiento.equals(lugarNacimiento))
+                .findFirst().orElse(null);
+        if (p != null) {
+            return Either.right(p);
+        } else {
+            return Either.left(new ApiError("error not found", LocalDateTime.now()));
+        }
+    }*/
 }

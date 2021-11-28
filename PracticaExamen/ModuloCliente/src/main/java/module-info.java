@@ -19,9 +19,28 @@ module ModuloCliente {
     requires jakarta.inject.api;
     requires jakarta.enterprise.cdi.api;
     requires java.validation;
+    requires annotations;
     requires Commons;
+
+
+
 
     //requires java.validation;          --module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
 
+    opens GID.ModuloCliente.gui;
+    opens GID.ModuloCliente.gui.main;
+    opens GID.ModuloCliente.gui.controllers to javafx.fxml;
+    opens GID.ModuloCliente.dao.utils;
+    opens GID.ModuloCliente.config;
 
+    exports GID.ModuloCliente.gui;
+    exports GID.ModuloCliente.gui.main;
+    exports GID.ModuloCliente.gui.controllers;
+    exports GID.ModuloCliente.gui.utils;
+    exports GID.ModuloCliente.dao.daoImplementacion;
+    exports GID.ModuloCliente.config;
+    exports GID.ModuloCliente.servicios;
+    exports GID.ModuloCliente.dao.utils;
+    exports GID.ModuloCliente.dao.retrofit;
+    exports GID.ModuloCliente.servicios.serviciosImplementacion;
 }

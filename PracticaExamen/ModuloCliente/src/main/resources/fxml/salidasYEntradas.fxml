@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="435.0" prefWidth="613.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GID.ModuloCliente.gui.controllers.SalidasYEntradas">
+   <ListView fx:id="listViewPersonas" layoutX="29.0" layoutY="79.0" prefHeight="282.0" prefWidth="322.0" />
+   <Button layoutX="434.0" layoutY="306.0" mnemonicParsing="false" onAction="#botonAñadir" prefHeight="41.0" prefWidth="97.0" text="Añadir" />
+   <Button layoutX="142.0" layoutY="371.0" mnemonicParsing="false" onAction="#botonBorrar" prefHeight="41.0" prefWidth="97.0" text="Borrar" />
+   <TextField fx:id="textFieldNombre" layoutX="408.0" layoutY="95.0" promptText="Nombre" />
+
+   <TextField fx:id="textFieldLugarNacimiento" layoutX="408.0" layoutY="193.0" promptText="Lugar nacimiento" />
+   <ComboBox fx:id="comboBoxSexo" layoutX="408.0" layoutY="143.0" prefWidth="150.0" promptText="Sexo">
+      <items>
+         <FXCollections fx:factory="observableArrayList">
+            <String fx:value="H" />
+            <String fx:value="M" />
+         </FXCollections>
+      </items>
+   </ComboBox>
+   <DatePicker fx:id="datePikerNacimiento" layoutX="392.0" layoutY="243.0" prefHeight="41.0" prefWidth="181.0" />
+   <Label layoutX="89.0" layoutY="7.0" prefHeight="59.0" prefWidth="486.0" text="Registro de entradas y salidas del pueblo" textAlignment="CENTER">
+      <font>
+         <Font name="AR BERKLEY" size="30.0" />
+      </font>
+   </Label>
+</AnchorPane>

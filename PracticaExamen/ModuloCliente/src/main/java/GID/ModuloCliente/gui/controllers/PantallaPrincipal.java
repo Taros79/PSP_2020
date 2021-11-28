@@ -18,13 +18,13 @@ public class PantallaPrincipal implements Initializable {
     @FXML
     private BorderPane pantallaPrincipal;
 
-    private final FXMLLoader fxmlLoaderAddPokemon;
-    private AnchorPane pantallaAddPokemon;
-    private AddPersona addPersonaController;
+    private final FXMLLoader fxmlLoaderSalidasYEntradas;
+    private AnchorPane pantallaSalidasYEntradas;
+    private SalidasYEntradas salidasYEntradasController;
 
     @Inject
-    public PantallaPrincipal(FXMLLoader fxmlLoaderAddPokemon) {
-        this.fxmlLoaderAddPokemon = fxmlLoaderAddPokemon;
+    public PantallaPrincipal(FXMLLoader fxmlLoaderSalidasYEntradas) {
+        this.fxmlLoaderSalidasYEntradas = fxmlLoaderSalidasYEntradas;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -37,17 +37,19 @@ public class PantallaPrincipal implements Initializable {
     }
 
     @FXML
-    private void addPokemon() {
-        if (pantallaAddPokemon == null) {
+    private void salidasYEntradas() {
+        if (pantallaSalidasYEntradas == null) {
             try {
-                pantallaAddPokemon = fxmlLoaderAddPokemon.load(getClass().getResourceAsStream("/fxml/addPokemon.fxml"));
-                addPersonaController = fxmlLoaderAddPokemon.getController();
-               // addPersonaController.setPantallaPrincipal(this);
+                pantallaSalidasYEntradas = fxmlLoaderSalidasYEntradas.load(getClass()
+                        .getResourceAsStream("/fxml/salidasYEntradas.fxml"));
+                salidasYEntradasController = fxmlLoaderSalidasYEntradas.getController();
+                salidasYEntradasController.setPantallaPrincipal(this);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
         }
-        addPersonaController.actualizar();
-        pantallaPrincipal.setCenter(pantallaAddPokemon);
+        salidasYEntradasController.actualizar();
+        pantallaPrincipal.setCenter(pantallaSalidasYEntradas);
     }
+
 }

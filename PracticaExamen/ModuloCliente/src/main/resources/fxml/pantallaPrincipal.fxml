@@ -10,12 +10,8 @@
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <Menu mnemonicParsing="false" text="Menu">
-                <MenuItem mnemonicParsing="false" onAction="#perfilPokemon"
-                          text="Perfil Pokemon"/>
-                <MenuItem mnemonicParsing="false" onAction="#perfilMovimiento"
-                          text="Perfil movimientos"/>
-                <MenuItem mnemonicParsing="false" onAction="#addPokemon"
-                          text="Añadir Pokemones"/>
+                <MenuItem mnemonicParsing="false" onAction="#salidasYEntradas"
+                          text="Salidas y entradas a Mashwille"/>
             </Menu>
         </MenuBar>
     </top>

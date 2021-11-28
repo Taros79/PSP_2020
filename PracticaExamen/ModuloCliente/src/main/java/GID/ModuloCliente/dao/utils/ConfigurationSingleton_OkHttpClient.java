@@ -1,7 +1,7 @@
 package GID.ModuloCliente.dao.utils;
 
 import com.google.gson.*;
-import GID.ModuloCliente.config.ConfigurationSingleton_Client;
+import GID.ModuloCliente.config.ConfigurationSingletonClient;
 import lombok.extern.log4j.Log4j2;
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
@@ -62,7 +62,7 @@ public class ConfigurationSingleton_OkHttpClient {
                     }
             ).create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(ConfigurationSingleton_Client.getInstance().getPath_base())
+                    .baseUrl(ConfigurationSingletonClient.getInstance().getPath_base())
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

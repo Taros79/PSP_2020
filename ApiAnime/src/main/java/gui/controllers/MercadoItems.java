@@ -80,40 +80,40 @@ public class MercadoItems implements Initializable {
     private void cargarDatos(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1 && listViewItems.getSelectionModel().getSelectedItem() != null) {
             var tarea = new Task<Either<String, ObjetoPrp>>() {
-                @Override
-                protected Either<String, ObjetoPrp> call() {
-                    return serviciosItemsImpl.getItemsByNombre(listViewItems.getSelectionModel()
-                            .getSelectedItem());
-                }
-            };
-            tarea.setOnSucceeded(workerStateEvent -> {
-                Try.of(() -> tarea.get()
-                                .peek(objeto -> textDatosMovimiento.setText(objeto.toString()
-                                        + "\nDESCRICION " + serviciosItemsImpl.getItemsByNombre(
-                                                listViewItems.getSelectionModel().getSelectedItem()).get()
-                                        .getFlavorTextEntries()
-                                        .stream()
-                                        .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
-                                        .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("ultra-sun-ultra-moon"))
-                                        .collect(Collectors.toList()))
-                                )
-                                .peekLeft(s -> {
-                                    a.setContentText(s);
-                                    a.showAndWait();
-                                }))
-                        .onFailure(throwable -> {
-                            a.setContentText(throwable.getMessage());
-                            a.showAndWait();
-                        });
-                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
-            });
-            tarea.setOnFailed(workerStateEvent -> {
-                a.setContentText(workerStateEvent.getSource().getException().getMessage());
-                a.showAndWait();
-                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
-            });
-            new Thread(tarea).start();
-            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
-        }
+            @Override
+            protected Either<String, ObjetoPrp> call() {
+                return serviciosItemsImpl.getItemsByNombre(listViewItems.getSelectionModel()
+                        .getSelectedItem());
+            }
+        };
+        tarea.setOnSucceeded(workerStateEvent -> {
+            Try.of(() -> tarea.get()
+                            .peek(objeto -> textDatosMovimiento.setText(objeto.toString()
+                                    + "\nDESCRICION " + serviciosItemsImpl.getItemsByNombre(
+                                            listViewItems.getSelectionModel().getSelectedItem()).get()
+                                    .getFlavorTextEntries()
+                                    .stream()
+                                    .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getLanguage().getName().equals("es"))
+                                    .filter(flavorTextEntriesItem -> flavorTextEntriesItem.getVersionGroup().getName().equals("ultra-sun-ultra-moon"))
+                                    .collect(Collectors.toList()))
+                            )
+                            .peekLeft(s -> {
+                                a.setContentText(s);
+                                a.showAndWait();
+                            }))
+                    .onFailure(throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+        });
+        tarea.setOnFailed(workerStateEvent -> {
+            a.setContentText(workerStateEvent.getSource().getException().getMessage());
+            a.showAndWait();
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+        });
+        new Thread(tarea).start();
+        this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+    }
     }
 }
