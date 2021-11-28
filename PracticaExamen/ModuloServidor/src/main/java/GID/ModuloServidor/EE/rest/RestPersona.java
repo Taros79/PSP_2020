@@ -64,7 +64,7 @@ public class RestPersona {
         Response response;
         Either<ApiError, Persona> resultado = sp.addPersona(p);
         if (resultado.isRight()) {
-            response = Response.status(Response.Status.OK)
+            response = Response.status(Response.Status.CREATED)
                     .entity(resultado.get())
                     .build();
         } else {
@@ -81,7 +81,7 @@ public class RestPersona {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = sp.borrarPersona(id);
         if (resultado.isRight()) {
-            response = Response.status(Response.Status.OK)
+            response = Response.status(Response.Status.ACCEPTED)
                     .entity(resultado.get())
                     .build();
         } else {
@@ -93,41 +93,18 @@ public class RestPersona {
     }
 
     @PUT
-    public Response actualizarPersona(Persona p) {
+    public Response casarPersonas(@QueryParam("idH") String idH, @QueryParam("idM") String idM) {
         Response response;
-        Persona persona = sp.actualizarPersona(p);
-
-        if (persona != null) {
-            response = Response.ok().entity(persona).build();
+        Either<ApiError, ApiRespuesta> resultado = sp.casamientoPareja(idH, idM);
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.ACCEPTED)
+                    .entity(resultado.get())
+                    .build();
         } else {
-            response = Response.status(Response.Status.BAD_REQUEST)
-                    .entity(ApiError.builder()
-                            .message(Constantes.ERROR_CON_EL_OBJETO)
-                            .fecha(LocalDateTime.now())
-                            .build())
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ApiError(Constantes.NO_SE_ENCONTRO_EL_OBJETO, LocalDateTime.now()))
                     .build();
         }
         return response;
     }
-
-
-
-
-   /* @GET
-    public Response getPersonaByFiltro(@QueryParam("lugarNacimiento") String lugarNacimiento
-            , @QueryParam("fechaNacimiento") String fechaNacimiento
-            , @QueryParam("estadoCivil") String estadoCivil
-            , @QueryParam("hijos") int hijos) {
-        AtomicReference<Response> r = new AtomicReference();
-        sp.getPersonaByFiltro(lugarNacimiento,fechaNacimiento,estadoCivil, hijos)
-                .peek(persona -> r.set(Response.ok().entity(persona).build()))
-                .peekLeft(apiError -> r.set(Response.status(Response.Status.NOT_FOUND)
-                        .entity(ApiError.builder()
-                                .message(Constantes.ERROR_CON_EL_OBJETO)
-                                .fecha(LocalDateTime.now())
-                                .build())
-                        .build()));
-
-        return r.get();
-    }*/
 }

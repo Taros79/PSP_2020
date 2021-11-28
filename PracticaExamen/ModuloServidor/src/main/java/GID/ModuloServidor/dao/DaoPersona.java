@@ -7,6 +7,7 @@ import GID.ModuloServidor.EE.rest.Constantes;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -124,27 +125,42 @@ public class DaoPersona {
             }
 
             if (borrado) {
-                resultado = Either.right(new ApiRespuesta("Fueron exiliadas " + numeroAbandonos, LocalDateTime.now()));
+                resultado = Either.right(new ApiRespuesta
+                        ("Fueron exiliadas " + numeroAbandonos + " personas en total.", LocalDateTime.now()));
             } else {
                 resultado = Either.left(new ApiError("No se pudo borrar", LocalDateTime.now()));
             }
             return resultado;
         }
 
-    public Persona actualizarPokemon(Persona p) {
-        int id = personas.indexOf(p);
-        return personas.set(id, p);
+    public Either<ApiError, ApiRespuesta> casamientoPareja (String idH, String idM) {
+        Either<ApiError, ApiRespuesta> resultado;
+
+        if(!idH.isEmpty() && !idM.isEmpty()){
+            int posicion = 0;
+            for (int i = 0; i < personas.size(); i++) {
+                if (idH.equals(personas.get(i).getId())) {
+                    posicion = i;
+                }
+            }
+            personas.get(posicion).setIdPersonaCasada(idM);
+            personas.get(posicion).setEstadoCivil("Casad@");
+
+            posicion = 0;
+            for (int i = 0; i < personas.size(); i++) {
+                if (idM.equals(personas.get(i).getId())) {
+                    posicion = i;
+                }
+            }
+            personas.get(posicion).setIdPersonaCasada(idH);
+            personas.get(posicion).setEstadoCivil("Casad@");
+
+            resultado = Either.right(new ApiRespuesta
+                    ("Personas casadas en santo matrimonio... amen", LocalDateTime.now()));
+        }else{
+            resultado = Either.left(new ApiError("Alguien interrumpió el casamiento", LocalDateTime.now()));
+        }
+        return resultado;
     }
 
-    /*public Either<ApiError, Persona> getPersonaByFiltro(String lugarNacimiento,
-                                                        String fechaNacimiento, String estadoCivil, int hijos) {
-        Persona p = personas.stream()
-                .filter(persona -> persona.lugarNacimiento.equals(lugarNacimiento))
-                .findFirst().orElse(null);
-        if (p != null) {
-            return Either.right(p);
-        } else {
-            return Either.left(new ApiError("error not found", LocalDateTime.now()));
-        }
-    }*/
 }

@@ -1,5 +1,6 @@
 package GID.ModuloCliente.gui.controllers;
 
+import GID.Commons.EE.utils.ApiRespuesta;
 import GID.Commons.dao.modelo.Persona;
 import GID.ModuloCliente.servicios.serviciosImplementacion.ServiciosPersonaImpl;
 import io.vavr.control.Either;
@@ -85,16 +86,16 @@ public class SalidasYEntradas implements Initializable {
         if (!listViewPersonas.getSelectionModel().isEmpty()) {
             String id = listViewPersonas.getSelectionModel().getSelectedItem().getId();
 
-            var task = new Task<String>() {
+            var task = new Task<ApiRespuesta>() {
                 @Override
-                protected String call() throws Exception {
+                protected ApiRespuesta call() throws Exception {
                     return serviciosPersona.deletePersona(id);
                 }
             };
             task.setOnSucceeded(workerStateEvent -> {
-                String result = task.getValue();
+                ApiRespuesta result = task.getValue();
                 if (result != null) {
-                    a.setContentText(result);
+                    a.setContentText(result.getMessage());
                     a.showAndWait();
                     actualizar();
                 }

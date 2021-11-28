@@ -1,5 +1,6 @@
 package GID.ModuloCliente.servicios;
 
+import GID.Commons.EE.utils.ApiRespuesta;
 import GID.Commons.dao.modelo.Persona;
 import io.vavr.control.Either;
 
@@ -13,7 +14,7 @@ public interface ServiciosPersona {
 
     Either<String, Persona> addPersona(Persona p);
 
-    String deletePersona(String id);
+    ApiRespuesta deletePersona(String id);
 
-    Either<String, Persona> actualizarPersona(Persona p);
+    ApiRespuesta casamientoPareja (String idH, String idM);
 }

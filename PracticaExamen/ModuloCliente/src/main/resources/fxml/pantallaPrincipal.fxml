@@ -12,6 +12,8 @@
             <Menu mnemonicParsing="false" text="Menu">
                 <MenuItem mnemonicParsing="false" onAction="#salidasYEntradas"
                           text="Salidas y entradas a Mashwille"/>
+                <MenuItem mnemonicParsing="false" onAction="#casamientos"
+                          text="Casamientos de Mashwillooou"/>
             </Menu>
         </MenuBar>
     </top>

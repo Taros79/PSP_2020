@@ -35,12 +35,12 @@ public class ServiciosPersonaImpl implements ServiciosPersona {
     }
 
     @Override
-    public String deletePersona(String id) {
+    public ApiRespuesta deletePersona(String id) {
         return daoPersona.deletePersona(id);
     }
 
     @Override
-    public Either<String, Persona> actualizarPersona(Persona p) {
-        return daoPersona.actualizarPersona(p);
+    public ApiRespuesta casamientoPareja (String idH, String idM)  {
+        return daoPersona.casamientoPareja(idH,idM);
     }
 }

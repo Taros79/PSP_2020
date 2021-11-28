@@ -90,40 +90,44 @@ public class DaoPersonaImp implements DaoPersona {
     }
 
     @Override
-    public String deletePersona(String id) {
-        String resultado;
+    public ApiRespuesta deletePersona(String id) {
+        ApiRespuesta resultado;
         try {
             PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
-            Response<Persona> response = personaApi.deletePersona(id).execute();
+            Response<ApiRespuesta> response = personaApi.deletePersona(id).execute();
 
             if (response.isSuccessful()) {
-                resultado = Constantes.OBJETO_BORRADO;
+                resultado = response.body();
             } else {
-                resultado = "Objeto no encontrado";
+                resultado = new ApiRespuesta(GID.ModuloCliente.gui.utils.Constantes.OBJETO_NO_ENCONTRADO,
+                        LocalDateTime.now());
             }
 
         } catch (IOException e) {
-            resultado = GID.ModuloCliente.gui.utils.Constantes.PROBLEMA_EN_SERVIDOR;
+            resultado = new ApiRespuesta(GID.ModuloCliente.gui.utils.Constantes.PROBLEMA_EN_SERVIDOR,
+                    LocalDateTime.now());
             log.error(e.getMessage(), e);
         }
         return resultado;
     }
 
     @Override
-    public Either<String, Persona> actualizarPersona(Persona p) {
-        Either<String, Persona> resultado;
+    public ApiRespuesta casamientoPareja (String idH, String idM)  {
+        ApiRespuesta resultado;
         try {
             PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
-            Response<Persona> response = personaApi.actualizarPersona(p).execute();
+            Response<ApiRespuesta> response = personaApi.casamientoPareja(idH,idM).execute();
 
             if (response.isSuccessful()) {
-                resultado = Either.right(response.body());
+                resultado = response.body();
             } else {
-                resultado = Either.left(Constantes.OBJETO_NO_VALIDO);
+                resultado = new ApiRespuesta(response.message(),
+                        LocalDateTime.now());
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            resultado = new ApiRespuesta(GID.ModuloCliente.gui.utils.Constantes.PROBLEMA_EN_SERVIDOR,
+                    LocalDateTime.now());
             log.error(e.getMessage(), e);
-            resultado = Either.left(Constantes.ERROR_EN_BBDD);
         }
         return resultado;
     }

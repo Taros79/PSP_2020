@@ -8,9 +8,12 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.Casamientos"
+            fx:controller="GID.ModuloCliente.gui.controllers.Casamientos"
             prefHeight="400.0" prefWidth="600.0">
 
-
-
+    <children>
+        <ListView fx:id="listViewHombres" layoutX="49.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
+        <ListView fx:id="listViewMujeres" layoutX="366.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
+        <Button layoutX="194.0" layoutY="308.0" mnemonicParsing="false" onAction="#realizarCasamiento" text="Realizar enlace matrimonial" />
+    </children>
 </AnchorPane>

@@ -29,9 +29,6 @@ public class ServiciosPersona {
 
    public Either<ApiError, ApiRespuesta> borrarPersona(String id) {return dao.borrarPersona(id);}
 
-    public Persona actualizarPersona(Persona p) {return dao.actualizarPokemon(p);}
-
-  /*  public Either<ApiError, Persona> getPersonaByFiltro(String lugarNacimiento,
-                                                        String fechaNacimiento,String estadoCivil, int hijos)
-    {return dao.getPersonaByFiltro(lugarNacimiento,fechaNacimiento,estadoCivil, hijos);}*/
+    public Either<ApiError, ApiRespuesta> casamientoPareja (String idH, String idM)
+    {return dao.casamientoPareja(idH,idM);}
 }

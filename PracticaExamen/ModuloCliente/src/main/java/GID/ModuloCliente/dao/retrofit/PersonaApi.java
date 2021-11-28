@@ -20,15 +20,8 @@ public interface PersonaApi {
     Call<Persona> addPersona(@Body Persona p);
 
     @DELETE(Constantes.ADD_DELETE_UPDATE_PERSONA)
-    Call<Persona> deletePersona(@Query("id") String id);
+    Call<ApiRespuesta> deletePersona(@Query("id") String id);
 
     @PUT(Constantes.ADD_DELETE_UPDATE_PERSONA)
-    Call<Persona> actualizarPersona(@Body Persona p);
-
-    @GET("Personas/")
-    Call<Persona> getCharactersByAll(@Query("name") String name,
-                                               @Query("status") String status,
-                                               @Query("species") String species,
-                                               @Query("gender") String gender,
-                                               @Query("page") int page);
+    Call<ApiRespuesta> casamientoPareja(@Query("idH") String idH, @Query("idM") String idM);
 }

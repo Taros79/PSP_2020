@@ -22,9 +22,14 @@ public class PantallaPrincipal implements Initializable {
     private AnchorPane pantallaSalidasYEntradas;
     private SalidasYEntradas salidasYEntradasController;
 
+    private final FXMLLoader fxmlLoaderCasamientos;
+    private AnchorPane pantallaCasamientos;
+    private Casamientos casamientosController;
+
     @Inject
-    public PantallaPrincipal(FXMLLoader fxmlLoaderSalidasYEntradas) {
+    public PantallaPrincipal(FXMLLoader fxmlLoaderSalidasYEntradas, FXMLLoader fxmlLoaderCasamientos) {
         this.fxmlLoaderSalidasYEntradas = fxmlLoaderSalidasYEntradas;
+        this.fxmlLoaderCasamientos = fxmlLoaderCasamientos;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -52,4 +57,19 @@ public class PantallaPrincipal implements Initializable {
         pantallaPrincipal.setCenter(pantallaSalidasYEntradas);
     }
 
+    @FXML
+    private void casamientos() {
+        if (pantallaCasamientos == null) {
+            try {
+                pantallaCasamientos = fxmlLoaderCasamientos.load(getClass()
+                        .getResourceAsStream("/fxml/casamientos.fxml"));
+                casamientosController = fxmlLoaderCasamientos.getController();
+                casamientosController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+        casamientosController.actualizar();
+        pantallaPrincipal.setCenter(pantallaCasamientos);
+    }
 }
