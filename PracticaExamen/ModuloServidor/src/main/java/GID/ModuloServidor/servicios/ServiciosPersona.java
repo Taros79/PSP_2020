@@ -18,17 +18,27 @@ public class ServiciosPersona {
         this.dao = dao;
     }
 
-    public Either<ApiError, Persona> getPersona(String id) {return dao.getPersona(id);}
+    public Either<ApiError, Persona> getPersona(String id) {
+        return dao.getPersona(id);
+    }
 
-    public  Either<ApiError, List<Persona>> getAll()
-    {
+    public Either<ApiError, List<Persona>> getAll() {
         return dao.getAll();
     }
 
-    public Either<ApiError, Persona> addPersona(Persona p) {return dao.addPersona(p);}
+    public Either<ApiError, Persona> addPersona(Persona p) {
+        return dao.addPersona(p);
+    }
 
-   public Either<ApiError, ApiRespuesta> borrarPersona(String id) {return dao.borrarPersona(id);}
+    public Either<ApiError, ApiRespuesta> borrarPersona(String id) {
+        return dao.borrarPersona(id);
+    }
 
-    public Either<ApiError, ApiRespuesta> casamientoPareja (String idH, String idM)
-    {return dao.casamientoPareja(idH,idM);}
+    public Either<ApiError, ApiRespuesta> casamientoPareja(String idH, String idM) {
+        return dao.casamientoPareja(idH, idM);
+    }
+
+    public Either<ApiError, ApiRespuesta> procrear(Persona p, String idPadres) {
+        return dao.procrear(p, idPadres);
+    }
 }

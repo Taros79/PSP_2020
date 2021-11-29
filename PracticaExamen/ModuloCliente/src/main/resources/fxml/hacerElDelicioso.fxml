@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GID.ModuloCliente.gui.controllers.HacerElDelicioso">
+
+    <children>
+        <TextField fx:id="txtNombre" layoutX="435.0" layoutY="45.0" />
+        <ComboBox fx:id="comboBoxSexo" layoutX="431.0" layoutY="107.0" prefWidth="150.0" promptText="Sexo">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="H" />
+                <String fx:value="M" />
+            </FXCollections>
+        </items>
+        </ComboBox>
+        <DatePicker fx:id="datePikerNacimiento" layoutX="427.0" layoutY="175.0" prefHeight="25.0" prefWidth="165.0" />
+        <TextField fx:id="textFieldLugarNacimiento" layoutX="435.0" layoutY="223.0" />
+        <Button layoutX="489.0" layoutY="266.0" mnemonicParsing="false" onAction="#procrear" text="Procrear" />
+      <ListView fx:id="listViewPadres" layoutX="34.0" layoutY="45.0" prefHeight="162.0" prefWidth="366.0" />
+      <ListView fx:id="listViewHijos" layoutX="34.0" layoutY="254.0" prefHeight="125.0" prefWidth="366.0" />
+      <Label layoutX="34.0" layoutY="28.0" text="PADRES" />
+      <Label layoutX="34.0" layoutY="240.0" text="HIJOS" />
+    </children>
+</AnchorPane>

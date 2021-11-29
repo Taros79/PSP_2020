@@ -26,10 +26,15 @@ public class PantallaPrincipal implements Initializable {
     private AnchorPane pantallaCasamientos;
     private Casamientos casamientosController;
 
+    private final FXMLLoader fxmlLoaderHacerElDelicioso;
+    private AnchorPane pantallaHacerElDelicioso;
+    private HacerElDelicioso hacerElDeliciosoController;
+
     @Inject
-    public PantallaPrincipal(FXMLLoader fxmlLoaderSalidasYEntradas, FXMLLoader fxmlLoaderCasamientos) {
+    public PantallaPrincipal(FXMLLoader fxmlLoaderSalidasYEntradas, FXMLLoader fxmlLoaderCasamientos, FXMLLoader fxmlLoaderHacerElDelicioso) {
         this.fxmlLoaderSalidasYEntradas = fxmlLoaderSalidasYEntradas;
         this.fxmlLoaderCasamientos = fxmlLoaderCasamientos;
+        this.fxmlLoaderHacerElDelicioso = fxmlLoaderHacerElDelicioso;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -71,5 +76,21 @@ public class PantallaPrincipal implements Initializable {
         }
         casamientosController.actualizar();
         pantallaPrincipal.setCenter(pantallaCasamientos);
+    }
+
+    @FXML
+    private void hacerElDelicioso() {
+        if (pantallaHacerElDelicioso == null) {
+            try {
+                pantallaHacerElDelicioso = fxmlLoaderHacerElDelicioso.load(getClass()
+                        .getResourceAsStream("/fxml/hacerElDelicioso.fxml"));
+                hacerElDeliciosoController = fxmlLoaderHacerElDelicioso.getController();
+                hacerElDeliciosoController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+        hacerElDeliciosoController.actualizar();
+        pantallaPrincipal.setCenter(pantallaHacerElDelicioso);
     }
 }

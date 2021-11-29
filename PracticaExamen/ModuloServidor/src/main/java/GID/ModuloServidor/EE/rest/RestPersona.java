@@ -97,7 +97,24 @@ public class RestPersona {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = sp.casamientoPareja(idH, idM);
         if (resultado.isRight()) {
-            response = Response.status(Response.Status.ACCEPTED)
+            response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ApiError(Constantes.NO_SE_ENCONTRO_EL_OBJETO, LocalDateTime.now()))
+                    .build();
+        }
+        return response;
+    }
+
+    @PUT
+    @Path("/procrear")
+    public Response procrear(Persona p, @QueryParam("idPadres") String idPadres) {
+        Response response;
+        Either<ApiError, ApiRespuesta> resultado = sp.procrear(p, idPadres);
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.CREATED)
                     .entity(resultado.get())
                     .build();
         } else {

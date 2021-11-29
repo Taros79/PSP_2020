@@ -43,4 +43,8 @@ public class ServiciosPersonaImpl implements ServiciosPersona {
     public ApiRespuesta casamientoPareja (String idH, String idM)  {
         return daoPersona.casamientoPareja(idH,idM);
     }
+
+    public ApiRespuesta procrear (Persona p, String idPadres)  {
+        return daoPersona.procrear(p, idPadres);
+    }
 }

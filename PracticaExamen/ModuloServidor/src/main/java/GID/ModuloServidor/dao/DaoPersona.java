@@ -7,7 +7,6 @@ import GID.ModuloServidor.EE.rest.Constantes;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -86,57 +85,57 @@ public class DaoPersona {
     }
 
     public Either<ApiError, ApiRespuesta> borrarPersona(String id) {
-            Either<ApiError, ApiRespuesta> resultado;
-            boolean borrado = false;
-            int numeroAbandonos = 0;
+        Either<ApiError, ApiRespuesta> resultado;
+        boolean borrado = false;
+        int numeroAbandonos = 0;
 
-            Persona p = personas.stream()
-                    .filter(persona -> persona.getId().equals(id)).findFirst().orElse(null);
+        Persona p = personas.stream()
+                .filter(persona -> persona.getId().equals(id)).findFirst().orElse(null);
 
-            if (p != null) {
-                String idMujer = p.getIdPersonaCasada();
-                List<Persona> hijos = p.getHijos();
+        if (p != null) {
+            String idMujer = p.getIdPersonaCasada();
+            List<Persona> hijos = p.getHijos();
 
-                for (int i = 0; i < hijos.size(); i++) {
-                    String idHijo = hijos.get(i).getId();
-                    personas.remove(personas.stream()
-                            .filter(persona -> persona.getId().equals(idHijo))
-                            .findFirst().orElse(null));
-                }
-
+            for (int i = 0; i < hijos.size(); i++) {
+                String idHijo = hijos.get(i).getId();
                 personas.remove(personas.stream()
-                        .filter(persona -> persona.getId().equals(idMujer))
+                        .filter(persona -> persona.getId().equals(idHijo))
                         .findFirst().orElse(null));
-
-                personas.remove(personas.stream()
-                        .filter(persona -> persona.getId().equals(id))
-                        .findFirst().orElse(null));
-
-
-                if (!Objects.equals(p.getIdPersonaCasada(), "")) {
-                    numeroAbandonos = 2;
-                } else {
-                    numeroAbandonos = 1;
-                }
-
-                numeroAbandonos = numeroAbandonos + p.getHijos().size();
-
-                borrado = true;
             }
 
-            if (borrado) {
-                resultado = Either.right(new ApiRespuesta
-                        ("Fueron exiliadas " + numeroAbandonos + " personas en total.", LocalDateTime.now()));
+            personas.remove(personas.stream()
+                    .filter(persona -> persona.getId().equals(idMujer))
+                    .findFirst().orElse(null));
+
+            personas.remove(personas.stream()
+                    .filter(persona -> persona.getId().equals(id))
+                    .findFirst().orElse(null));
+
+
+            if (!Objects.equals(p.getIdPersonaCasada(), "")) {
+                numeroAbandonos = 2;
             } else {
-                resultado = Either.left(new ApiError("No se pudo borrar", LocalDateTime.now()));
+                numeroAbandonos = 1;
             }
-            return resultado;
+
+            numeroAbandonos = numeroAbandonos + p.getHijos().size();
+
+            borrado = true;
         }
 
-    public Either<ApiError, ApiRespuesta> casamientoPareja (String idH, String idM) {
+        if (borrado) {
+            resultado = Either.right(new ApiRespuesta
+                    ("Fueron exiliadas " + numeroAbandonos + " personas en total.", LocalDateTime.now()));
+        } else {
+            resultado = Either.left(new ApiError("No se pudo borrar", LocalDateTime.now()));
+        }
+        return resultado;
+    }
+
+    public Either<ApiError, ApiRespuesta> casamientoPareja(String idH, String idM) {
         Either<ApiError, ApiRespuesta> resultado;
 
-        if(!idH.isEmpty() && !idM.isEmpty()){
+        if (!idH.isEmpty() && !idM.isEmpty()) {
             int posicion = 0;
             for (int i = 0; i < personas.size(); i++) {
                 if (idH.equals(personas.get(i).getId())) {
@@ -157,10 +156,45 @@ public class DaoPersona {
 
             resultado = Either.right(new ApiRespuesta
                     ("Personas casadas en santo matrimonio... amen", LocalDateTime.now()));
-        }else{
+        } else {
             resultado = Either.left(new ApiError("Alguien interrumpió el casamiento", LocalDateTime.now()));
         }
         return resultado;
     }
 
+    public Either<ApiError, ApiRespuesta> procrear(Persona p, String idPadres) {
+        Either<ApiError, ApiRespuesta> resultado;
+
+        if (!idPadres.isEmpty()) {
+            int posicion = 0;
+            for (int i = 0; i < personas.size(); i++) {
+                if (idPadres.equals(personas.get(i).getId())) {
+                    posicion = i;
+                }
+            }
+
+            List<Persona> hijos = personas.get(posicion).getHijos();
+            if (hijos.isEmpty()) {
+                hijos = new ArrayList<>();
+            }
+            hijos.add(p);
+            personas.get(posicion).setHijos(hijos);
+
+            idPadres = personas.get(posicion).getIdPersonaCasada();
+
+            posicion = 0;
+            for (int i = 0; i < personas.size(); i++) {
+                if (idPadres.equals(personas.get(i).getId())) {
+                    posicion = i;
+                }
+            }
+            personas.get(posicion).setHijos(hijos);
+
+            resultado = Either.right(new ApiRespuesta
+                    ("Mamasita que noche de lujuria. Tomen su hijo.", LocalDateTime.now()));
+        } else {
+            resultado = Either.left(new ApiError("Gatillazo... No pasa nada bro a todos les pasa alguna vez.", LocalDateTime.now()));
+        }
+        return resultado;
+    }
 }

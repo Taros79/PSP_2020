@@ -17,4 +17,6 @@ public interface ServiciosPersona {
     ApiRespuesta deletePersona(String id);
 
     ApiRespuesta casamientoPareja (String idH, String idM);
+
+    ApiRespuesta procrear (Persona p, String idPadres);
 }

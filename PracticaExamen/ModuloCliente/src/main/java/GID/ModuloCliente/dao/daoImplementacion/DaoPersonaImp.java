@@ -131,4 +131,25 @@ public class DaoPersonaImp implements DaoPersona {
         }
         return resultado;
     }
+
+    @Override
+    public ApiRespuesta procrear (Persona p, String idPadres)  {
+        ApiRespuesta resultado;
+        try {
+            PersonaApi personaApi = configurationSingleton_okHttpClient.getInstance().create(PersonaApi.class);
+            Response<ApiRespuesta> response = personaApi.procrear(p,idPadres).execute();
+
+            if (response.isSuccessful()) {
+                resultado = response.body();
+            } else {
+                resultado = new ApiRespuesta(response.message(),
+                        LocalDateTime.now());
+            }
+        } catch (IOException e) {
+            resultado = new ApiRespuesta(GID.ModuloCliente.gui.utils.Constantes.PROBLEMA_EN_SERVIDOR,
+                    LocalDateTime.now());
+            log.error(e.getMessage(), e);
+        }
+        return resultado;
+    }
 }
