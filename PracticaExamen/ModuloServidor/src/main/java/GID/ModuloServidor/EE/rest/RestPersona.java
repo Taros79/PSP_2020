@@ -86,7 +86,7 @@ public class RestPersona {
                     .build();
         } else {
             response = Response.status(Response.Status.NOT_FOUND)
-                    .entity(new ApiError(Constantes.NO_SE_ENCONTRO_EL_OBJETO, LocalDateTime.now()))
+                    .entity(resultado.getLeft())
                     .build();
         }
         return response;
@@ -102,7 +102,7 @@ public class RestPersona {
                     .build();
         } else {
             response = Response.status(Response.Status.NOT_FOUND)
-                    .entity(new ApiError(Constantes.NO_SE_ENCONTRO_EL_OBJETO, LocalDateTime.now()))
+                    .entity(resultado.getLeft())
                     .build();
         }
         return response;

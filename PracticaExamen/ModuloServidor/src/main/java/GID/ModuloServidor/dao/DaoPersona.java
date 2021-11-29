@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Log4j2
 public class DaoPersona {
@@ -93,41 +94,65 @@ public class DaoPersona {
                 .filter(persona -> persona.getId().equals(id)).findFirst().orElse(null);
 
         if (p != null) {
-            String idMujer = p.getIdPersonaCasada();
-            List<Persona> hijos = p.getHijos();
-
-            for (int i = 0; i < hijos.size(); i++) {
-                String idHijo = hijos.get(i).getId();
-                personas.remove(personas.stream()
-                        .filter(persona -> persona.getId().equals(idHijo))
-                        .findFirst().orElse(null));
-            }
-
-            personas.remove(personas.stream()
-                    .filter(persona -> persona.getId().equals(idMujer))
-                    .findFirst().orElse(null));
-
-            personas.remove(personas.stream()
-                    .filter(persona -> persona.getId().equals(id))
-                    .findFirst().orElse(null));
 
 
-            if (!Objects.equals(p.getIdPersonaCasada(), "")) {
-                numeroAbandonos = 2;
-            } else {
+            if (!Objects.equals(p.getEstadoCivil(), "Casad@")) {
+
+                List<Persona> hijosQueTienenPadres = personas.stream()
+                        .flatMap(persona -> persona.getHijos()
+                                .stream())
+                        .collect(Collectors.toList());
+
+                Persona hijo = hijosQueTienenPadres.stream()
+                        .filter(persona -> persona.getId().equals(id))
+                        .findFirst().orElse(null);
+
+                if (hijosQueTienenPadres.contains(hijo)) {
+                    personas.removeIf(persona -> persona.getHijos().contains(hijo));
+                }
+
                 numeroAbandonos = 1;
+
+                numeroAbandonos = numeroAbandonos + p.getHijos().size();
+
+                borrado = true;
+            } else {
+                String idMujer = p.getIdPersonaCasada();
+                List<Persona> hijos = p.getHijos();
+
+                for (int i = 0; i < hijos.size(); i++) {
+                    String idHijo = hijos.get(i).getId();
+                    personas.remove(personas.stream()
+                            .filter(persona -> persona.getId().equals(idHijo))
+                            .findFirst().orElse(null));
+                }
+
+                personas.remove(personas.stream()
+                        .filter(persona -> persona.getId().equals(idMujer))
+                        .findFirst().orElse(null));
+
+                personas.remove(personas.stream()
+                        .filter(persona -> persona.getId().equals(id))
+                        .findFirst().orElse(null));
+
+                if (!Objects.equals(p.getIdPersonaCasada(), "")) {
+                    numeroAbandonos = 2;
+                } else {
+                    numeroAbandonos = 1;
+                }
+
+                numeroAbandonos = numeroAbandonos + p.getHijos().size();
+                borrado = true;
             }
 
-            numeroAbandonos = numeroAbandonos + p.getHijos().size();
-
-            borrado = true;
-        }
-
-        if (borrado) {
-            resultado = Either.right(new ApiRespuesta
-                    ("Fueron exiliadas " + numeroAbandonos + " personas en total.", LocalDateTime.now()));
+            if (borrado) {
+                resultado = Either.right(new ApiRespuesta
+                        ("Fueron exiliadas " + numeroAbandonos + " personas en total.", LocalDateTime.now()));
+            } else {
+                resultado = Either.left(new ApiError("No se pudo borrar", LocalDateTime.now()));
+            }
         } else {
-            resultado = Either.left(new ApiError("No se pudo borrar", LocalDateTime.now()));
+            resultado = Either.left(new ApiError("El objeto persona esta a null", LocalDateTime.now()));
         }
         return resultado;
     }

@@ -25,6 +25,6 @@ public interface PersonaApi {
     @PUT(Constantes.ADD_DELETE_UPDATE_PERSONA)
     Call<ApiRespuesta> casamientoPareja(@Query("idH") String idH, @Query("idM") String idM);
 
-    @PUT("personas/agregarHijo")
+    @PUT("personas/procrear")
     Call<ApiRespuesta> procrear(@Body Persona p, @Query("idPadres") String idPadres);
 }

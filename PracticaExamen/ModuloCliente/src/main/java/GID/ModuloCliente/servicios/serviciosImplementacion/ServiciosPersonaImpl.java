@@ -44,6 +44,7 @@ public class ServiciosPersonaImpl implements ServiciosPersona {
         return daoPersona.casamientoPareja(idH,idM);
     }
 
+    @Override
     public ApiRespuesta procrear (Persona p, String idPadres)  {
         return daoPersona.procrear(p, idPadres);
     }

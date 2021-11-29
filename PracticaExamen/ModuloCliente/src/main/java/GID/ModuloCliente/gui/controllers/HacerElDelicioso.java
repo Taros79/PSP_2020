@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 import javax.inject.Inject;
 import java.net.URL;
@@ -64,9 +65,10 @@ public class HacerElDelicioso implements Initializable {
 
             int num = Integer.parseInt(ultimoLista.getId()) + 1;
 
-                    Persona p = new Persona(String.valueOf(num), txtNombre.getText(), "Solter@"
+            Persona p = new Persona(String.valueOf(num), txtNombre.getText(), "Solter@"
                     , comboBoxSexo.getSelectionModel().getSelectedItem()
-                    , textFieldLugarNacimiento.getText() , "", datePikerNacimiento.getValue().atStartOfDay()
+                    , textFieldLugarNacimiento.getText()
+                    , "",datePikerNacimiento.getValue().atStartOfDay()
                     , new ArrayList<>());
 
             var tarea = new Task<Either<String, Persona>>() {
@@ -96,8 +98,6 @@ public class HacerElDelicioso implements Initializable {
             new Thread(tarea).start();
             this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
 
-
-
             var task = new Task<ApiRespuesta>() {
                 @Override
                 protected ApiRespuesta call() throws Exception {
@@ -122,6 +122,42 @@ public class HacerElDelicioso implements Initializable {
         } else {
             a.setContentText("Rellena los campos");
             a.showAndWait();
+        }
+    }
+
+    @FXML
+    private void cargarHijos(MouseEvent mouseEvent) {
+        if (mouseEvent.getClickCount() == 1) {
+            var task = new Task<Either<String, List<Persona>>>() {
+                @Override
+                protected Either<String, List<Persona>> call() throws Exception {
+                    return serviciosPersona.getAllPersona();
+                }
+            };
+            task.setOnSucceeded(workerStateEvent -> {
+                listViewHijos.getItems().clear();
+                Try.of(() -> task.get().peek(persona -> listViewHijos.getItems().addAll(persona.stream()
+                                                .filter(persona1 -> persona1.getId().equals(
+                                                        listViewPadres.getSelectionModel().getSelectedItem().getId()))
+                                                .flatMap(persona1 -> persona1.getHijos().stream())
+                                                .collect(Collectors.toList())))
+                                .peekLeft(s -> {
+                                    a.setContentText(s);
+                                    a.showAndWait();
+                                }))
+                        .onFailure(throwable -> {
+                            a.setContentText(throwable.getMessage());
+                            a.showAndWait();
+                        });
+                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+            });
+            task.setOnFailed(workerStateEvent -> {
+                a.setContentText(workerStateEvent.getSource().getException().getMessage());
+                a.showAndWait();
+                this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT);
+            });
+            new Thread(task).start();
+            this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
         }
     }
 
