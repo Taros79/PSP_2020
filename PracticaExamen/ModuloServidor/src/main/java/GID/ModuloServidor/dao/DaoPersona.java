@@ -111,6 +111,10 @@ public class DaoPersona {
                     personas.removeIf(persona -> persona.getHijos().contains(hijo));
                 }
 
+                personas.remove(personas.stream()
+                        .filter(persona -> persona.getId().equals(id))
+                        .findFirst().orElse(null));
+
                 numeroAbandonos = 1;
 
                 numeroAbandonos = numeroAbandonos + p.getHijos().size();
