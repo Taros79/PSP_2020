@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "Servlet2", value = "/Servlet2")
+@WebServlet(name = "ServletP", value = Constantes.SERVLET_PINTURA)
 public class Servlet2 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
