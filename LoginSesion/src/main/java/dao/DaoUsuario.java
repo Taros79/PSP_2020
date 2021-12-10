@@ -9,7 +9,7 @@ import java.util.List;
 @Log4j2
 public class DaoUsuario {
 
-    private static List<Usuario> usuarios = new ArrayList<>();
+    private static final List<Usuario> usuarios = new ArrayList<>();
 
     static {
         usuarios.add(new Usuario("nombre","pass"));
