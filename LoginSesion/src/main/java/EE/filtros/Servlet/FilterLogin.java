@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "FilterLogin",urlPatterns = {"/visitas","/productos"})
+@WebFilter(filterName = "FilterLogin",urlPatterns = {"/visitas","/logout"})
 public class FilterLogin implements Filter {
 
 
@@ -17,8 +17,8 @@ public class FilterLogin implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
 // codigo para comprobar session usuario
 
-        Usuario g = (Usuario) ((HttpServletRequest)req).getSession().getAttribute("user");
-        if (g != null)
+        Usuario u = (Usuario) ((HttpServletRequest)req).getSession().getAttribute("user");
+        if (u != null)
             chain.doFilter(req, resp);
         else
             req.getRequestDispatcher("/errorFiltro.html").forward(req,resp);

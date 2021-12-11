@@ -11,13 +11,13 @@ import servicios.ServiciosUsuarios;
 
 import java.io.IOException;
 
-@WebServlet(name = "ServletLogin",urlPatterns = {"/doLogin"})
-public class ServletLogin extends HttpServlet {
+@WebServlet(name = "ServletRegister",urlPatterns = {"/toRegister"})
+public class ServletRegistro extends HttpServlet {
 
     private ServiciosUsuarios su;
 
     @Inject
-    public ServletLogin(ServiciosUsuarios su) {
+    public ServletRegistro(ServiciosUsuarios su) {
         this.su = su;
     }
 
@@ -29,10 +29,10 @@ public class ServletLogin extends HttpServlet {
 
         String name =request.getParameter("userName");
         String pass = request.getParameter("password");
+        Usuario u = new Usuario(name,pass);
 
-        if (su.login(name,pass))
+        if (su.addUser(u) !=null)
         {
-            Usuario u = new Usuario(name,pass);
             request.getSession().setAttribute("user",u);
             request.getRequestDispatcher("/welcome.jsp").forward(request,response);
         }

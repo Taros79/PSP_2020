@@ -1,16 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Jorjito
-  Date: 10/11/2020
-  Time: 11:15
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="dao.modelo.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Welcome</title>
 </head>
 <body>
-<h1>Welcome</h1>
+<% Usuario u = (Usuario) request.getSession().getAttribute("user"); %>
+<h1>Hola <%= u.getName() %> ahora estas logeado como un pro</h1>
+<form action="./logout" method="get">
+    <input type="submit" value="Logout"/>
+</form>
 </body>
 </html>

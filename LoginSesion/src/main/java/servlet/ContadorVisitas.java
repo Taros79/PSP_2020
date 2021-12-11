@@ -16,7 +16,6 @@ public class ContadorVisitas extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        if (request.getSession().getAttribute("user") != null) {
             var sVisitas = (Integer) request.getSession().getAttribute("visitas");
             if (sVisitas == null) {
                 request.getSession().setAttribute("visitas", 0);
@@ -31,12 +30,4 @@ public class ContadorVisitas extends HttpServlet {
 
             response.getWriter().println("visitas " + visitas);
         }
-        else {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().println("Prophibido");
-        }
-
-
-
     }
-}

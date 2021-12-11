@@ -24,5 +24,20 @@ public class ServiciosUsuarios {
             throw new OtraException(error.toString());
         return dao.addUser(u);
     }
+
+    public boolean login(String user,String pass){
+        boolean loginOk=false;
+        var usuario = dao.dameUsuarioPorNombre(user);
+        if (usuario.isRight())
+        {
+            loginOk = pass.equals(usuario.get().getPassword());
+        }
+        else
+        {
+            loginOk = false;
+        }
+        return loginOk;
+
+    }
     // compruebe login de un usario
 }
