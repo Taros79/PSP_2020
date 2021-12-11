@@ -21,7 +21,7 @@ public class FilterLogin implements Filter {
         if (u != null)
             chain.doFilter(req, resp);
         else
-            req.getRequestDispatcher("/errorFiltro.html").forward(req,resp);
+            req.getRequestDispatcher("/loginIncorrecto.jsp").forward(req,resp);
     }
 
     public void init(FilterConfig config) throws ServletException {
