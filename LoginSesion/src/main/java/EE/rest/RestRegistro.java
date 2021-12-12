@@ -1,4 +1,4 @@
-package servlet;
+package EE.rest;
 
 import EE.errores.ApiError;
 import dao.modelo.Usuario;
@@ -26,9 +26,9 @@ public class RestRegistro {
     }
 
     @POST
-    public Response addUsuario(Usuario user){
+    public Response addUsuario(Usuario user) {
         Usuario s = su.addUser(user);
-        if (s !=null)
+        if (s != null)
             return Response.status(Response.Status.CREATED).entity(s).build();
         else
             return Response.status(Response.Status.NOT_FOUND)

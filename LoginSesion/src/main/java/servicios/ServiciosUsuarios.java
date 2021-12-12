@@ -14,8 +14,7 @@ public class ServiciosUsuarios {
     @Inject
     private DaoUsuario dao;
 
-    public Usuario addUser(Usuario u)
-    {
+    public Usuario addUser(Usuario u) {
         final StringBuilder error = new StringBuilder();
         validator.validate(u).stream().forEach(
                 testDtoConstraintViolation ->
@@ -25,15 +24,12 @@ public class ServiciosUsuarios {
         return dao.addUser(u);
     }
 
-    public boolean login(String user,String pass){
-        boolean loginOk=false;
+    public boolean login(String user, String pass) {
+        boolean loginOk = false;
         var usuario = dao.dameUsuarioPorNombre(user);
-        if (usuario.isRight())
-        {
+        if (usuario.isRight()) {
             loginOk = pass.equals(usuario.get().getPassword());
-        }
-        else
-        {
+        } else {
             loginOk = false;
         }
         return loginOk;

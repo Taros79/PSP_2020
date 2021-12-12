@@ -1,8 +1,7 @@
 package EE.errores;
 
 
-
-public class OtraException extends RuntimeException{
+public class OtraException extends RuntimeException {
 
 
     public OtraException(String error) {
