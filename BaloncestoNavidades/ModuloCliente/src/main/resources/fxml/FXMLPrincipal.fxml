@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<BorderPane fx:id="fxRoot" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModuloCliente.gui.controllers.FXMLPrincipalController">
+    <top>
+        <MenuBar fx:id="fxMenuTop">
+            <Menu text="Digimons">
+                <items>
+
+                </items>
+
+            </Menu>
+
+            <Menu text="Series">
+                <items>
+
+                </items>
+
+            </Menu>
+
+        </MenuBar>
+    </top>
+   <center>
+       <Label layoutX="172.0" layoutY="116.0" text="Welcome to my API " textFill="#000000a1">
+           <font>
+               <Font size="36.0" />
+           </font>
+       </Label>
+   </center>
+</BorderPane>
