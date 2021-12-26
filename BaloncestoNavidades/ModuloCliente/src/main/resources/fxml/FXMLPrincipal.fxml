@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-<BorderPane fx:id="fxRoot" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModuloCliente.gui.controllers.FXMLPrincipalController">
+<BorderPane fx:id="pantallaPrincipal" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.ModuloCliente.gui.controllers.FXMLPrincipalController">
     <top>
         <MenuBar fx:id="fxMenuTop">
-            <Menu text="Digimons">
+            <Menu text="Iniciar Sesion">
                 <items>
-
+                    <MenuItem fx:id="menuBase" mnemonicParsing="false" onAction="#iniciarSesion"
+                              text="Iniciar" visible="true"/>
                 </items>
-
             </Menu>
 
-            <Menu text="Series">
+            <Menu text="Registrarse">
                 <items>
 
                 </items>
@@ -23,11 +24,11 @@
 
         </MenuBar>
     </top>
-   <center>
-       <Label layoutX="172.0" layoutY="116.0" text="Welcome to my API " textFill="#000000a1">
-           <font>
-               <Font size="36.0" />
-           </font>
-       </Label>
-   </center>
+    <center>
+        <Label layoutX="172.0" layoutY="116.0" text="Welcome to my API " textFill="#000000a1">
+            <font>
+                <Font size="36.0"/>
+            </font>
+        </Label>
+    </center>
 </BorderPane>
