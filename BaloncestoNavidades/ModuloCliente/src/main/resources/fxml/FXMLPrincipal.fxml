@@ -10,8 +10,10 @@
         <MenuBar fx:id="fxMenuTop">
             <Menu text="Iniciar Sesion">
                 <items>
-                    <MenuItem fx:id="menuBase" mnemonicParsing="false" onAction="#iniciarSesion"
+                    <MenuItem fx:id="menuInicioSesion" mnemonicParsing="false" onAction="#iniciarSesion"
                               text="Iniciar" visible="true"/>
+                    <MenuItem fx:id="menuCrearUsuario" mnemonicParsing="false" onAction="#crearUsuario"
+                              text="Crear Usuario" visible="true"/>
                 </items>
             </Menu>
 
