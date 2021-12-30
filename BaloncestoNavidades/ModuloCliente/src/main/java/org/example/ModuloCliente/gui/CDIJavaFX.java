@@ -8,6 +8,7 @@ import javax.enterprise.inject.se.SeContainerInitializer;
 import javax.enterprise.util.AnnotationLiteral;
 
 public class CDIJavaFX extends Application {
+
     public static void main(String[] args) {
         launch(args);
     }

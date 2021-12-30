@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -14,11 +15,11 @@ public class Usuario {
     private String pass;
     private String codActivacion;
     private int idUsuario;
-    private LocalDate fechaAlta;
+    private LocalDateTime fechaAlta;
     private int idTipoUsuario;
     private int confirmacion;
 
-    public Usuario(String correo, String pass, String codActivacion, LocalDate fechaAlta, int idTipoUsuario, int confirmacion) {
+    public Usuario(String correo, String pass, String codActivacion, LocalDateTime fechaAlta, int idTipoUsuario, int confirmacion) {
         this.correo = correo;
         this.pass = pass;
         this.codActivacion = codActivacion;

@@ -30,7 +30,7 @@ public class ListenerConfig implements ServletContextListener {
          You can initialize servlet context related data here.
       */
 
-        config.cargar(sce.getServletContext().getResourceAsStream("ModuloServidor/propertiesFiles/config.yaml"));
+        config.cargar(sce.getServletContext().getResourceAsStream("/WEB-INF/config/config.yaml"));
 
     }
 

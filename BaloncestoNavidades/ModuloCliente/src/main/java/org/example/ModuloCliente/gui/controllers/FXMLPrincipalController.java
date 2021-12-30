@@ -39,11 +39,12 @@ public class FXMLPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        preloadIniciarSesion();
         preloadCrearUsuario();
     }
 
     @FXML
-    private void iniciarSesion() {
+    private void preloadIniciarSesion() {
         if (pantallaIniciarSesion == null) {
             try {
                 pantallaIniciarSesion = fxmlLoaderIniciarSesion.load(getClass()
@@ -54,7 +55,6 @@ public class FXMLPrincipalController implements Initializable {
                 log.error(e.getMessage());
             }
         }
-        pantallaPrincipal.setCenter(pantallaIniciarSesion);
     }
 
     @FXML
@@ -69,6 +69,10 @@ public class FXMLPrincipalController implements Initializable {
                 log.error(e.getMessage());
             }
         }
+    }
+
+    public void iniciarSesion() {
+        pantallaPrincipal.setCenter(pantallaIniciarSesion);
     }
 
     public void crearUsuario() {
