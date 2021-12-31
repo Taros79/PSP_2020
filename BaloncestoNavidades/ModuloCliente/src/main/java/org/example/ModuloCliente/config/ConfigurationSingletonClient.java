@@ -1,49 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.example.ModuloCliente.config;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
 
+import javax.inject.Singleton;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Getter
+@Setter
+@Singleton
 public class ConfigurationSingletonClient {
+    private final String pathbase;
 
-    private static ConfigurationSingletonClient config;
-    private String path_base;
+    public ConfigurationSingletonClient() throws FileNotFoundException {
+        Yaml yaml = new Yaml();
+        Iterable<Object> it;
+        it = yaml.loadAll(new FileInputStream(ConstantesConfig.CONFIG_YAML));
 
-    private ConfigurationSingletonClient() {
+        Map<String, String> mp = (Map) it.iterator().next();
+        this.pathbase = mp.get(ConstantesConfig.PATH_BASE);
 
-    }
-
-    public static synchronized ConfigurationSingletonClient getInstance() {
-
-        if (config == null) {
-            try {
-                Yaml yaml = new Yaml();
-                Iterable<Object> it;
-
-                it = yaml.loadAll(new FileInputStream("ModuloCliente/config/config.yaml"));
-
-                Map<String, String> m = (Map) it.iterator().next();
-                config = new ConfigurationSingletonClient();
-                config.setPath_base(m.get("path_base"));
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(ConfigurationSingletonClient.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return config;
-    }
-
-    private void setPath_base(String path_base) {
-        this.path_base = path_base;
     }
 }

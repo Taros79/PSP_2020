@@ -1,4 +1,4 @@
-package org.example.ModuloServidor.rest;
+package org.example.ModuloServidor.EE.rest;
 
 import io.vavr.control.Either;
 import jakarta.ws.rs.core.Response;

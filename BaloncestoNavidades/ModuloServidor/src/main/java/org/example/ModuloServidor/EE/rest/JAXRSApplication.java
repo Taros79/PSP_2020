@@ -1,4 +1,4 @@
-package org.example.ModuloServidor.rest;
+package org.example.ModuloServidor.EE.rest;
 
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;

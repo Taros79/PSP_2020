@@ -1,16 +1,25 @@
 package org.example.ModuloCliente.gui.controllers;
 
 import javax.inject.Inject;
+
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import org.example.Common.EE.errores.ApiError;
 import org.example.Common.modelo.Usuario;
 import org.example.ModuloCliente.dao.DaoUsuario;
+import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class IniciarSesion implements Initializable {
@@ -45,7 +54,26 @@ public class IniciarSesion implements Initializable {
 
     public void añadir(ActionEvent actionEvent) {
         if(daoUsuario.getAllUsuario() != null){
-            listViewUsuarios.getItems().addAll(daoUsuario.getAllUsuario().get());
+            Single<Either<ApiError, List<Usuario>>> s = Single.fromCallable(() -> daoUsuario.getAllUsuario())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            s.subscribe(result ->
+                            result.peek(usuarios ->
+                                            listViewUsuarios.getItems().addAll(usuarios))
+                                    .peekLeft(error -> {
+                                        a.setContentText(error.getMessage());
+                                        a.showAndWait();
+                                    }),
+                    throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+
+
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
         }else{
             System.out.println("no mames");
         }

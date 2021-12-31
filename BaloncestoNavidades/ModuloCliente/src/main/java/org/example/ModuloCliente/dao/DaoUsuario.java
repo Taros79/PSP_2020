@@ -7,8 +7,8 @@ import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.ModuloCliente.dao.retrofit.BaloncestoApi;
-import org.example.ModuloCliente.config.ConfigurationSingleton_OkHttpClient;
 import org.example.ModuloCliente.dao.utils.Constantes;
+import org.example.ModuloCliente.gui.Producers;
 import retrofit2.Response;
 
 import java.io.IOException;
@@ -16,19 +16,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
-public class DaoUsuario {
+public class DaoUsuario extends DaoGenerics{
 
-    private ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient;
+    private final Producers producers;
 
     @Inject
-    public DaoUsuario(ConfigurationSingleton_OkHttpClient configurationSingleton_okHttpClient) {
-        this.configurationSingleton_okHttpClient = configurationSingleton_okHttpClient;
+    public DaoUsuario(Producers producers) {
+        this.producers = producers;
     }
 
     public Either<ApiError, List<Usuario>> getAllUsuario() {
         Either<ApiError, List<Usuario>> usuarios;
+        BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
         try {
-            BaloncestoApi baloncestoApi = configurationSingleton_okHttpClient.getInstance().create(BaloncestoApi.class);
             Response<List<Usuario>> response = baloncestoApi.getUsuarios().execute();
             if (response.isSuccessful()) {
                 usuarios = Either.right(response.body());
@@ -39,8 +39,7 @@ public class DaoUsuario {
             usuarios = Either.left(new ApiError(Constantes.PROBLEMA_SERVIDOR, LocalDateTime.now()));
             log.error(e.getMessage(), e);
         }
-
-        return usuarios;
+        return safeApicall(baloncestoApi.getUsuarios());
     }
 
     public Either<String, Usuario> getDatosByNombre(String id) {
