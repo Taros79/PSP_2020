@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Equipo {
     private int idEquipo;
-    private String nombreEquipo;
+    private String nombre;
 }

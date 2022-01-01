@@ -52,7 +52,7 @@ public class IniciarSesion implements Initializable {
 
     }
 
-    public void añadir(ActionEvent actionEvent) {
+    public void añadir() {
         if(daoUsuario.getAllUsuario() != null){
             Single<Either<ApiError, List<Usuario>>> s = Single.fromCallable(() -> daoUsuario.getAllUsuario())
                     .subscribeOn(Schedulers.io())

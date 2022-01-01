@@ -12,7 +12,10 @@ public interface BaloncestoApi {
     @GET(Constantes.USUARIO_GET_ALL)
     Call<List<Usuario>> getUsuarios();
 
-    /*@GET(Constantes.GET_PERSONA_ID)
+    /*@GET(Constantes.USUARIO_GET_ALL)
+    Call<List<Usuario>> getUsuarios();
+
+    @GET(Constantes.GET_PERSONA_ID)
     Call<Usuario> getRecursosUnaPersona(@Path("id") String id);
 
     @POST(Constantes.ADD_DELETE_UPDATE_PERSONA)

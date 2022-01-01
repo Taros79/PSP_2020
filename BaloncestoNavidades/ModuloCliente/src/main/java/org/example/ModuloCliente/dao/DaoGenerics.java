@@ -24,7 +24,7 @@ abstract class DaoGenerics {
             Response<T> response = call.execute();
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
-            } else {
+            } else if (response.code() == 400){
                 resultado = Either.left(new ApiError("No se que pasa", LocalDateTime.now()));
             }
         } catch (Exception e) {

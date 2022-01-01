@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class Partido {
     private int idPartido;
     private int idJornada;
-    private int idEquipoLocal;
-    private int idEquipoVisitante;
-    private String resultado;
+    private int idLocal;
+    private int idVisitante;
+    private int resultadoLocal;
+    private int resultadoVisitante;
 }

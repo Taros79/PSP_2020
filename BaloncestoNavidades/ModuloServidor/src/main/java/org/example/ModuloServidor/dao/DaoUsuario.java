@@ -2,8 +2,7 @@ package org.example.ModuloServidor.dao;
 
 import io.vavr.control.Either;
 import org.example.Common.EE.errores.ApiError;
-import org.example.ModuloServidor.dao.modelo.Usuario;
-import org.example.ModuloServidor.dao.modelo.UsuarioEntity;
+import org.example.Common.modelo.Usuario;
 import jakarta.inject.Inject;
 import org.hibernate.Session;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -30,24 +29,6 @@ public class DaoUsuario {
     public DaoUsuario(DBConnectionPool dbConnection,Session session) {
         this.session = session;
         this.dbConnection = dbConnection;
-    }
-
-
-    public List<Usuario> dameTodos() {
-        JdbcTemplate jtm = new JdbcTemplate(
-                dbConnection.getDataSource());
-
-        // select devuelve LIST
-        return jtm.query("Select * from usuarios",
-                BeanPropertyRowMapper.newInstance(Usuario.class));
-    }
-
-    public List<UsuarioEntity> dameTodosHibernate() {
-        List<UsuarioEntity> a = session.createQuery("from UsuarioEntity ",UsuarioEntity.class).getResultList();
-
-        session.close();
-        // select devuelve LIST
-        return a;
     }
 
     public Either<ApiError, List<Usuario>> getUsuarios() {

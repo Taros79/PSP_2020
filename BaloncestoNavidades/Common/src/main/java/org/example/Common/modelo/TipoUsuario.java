@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TipoUsuario {
-    private int idTipo;
+    private int id;
     private String tipo;
 }

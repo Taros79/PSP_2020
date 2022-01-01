@@ -11,6 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Jornada {
-    private int idJornada;
-    private LocalDate fechaJornada;
+    private int id;
+    private LocalDate fecha;
 }
