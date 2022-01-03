@@ -1,6 +1,8 @@
 package org.example.ModuloCliente.dao.retrofit;
 
 import org.example.Common.modelo.Usuario;
+import org.example.Common.modelo.UsuarioLoginDTO;
+import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.utils.Constantes;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -11,6 +13,12 @@ public interface BaloncestoApi {
 
     @GET(Constantes.USUARIO_GET_ALL)
     Call<List<Usuario>> getUsuarios();
+
+    @POST(Constantes.ADD_USUARIO_REGISTRO)
+    Call<UsuarioRegistro> addUsuarioRegistro(@Body UsuarioRegistro u);
+
+    @GET(Constantes.USUARIO_GET_ALL)
+    Call<UsuarioLoginDTO> getUsuarioLogin(@Query("username") String username);
 
     /*@GET(Constantes.USUARIO_GET_ALL)
     Call<List<Usuario>> getUsuarios();

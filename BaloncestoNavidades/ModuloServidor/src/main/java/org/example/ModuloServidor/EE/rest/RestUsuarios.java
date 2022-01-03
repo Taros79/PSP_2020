@@ -1,15 +1,13 @@
 package org.example.ModuloServidor.EE.rest;
 
 import io.vavr.control.Either;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.example.Common.EE.errores.ApiError;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.example.Common.modelo.Usuario;
+import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
 
 import java.util.List;
@@ -29,13 +27,26 @@ public class RestUsuarios {
     public RestUsuarios() {
     }
 
-    //para todos los metodos
-    //@Context HttpServletRequest request;
-
-    @GET
+   /* @GET
     public Response getAllUsuarios() {
         Response response;
         Either<ApiError, List<Usuario>> resultado = su.getUsuarios();
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(resultado.getLeft())
+                    .build();
+        }
+        return response;
+    }*/
+
+    @GET
+    public Response getUsuarioLogin(@QueryParam("username") String username) {
+        Response response;
+        Either<ApiError, UsuarioLoginDTO> resultado = su.getUsuarioLogin(username);
         if (resultado.isRight()) {
             response = Response.status(Response.Status.OK)
                     .entity(resultado.get())

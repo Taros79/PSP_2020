@@ -6,5 +6,5 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UsuarioGetDTO {
-    private String name;
+    private String username;
 }

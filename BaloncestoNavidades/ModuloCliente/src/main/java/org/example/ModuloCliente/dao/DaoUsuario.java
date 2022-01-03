@@ -6,6 +6,8 @@ import lombok.extern.log4j.Log4j2;
 import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
+import org.example.Common.modelo.UsuarioLoginDTO;
+import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.retrofit.BaloncestoApi;
 import org.example.ModuloCliente.dao.utils.Constantes;
 import org.example.ModuloCliente.gui.Producers;
@@ -42,12 +44,16 @@ public class DaoUsuario extends DaoGenerics{
         return safeApicall(baloncestoApi.getUsuarios());
     }
 
-    public Either<String, Usuario> getDatosByNombre(String id) {
-        return null;
+    public Either<ApiError, UsuarioRegistro> addUsuarioRegistro(UsuarioRegistro u) {
+        BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
+
+        return safeApicall(baloncestoApi.addUsuarioRegistro(u));
     }
 
-    public Either<String, Usuario> addUsuario(Usuario p) {
-        return null;
+    public Either<ApiError, UsuarioLoginDTO> getUsuarioLogin(UsuarioLoginDTO u) {
+        BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
+
+        return safeApicall(baloncestoApi.getUsuarioLogin(u.getUsername()));
     }
 
     public ApiRespuesta deleteUsuario(String id) {

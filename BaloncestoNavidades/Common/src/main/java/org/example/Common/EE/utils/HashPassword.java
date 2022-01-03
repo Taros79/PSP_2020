@@ -1,4 +1,4 @@
-package org.example.ModuloServidor.servicios;
+package org.example.Common.EE.utils;
 
 import lombok.SneakyThrows;
 
