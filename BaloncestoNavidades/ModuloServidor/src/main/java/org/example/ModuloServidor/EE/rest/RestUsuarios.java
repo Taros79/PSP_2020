@@ -27,7 +27,7 @@ public class RestUsuarios {
     public RestUsuarios() {
     }
 
-   /* @GET
+    @GET
     public Response getAllUsuarios() {
         Response response;
         Either<ApiError, List<Usuario>> resultado = su.getUsuarios();
@@ -41,9 +41,10 @@ public class RestUsuarios {
                     .build();
         }
         return response;
-    }*/
+    }
 
     @GET
+    @Path("/userLogin")
     public Response getUsuarioLogin(@QueryParam("username") String username) {
         Response response;
         Either<ApiError, UsuarioLoginDTO> resultado = su.getUsuarioLogin(username);

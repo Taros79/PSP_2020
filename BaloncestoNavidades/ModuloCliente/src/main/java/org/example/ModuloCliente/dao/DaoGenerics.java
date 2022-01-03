@@ -52,7 +52,24 @@ abstract class DaoGenerics {
                     }
                     return error;
                 });
+    }
 
 
+    public String apiCallPersonalizado(Call<String> call) {
+        String resultado = null;
+        try {
+            Response<String> response = call.execute();
+            if (response.isSuccessful()) {
+                resultado = response.body();
+            } else if (response.code() == 404) {
+                resultado = "Pagina no encontrada";
+            } else if (response.code() == 500) {
+                resultado = "Error en el servidor";
+            }
+        } catch (Exception e) {
+            resultado = "Error de comunicacion";
+            log.error(e.getMessage(), e);
+        }
+        return resultado;
     }
 }

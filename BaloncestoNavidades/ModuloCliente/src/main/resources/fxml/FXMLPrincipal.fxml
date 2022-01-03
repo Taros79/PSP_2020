@@ -12,14 +12,14 @@
                 <items>
                     <MenuItem fx:id="menuInicioSesion" mnemonicParsing="false" onAction="#iniciarSesion"
                               text="Iniciar" visible="true"/>
-                    <MenuItem fx:id="menuCrearUsuario" mnemonicParsing="false" onAction="#crearUsuario"
-                              text="Crear Usuario" visible="true"/>
+                    <MenuItem mnemonicParsing="false" onAction="#registrarUsuario"
+                              text="Crear Usuario"/>
                 </items>
             </Menu>
 
             <Menu text="Registrarse">
                 <items>
-
+                    <MenuItem mnemonicParsing="false" onAction="#registrarUsuario" text="Registrarse"/>
                 </items>
 
             </Menu>

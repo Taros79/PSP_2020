@@ -1,5 +1,6 @@
 package org.example.ModuloCliente.gui.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,14 +24,14 @@ public class FXMLPrincipalController implements Initializable {
     private AnchorPane pantallaIniciarSesion;
     private IniciarSesion iniciarSesionController;
 
-    private final FXMLLoader fxmlLoaderCrearUsuario;
-    private AnchorPane pantallaCrearUsuario;
-    private CrearUsuario crearUsuarioController;
+    private final FXMLLoader fxmlLoaderRegistrarUsuario;
+    private AnchorPane pantallaRegistrarUsuario;
+    private RegistrarUsuario registrarUsuarioController;
 
     @Inject
-    public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderCrearUsuario) {
+    public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderRegistrarUsuario) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
-        this.fxmlLoaderCrearUsuario = fxmlLoaderCrearUsuario;
+        this.fxmlLoaderRegistrarUsuario = fxmlLoaderRegistrarUsuario;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -40,7 +41,7 @@ public class FXMLPrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         preloadIniciarSesion();
-        preloadCrearUsuario();
+        preloadRegistrarUsuario();
     }
 
     @FXML
@@ -58,13 +59,13 @@ public class FXMLPrincipalController implements Initializable {
     }
 
     @FXML
-    private void preloadCrearUsuario() {
-        if (pantallaCrearUsuario == null) {
+    private void preloadRegistrarUsuario() {
+        if (pantallaRegistrarUsuario == null) {
             try {
-                pantallaCrearUsuario = fxmlLoaderCrearUsuario.load(getClass()
-                        .getResourceAsStream("/fxml/crearUsuario.fxml"));
-                crearUsuarioController = fxmlLoaderCrearUsuario.getController();
-                crearUsuarioController.setPantallaPrincipal(this);
+                pantallaRegistrarUsuario = fxmlLoaderRegistrarUsuario.load(getClass()
+                        .getResourceAsStream("/fxml/registrarUsuario.fxml"));
+                registrarUsuarioController = fxmlLoaderRegistrarUsuario.getController();
+                registrarUsuarioController.setPantallaPrincipal(this);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
@@ -75,7 +76,8 @@ public class FXMLPrincipalController implements Initializable {
         pantallaPrincipal.setCenter(pantallaIniciarSesion);
     }
 
-    public void crearUsuario() {
-        pantallaPrincipal.setCenter(pantallaCrearUsuario);
+    public void registrarUsuario() {
+        pantallaPrincipal.setCenter(pantallaRegistrarUsuario);
     }
+
 }

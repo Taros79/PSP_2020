@@ -19,8 +19,12 @@ public class ServletMail extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MandarMail mail = new MandarMail();
 
+       String correo = request.getParameter("correo");
+
         try {
-            mail.generateAndSendEmail("promocarlos1.1@gmail.com", "<html>generado <a href=\"http://localhost:8080/ModuloServidor-1.0-SNAPSHOT/Activacion?codigo="+ Utils.randomBytes()+"\" >marca</a> " + Utils.randomBytes() + "</html>"
+            mail.generateAndSendEmail(correo,
+                    "<html>generado <a href=\"http://localhost:8080/ModuloServidor-1.0-SNAPSHOT/activacion?codigo="+
+                            Utils.randomBytes()+"\" >marca</a> " + "</html>"
                     , "mail de prueba");
             response.getWriter().println("correo enviado");
         } catch (Exception e) {

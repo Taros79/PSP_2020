@@ -1,5 +1,6 @@
 package org.example.ModuloCliente.dao.retrofit;
 
+import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
@@ -17,8 +18,11 @@ public interface BaloncestoApi {
     @POST(Constantes.ADD_USUARIO_REGISTRO)
     Call<UsuarioRegistro> addUsuarioRegistro(@Body UsuarioRegistro u);
 
-    @GET(Constantes.USUARIO_GET_ALL)
+    @GET(Constantes.GET_USUARIO_LOGIN)
     Call<UsuarioLoginDTO> getUsuarioLogin(@Query("username") String username);
+
+    @GET(Constantes.GET_CORREO)
+    Call<String> getCorreo(@Query("correo") String correo);
 
     /*@GET(Constantes.USUARIO_GET_ALL)
     Call<List<Usuario>> getUsuarios();

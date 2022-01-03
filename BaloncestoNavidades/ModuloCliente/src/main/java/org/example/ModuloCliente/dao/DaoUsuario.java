@@ -46,14 +46,18 @@ public class DaoUsuario extends DaoGenerics{
 
     public Either<ApiError, UsuarioRegistro> addUsuarioRegistro(UsuarioRegistro u) {
         BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
-
         return safeApicall(baloncestoApi.addUsuarioRegistro(u));
     }
 
     public Either<ApiError, UsuarioLoginDTO> getUsuarioLogin(UsuarioLoginDTO u) {
         BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
-
         return safeApicall(baloncestoApi.getUsuarioLogin(u.getUsername()));
+    }
+
+    public String getCorreo(String correo) {
+        BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
+
+        return apiCallPersonalizado(baloncestoApi.getCorreo(correo));
     }
 
     public ApiRespuesta deleteUsuario(String id) {

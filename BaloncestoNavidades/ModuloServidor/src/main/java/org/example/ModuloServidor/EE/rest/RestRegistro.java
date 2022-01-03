@@ -21,8 +21,8 @@ public class RestRegistro {
         this.su = su;
     }
 
-    public RestRegistro() {
-    }
+
+
 
     @POST
     public String addUsuarioRegistro(UsuarioRegistro u) {

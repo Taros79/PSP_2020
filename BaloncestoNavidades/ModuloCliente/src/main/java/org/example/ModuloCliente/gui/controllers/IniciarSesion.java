@@ -11,6 +11,7 @@ import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.ModuloCliente.dao.DaoUsuario;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -45,12 +46,10 @@ public class IniciarSesion implements Initializable {
     }
 
     public void actualizar() {
-
-
     }
 
     @FXML
-    private void añadir() {
+    private void añadir() throws IOException {
         if (!textFieldPass.getText().isEmpty() && !textFieldNombre.getText().isEmpty()) {
             var user = daoUsuario.getUsuarioLogin(new UsuarioLoginDTO(textFieldNombre.getText(), textFieldPass.getText()));
 
