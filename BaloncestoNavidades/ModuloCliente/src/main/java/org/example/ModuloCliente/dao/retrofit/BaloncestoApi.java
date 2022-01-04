@@ -21,8 +21,8 @@ public interface BaloncestoApi {
     @GET(Constantes.GET_USUARIO_LOGIN)
     Call<UsuarioLoginDTO> getUsuarioLogin(@Query("username") String username);
 
-    @GET(Constantes.GET_CORREO)
-    Call<String> getCorreo(@Query("correo") String correo);
+    @GET(Constantes.MANDAR_MAIL)
+    Call<String> mandarMail(@Query("correo") String correo, @Query("username") String username);
 
     /*@GET(Constantes.USUARIO_GET_ALL)
     Call<List<Usuario>> getUsuarios();

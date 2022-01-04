@@ -65,18 +65,16 @@ public class RegistrarUsuario implements Initializable {
     @FXML
     private void addUsuario() {
 
-        System.out.println(daoUsuario.getCorreo("promocarlos1.2@gmail.com"));
-
- /*    if (!txtNombre.getText().isEmpty() && !txtContraseña.getText().isEmpty()
+        if (!txtNombre.getText().isEmpty() && !txtContraseña.getText().isEmpty()
                 && !txtCorreo.getText().isEmpty()) {
             String pass = hash.hashPassword(txtContraseña.getText());
-            daoUsuario.addUsuarioRegistro(
-                    new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass, 2));
-            daoUsuario.getCorreo(txtCorreo.getText());
-        } else {
+            UsuarioRegistro u = new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass, 2);
+            System.out.println(daoUsuario.addUsuarioRegistro(u));
+            System.out.println(daoUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername()));
+        }else {
             a.setContentText("Algun campo esta vacio");
             a.showAndWait();
-        }*/
+        }
     }
 
     @FXML
