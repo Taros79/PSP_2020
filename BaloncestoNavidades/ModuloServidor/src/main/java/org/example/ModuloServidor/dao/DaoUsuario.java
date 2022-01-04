@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -31,10 +32,12 @@ public class DaoUsuario {
     private HashPassword hash = new HashPassword();
 
     private static final String INSERT_USUARIO =
-            "insert into usuarios (correo, username, hashedPassword, tipoUsuario) values (?, ?, ?, ?)";
+            "insert into usuarios (correo, username, hashedPassword, fechaAlta, tipoUsuario) values (?, ?, ?, ?, ?)";
 
     private static final String GET_USUARIO = "select * from usuarios where username = ?";
 
+    public static final String UPDATE_USUARIO =
+            "UPDATE usuarios SET codActivacion = ?, isActivo = ? , fechaAlta = ? WHERE username = ?";
     @Inject
     public DaoUsuario(DBConnectionPool dbConnection) {
         this.dbConnection = dbConnection;
@@ -56,27 +59,57 @@ public class DaoUsuario {
     }
 
     public Either<ApiError, UsuarioLoginDTO> getUsuarioLogin(String username) {
-            UsuarioLoginDTO c = null;
-            Either<ApiError, UsuarioLoginDTO> resultado = null;
+        UsuarioLoginDTO c;
+        Either<ApiError, UsuarioLoginDTO> resultado;
 
-            try {
-                JdbcTemplate jtm = new JdbcTemplate(
-                        dbConnection.getDataSource());
-                c = jtm.queryForObject(GET_USUARIO, new Object[]{username}, (rs, rowNum) ->
-                        new UsuarioLoginDTO(
-                                rs.getString("username"),
-                                rs.getString("hashedPassword")));
-                resultado = Either.right(c);
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(
+                    dbConnection.getDataSource());
+            c = jtm.queryForObject(GET_USUARIO, new Object[]{username}, (rs, rowNum) ->
+                    new UsuarioLoginDTO(
+                            rs.getString("username"),
+                            rs.getString("hashedPassword")));
+            resultado = Either.right(c);
 
-            } catch (IncorrectResultSizeDataAccessException e) {
-                Logger.getLogger("Main").info(e.getMessage());
-                resultado = Either.left(new ApiError("Este usuario no existe", LocalDateTime.now()));
-            } catch (Exception e) {
-                Logger.getLogger("Main").info(e.getMessage());
-                resultado = Either.left(new ApiError("Fallo en la bbdd", LocalDateTime.now()));
-            }
-            return resultado;
+        } catch (IncorrectResultSizeDataAccessException e) {
+            Logger.getLogger("Main").info(e.getMessage());
+            resultado = Either.left(new ApiError("Este usuario no existe", LocalDateTime.now()));
+        } catch (Exception e) {
+            Logger.getLogger("Main").info(e.getMessage());
+            resultado = Either.left(new ApiError("Fallo en la bbdd", LocalDateTime.now()));
+        }
+        return resultado;
     }
+
+    public Either<ApiError, Usuario> getUsuario(String username) {
+        Usuario c;
+        Either<ApiError, Usuario> resultado;
+
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(
+                    dbConnection.getDataSource());
+            c = jtm.queryForObject(GET_USUARIO, new Object[]{username}, (rs, rowNum) ->
+                    new Usuario(
+                            rs.getInt("id"),
+                            rs.getString("correo"),
+                            rs.getString("username"),
+                            rs.getString("hashedPassword"),
+                            rs.getString("codActivacion"),
+                            rs.getInt("isActivo"),
+                            rs.getDate("fechaAlta").toLocalDate().atStartOfDay(),
+                            rs.getInt("tipoUsuario")));
+            resultado = Either.right(c);
+
+        } catch (IncorrectResultSizeDataAccessException e) {
+            Logger.getLogger("Main").info(e.getMessage());
+            resultado = Either.left(new ApiError("Este usuario no existe", LocalDateTime.now()));
+        } catch (Exception e) {
+            Logger.getLogger("Main").info(e.getMessage());
+            resultado = Either.left(new ApiError("Fallo en la bbdd", LocalDateTime.now()));
+        }
+        return resultado;
+    }
+
 
     public String addUsuario(UsuarioRegistro u) {
         JdbcTemplate jtm = new JdbcTemplate(
@@ -84,7 +117,7 @@ public class DaoUsuario {
         String añadido;
 
         String password = hash.hashPassword(u.getHashedPassword());
-        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(), u.getHashedPassword(), u.getTipoUsuario());
+        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(), password, LocalDateTime.now(), u.getTipoUsuario());
 
         if (resultado == 1) {
             añadido = "Usuario creado";
@@ -94,29 +127,17 @@ public class DaoUsuario {
         return añadido;
     }
 
-//    @PreDestroy
-//    public void cerrarSession()
-//    {
-//        session.close();
-//    }
-
-
-    /*public Usuario addUser(Usuario user) {
-
-        UsuarioEntity userE = new UsuarioEntity();
-        userE.setFecha(LocalDateTime.now());
-        userE.setName(user.getName());
-        userE.setPassword(user.getPassword());
-        session.beginTransaction();
-        session.save(userE);
-        session.getTransaction().commit();
-
-        return user;
+    public String updateUsuario(String codActivacion, int isActivo, LocalDateTime fechaAlta, String username) {
+        String resultado;
+        try {
+            JdbcTemplate jtm = new JdbcTemplate(
+                    dbConnection.getDataSource());
+            jtm.update(UPDATE_USUARIO, codActivacion, isActivo, fechaAlta, username);
+            resultado = "Usuario actualizado";
+        } catch (Exception e) {
+            java.util.logging.Logger.getLogger("Main").info(e.getMessage());
+            resultado = "Error en la bbdd";
+        }
+        return resultado;
     }
-
-    public boolean borrar(String id) {
-        return usuarios.remove(usuarios.stream()
-                .filter(usuario -> usuario.getId().equals(id))
-                .findFirst().orElse(null));
-    }*/
 }

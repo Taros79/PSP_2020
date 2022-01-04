@@ -10,9 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@WebServlet(name = "ServletActivacion",urlPatterns = {"/activacion"})
+@WebServlet(name = "ServletActivacion", urlPatterns = {"/activacion"})
 public class ServletActivacion extends HttpServlet {
 
     private ServiciosUsuarios serviciosUsuarios;
@@ -25,24 +27,26 @@ public class ServletActivacion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //coges parametro
-        String codigo = req.getParameter("codigo");
-        String usuario = req.getParameter("username");
-        if (!codigo.isEmpty() && !usuario.isEmpty()) {
-            var user = serviciosUsuarios.getUsuarioLogin(usuario);
-            if (user.isRight()) {
-                req.getSession().setAttribute("usuario", user.get());
-                resp.getWriter().println(codigo);
+        String cod = req.getParameter("codigo");
+        String user = req.getParameter("username");
+        if (!cod.isEmpty() && !user.isEmpty()) {
+            var usuario = serviciosUsuarios.getUsuario(user);
+            if (usuario.isRight()) {
+                LocalDateTime fechaAlta = LocalDateTime.now();
+                resp.getWriter().println(serviciosUsuarios.updateUsuario(cod, 1, fechaAlta, user));
+                req.getSession().setAttribute("usuario", usuario.get());
+
                 resp.getWriter().println(req.getSession().getAttribute("usuario"));
             } else {
-                resp.getWriter().println("es left");
+                resp.getWriter().println("Usuario no valido");
             }
         } else {
-            resp.getWriter().println("sos un pendejo que no se ha registrado");
+            resp.getWriter().println("No estas registrado");
         }
 
-        LocalDateTime d= LocalDateTime.now();
+        LocalDateTime d = LocalDateTime.now();
 
-        LocalDateTime d1  = d.plusSeconds(30);
+        LocalDateTime d1 = d.plusSeconds(30);
 
 
         //vas a la BD para ver si existe y si la fecha es mayor, y le activas

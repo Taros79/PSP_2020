@@ -49,7 +49,7 @@ public class IniciarSesion implements Initializable {
     }
 
     @FXML
-    private void añadir() throws IOException {
+    private void añadir() {
         if (!textFieldPass.getText().isEmpty() && !textFieldNombre.getText().isEmpty()) {
             var user = daoUsuario.getUsuarioLogin(new UsuarioLoginDTO(textFieldNombre.getText(), textFieldPass.getText()));
 
@@ -61,7 +61,7 @@ public class IniciarSesion implements Initializable {
                     System.out.println("penne");
                 }
             }else{
-                System.out.println("penne");
+                System.out.println("penne2");
             }
 
 

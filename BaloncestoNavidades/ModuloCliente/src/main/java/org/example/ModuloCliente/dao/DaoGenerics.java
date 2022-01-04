@@ -26,6 +26,8 @@ abstract class DaoGenerics {
                 resultado = Either.right(response.body());
             } else if (response.code() == 404){
                 resultado = Either.left(new ApiError("No encontrado", LocalDateTime.now()));
+            }else if (response.code() == 500) {
+                resultado = Either.left(new ApiError("Error en el servidor", LocalDateTime.now()));
             }
         } catch (Exception e) {
             resultado = Either.left(new ApiError("No se que pasa", LocalDateTime.now()));
