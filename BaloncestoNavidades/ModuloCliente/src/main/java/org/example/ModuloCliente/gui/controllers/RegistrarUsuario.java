@@ -1,18 +1,25 @@
 package org.example.ModuloCliente.gui.controllers;
 
 import com.github.javafaker.Faker;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.vavr.control.Either;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.HashPassword;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.DaoUsuario;
+import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.net.URL;
@@ -66,10 +73,12 @@ public class RegistrarUsuario implements Initializable {
         if (!txtNombre.getText().isEmpty() && !txtContraseña.getText().isEmpty()
                 && !txtCorreo.getText().isEmpty()) {
             String pass = hash.hashPassword(txtContraseña.getText());
-            UsuarioRegistro u = new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass, LocalDateTime.now(),2);
-            daoUsuario.addUsuarioRegistro(u);
+            UsuarioRegistro u = new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass,"",0, LocalDateTime.now(),2);
+
+            addUsuarioTask(u);
+
             System.out.println(daoUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername()));
-            a.setAlertType(Alert.AlertType.CONFIRMATION);
+           /* a.setAlertType(Alert.AlertType.CONFIRMATION);
             a.setTitle("MENSAJE CONFIRMACION");
             a.setHeaderText("Ahora debes ir al correo que proporcionastes y " +
                     "aceptar el codigo de validacion antes de logearte.");
@@ -82,19 +91,56 @@ public class RegistrarUsuario implements Initializable {
                 a.setContentText("Volvimos a enviarte tu correo por favor confirme " +
                         "que no se encuentra en su bandeja de spam");
                 a.showAndWait();
-            }
+            }*/
         } else {
             a.setContentText("Algun campo esta vacio");
             a.showAndWait();
         }
     }
 
-    @FXML
-    private void borrarAutor(ActionEvent actionEvent) {
+    private void addUsuarioTask(UsuarioRegistro u) {
+        @NonNull Single<Either<ApiError, UsuarioRegistro>> s = Single.fromCallable(() ->
+                        daoUsuario.addUsuarioRegistro(u))
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .doFinally(() -> this.pantallaPrincipal
+                        .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+        s.subscribe(result ->
+                        result.peek(usuario -> {
+                                   mensajeAlert(u);
+                                })
+                                .peekLeft(error -> {
+                                    a.setContentText(error.getMessage());
+                                    a.showAndWait();
+                                }),
+                throwable -> {
+                    a.setContentText(throwable.getMessage());
+                    a.showAndWait();
+                });
+        this.pantallaPrincipal
+                .getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
+    private void mensajeAlert(UsuarioRegistro u){
+        a.setAlertType(Alert.AlertType.CONFIRMATION);
+        a.setTitle("MENSAJE CONFIRMACION");
+        a.setHeaderText("Ahora debes ir al correo que proporcionastes y " +
+                "aceptar el codigo de validacion antes de logearte.");
+        a.setContentText("Te llego el mensaje de confirmacion al correo?");
+
+        Optional<ButtonType> result = a.showAndWait();
+        if (result.get() != ButtonType.OK) {
+            daoUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername());
+            a.setHeaderText("Reintento de envio");
+            a.setContentText("Volvimos a enviarte tu correo por favor confirme " +
+                    "que no se encuentra en su bandeja de spam");
+            a.showAndWait();
+        }
+    }
+
+
     @FXML
-    private void modificarAutor(ActionEvent actionEvent) {
+    private void borrarAutor(ActionEvent actionEvent) {
     }
 
     public void actualizar() {

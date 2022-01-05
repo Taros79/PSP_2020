@@ -1,6 +1,7 @@
 package org.example.ModuloCliente.dao;
 
 import com.google.gson.Gson;
+import com.google.gson.stream.MalformedJsonException;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.vavr.control.Either;
@@ -21,16 +22,18 @@ abstract class DaoGenerics {
         Either<ApiError, T> resultado = null;
 
         try {
-            Response <T> response = call.execute();
+            Response<T> response = call.execute();
             if (response.isSuccessful()) {
                 resultado = Either.right(response.body());
-            } else if (response.code() == 404){
+            } else if (response.code() == 404) {
                 resultado = Either.left(new ApiError("No encontrado", LocalDateTime.now()));
-            }else if (response.code() == 500) {
+            } else if (response.code() == 500) {
                 resultado = Either.left(new ApiError("Error en el servidor", LocalDateTime.now()));
             }
-        } catch (Exception e) {
-            resultado = Either.left(new ApiError("No se que pasa", LocalDateTime.now()));
+        }catch (MalformedJsonException malformedJsonException){
+            resultado = Either.left(new ApiError("Todo correcto", LocalDateTime.now()));
+    }catch (Exception e) {
+            resultado = Either.left(new ApiError("Error en el safeApi call", LocalDateTime.now()));
             log.error(e.getMessage(), e);        }
 
         return resultado;

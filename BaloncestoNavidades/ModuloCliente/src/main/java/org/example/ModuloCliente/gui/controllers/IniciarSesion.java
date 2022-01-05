@@ -1,5 +1,6 @@
 package org.example.ModuloCliente.gui.controllers;
 
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.vavr.control.Either;
@@ -10,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.example.Common.EE.errores.ApiError;
+import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.EE.utils.HashPassword;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
@@ -67,7 +69,7 @@ public class IniciarSesion implements Initializable {
                    if (user.get().getIsActivo()==1){
                        System.out.println("ok");
                    }else{
-                       daoUsuario.deleteUsuario(user.get().getUsername());
+                       deleteUsuarioTask(user.get());
                    }
                 }else{
                     System.out.println("Usuario no valido");
@@ -105,5 +107,29 @@ public class IniciarSesion implements Initializable {
         }else{
             System.out.println("no mames");
         }*/
+    }
+
+    private void deleteUsuarioTask(UsuarioLoginDTO u) {
+        @NonNull Single<Either<ApiError, ApiRespuesta>> s = Single.fromCallable(() ->
+                daoUsuario.deleteUsuario(u.getUsername()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .doFinally(() -> this.pantallaPrincipal
+                        .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+        s.subscribe(result ->
+                        result.peek(usuario -> {
+                                    a.setContentText("Bien");
+                                    a.showAndWait();
+                                })
+                                .peekLeft(error -> {
+                                    a.setContentText(error.getMessage());
+                                    a.showAndWait();
+                                }),
+                throwable -> {
+                    a.setContentText(throwable.getMessage());
+                    a.showAndWait();
+                });
+        this.pantallaPrincipal
+                .getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 }

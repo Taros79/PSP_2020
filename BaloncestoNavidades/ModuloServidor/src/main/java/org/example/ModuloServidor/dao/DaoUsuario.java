@@ -36,7 +36,7 @@ public class DaoUsuario {
     private HashPassword hash = new HashPassword();
 
     private static final String INSERT_USUARIO =
-            "insert into usuarios (correo, username, hashedPassword, fechaAlta, tipoUsuario) values (?, ?, ?, ?, ?)";
+            "insert into usuarios (correo, username, hashedPassword,codActivacion,isActivo, fechaAlta, tipoUsuario) values (?, ?, ?, ?, ?,?,?)";
 
     private static final String GET_USUARIO = "select * from usuarios where username = ?";
 
@@ -126,7 +126,7 @@ public class DaoUsuario {
         String añadido;
 
         //String password = hash.hashPassword(u.getHashedPassword());
-        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(), u.getHashedPassword(), LocalDateTime.now(), u.getTipoUsuario());
+        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(), u.getHashedPassword(),u.getCodActivacion(), u.getIsActivo(),LocalDateTime.now(), u.getTipoUsuario());
 
         if (resultado == 1) {
             añadido = "Usuario creado";
