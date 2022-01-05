@@ -8,18 +8,20 @@
             fx:controller="org.example.ModuloCliente.gui.controllers.FXMLPrincipalController">
     <top>
         <MenuBar fx:id="fxMenuTop">
-            <Menu text="Iniciar Sesion">
+            <Menu text="Menu">
                 <items>
                     <MenuItem fx:id="menuInicioSesion" mnemonicParsing="false" onAction="#iniciarSesion"
                               text="Iniciar" visible="true"/>
                     <MenuItem mnemonicParsing="false" onAction="#registrarUsuario"
-                              text="Crear Usuario"/>
+                              text="Registrarse"/>
                 </items>
             </Menu>
 
             <Menu text="Registrarse">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#registrarUsuario" text="Registrarse"/>
+                    <MenuItem mnemonicParsing="false" onAction="#registrarEquipo" text="Registro Equipos"/>
+                    <MenuItem mnemonicParsing="false" onAction="#resultadoPartidos" text="Resultado Partidos"/>
                 </items>
 
             </Menu>

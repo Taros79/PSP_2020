@@ -6,6 +6,7 @@ import org.example.ModuloCliente.config.ConfigurationSingletonClient;
 import org.example.ModuloCliente.dao.retrofit.BaloncestoApi;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
+import org.example.ModuloCliente.dao.retrofit.PartidosApi;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -13,7 +14,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -64,6 +64,9 @@ public class Producers {
     }
 
 
-
+    @Produces
+    public PartidosApi createApiPartidos(@NotNull Retrofit retrofit) {
+        return retrofit.create(PartidosApi.class);
+    }
 
 }

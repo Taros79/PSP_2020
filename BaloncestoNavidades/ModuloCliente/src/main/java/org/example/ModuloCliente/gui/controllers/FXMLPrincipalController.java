@@ -1,6 +1,5 @@
 package org.example.ModuloCliente.gui.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,10 +27,21 @@ public class FXMLPrincipalController implements Initializable {
     private AnchorPane pantallaRegistrarUsuario;
     private RegistrarUsuario registrarUsuarioController;
 
+    private final FXMLLoader fxmlLoaderRegistroEquipo;
+    private AnchorPane pantallaRegistroEquipo;
+    private RegistrarEquipo registrarEquipoController;
+
+    private final FXMLLoader fxmlLoaderResultadoPartidos;
+    private AnchorPane pantallaResultadoPartidos;
+    private ResultadoPartidos resultadoPartidosController;
+
     @Inject
-    public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderRegistrarUsuario) {
+    public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderRegistrarUsuario,
+                                   FXMLLoader fxmlLoaderRegistroEquipo,FXMLLoader fxmlLoaderResultadoPartidos) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
         this.fxmlLoaderRegistrarUsuario = fxmlLoaderRegistrarUsuario;
+        this.fxmlLoaderRegistroEquipo = fxmlLoaderRegistroEquipo;
+        this.fxmlLoaderResultadoPartidos = fxmlLoaderResultadoPartidos;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -42,6 +52,8 @@ public class FXMLPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         preloadIniciarSesion();
         preloadRegistrarUsuario();
+        preloadRegistroEquipo();
+        preloadResultadoPartidos();
     }
 
     @FXML
@@ -72,12 +84,64 @@ public class FXMLPrincipalController implements Initializable {
         }
     }
 
-    public void iniciarSesion() {
+    @FXML
+    private void preloadRegistroEquipo() {
+        if (pantallaRegistroEquipo == null) {
+            try {
+                pantallaRegistroEquipo = fxmlLoaderRegistroEquipo.load(getClass()
+                        .getResourceAsStream("/fxml/registrarEquipo.fxml"));
+                registrarEquipoController = fxmlLoaderRegistroEquipo.getController();
+                registrarEquipoController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void preloadResultadoPartidos() {
+        if (pantallaResultadoPartidos == null) {
+            try {
+                pantallaResultadoPartidos = fxmlLoaderResultadoPartidos.load(getClass()
+                        .getResourceAsStream("/fxml/resultadoPartidos.fxml"));
+                resultadoPartidosController = fxmlLoaderResultadoPartidos.getController();
+                resultadoPartidosController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void iniciarSesion() {
         pantallaPrincipal.setCenter(pantallaIniciarSesion);
     }
 
-    public void registrarUsuario() {
+    @FXML
+    private void registrarUsuario() {
         pantallaPrincipal.setCenter(pantallaRegistrarUsuario);
     }
+
+    @FXML
+    private void registrarEquipo() {
+        pantallaPrincipal.setCenter(pantallaRegistroEquipo);
+    }
+
+    @FXML
+    private void resultadoPartidos() {
+        pantallaPrincipal.setCenter(pantallaResultadoPartidos);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
