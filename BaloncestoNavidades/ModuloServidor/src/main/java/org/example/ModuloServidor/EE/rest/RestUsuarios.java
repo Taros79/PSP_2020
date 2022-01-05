@@ -6,6 +6,7 @@ import jakarta.ws.rs.core.Response;
 import org.example.Common.EE.errores.ApiError;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.MediaType;
+import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
@@ -24,8 +25,6 @@ public class RestUsuarios {
         this.su = su;
     }
 
-    public RestUsuarios() {
-    }
 
     @GET
     public Response getAllUsuarios() {
@@ -50,6 +49,22 @@ public class RestUsuarios {
         Either<ApiError, UsuarioLoginDTO> resultado = su.getUsuarioLogin(username);
         if (resultado.isRight()) {
             response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(resultado.getLeft())
+                    .build();
+        }
+        return response;
+    }
+
+    @DELETE
+    public Response delPersona(@QueryParam("id") String u) {
+        Response response;
+        Either<ApiError, ApiRespuesta> resultado = su.delUsuario(u);
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.ACCEPTED)
                     .entity(resultado.get())
                     .build();
         } else {

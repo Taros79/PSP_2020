@@ -1,21 +1,25 @@
 package org.example.ModuloServidor.dao;
 
 import io.vavr.control.Either;
+import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.apache.log4j.Logger;
 import org.example.Common.EE.errores.ApiError;
+import org.example.Common.EE.utils.ApiRespuesta;
+import org.example.Common.EE.utils.HashPassword;
 import org.example.Common.modelo.Usuario;
-import jakarta.inject.Inject;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
-import org.example.Common.EE.utils.HashPassword;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /***
@@ -38,6 +42,10 @@ public class DaoUsuario {
 
     public static final String UPDATE_USUARIO =
             "UPDATE usuarios SET codActivacion = ?, isActivo = ? , fechaAlta = ? WHERE username = ?";
+
+    public static final String DELETE_USUARIO_INACTIVO =
+            "delete from usuarios where username = ? and isActivo = 0";
+
     @Inject
     public DaoUsuario(DBConnectionPool dbConnection) {
         this.dbConnection = dbConnection;
@@ -68,7 +76,8 @@ public class DaoUsuario {
             c = jtm.queryForObject(GET_USUARIO, new Object[]{username}, (rs, rowNum) ->
                     new UsuarioLoginDTO(
                             rs.getString("username"),
-                            rs.getString("hashedPassword")));
+                            rs.getString("hashedPassword"),
+                            rs.getInt("isActivo")));
             resultado = Either.right(c);
 
         } catch (IncorrectResultSizeDataAccessException e) {
@@ -116,8 +125,8 @@ public class DaoUsuario {
                 dbConnection.getDataSource());
         String añadido;
 
-        String password = hash.hashPassword(u.getHashedPassword());
-        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(), password, LocalDateTime.now(), u.getTipoUsuario());
+        //String password = hash.hashPassword(u.getHashedPassword());
+        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(), u.getHashedPassword(), LocalDateTime.now(), u.getTipoUsuario());
 
         if (resultado == 1) {
             añadido = "Usuario creado";
@@ -140,4 +149,26 @@ public class DaoUsuario {
         }
         return resultado;
     }
+
+    public Either<ApiError, ApiRespuesta> delUsuario(String u) {
+
+        Either<ApiError, ApiRespuesta> resultado;
+        if (u != null) {
+            try {
+                JdbcTemplate jtm = new JdbcTemplate(
+                        dbConnection.getDataSource());
+                jtm.update(DELETE_USUARIO_INACTIVO, u);
+                resultado = Either.right(new ApiRespuesta("Usuario borrado", LocalDateTime.now()));
+            } catch (DataAccessException e) {
+                resultado = Either.left(new ApiError("Fallo en la base de datos", LocalDateTime.now()));
+                log.error(e.getMessage(), e);
+            }
+        } else {
+            resultado = Either.left(new ApiError("El objeto esta a null", LocalDateTime.now()));
+        }
+
+        return resultado;
+    }
+
+
 }

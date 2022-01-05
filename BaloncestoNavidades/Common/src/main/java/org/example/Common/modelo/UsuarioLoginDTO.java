@@ -11,6 +11,5 @@ public class UsuarioLoginDTO {
 
     private String username;
     private String hashedPassword;
-
-
+    private int isActivo;
 }

@@ -24,6 +24,9 @@ public interface BaloncestoApi {
     @GET(Constantes.MANDAR_MAIL)
     Call<String> mandarMail(@Query("correo") String correo, @Query("username") String username);
 
+    @DELETE("api/usuarios")
+    Call<ApiRespuesta> deletePersona(@Query("id") String u);
+
     /*@GET(Constantes.USUARIO_GET_ALL)
     Call<List<Usuario>> getUsuarios();
 

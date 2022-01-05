@@ -3,6 +3,7 @@ package org.example.ModuloServidor.servicios;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import org.example.Common.EE.errores.ApiError;
+import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
@@ -40,5 +41,9 @@ public class ServiciosUsuarios {
 
     public String updateUsuario(String codActivacion, int isActivo, LocalDateTime fechaAlta, String username) {
         return dao.updateUsuario(codActivacion, isActivo, fechaAlta, username);
+    }
+
+    public Either<ApiError, ApiRespuesta> delUsuario(String u) {
+        return dao.delUsuario(u);
     }
 }

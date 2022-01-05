@@ -56,11 +56,11 @@ public class DaoUsuario extends DaoGenerics{
 
     public String mandarMail(String correo, String username) {
         BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
-
         return this.apiCallPersonalizado(baloncestoApi.mandarMail(correo, username));
     }
 
-    public ApiRespuesta deleteUsuario(String id) {
-        return null;
+    public Either<ApiError, ApiRespuesta>  deleteUsuario(String u) {
+        BaloncestoApi baloncestoApi = producers.createApi(producers.createRetrofit());
+        return this.safeApicall(baloncestoApi.deletePersona(u));
     }
 }
