@@ -3,6 +3,9 @@ package org.example.ModuloServidor.servicios;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import org.example.Common.EE.errores.ApiError;
+import org.example.Common.EE.utils.ApiRespuesta;
+import org.example.Common.modelo.Equipo;
+import org.example.Common.modelo.Jornada;
 import org.example.Common.modelo.Partido;
 import org.example.ModuloServidor.dao.DaoPartidos;
 
@@ -20,5 +23,17 @@ public class ServiciosPartidos {
 
     public Either<ApiError, List<Partido>> getPartidos() {
         return dao.getPartidos();
+    }
+
+    public Either<ApiError, ApiRespuesta>  addPartido(Partido p) {
+        return dao.addPartido(p);
+    }
+
+    public Either<ApiError, ApiRespuesta>  addEquipo(Equipo equipo) {
+        return dao.addEquipo(equipo);
+    }
+
+    public Either<ApiError, ApiRespuesta>  addJornada(Jornada jornada) {
+        return dao.addJornada(jornada);
     }
 }

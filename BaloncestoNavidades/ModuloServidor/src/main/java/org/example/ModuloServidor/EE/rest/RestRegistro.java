@@ -28,5 +28,4 @@ public class RestRegistro {
     public String addUsuarioRegistro(UsuarioRegistro u) {
         return su.addUsuario(u);
     }
-
 }
