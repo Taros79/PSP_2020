@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.MediaType;
 import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
+import org.example.ModuloServidor.EE.filtros.Filtro;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class RestUsuarios {
 
 
     @GET
+    @Filtro
     public Response getAllUsuarios() {
         Response response;
         Either<ApiError, List<Usuario>> resultado = su.getUsuarios();
@@ -74,4 +76,6 @@ public class RestUsuarios {
         }
         return response;
     }
+
+
 }

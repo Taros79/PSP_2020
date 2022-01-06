@@ -55,29 +55,24 @@ public class IniciarSesion implements Initializable {
         a = new Alert(Alert.AlertType.INFORMATION);
     }
 
-    public void actualizar() {
-    }
-
     @FXML
     private void añadir() {
-        if (!textFieldPass.getText().isEmpty() && !textFieldNombre.getText().isEmpty()) {
-            var user = daoUsuario.getUsuarioLogin(new UsuarioLoginDTO(textFieldNombre.getText(), textFieldPass.getText(), 0));
-
-            if (user.isRight()) {
-                String pass = hash.hashPassword(textFieldPass.getText());
-                if(Objects.equals(user.get().getHashedPassword(), pass)){
-                   if (user.get().getIsActivo()==1){
-                       System.out.println("ok");
-                   }else{
-                       deleteUsuarioTask(user.get());
-                   }
-                }else{
-                    System.out.println("Usuario no valido");
-                }
-            }else{
-                System.out.println("Error en la bbdd");
-            }
-
+        if (!textFieldNombre.getText().isEmpty() && !textFieldPass.getText().isEmpty()) {
+            Single<String> s = Single.fromCallable(() -> daoUsuario.login(textFieldNombre.getText(), textFieldPass.getText()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            s.subscribe((s1 -> {
+                        a.setContentText(s1);
+                        a.showAndWait();
+                    }),
+                    throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
         }
 
       /*  UsuarioRegistro u = new UsuarioRegistro("carlos79@gmail.com", "amanterechoncho79", "amanterechoncho", LocalDateTime.now(),1);

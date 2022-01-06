@@ -1,18 +1,17 @@
-/*
 package org.example.ModuloServidor.EE.servlet;
 
-import dao.modelo.Usuario;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import servicios.ServiciosUsuarios;
+import jakarta.ws.rs.core.Response;
+import org.example.ModuloServidor.servicios.ServiciosUsuarios;
 
 import java.io.IOException;
 
-@WebServlet(name = "Login",urlPatterns = {"/doLogin"})
+@WebServlet(name = "Login", urlPatterns = {"/doLogin"})
 public class ServletLogin extends HttpServlet {
 
     private ServiciosUsuarios su;
@@ -28,29 +27,24 @@ public class ServletLogin extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String passwd = request.getParameter("pass");
-        String user = request.getParameter("user");
+        String passwd = request.getParameter("password");
+        String user = request.getParameter("username");
 
-
-        // mirara si el suuario es valido
-
-        if (su.login(user,passwd))
-        {
-            Usuario u = new Usuario(user,passwd);
-            request.getSession().setAttribute("user",u);
-            response.getWriter().println("LoginOK");
+        if (su.login(user, passwd)) {
+            var usuario = su.getUsuario(user);
+            if (usuario.isRight()) {
+                if(usuario.get().getIsActivo() == 1){
+                    request.getSession().setAttribute("user", usuario.get());
+                    response.setStatus(200);
+                }else{
+                    response.sendError(500,"Usuario sin validar, su cuenta sera borrada por seguridad :D");
+                }
+            }else{
+                response.sendError(404,"Usuario no encontrado");
+            }
+        } else {
+            response.sendError(500,"Usuario no valido");
         }
-        else
-        {
-            response.getWriter().println("LoginFalse");
-
-        }
-
-
-        // si es valido guarda en sesion el usuario y va a un a pagina main con dos links productos o cesta
-
-        // si no pagina error.
 
     }
 }
-*/

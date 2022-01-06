@@ -46,4 +46,19 @@ public class ServiciosUsuarios {
     public Either<ApiError, ApiRespuesta> delUsuario(String u) {
         return dao.delUsuario(u);
     }
+
+
+    public boolean login(String username, String password) {
+
+        boolean loginOk = false;
+
+        var resultado = dao.getUsuario(username);
+
+        if (resultado.isRight()) {
+            if (password.equals(resultado.get().getHashedPassword())) {
+                loginOk = true;
+            }
+        }
+        return loginOk;
+    }
 }

@@ -29,19 +29,25 @@ public class FXMLPrincipalController implements Initializable {
 
     private final FXMLLoader fxmlLoaderRegistroEquipo;
     private AnchorPane pantallaRegistroEquipo;
-    private RegistrarEquipo registrarEquipoController;
+    private AdministracionEquipos administracionEquiposController;
 
     private final FXMLLoader fxmlLoaderResultadoPartidos;
     private AnchorPane pantallaResultadoPartidos;
-    private ResultadoPartidos resultadoPartidosController;
+    private AdministracionPartidos administracionPartidosController;
+
+    private final FXMLLoader fxmlLoaderDatosLigaBaloncesto;
+    private AnchorPane pantallaDatosLigaBaloncesto;
+    private DatosLigaBaloncesto datosLigaBaloncestoController;
 
     @Inject
     public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderRegistrarUsuario,
-                                   FXMLLoader fxmlLoaderRegistroEquipo,FXMLLoader fxmlLoaderResultadoPartidos) {
+                                   FXMLLoader fxmlLoaderRegistroEquipo,FXMLLoader fxmlLoaderResultadoPartidos,
+                                   FXMLLoader fxmlLoaderDatosLigaBaloncesto) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
         this.fxmlLoaderRegistrarUsuario = fxmlLoaderRegistrarUsuario;
         this.fxmlLoaderRegistroEquipo = fxmlLoaderRegistroEquipo;
         this.fxmlLoaderResultadoPartidos = fxmlLoaderResultadoPartidos;
+        this.fxmlLoaderDatosLigaBaloncesto = fxmlLoaderDatosLigaBaloncesto;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -89,9 +95,9 @@ public class FXMLPrincipalController implements Initializable {
         if (pantallaRegistroEquipo == null) {
             try {
                 pantallaRegistroEquipo = fxmlLoaderRegistroEquipo.load(getClass()
-                        .getResourceAsStream("/fxml/registrarEquipo.fxml"));
-                registrarEquipoController = fxmlLoaderRegistroEquipo.getController();
-                registrarEquipoController.setPantallaPrincipal(this);
+                        .getResourceAsStream("/fxml/administracionEquipos.fxml"));
+                administracionEquiposController = fxmlLoaderRegistroEquipo.getController();
+                administracionEquiposController.setPantallaPrincipal(this);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
@@ -103,9 +109,23 @@ public class FXMLPrincipalController implements Initializable {
         if (pantallaResultadoPartidos == null) {
             try {
                 pantallaResultadoPartidos = fxmlLoaderResultadoPartidos.load(getClass()
-                        .getResourceAsStream("/fxml/resultadoPartidos.fxml"));
-                resultadoPartidosController = fxmlLoaderResultadoPartidos.getController();
-                resultadoPartidosController.setPantallaPrincipal(this);
+                        .getResourceAsStream("/fxml/administracionPartidos.fxml"));
+                administracionPartidosController = fxmlLoaderResultadoPartidos.getController();
+                administracionPartidosController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
+    @FXML
+    private void preloadDatosLigaBaloncesto() {
+        if (pantallaResultadoPartidos == null) {
+            try {
+                pantallaDatosLigaBaloncesto = fxmlLoaderDatosLigaBaloncesto.load(getClass()
+                        .getResourceAsStream("/fxml/datosLigaBaloncesto.fxml"));
+                datosLigaBaloncestoController = fxmlLoaderDatosLigaBaloncesto.getController();
+                datosLigaBaloncestoController.setPantallaPrincipal(this);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
@@ -120,6 +140,7 @@ public class FXMLPrincipalController implements Initializable {
     @FXML
     private void registrarUsuario() {
         pantallaPrincipal.setCenter(pantallaRegistrarUsuario);
+        registrarUsuarioController.actualizar();
     }
 
     @FXML
@@ -132,6 +153,10 @@ public class FXMLPrincipalController implements Initializable {
         pantallaPrincipal.setCenter(pantallaResultadoPartidos);
     }
 
+    @FXML
+    private void datosLigaBaloncesto() {
+        pantallaPrincipal.setCenter(pantallaDatosLigaBaloncesto);
+    }
 
 
 

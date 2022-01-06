@@ -1,4 +1,4 @@
-ruta: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Stefan_Baloncesto?useSSL=false
+ruta: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Carlos_Baloncesto?useSSL=false
 user: root
 password: quevedo2dam
 driver: com.mysql.cj.jdbc.Driver

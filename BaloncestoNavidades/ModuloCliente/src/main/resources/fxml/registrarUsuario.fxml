@@ -4,19 +4,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.ModuloCliente.gui.controllers.RegistrarUsuario">
-      <ListView fx:id="listViewAutores" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="232.0" prefWidth="356.0" />
-      <TextField fx:id="txtNombre" layoutX="416.0" layoutY="82.0" prefHeight="31.0" prefWidth="143.0" promptText="Nombre" />
-      <TextField fx:id="txtContraseña" layoutX="416.0" layoutY="158.0" prefHeight="31.0" prefWidth="143.0" promptText="Contraseña" />
-    <TextField fx:id="txtCorreo" layoutX="416.0" layoutY="238.0" prefHeight="31.0" prefWidth="143.0" promptText="Correo" />
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModuloCliente.gui.controllers.RegistrarUsuario">
+      <ListView fx:id="listViewAutores" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="232.0" prefWidth="331.0" />
+      <TextField fx:id="txtNombre" layoutX="418.0" layoutY="67.0" prefHeight="31.0" prefWidth="143.0" promptText="Nombre" />
+      <TextField fx:id="txtContraseña" layoutX="418.0" layoutY="143.0" prefHeight="31.0" prefWidth="143.0" promptText="Contraseña" />
+    <TextField fx:id="txtCorreo" layoutX="418.0" layoutY="216.0" prefHeight="31.0" prefWidth="143.0" promptText="Correo" />
     <Button layoutX="437.0" layoutY="325.0" mnemonicParsing="false" onAction="#addUsuario" prefHeight="60.0" prefWidth="104.0" text="Add">
          <font>
             <Font name="Forte" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="74.0" layoutY="329.0" mnemonicParsing="false" onAction="#rellenarFaker" prefHeight="51.0" prefWidth="117.0" text="Faker" />
-      <Button layoutX="267.0" layoutY="336.0" mnemonicParsing="false" onAction="#borrarAutor" prefHeight="37.0" prefWidth="53.0" text="Borrar" />
+      <Button layoutX="172.0" layoutY="337.0" mnemonicParsing="false" onAction="#borrarUsuario" prefHeight="37.0" prefWidth="53.0" text="Borrar" />
 
       <Label layoutX="65.0" layoutY="23.0" prefHeight="51.0" prefWidth="95.0" text="egistro" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
          <font>
@@ -38,20 +36,26 @@
             <Font name="Forte" size="80.0" />
          </font>
       </Label>
-      <Label layoutX="461.0" layoutY="48.0" prefHeight="25.0" prefWidth="53.0" text="Nombre">
+      <Label layoutX="463.0" layoutY="33.0" prefHeight="25.0" prefWidth="53.0" text="Nombre">
          <font>
             <Font name="Forte" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="446.0" layoutY="123.0" prefHeight="25.0" prefWidth="85.0" text="Contraseña">
+      <Label layoutX="448.0" layoutY="108.0" prefHeight="25.0" prefWidth="85.0" text="Contraseña">
          <font>
             <Font name="Forte" size="15.0" />
          </font>
       </Label>
-    <Label layoutX="464.0" layoutY="207.0" prefHeight="25.0" prefWidth="67.0" text="Correo">
+    <Label layoutX="466.0" layoutY="185.0" prefHeight="25.0" prefWidth="67.0" text="Correo">
         <font>
             <Font name="Forte" size="15.0" />
         </font>
     </Label>
-      <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0" />
+    <Label layoutX="448.0" layoutY="253.0" prefHeight="25.0" prefWidth="85.0" text="Tipo Usuario">
+        <font>
+            <Font name="Forte" size="15.0" />
+        </font>
+    </Label>
+      <Separator layoutX="353.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0" />
+   <ComboBox fx:id="comboBoxTipoUser" layoutX="414.0" layoutY="278.0" prefWidth="150.0" />
 </AnchorPane>

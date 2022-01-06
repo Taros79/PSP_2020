@@ -43,7 +43,7 @@ public class RestPartidos {
     }
 
     @POST
-    @Path("p")
+    @Path("/addPartido")
     public Response addPartido(Partido partido) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addPartido(partido);
@@ -60,6 +60,7 @@ public class RestPartidos {
     }
 
     @POST
+    @Path("/addEquipo")
     public Response addEquipo(Equipo equipo) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addEquipo(equipo);
@@ -76,7 +77,7 @@ public class RestPartidos {
     }
 
     @POST
-    @Path("")
+    @Path("/addJornada")
     public Response addJornada(Jornada jornada) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addJornada(jornada);

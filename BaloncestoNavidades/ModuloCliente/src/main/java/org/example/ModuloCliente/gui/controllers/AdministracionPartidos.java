@@ -1,20 +1,20 @@
 package org.example.ModuloCliente.gui.controllers;
 
-import javax.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import org.example.Common.modelo.Equipo;
 import org.example.Common.modelo.Partido;
 import org.example.ModuloCliente.dao.DaoPartidos;
-import org.example.ModuloCliente.dao.DaoUsuario;
 
+import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ResultadoPartidos implements Initializable {
+public class AdministracionPartidos implements Initializable {
 
     @FXML
     private ListView<Partido> listViewPartidos;
@@ -25,7 +25,7 @@ public class ResultadoPartidos implements Initializable {
     private DaoPartidos daoPartidos;
 
     @Inject
-    public ResultadoPartidos(DaoPartidos daoPartidos) {
+    public AdministracionPartidos(DaoPartidos daoPartidos) {
         this.daoPartidos = daoPartidos;
     }
 
@@ -55,5 +55,6 @@ public class ResultadoPartidos implements Initializable {
 
     @FXML
     private void borrarAutor(ActionEvent actionEvent) {
+        daoPartidos.addEquipo(new Equipo("ClusNovilllin"));
     }
 }

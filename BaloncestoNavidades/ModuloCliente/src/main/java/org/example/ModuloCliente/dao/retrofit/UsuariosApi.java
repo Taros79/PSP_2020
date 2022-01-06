@@ -6,11 +6,12 @@ import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.utils.Constantes;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.*;
 
 import java.util.List;
 
-public interface BaloncestoApi {
+public interface UsuariosApi {
 
     @GET(Constantes.USUARIO_GET_ALL)
     Call<List<Usuario>> getUsuarios();
@@ -27,16 +28,9 @@ public interface BaloncestoApi {
     @DELETE("api/usuarios")
     Call<ApiRespuesta> deletePersona(@Query("id") String u);
 
-    /*@GET(Constantes.USUARIO_GET_ALL)
-    Call<List<Usuario>> getUsuarios();
+    //esto hay que cambiar
+    @GET("doLogin")
+    Call<Void> login(@Query("username") String username, @Query("password") String password);
 
-    @GET(Constantes.GET_PERSONA_ID)
-    Call<Usuario> getRecursosUnaPersona(@Path("id") String id);
-
-    @POST(Constantes.ADD_DELETE_UPDATE_PERSONA)
-    Call<Usuario> addPersona(@Body Usuario p);
-
-    @DELETE(Constantes.ADD_DELETE_UPDATE_PERSONA)
-    Call<ApiRespuesta> deletePersona(@Query("id") String id);*/
 
 }

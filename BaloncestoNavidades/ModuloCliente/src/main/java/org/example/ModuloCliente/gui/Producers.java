@@ -3,7 +3,7 @@ package org.example.ModuloCliente.gui;
 import com.google.gson.*;
 import jakarta.validation.constraints.NotNull;
 import org.example.ModuloCliente.config.ConfigurationSingletonClient;
-import org.example.ModuloCliente.dao.retrofit.BaloncestoApi;
+import org.example.ModuloCliente.dao.retrofit.UsuariosApi;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import org.example.ModuloCliente.dao.retrofit.PartidosApi;
@@ -44,7 +44,7 @@ public class Producers {
         return new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (jsonElement, type, jsonDeserializationContext) ->
                         LocalDateTime.parse(jsonElement.getAsJsonPrimitive().getAsString()))
                 .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>)
-                        (LocalDateTime, type, jsonSerializationContext) -> new JsonPrimitive(LocalDateTime.toString())).create();
+                        (LocalDateTime, type, jsonSerializationContext) -> new JsonPrimitive(LocalDateTime.toString())).setLenient().create();
     }
 
     @Produces
@@ -57,10 +57,9 @@ public class Producers {
                 .build();
     }
 
-
     @Produces
-    public BaloncestoApi createApi(@NotNull Retrofit retrofit) {
-        return retrofit.create(BaloncestoApi.class);
+    public UsuariosApi createApi(@NotNull Retrofit retrofit) {
+        return retrofit.create(UsuariosApi.class);
     }
 
 

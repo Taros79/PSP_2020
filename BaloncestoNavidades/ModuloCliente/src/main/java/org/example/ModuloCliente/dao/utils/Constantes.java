@@ -5,7 +5,9 @@ public class Constantes {
     public static final String USUARIO_GET_ALL = "api/usuarios";
     public static final String GET_USUARIO_LOGIN = "api/usuarios/userLogin";
 
-    public static final String ADD_PARTIDO = "api/partidos";
+    public static final String ADD_PARTIDO = "api/partidos/addPartido";
+    public static final String ADD_EQUIPO = "api/partidos/addEquipo";
+    public static final String ADD_JORNADA = "api/partidos/addJornada";
     public static final String PARTIDO_GET_ALL = "api/partidos";
 
     public static final String OBJETO_NO_VALIDO = "Objeto no valido";

@@ -1,21 +1,18 @@
 package org.example.ModuloCliente.gui.controllers;
 
-import com.github.javafaker.Faker;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.vavr.control.Either;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import org.example.Common.EE.errores.ApiError;
+import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.EE.utils.HashPassword;
+import org.example.Common.modelo.TipoUsuario;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.DaoUsuario;
@@ -29,6 +26,8 @@ import java.util.ResourceBundle;
 
 public class RegistrarUsuario implements Initializable {
 
+    @FXML
+    private ComboBox<TipoUsuario> comboBoxTipoUser;
     @FXML
     private ListView<Usuario> listViewAutores;
     @FXML
@@ -53,12 +52,6 @@ public class RegistrarUsuario implements Initializable {
         this.pantallaPrincipal = pantallaPrincipal;
     }
 
-
-    @FXML
-    private void rellenarFaker(ActionEvent actionEvent) {
-        Faker f = new Faker();
-    }
-
     @FXML
     private void handleMouseClick(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() == 1 && listViewAutores.getSelectionModel().getSelectedItem() != null) {
@@ -73,7 +66,7 @@ public class RegistrarUsuario implements Initializable {
         if (!txtNombre.getText().isEmpty() && !txtContraseña.getText().isEmpty()
                 && !txtCorreo.getText().isEmpty()) {
             String pass = hash.hashPassword(txtContraseña.getText());
-            UsuarioRegistro u = new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass,"",0, LocalDateTime.now(),2);
+            UsuarioRegistro u = new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass, "", 0, LocalDateTime.now(), 2);
 
             addUsuarioTask(u);
 
@@ -107,7 +100,7 @@ public class RegistrarUsuario implements Initializable {
                         .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
         s.subscribe(result ->
                         result.peek(usuario -> {
-                                   mensajeAlert(u);
+                                    mensajeAlert(u);
                                 })
                                 .peekLeft(error -> {
                                     a.setContentText(error.getMessage());
@@ -121,7 +114,7 @@ public class RegistrarUsuario implements Initializable {
                 .getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
-    private void mensajeAlert(UsuarioRegistro u){
+    private void mensajeAlert(UsuarioRegistro u) {
         a.setAlertType(Alert.AlertType.CONFIRMATION);
         a.setTitle("MENSAJE CONFIRMACION");
         a.setHeaderText("Ahora debes ir al correo que proporcionastes y " +
@@ -140,13 +133,37 @@ public class RegistrarUsuario implements Initializable {
 
 
     @FXML
-    private void borrarAutor(ActionEvent actionEvent) {
+    private void borrarUsuario() {
+        @NonNull Single<Either<ApiError, ApiRespuesta>> s = Single.fromCallable(() ->
+                        daoUsuario.deleteUsuario(listViewAutores.getSelectionModel().getSelectedItem().getUsername()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(JavaFxScheduler.platform())
+                .doFinally(() -> this.pantallaPrincipal
+                        .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+        s.subscribe(result ->
+                        result.peek(usuario -> {
+
+                                    a.setContentText("Usuario borrado con exito");
+                                    a.showAndWait();
+                                })
+                                .peekLeft(error -> {
+                                    a.setContentText(error.getMessage());
+                                    a.showAndWait();
+                                }),
+                throwable -> {
+                    a.setContentText(throwable.getMessage());
+                    a.showAndWait();
+                });
+        this.pantallaPrincipal
+                .getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
-    public void actualizar() {
+    public void actualizar(){
         txtNombre.clear();
         txtContraseña.clear();
+        txtCorreo.clear();
         listViewAutores.getItems().clear();
+        listViewAutores.getItems().addAll(daoUsuario.getAllUsuario().get());
     }
 
     @Override

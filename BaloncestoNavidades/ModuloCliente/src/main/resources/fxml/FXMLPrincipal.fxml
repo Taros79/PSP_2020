@@ -12,20 +12,25 @@
                 <items>
                     <MenuItem fx:id="menuInicioSesion" mnemonicParsing="false" onAction="#iniciarSesion"
                               text="Iniciar" visible="true"/>
-                    <MenuItem mnemonicParsing="false" onAction="#registrarUsuario"
-                              text="Registrarse"/>
                 </items>
             </Menu>
 
             <Menu text="Registrarse">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#registrarUsuario" text="Registrarse"/>
-                    <MenuItem mnemonicParsing="false" onAction="#registrarEquipo" text="Registro Equipos"/>
-                    <MenuItem mnemonicParsing="false" onAction="#resultadoPartidos" text="Resultado Partidos"/>
+                    <MenuItem mnemonicParsing="false" onAction="#datosLigaBaloncesto" text="Resultados"/>
                 </items>
 
             </Menu>
 
+            <Menu text="ADMINISTRACION">
+                <items>
+                    <MenuItem mnemonicParsing="false" onAction="#registrarUsuario" text="Admin de Usuarios"/>
+                    <MenuItem mnemonicParsing="false" onAction="#registrarEquipo" text="Admin de Equipos"/>
+                    <MenuItem mnemonicParsing="false" onAction="#resultadoPartidos" text="Admin de Partidos"/>
+                </items>
+
+            </Menu>
         </MenuBar>
     </top>
     <center>

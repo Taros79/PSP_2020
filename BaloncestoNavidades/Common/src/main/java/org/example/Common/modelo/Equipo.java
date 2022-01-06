@@ -11,4 +11,8 @@ import lombok.NoArgsConstructor;
 public class Equipo {
     private int idEquipo;
     private String nombre;
+
+    public Equipo(String nombre) {
+        this.nombre = nombre;
+    }
 }

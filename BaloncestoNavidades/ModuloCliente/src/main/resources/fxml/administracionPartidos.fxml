@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.ModuloCliente.gui.controllers.ResultadoPartidos">
+            fx:controller="org.example.ModuloCliente.gui.controllers.AdministracionPartidos">
 
     <ListView fx:id="listViewPartidos" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="277.0" prefWidth="356.0" />
     <Button layoutX="488.0" layoutY="317.0" mnemonicParsing="false" onAction="#buscarPorEquipo" prefHeight="60.0" prefWidth="104.0" text="Buscar">
