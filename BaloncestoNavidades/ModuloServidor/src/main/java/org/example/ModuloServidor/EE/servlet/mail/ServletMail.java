@@ -25,7 +25,7 @@ public class ServletMail extends HttpServlet {
         try {
             mail.generateAndSendEmail(correo, "<html> <a href=\"http://localhost:8080/ModuloServidor-1.0-SNAPSHOT/activacion?codigo="+ Utils.randomBytes()+"&username="+ username+ "\" >Activa tu cuenta </a> " + username + "</html>"
                     , "Activacion API-Baloncesto");
-            response.getWriter().println("Codigo enviado, comprueba tu email (podria estar en spam o no)");
+            response.getWriter().println("Codigo enviado, comprueba la bandeja de entrada de tu correo.");
         } catch (Exception e) {
             response.getWriter().println(e.getMessage());
 

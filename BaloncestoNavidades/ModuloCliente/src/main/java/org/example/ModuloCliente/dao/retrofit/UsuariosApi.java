@@ -28,7 +28,6 @@ public interface UsuariosApi {
     @DELETE("api/usuarios")
     Call<ApiRespuesta> deletePersona(@Query("id") String u);
 
-    //esto hay que cambiar
     @GET("doLogin")
     Call<Void> login(@Query("username") String username, @Query("password") String password);
 

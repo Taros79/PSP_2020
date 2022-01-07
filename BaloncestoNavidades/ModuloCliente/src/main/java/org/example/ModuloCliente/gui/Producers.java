@@ -1,7 +1,7 @@
 package org.example.ModuloCliente.gui;
 
 import com.google.gson.*;
-import jakarta.validation.constraints.NotNull;
+import org.jetbrains.annotations.NotNull;
 import org.example.ModuloCliente.config.ConfigurationSingletonClient;
 import org.example.ModuloCliente.dao.retrofit.UsuariosApi;
 import okhttp3.OkHttpClient;

@@ -4,16 +4,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.ModuloCliente.gui.controllers.IniciarSesion">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModuloCliente.gui.controllers.IniciarSesion">
     <children>
         <Label layoutX="160.0" layoutY="38.0" prefHeight="51.0" prefWidth="309.0" text="INICIO DE SESION" textAlignment="CENTER">
             <font>
                 <Font name="Forte" size="32.0" />
             </font>
         </Label>
-        <Button layoutX="230.0" layoutY="200.0" onAction="#añadir" mnemonicParsing="false" prefHeight="58.0" prefWidth="141.0" text="Ingresar">
+        <Button layoutX="230.0" layoutY="200.0" mnemonicParsing="false" onAction="#añadir" prefHeight="58.0" prefWidth="141.0" text="Ingresar">
             <font>
                 <Font name="Forte" size="24.0" />
             </font>
@@ -28,25 +26,13 @@
                 <Font name="Forte" size="24.0" />
             </font>
         </Label>
-        <TextField fx:id="textFieldPass" accessibleRole="PASSWORD_FIELD" layoutX="234.0" layoutY="146.0" prefHeight="25.0" prefWidth="233.0" promptText="Password" text="123" />
-        <TextField fx:id="textFieldNombre" layoutX="232.0" layoutY="102.0" prefHeight="25.0" prefWidth="233.0" promptText="User" text="Pass123" />
-
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="149.0" layoutY="330.0" prefHeight="27.0" prefWidth="302.0" text="Ad.Periodico: Pass123 --&gt; 123">
-            <font>
-                <Font name="Forte" size="24.0" />
-            </font>
-        </Label>
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="163.0" layoutY="359.0" prefHeight="27.0" prefWidth="274.0" text="Ad.Global: Global --&gt; 123">
-            <font>
-                <Font name="Forte" size="24.0" />
-            </font>
-        </Label>
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="211.0" layoutY="303.0" prefHeight="27.0" prefWidth="208.0" text="Lector: Cava --&gt; 123">
+        <TextField fx:id="textFieldPass" accessibleRole="PASSWORD_FIELD" layoutX="234.0" layoutY="146.0" prefHeight="25.0" prefWidth="233.0" promptText="Password" text="grinch" />
+        <TextField fx:id="textFieldNombre" layoutX="232.0" layoutY="102.0" prefHeight="25.0" prefWidth="233.0" promptText="User" text="grinch" />
+        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="147.0" layoutY="303.0" prefHeight="27.0" prefWidth="336.0" text="Administrador: grinch--&gt; grinch">
             <font>
                 <Font name="Forte" size="24.0" />
             </font>
         </Label>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-      <ListView fx:id="listViewUsuarios" layoutX="24.0" layoutY="200.0" prefHeight="101.0" prefWidth="153.0" />
     </children>
 </AnchorPane>

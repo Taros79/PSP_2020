@@ -10,12 +10,12 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import org.example.Common.EE.errores.ApiError;
-import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.EE.utils.HashPassword;
 import org.example.Common.modelo.TipoUsuario;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioRegistro;
-import org.example.ModuloCliente.dao.DaoUsuario;
+import org.example.ModuloCliente.gui.utils.Constantes;
+import org.example.ModuloCliente.servicios.ServiciosUsuario;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
@@ -40,12 +40,12 @@ public class RegistrarUsuario implements Initializable {
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
 
-    private DaoUsuario daoUsuario;
+    private ServiciosUsuario serviciosUsuario;
     private HashPassword hash = new HashPassword();
 
     @Inject
-    public RegistrarUsuario(DaoUsuario daoUsuario) {
-        this.daoUsuario = daoUsuario;
+    public RegistrarUsuario(ServiciosUsuario serviciosUsuario) {
+        this.serviciosUsuario = serviciosUsuario;
     }
 
     public void setPantallaPrincipal(FXMLPrincipalController pantallaPrincipal) {
@@ -69,42 +69,27 @@ public class RegistrarUsuario implements Initializable {
             UsuarioRegistro u = new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass, "", 0, LocalDateTime.now(), 2);
 
             addUsuarioTask(u);
-
-            System.out.println(daoUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername()));
-           /* a.setAlertType(Alert.AlertType.CONFIRMATION);
-            a.setTitle("MENSAJE CONFIRMACION");
-            a.setHeaderText("Ahora debes ir al correo que proporcionastes y " +
-                    "aceptar el codigo de validacion antes de logearte.");
-            a.setContentText("Te llego el mensaje de confirmacion al correo?");
-
-            Optional<ButtonType> result = a.showAndWait();
-            if (result.get() != ButtonType.OK) {
-                daoUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername());
-                a.setHeaderText("Reintento de envio");
-                a.setContentText("Volvimos a enviarte tu correo por favor confirme " +
-                        "que no se encuentra en su bandeja de spam");
-                a.showAndWait();
-            }*/
+            serviciosUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername());
         } else {
-            a.setContentText("Algun campo esta vacio");
+            a.setContentText(Constantes.ALGUN_CAMPO_VACIO);
             a.showAndWait();
         }
     }
 
     private void addUsuarioTask(UsuarioRegistro u) {
         @NonNull Single<Either<ApiError, UsuarioRegistro>> s = Single.fromCallable(() ->
-                        daoUsuario.addUsuarioRegistro(u))
+                        serviciosUsuario.addUsuarioRegistro(u))
                 .subscribeOn(Schedulers.io())
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal
                         .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
         s.subscribe(result ->
                         result.peek(usuario -> {
-                                    mensajeAlert(u);
+                                    a.setContentText(Constantes.USUARIO_OK);
+                                    a.showAndWait();
                                 })
                                 .peekLeft(error -> {
-                                    a.setContentText(error.getMessage());
-                                    a.showAndWait();
+                                    mensajeAlert(u);
                                 }),
                 throwable -> {
                     a.setContentText(throwable.getMessage());
@@ -116,54 +101,25 @@ public class RegistrarUsuario implements Initializable {
 
     private void mensajeAlert(UsuarioRegistro u) {
         a.setAlertType(Alert.AlertType.CONFIRMATION);
-        a.setTitle("MENSAJE CONFIRMACION");
-        a.setHeaderText("Ahora debes ir al correo que proporcionastes y " +
-                "aceptar el codigo de validacion antes de logearte.");
-        a.setContentText("Te llego el mensaje de confirmacion al correo?");
+        a.setTitle(Constantes.MENSAJE_CONFIRMACION);
+        a.setHeaderText(Constantes.REGISTRO_TXT1);
+        a.setContentText(Constantes.REGISTRO_TXT2);
 
         Optional<ButtonType> result = a.showAndWait();
         if (result.get() != ButtonType.OK) {
-            daoUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername());
-            a.setHeaderText("Reintento de envio");
-            a.setContentText("Volvimos a enviarte tu correo por favor confirme " +
-                    "que no se encuentra en su bandeja de spam");
+            serviciosUsuario.mandarMail("promocarlos1.2@gmail.com", u.getUsername());
+            a.setHeaderText(Constantes.REGISTRO_TXT3);
+            a.setContentText(Constantes.REGISTRO_TXT4);
             a.showAndWait();
         }
     }
 
-
-    @FXML
-    private void borrarUsuario() {
-        @NonNull Single<Either<ApiError, ApiRespuesta>> s = Single.fromCallable(() ->
-                        daoUsuario.deleteUsuario(listViewAutores.getSelectionModel().getSelectedItem().getUsername()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(JavaFxScheduler.platform())
-                .doFinally(() -> this.pantallaPrincipal
-                        .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
-        s.subscribe(result ->
-                        result.peek(usuario -> {
-
-                                    a.setContentText("Usuario borrado con exito");
-                                    a.showAndWait();
-                                })
-                                .peekLeft(error -> {
-                                    a.setContentText(error.getMessage());
-                                    a.showAndWait();
-                                }),
-                throwable -> {
-                    a.setContentText(throwable.getMessage());
-                    a.showAndWait();
-                });
-        this.pantallaPrincipal
-                .getPantallaPrincipal().setCursor(Cursor.WAIT);
-    }
-
     public void actualizar(){
-        txtNombre.clear();
+       /* txtNombre.clear();
         txtContraseña.clear();
         txtCorreo.clear();
         listViewAutores.getItems().clear();
-        listViewAutores.getItems().addAll(daoUsuario.getAllUsuario().get());
+        listViewAutores.getItems().addAll(serviciosUsuario.getAllUsuario().get());*/
     }
 
     @Override

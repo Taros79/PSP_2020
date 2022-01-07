@@ -37,7 +37,10 @@ public class ServletLogin extends HttpServlet {
                     request.getSession().setAttribute("user", usuario.get());
                     response.setStatus(200);
                 }else{
-                    response.sendError(500,"Usuario sin validar, su cuenta sera borrada por seguridad :D");
+                    var i = su.delUsuario(user);
+                    response.sendError(500,"Usuario sin validar, su cuenta sera borrada por seguridad :D \n" +
+                            "..." +
+                            i.get().getMessage());
                 }
             }else{
                 response.sendError(404,"Usuario no encontrado");

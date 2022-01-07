@@ -17,19 +17,15 @@ import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.DaoUsuario;
+import org.example.ModuloCliente.servicios.ServiciosUsuario;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class IniciarSesion implements Initializable {
 
-    @FXML
-    private ListView<Usuario> listViewUsuarios;
     @FXML
     private TextField textFieldNombre;
     @FXML
@@ -38,12 +34,12 @@ public class IniciarSesion implements Initializable {
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
 
-    private DaoUsuario daoUsuario;
+    private ServiciosUsuario serviciosUsuario;
     private HashPassword hash = new HashPassword();
 
     @Inject
-    public IniciarSesion(DaoUsuario daoUsuario) {
-        this.daoUsuario = daoUsuario;
+    public IniciarSesion(ServiciosUsuario serviciosUsuario) {
+        this.serviciosUsuario = serviciosUsuario;
     }
 
     public void setPantallaPrincipal(FXMLPrincipalController pantallaPrincipal) {
@@ -58,7 +54,7 @@ public class IniciarSesion implements Initializable {
     @FXML
     private void añadir() {
         if (!textFieldNombre.getText().isEmpty() && !textFieldPass.getText().isEmpty()) {
-            Single<String> s = Single.fromCallable(() -> daoUsuario.login(textFieldNombre.getText(), textFieldPass.getText()))
+            Single<String> s = Single.fromCallable(() -> serviciosUsuario.login(textFieldNombre.getText(), textFieldPass.getText()))
                     .subscribeOn(Schedulers.io())
                     .observeOn(JavaFxScheduler.platform())
                     .doFinally(() -> this.pantallaPrincipal
@@ -74,57 +70,4 @@ public class IniciarSesion implements Initializable {
             this.pantallaPrincipal
                     .getPantallaPrincipal().setCursor(Cursor.WAIT);
         }
-
-      /*  UsuarioRegistro u = new UsuarioRegistro("carlos79@gmail.com", "amanterechoncho79", "amanterechoncho", LocalDateTime.now(),1);
-        System.out.println(daoUsuario.addUsuarioRegistro(u));
-
-        if(daoUsuario.getAllUsuario() != null){
-            Single<Either<ApiError, List<Usuario>>> s = Single.fromCallable(() -> daoUsuario.getAllUsuario())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(JavaFxScheduler.platform())
-                    .doFinally(() -> this.pantallaPrincipal
-                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
-            s.subscribe(result ->
-                            result.peek(usuarios ->
-                                            listViewUsuarios.getItems().addAll(usuarios))
-                                    .peekLeft(error -> {
-                                        a.setContentText(error.getMessage());
-                                        a.showAndWait();
-                                    }),
-                    throwable -> {
-                        a.setContentText(throwable.getMessage());
-                        a.showAndWait();
-                    });
-
-
-            this.pantallaPrincipal
-                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
-        }else{
-            System.out.println("no mames");
-        }*/
-    }
-
-    private void deleteUsuarioTask(UsuarioLoginDTO u) {
-        @NonNull Single<Either<ApiError, ApiRespuesta>> s = Single.fromCallable(() ->
-                daoUsuario.deleteUsuario(u.getUsername()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(JavaFxScheduler.platform())
-                .doFinally(() -> this.pantallaPrincipal
-                        .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
-        s.subscribe(result ->
-                        result.peek(usuario -> {
-                                    a.setContentText("Bien");
-                                    a.showAndWait();
-                                })
-                                .peekLeft(error -> {
-                                    a.setContentText(error.getMessage());
-                                    a.showAndWait();
-                                }),
-                throwable -> {
-                    a.setContentText(throwable.getMessage());
-                    a.showAndWait();
-                });
-        this.pantallaPrincipal
-                .getPantallaPrincipal().setCursor(Cursor.WAIT);
-    }
-}
+    }}

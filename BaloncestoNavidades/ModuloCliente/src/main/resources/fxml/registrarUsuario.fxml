@@ -14,7 +14,7 @@
             <Font name="Forte" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="172.0" layoutY="337.0" mnemonicParsing="false" onAction="#borrarUsuario" prefHeight="37.0" prefWidth="53.0" text="Borrar" />
+      <Button layoutX="172.0" layoutY="337.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="53.0" text="Borrar" />
 
       <Label layoutX="65.0" layoutY="23.0" prefHeight="51.0" prefWidth="95.0" text="egistro" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
          <font>
