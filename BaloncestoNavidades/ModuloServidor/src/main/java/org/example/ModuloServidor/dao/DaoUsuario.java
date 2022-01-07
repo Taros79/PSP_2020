@@ -3,48 +3,34 @@ package org.example.ModuloServidor.dao;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
-import org.apache.log4j.Logger;
 import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.EE.utils.HashPassword;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
+import org.example.ModuloServidor.utils.Constantes;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
-
-/***
- *
- * edte emeetodo
- * @author
- *
- */
 
 @Log4j2
 public class DaoUsuario {
 
-    private DBConnectionPool dbConnection;
-    private HashPassword hash = new HashPassword();
-
+    public static final String UPDATE_USUARIO =
+            "UPDATE usuarios SET codActivacion = ?, isActivo = ? , fechaAlta = ? WHERE username = ?";
+    public static final String DELETE_USUARIO =
+            "delete from usuarios where username = ?";
     private static final String INSERT_USUARIO =
             "insert into usuarios (correo, username, hashedPassword,codActivacion,isActivo, fechaAlta, tipoUsuario) values (?, ?, ?, ?, ?,?,?)";
 
     private static final String GET_USUARIO = "select * from usuarios where username = ?";
-
-    public static final String UPDATE_USUARIO =
-            "UPDATE usuarios SET codActivacion = ?, isActivo = ? , fechaAlta = ? WHERE username = ?";
-
-    public static final String DELETE_USUARIO_INACTIVO =
-            "delete from usuarios where username = ? and isActivo = 0";
+    private DBConnectionPool dbConnection;
+    private HashPassword hash = new HashPassword();
 
     @Inject
     public DaoUsuario(DBConnectionPool dbConnection) {
@@ -61,7 +47,7 @@ public class DaoUsuario {
             resultado = Either.right(jtm.query("select * from usuarios",
                     BeanPropertyRowMapper.newInstance(Usuario.class)));
         } else {
-            resultado = Either.left(new ApiError("ConstantesDao.NO_HAY_ELEMENTOS", LocalDateTime.now()));
+            resultado = Either.left(new ApiError(Constantes.NO_HAY_ELEMENTOS, LocalDateTime.now()));
         }
         return resultado;
     }
@@ -75,17 +61,18 @@ public class DaoUsuario {
                     dbConnection.getDataSource());
             c = jtm.queryForObject(GET_USUARIO, new Object[]{username}, (rs, rowNum) ->
                     new UsuarioLoginDTO(
-                            rs.getString("username"),
-                            rs.getString("hashedPassword"),
-                            rs.getInt("isActivo")));
+                            rs.getString(Constantes.USERNAME),
+                            rs.getString(Constantes.HASHED_PASSWORD),
+                            rs.getInt(Constantes.IS_ACTIVO),
+                            rs.getInt(Constantes.TIPO_USUARIO)));
             resultado = Either.right(c);
 
         } catch (IncorrectResultSizeDataAccessException e) {
-            Logger.getLogger("Main").info(e.getMessage());
-            resultado = Either.left(new ApiError("Este usuario no existe", LocalDateTime.now()));
+            log.error(e.getMessage(), e);
+            resultado = Either.left(new ApiError(Constantes.USUARIO_NO_EXISTE, LocalDateTime.now()));
         } catch (Exception e) {
-            Logger.getLogger("Main").info(e.getMessage());
-            resultado = Either.left(new ApiError("Fallo en la bbdd", LocalDateTime.now()));
+            log.error(e.getMessage(), e);
+            resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
         }
         return resultado;
     }
@@ -99,22 +86,22 @@ public class DaoUsuario {
                     dbConnection.getDataSource());
             c = jtm.queryForObject(GET_USUARIO, new Object[]{username}, (rs, rowNum) ->
                     new Usuario(
-                            rs.getInt("id"),
-                            rs.getString("correo"),
-                            rs.getString("username"),
-                            rs.getString("hashedPassword"),
-                            rs.getString("codActivacion"),
-                            rs.getInt("isActivo"),
-                            rs.getDate("fechaAlta").toLocalDate().atStartOfDay(),
-                            rs.getInt("tipoUsuario")));
+                            rs.getInt(Constantes.ID),
+                            rs.getString(Constantes.CORREO),
+                            rs.getString(Constantes.USERNAME),
+                            rs.getString(Constantes.HASHED_PASSWORD),
+                            rs.getString(Constantes.COD_ACTIVACION),
+                            rs.getInt(Constantes.IS_ACTIVO),
+                            rs.getDate(Constantes.FECHA_ALTA).toLocalDate().atStartOfDay(),
+                            rs.getInt(Constantes.TIPO_USUARIO)));
             resultado = Either.right(c);
 
         } catch (IncorrectResultSizeDataAccessException e) {
-            Logger.getLogger("Main").info(e.getMessage());
-            resultado = Either.left(new ApiError("Este usuario no existe", LocalDateTime.now()));
+            log.error(e.getMessage(), e);
+            resultado = Either.left(new ApiError(Constantes.USUARIO_NO_EXISTE, LocalDateTime.now()));
         } catch (Exception e) {
-            Logger.getLogger("Main").info(e.getMessage());
-            resultado = Either.left(new ApiError("Fallo en la bbdd", LocalDateTime.now()));
+            log.error(e.getMessage(), e);
+            resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
         }
         return resultado;
     }
@@ -125,13 +112,14 @@ public class DaoUsuario {
                 dbConnection.getDataSource());
         String añadido;
 
-        //String password = hash.hashPassword(u.getHashedPassword());
-        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(), u.getHashedPassword(),u.getCodActivacion(), u.getIsActivo(),LocalDateTime.now(), u.getTipoUsuario());
+        int resultado = jtm.update(INSERT_USUARIO, u.getCorreo(), u.getUsername(),
+                u.getHashedPassword(), u.getCodActivacion(),
+                u.getIsActivo(), LocalDateTime.now(), u.getTipoUsuario());
 
         if (resultado == 1) {
-            añadido = "Usuario creado";
+            añadido = Constantes.USUARIO_CREADO;
         } else {
-            añadido = "Fallo al crear usuario";
+            añadido = Constantes.FALLO_AL_CREAR_USUARIO;
         }
         return añadido;
     }
@@ -142,10 +130,10 @@ public class DaoUsuario {
             JdbcTemplate jtm = new JdbcTemplate(
                     dbConnection.getDataSource());
             jtm.update(UPDATE_USUARIO, codActivacion, isActivo, fechaAlta, username);
-            resultado = "Usuario actualizado";
+            resultado = Constantes.USUARIO_ACTUALIZADO;
         } catch (Exception e) {
-            java.util.logging.Logger.getLogger("Main").info(e.getMessage());
-            resultado = "Error en la bbdd";
+            log.error(e.getMessage(), e);
+            resultado = Constantes.FALLO_EN_LA_BBDD;
         }
         return resultado;
     }
@@ -157,14 +145,14 @@ public class DaoUsuario {
             try {
                 JdbcTemplate jtm = new JdbcTemplate(
                         dbConnection.getDataSource());
-                jtm.update(DELETE_USUARIO_INACTIVO, u);
-                resultado = Either.right(new ApiRespuesta("Usuario borrado", LocalDateTime.now()));
+                jtm.update(DELETE_USUARIO, u);
+                resultado = Either.right(new ApiRespuesta(Constantes.USUARIO_BORRADO, LocalDateTime.now()));
             } catch (DataAccessException e) {
-                resultado = Either.left(new ApiError("Fallo en la base de datos", LocalDateTime.now()));
+                resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
                 log.error(e.getMessage(), e);
             }
         } else {
-            resultado = Either.left(new ApiError("El objeto esta a null", LocalDateTime.now()));
+            resultado = Either.left(new ApiError(Constantes.USUARIO_NO_EXISTE, LocalDateTime.now()));
         }
 
         return resultado;

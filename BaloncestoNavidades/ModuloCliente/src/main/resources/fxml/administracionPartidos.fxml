@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2"
             fx:controller="org.example.ModuloCliente.gui.controllers.AdministracionPartidos">
 
-    <ListView fx:id="listViewPartidos" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="277.0" prefWidth="356.0" />
-    <Button layoutX="488.0" layoutY="317.0" mnemonicParsing="false" onAction="#buscarPorEquipo" prefHeight="60.0" prefWidth="104.0" text="Buscar">
+    <ListView fx:id="listViewPartidos" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick"
+              prefHeight="277.0" prefWidth="356.0"/>
+    <Button layoutX="488.0" layoutY="317.0" mnemonicParsing="false" onAction="#buscarPorEquipo" prefHeight="60.0"
+            prefWidth="104.0" text="Buscar">
         <font>
-            <Font name="Forte" size="18.0" />
+            <Font name="Forte" size="18.0"/>
         </font>
     </Button>
-    <Button layoutX="408.0" layoutY="329.0" mnemonicParsing="false" onAction="#borrarAutor" prefHeight="37.0" prefWidth="53.0" text="Borrar" />
+    <Button layoutX="408.0" layoutY="329.0" mnemonicParsing="false" onAction="#borrarAutor" prefHeight="37.0"
+            prefWidth="53.0" text="Borrar"/>
 
-    <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="esultado" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="esultado" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
         <font>
-            <Font name="Forte" size="24.0" />
+            <Font name="Forte" size="24.0"/>
         </font>
     </Label>
-    <Label layoutX="47.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="47.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP"
+           wrapText="true">
         <font>
-            <Font name="Forte" size="80.0" />
+            <Font name="Forte" size="80.0"/>
         </font>
     </Label>
-    <Label layoutX="236.0" layoutY="45.0" prefHeight="31.0" prefWidth="117.0" text="artidos" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="236.0" layoutY="45.0" prefHeight="31.0" prefWidth="117.0" text="artidos" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
         <font>
-            <Font name="Forte" size="24.0" />
+            <Font name="Forte" size="24.0"/>
         </font>
     </Label>
-    <Label layoutX="211.0" prefHeight="72.0" prefWidth="60.0" text="P" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="211.0" prefHeight="72.0" prefWidth="60.0" text="P" textAlignment="CENTER" textOverrun="CLIP"
+           wrapText="true">
         <font>
-            <Font name="Forte" size="80.0" />
+            <Font name="Forte" size="80.0"/>
         </font>
     </Label>
-    <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0" />
+    <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0"/>
 </AnchorPane>

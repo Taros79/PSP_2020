@@ -1,22 +1,13 @@
 package org.example.ModuloCliente.gui.controllers;
 
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import io.vavr.control.Either;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import org.example.Common.EE.errores.ApiError;
-import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.EE.utils.HashPassword;
-import org.example.Common.modelo.Usuario;
-import org.example.Common.modelo.UsuarioLoginDTO;
-import org.example.Common.modelo.UsuarioRegistro;
-import org.example.ModuloCliente.dao.DaoUsuario;
 import org.example.ModuloCliente.servicios.ServiciosUsuario;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
@@ -52,7 +43,7 @@ public class IniciarSesion implements Initializable {
     }
 
     @FXML
-    private void añadir() {
+    private void hacerLogin() {
         if (!textFieldNombre.getText().isEmpty() && !textFieldPass.getText().isEmpty()) {
             Single<String> s = Single.fromCallable(() -> serviciosUsuario.login(textFieldNombre.getText(), textFieldPass.getText()))
                     .subscribeOn(Schedulers.io())
@@ -60,6 +51,12 @@ public class IniciarSesion implements Initializable {
                     .doFinally(() -> this.pantallaPrincipal
                             .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
             s.subscribe((s1 -> {
+                        var u = serviciosUsuario.getUsuarioLogin(textFieldNombre.getText());
+                        if (u.isRight()) {
+                            if (u.get().getTipoUsuario() == 1) {
+                                pantallaPrincipal.activarAdmin();
+                            }
+                        }
                         a.setContentText(s1);
                         a.showAndWait();
                     }),
@@ -70,4 +67,5 @@ public class IniciarSesion implements Initializable {
             this.pantallaPrincipal
                     .getPantallaPrincipal().setCursor(Cursor.WAIT);
         }
-    }}
+    }
+}

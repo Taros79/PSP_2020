@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
+import org.example.ModuloServidor.utils.Constantes;
 
 @Provider
 @Filtro
@@ -17,9 +18,9 @@ public class ServerFilterJAX implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext containerRequestContext) {
-        if (httpServletRequest.getSession().getAttribute("user") == null) {
+        if (httpServletRequest.getSession().getAttribute(Constantes.USER) == null) {
             containerRequestContext.abortWith(Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Error de autentificacion y/o permisos")
+                    .entity(Constantes.ERROR_PERMISOS)
                     .type(MediaType.APPLICATION_JSON_TYPE).build());
         }
     }

@@ -8,8 +8,9 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
+import org.example.ModuloServidor.utils.Constantes;
 
-@Path("/registro")
+@Path(Constantes.REGISTRO)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestRegistro {
@@ -20,8 +21,6 @@ public class RestRegistro {
     public RestRegistro(ServiciosUsuarios su) {
         this.su = su;
     }
-
-
 
 
     @POST

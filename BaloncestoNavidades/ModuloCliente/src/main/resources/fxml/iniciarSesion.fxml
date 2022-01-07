@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModuloCliente.gui.controllers.IniciarSesion">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2" fx:controller="org.example.ModuloCliente.gui.controllers.IniciarSesion">
     <children>
-        <Label layoutX="160.0" layoutY="38.0" prefHeight="51.0" prefWidth="309.0" text="INICIO DE SESION" textAlignment="CENTER">
+        <Label layoutX="160.0" layoutY="38.0" prefHeight="51.0" prefWidth="309.0" text="INICIO DE SESION"
+               textAlignment="CENTER">
             <font>
-                <Font name="Forte" size="32.0" />
+                <Font name="Forte" size="32.0"/>
             </font>
         </Label>
-        <Button layoutX="230.0" layoutY="200.0" mnemonicParsing="false" onAction="#añadir" prefHeight="58.0" prefWidth="141.0" text="Ingresar">
+        <Button layoutX="230.0" layoutY="200.0" mnemonicParsing="false" onAction="#hacerLogin" prefHeight="58.0"
+                prefWidth="141.0" text="Ingresar">
             <font>
-                <Font name="Forte" size="24.0" />
+                <Font name="Forte" size="24.0"/>
             </font>
         </Button>
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="53.0" layoutY="101.0" prefHeight="27.0" prefWidth="175.0" text="Usuarios">
+        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="53.0" layoutY="101.0" prefHeight="27.0"
+               prefWidth="175.0" text="Usuarios">
             <font>
-                <Font name="Forte" size="24.0" />
+                <Font name="Forte" size="24.0"/>
             </font>
         </Label>
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="112.0" layoutY="145.0" prefHeight="27.0" prefWidth="116.0" text="Contraseña">
+        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="112.0" layoutY="145.0" prefHeight="27.0"
+               prefWidth="116.0" text="Contraseña">
             <font>
-                <Font name="Forte" size="24.0" />
+                <Font name="Forte" size="24.0"/>
             </font>
         </Label>
-        <TextField fx:id="textFieldPass" accessibleRole="PASSWORD_FIELD" layoutX="234.0" layoutY="146.0" prefHeight="25.0" prefWidth="233.0" promptText="Password" text="grinch" />
-        <TextField fx:id="textFieldNombre" layoutX="232.0" layoutY="102.0" prefHeight="25.0" prefWidth="233.0" promptText="User" text="grinch" />
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="147.0" layoutY="303.0" prefHeight="27.0" prefWidth="336.0" text="Administrador: grinch--&gt; grinch">
+        <TextField fx:id="textFieldPass" accessibleRole="PASSWORD_FIELD" layoutX="234.0" layoutY="146.0"
+                   prefHeight="25.0" prefWidth="233.0" promptText="Password" text="grinch"/>
+        <TextField fx:id="textFieldNombre" layoutX="232.0" layoutY="102.0" prefHeight="25.0" prefWidth="233.0"
+                   promptText="User" text="grinch"/>
+        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="147.0" layoutY="303.0" prefHeight="27.0"
+               prefWidth="336.0" text="Administrador: grinch--&gt; grinch">
             <font>
-                <Font name="Forte" size="24.0" />
+                <Font name="Forte" size="24.0"/>
             </font>
         </Label>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+        <AnchorPane prefHeight="200.0" prefWidth="200.0"/>
     </children>
 </AnchorPane>

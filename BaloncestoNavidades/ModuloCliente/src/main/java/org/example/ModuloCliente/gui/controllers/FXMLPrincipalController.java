@@ -3,6 +3,7 @@ package org.example.ModuloCliente.gui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.log4j.Log4j2;
@@ -15,33 +16,29 @@ import java.util.ResourceBundle;
 @Log4j2
 public class FXMLPrincipalController implements Initializable {
 
+    private final FXMLLoader fxmlLoaderIniciarSesion;
+    private final FXMLLoader fxmlLoaderRegistrarUsuario;
+    private final FXMLLoader fxmlLoaderRegistroEquipo;
+    private final FXMLLoader fxmlLoaderResultadoPartidos;
+    private final FXMLLoader fxmlLoaderDatosLigaBaloncesto;
+    @FXML
+    private Menu menuAdmin;
     @FXML
     private BorderPane pantallaPrincipal;
-
-
-    private final FXMLLoader fxmlLoaderIniciarSesion;
     private AnchorPane pantallaIniciarSesion;
     private IniciarSesion iniciarSesionController;
-
-    private final FXMLLoader fxmlLoaderRegistrarUsuario;
     private AnchorPane pantallaRegistrarUsuario;
     private RegistrarUsuario registrarUsuarioController;
-
-    private final FXMLLoader fxmlLoaderRegistroEquipo;
     private AnchorPane pantallaRegistroEquipo;
     private AdministracionEquipos administracionEquiposController;
-
-    private final FXMLLoader fxmlLoaderResultadoPartidos;
     private AnchorPane pantallaResultadoPartidos;
     private AdministracionPartidos administracionPartidosController;
-
-    private final FXMLLoader fxmlLoaderDatosLigaBaloncesto;
     private AnchorPane pantallaDatosLigaBaloncesto;
     private DatosLigaBaloncesto datosLigaBaloncestoController;
 
     @Inject
     public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderRegistrarUsuario,
-                                   FXMLLoader fxmlLoaderRegistroEquipo,FXMLLoader fxmlLoaderResultadoPartidos,
+                                   FXMLLoader fxmlLoaderRegistroEquipo, FXMLLoader fxmlLoaderResultadoPartidos,
                                    FXMLLoader fxmlLoaderDatosLigaBaloncesto) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
         this.fxmlLoaderRegistrarUsuario = fxmlLoaderRegistrarUsuario;
@@ -159,14 +156,9 @@ public class FXMLPrincipalController implements Initializable {
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    public void activarAdmin() {
+        menuAdmin.setVisible(true);
+        registrarUsuarioController.activarAdmin();
+        registrarUsuario();
+    }
 }

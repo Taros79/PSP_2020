@@ -7,7 +7,6 @@ import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.DaoUsuario;
-import org.example.ModuloCliente.dao.retrofit.UsuariosApi;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -30,7 +29,7 @@ public class ServiciosUsuario {
         return dao.addUsuarioRegistro(u);
     }
 
-    public Either<ApiError, UsuarioLoginDTO> getUsuarioLogin(UsuarioLoginDTO u) {
+    public Either<ApiError, UsuarioLoginDTO> getUsuarioLogin(String u) {
         return dao.getUsuarioLogin(u);
     }
 
@@ -39,7 +38,11 @@ public class ServiciosUsuario {
     }
 
     public Either<ApiError, ApiRespuesta> deleteUsuario(String u) {
-    return dao.deleteUsuario(u);
+        return dao.deleteUsuario(u);
+    }
+
+    public Either<ApiError, ApiRespuesta> updateUsuario(Usuario u) {
+        return dao.updateUsuario(u);
     }
 
     public String login(String username, String password) {

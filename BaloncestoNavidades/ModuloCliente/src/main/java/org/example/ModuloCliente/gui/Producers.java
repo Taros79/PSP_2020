@@ -1,12 +1,12 @@
 package org.example.ModuloCliente.gui;
 
 import com.google.gson.*;
-import org.jetbrains.annotations.NotNull;
-import org.example.ModuloCliente.config.ConfigurationSingletonClient;
-import org.example.ModuloCliente.dao.retrofit.UsuariosApi;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
+import org.example.ModuloCliente.config.ConfigurationSingletonClient;
 import org.example.ModuloCliente.dao.retrofit.PartidosApi;
+import org.example.ModuloCliente.dao.retrofit.UsuariosApi;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

@@ -6,12 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.ws.rs.core.Response;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
+import org.example.ModuloServidor.utils.Constantes;
 
 import java.io.IOException;
 
-@WebServlet(name = "Login", urlPatterns = {"/doLogin"})
+@WebServlet(name = "Login", urlPatterns = {Constantes.DO_LOGIN})
 public class ServletLogin extends HttpServlet {
 
     private ServiciosUsuarios su;
@@ -27,26 +27,26 @@ public class ServletLogin extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String passwd = request.getParameter("password");
-        String user = request.getParameter("username");
+        String passwd = request.getParameter(Constantes.PASSWORD2);
+        String user = request.getParameter(Constantes.USERNAME);
 
         if (su.login(user, passwd)) {
             var usuario = su.getUsuario(user);
             if (usuario.isRight()) {
-                if(usuario.get().getIsActivo() == 1){
-                    request.getSession().setAttribute("user", usuario.get());
+                if (usuario.get().getIsActivo() == 1) {
+                    request.getSession().setAttribute(Constantes.USER, usuario.get());
                     response.setStatus(200);
-                }else{
+                } else {
                     var i = su.delUsuario(user);
-                    response.sendError(500,"Usuario sin validar, su cuenta sera borrada por seguridad :D \n" +
-                            "..." +
+                    response.sendError(500, "Usuario sin validar, su cuenta sera borrada por seguridad :D \n" +
+                            "... " +
                             i.get().getMessage());
                 }
-            }else{
-                response.sendError(404,"Usuario no encontrado");
+            } else {
+                response.sendError(404, Constantes.USUARIO_NO_EXISTE);
             }
         } else {
-            response.sendError(500,"Usuario no valido");
+            response.sendError(500, Constantes.USUARIO_NO_VALIDO);
         }
 
     }

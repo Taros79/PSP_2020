@@ -1,61 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModuloCliente.gui.controllers.RegistrarUsuario">
-      <ListView fx:id="listViewAutores" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="232.0" prefWidth="331.0" />
-      <TextField fx:id="txtNombre" layoutX="418.0" layoutY="67.0" prefHeight="31.0" prefWidth="143.0" promptText="Nombre" />
-      <TextField fx:id="txtContraseña" layoutX="418.0" layoutY="143.0" prefHeight="31.0" prefWidth="143.0" promptText="Contraseña" />
-    <TextField fx:id="txtCorreo" layoutX="418.0" layoutY="216.0" prefHeight="31.0" prefWidth="143.0" promptText="Correo" />
-    <Button layoutX="437.0" layoutY="325.0" mnemonicParsing="false" onAction="#addUsuario" prefHeight="60.0" prefWidth="104.0" text="Add">
-         <font>
-            <Font name="Forte" size="18.0" />
-         </font>
-      </Button>
-      <Button layoutX="172.0" layoutY="337.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="53.0" text="Borrar" />
-
-      <Label layoutX="65.0" layoutY="23.0" prefHeight="51.0" prefWidth="95.0" text="egistro" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="Forte" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="14.0" layoutY="-4.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="Forte" size="80.0" />
-         </font>
-      </Label>
-      <Label layoutX="225.0" layoutY="25.0" prefHeight="31.0" prefWidth="117.0" text="suario" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="Forte" size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="178.0" layoutY="-4.0" prefHeight="72.0" prefWidth="60.0" text="U" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
-         <font>
-            <Font name="Forte" size="80.0" />
-         </font>
-      </Label>
-      <Label layoutX="463.0" layoutY="33.0" prefHeight="25.0" prefWidth="53.0" text="Nombre">
-         <font>
-            <Font name="Forte" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="448.0" layoutY="108.0" prefHeight="25.0" prefWidth="85.0" text="Contraseña">
-         <font>
-            <Font name="Forte" size="15.0" />
-         </font>
-      </Label>
-    <Label layoutX="466.0" layoutY="185.0" prefHeight="25.0" prefWidth="67.0" text="Correo">
+<?import java.lang.String?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2"
+            fx:controller="org.example.ModuloCliente.gui.controllers.RegistrarUsuario">
+    <ListView fx:id="listViewUsuarios" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick"
+              prefHeight="232.0" prefWidth="331.0" visible="false"/>
+    <TextField fx:id="txtNombre" layoutX="409.0" layoutY="59.0" prefHeight="31.0" prefWidth="143.0"
+               promptText="Nombre"/>
+    <TextField fx:id="txtContraseña" layoutX="409.0" layoutY="135.0" prefHeight="31.0" prefWidth="143.0"
+               promptText="Contraseña"/>
+    <TextField fx:id="txtCorreo" layoutX="409.0" layoutY="208.0" prefHeight="31.0" prefWidth="143.0"
+               promptText="Correo"/>
+    <Button layoutX="378.0" layoutY="330.0" mnemonicParsing="false" onAction="#addUsuario" prefHeight="51.0"
+            prefWidth="95.0" text="Add">
         <font>
-            <Font name="Forte" size="15.0" />
+            <Font name="Forte" size="18.0"/>
+        </font>
+    </Button>
+    <Button layoutX="482.0" layoutY="330.0" mnemonicParsing="false" onAction="#updateUsuario" prefHeight="51.0"
+            prefWidth="95.0" text="Update">
+        <font>
+            <Font name="Forte" size="18.0"/>
+        </font>
+    </Button>
+    <Button fx:id="botonBorrar" layoutX="172.0" layoutY="337.0" mnemonicParsing="false" onAction="#borrarUsuario"
+            prefHeight="37.0" prefWidth="53.0" text="Borrar" visible="false"/>
+
+    <Label layoutX="65.0" layoutY="23.0" prefHeight="51.0" prefWidth="95.0" text="egistro" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="24.0"/>
         </font>
     </Label>
-    <Label layoutX="448.0" layoutY="253.0" prefHeight="25.0" prefWidth="85.0" text="Tipo Usuario">
+    <Label layoutX="14.0" layoutY="-4.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
         <font>
-            <Font name="Forte" size="15.0" />
+            <Font name="Forte" size="80.0"/>
         </font>
     </Label>
-      <Separator layoutX="353.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0" />
-   <ComboBox fx:id="comboBoxTipoUser" layoutX="414.0" layoutY="278.0" prefWidth="150.0" />
+    <Label layoutX="225.0" layoutY="25.0" prefHeight="31.0" prefWidth="117.0" text="suario" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="24.0"/>
+        </font>
+    </Label>
+    <Label layoutX="178.0" layoutY="-4.0" prefHeight="72.0" prefWidth="60.0" text="U" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="80.0"/>
+        </font>
+    </Label>
+    <Label layoutX="454.0" layoutY="25.0" prefHeight="25.0" prefWidth="53.0" text="Nombre">
+        <font>
+            <Font name="Forte" size="15.0"/>
+        </font>
+    </Label>
+    <Label layoutX="439.0" layoutY="100.0" prefHeight="25.0" prefWidth="85.0" text="Contraseña">
+        <font>
+            <Font name="Forte" size="15.0"/>
+        </font>
+    </Label>
+    <Label layoutX="457.0" layoutY="177.0" prefHeight="25.0" prefWidth="67.0" text="Correo">
+        <font>
+            <Font name="Forte" size="15.0"/>
+        </font>
+    </Label>
+    <Label fx:id="labelTipo" layoutX="439.0" layoutY="245.0" prefHeight="25.0" prefWidth="85.0" text="Tipo Usuario"
+           visible="false">
+        <font>
+            <Font name="Forte" size="15.0"/>
+        </font>
+    </Label>
+    <Separator layoutX="353.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0"/>
+    <ComboBox fx:id="comboBoxTipoUser" layoutX="405.0" layoutY="270.0" prefWidth="150.0" visible="false">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Admin"/>
+                <String fx:value="Usuario"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
 </AnchorPane>

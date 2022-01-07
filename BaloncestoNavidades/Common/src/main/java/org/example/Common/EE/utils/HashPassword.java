@@ -6,15 +6,6 @@ import java.security.MessageDigest;
 
 public class HashPassword {
 
-    @SneakyThrows
-    public String hashPassword(String args) {
-
-        MessageDigest md = MessageDigest.getInstance("SHA3-512");
-
-        byte[] hashBytes = md.digest(args.getBytes());
-        return bytesToHex(hashBytes);
-    }
-
     private static String bytesToHex(byte[] hash) {
         StringBuilder hexString = new StringBuilder();
         for (byte b : hash) {
@@ -25,6 +16,15 @@ public class HashPassword {
             hexString.append(hex);
         }
         return hexString.toString();
+    }
+
+    @SneakyThrows
+    public String hashPassword(String args) {
+
+        MessageDigest md = MessageDigest.getInstance("SHA3-512");
+
+        byte[] hashBytes = md.digest(args.getBytes());
+        return bytesToHex(hashBytes);
     }
 
 }

@@ -3,10 +3,10 @@ package org.example.ModuloServidor.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.example.ModuloServidor.config.Configuration;
 import jakarta.annotation.PreDestroy;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import org.example.ModuloServidor.config.Configuration;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -14,9 +14,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author oscar
- */
 @Singleton
 public class DBConnectionPool {
 
@@ -30,7 +27,6 @@ public class DBConnectionPool {
         this.config = config;
         hirakiDatasource = getDataSourceHikari();
     }
-
 
 
     public Connection getConnection() throws Exception {
@@ -95,7 +91,7 @@ public class DBConnectionPool {
 
     @PreDestroy
     public void closePool() {
-       ((HikariDataSource) hirakiDatasource).close();
+        ((HikariDataSource) hirakiDatasource).close();
     }
 
 }

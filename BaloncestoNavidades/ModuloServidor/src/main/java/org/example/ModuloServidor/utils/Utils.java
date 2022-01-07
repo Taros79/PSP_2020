@@ -10,7 +10,6 @@ import java.util.Base64;
 import java.util.Random;
 
 /**
- *
  * @author oscar
  */
 public class Utils {
@@ -28,8 +27,7 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String randomBytes()
-    {
+    public static String randomBytes() {
         SecureRandom sr = new SecureRandom();
         byte[] bits = new byte[32];
         sr.nextBytes(bits);

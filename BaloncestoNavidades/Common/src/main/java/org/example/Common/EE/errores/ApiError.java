@@ -2,7 +2,6 @@ package org.example.Common.EE.errores;
 
 import lombok.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -13,8 +12,8 @@ import java.time.LocalDateTime;
 @ToString
 public class ApiError {
 
-  private String message;
-  private LocalDateTime fecha;
+    private String message;
+    private LocalDateTime fecha;
 
 
 }

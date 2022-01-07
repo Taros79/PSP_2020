@@ -15,4 +15,5 @@ public class Constantes {
     public static final String REGISTRO_TXT4 = "Volvimos a enviarte tu correo por favor confirme \n" +
             "que no se encuentra en su bandeja de spam";
 
+    public static final String SELECCIONA_UN_USUARIO = "Selecciona un usuario";
 }

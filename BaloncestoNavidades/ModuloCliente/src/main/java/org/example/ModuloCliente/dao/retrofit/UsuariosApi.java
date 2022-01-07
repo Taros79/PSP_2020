@@ -6,7 +6,6 @@ import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
 import org.example.ModuloCliente.dao.utils.Constantes;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.*;
 
 import java.util.List;
@@ -20,16 +19,17 @@ public interface UsuariosApi {
     Call<UsuarioRegistro> addUsuarioRegistro(@Body UsuarioRegistro u);
 
     @GET(Constantes.GET_USUARIO_LOGIN)
-    Call<UsuarioLoginDTO> getUsuarioLogin(@Query("username") String username);
+    Call<UsuarioLoginDTO> getUsuarioLogin(@Query(Constantes.USERNAME) String username);
 
     @GET(Constantes.MANDAR_MAIL)
-    Call<String> mandarMail(@Query("correo") String correo, @Query("username") String username);
+    Call<String> mandarMail(@Query(Constantes.CORREO) String correo, @Query(Constantes.USERNAME) String username);
 
-    @DELETE("api/usuarios")
-    Call<ApiRespuesta> deletePersona(@Query("id") String u);
+    @DELETE(Constantes.DELETE_USUARIO)
+    Call<ApiRespuesta> deletePersona(@Query(Constantes.ID) String u);
 
-    @GET("doLogin")
-    Call<Void> login(@Query("username") String username, @Query("password") String password);
+    @GET(Constantes.DO_LOGIN)
+    Call<Void> login(@Query(Constantes.USERNAME) String username, @Query(Constantes.PASSWORD) String password);
 
-
+    @PUT(Constantes.USUARIO_GET_ALL)
+    Call<ApiRespuesta> updateUsuario(@Body Usuario usuario);
 }

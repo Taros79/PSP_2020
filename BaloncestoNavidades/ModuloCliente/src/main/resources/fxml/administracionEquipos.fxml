@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
-            xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2"
             fx:controller="org.example.ModuloCliente.gui.controllers.AdministracionEquipos">
 
-    <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="egistrar" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="egistrar" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
         <font>
-            <Font name="Forte" size="24.0" />
+            <Font name="Forte" size="24.0"/>
         </font>
     </Label>
-    <Label layoutX="47.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="47.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP"
+           wrapText="true">
         <font>
-            <Font name="Forte" size="80.0" />
+            <Font name="Forte" size="80.0"/>
         </font>
     </Label>
-    <Label layoutX="256.0" layoutY="37.0" prefHeight="31.0" prefWidth="73.0" text="quipo" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="256.0" layoutY="37.0" prefHeight="31.0" prefWidth="73.0" text="quipo" textAlignment="CENTER"
+           textOverrun="CLIP" wrapText="true">
         <font>
-            <Font name="Forte" size="24.0" />
+            <Font name="Forte" size="24.0"/>
         </font>
     </Label>
-    <Label layoutX="211.0" prefHeight="72.0" prefWidth="60.0" text="E" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="211.0" prefHeight="72.0" prefWidth="60.0" text="E" textAlignment="CENTER" textOverrun="CLIP"
+           wrapText="true">
         <font>
-            <Font name="Forte" size="80.0" />
+            <Font name="Forte" size="80.0"/>
         </font>
     </Label>
-    <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0" />
+    <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0"/>
 
 </AnchorPane>

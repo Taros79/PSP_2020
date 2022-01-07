@@ -8,6 +8,7 @@ package org.example.ModuloServidor.config;
 import jakarta.inject.Singleton;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
+import org.example.ModuloServidor.utils.Constantes;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.InputStream;
@@ -38,10 +39,10 @@ public class Configuration {
                     .loadAll(file);
 
             Map<String, String> m = (Map) it.iterator().next();
-            this.ruta = m.get("ruta");
-            this.password = m.get("password");
-            this.user = m.get("user");
-            this.driver = m.get("driver");
+            this.ruta = m.get(Constantes.RUTA);
+            this.password = m.get(Constantes.PASSWORD2);
+            this.user = m.get(Constantes.USER);
+            this.driver = m.get(Constantes.DRIVER);
 
 
         } catch (Exception ex) {

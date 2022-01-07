@@ -8,13 +8,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
+import org.example.ModuloServidor.utils.Constantes;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@WebServlet(name = "ServletActivacion", urlPatterns = {"/activacion"})
+@WebServlet(name = "ServletActivacion", urlPatterns = {Constantes.ACTIVACION})
 public class ServletActivacion extends HttpServlet {
 
     private ServiciosUsuarios serviciosUsuarios;
@@ -27,29 +26,22 @@ public class ServletActivacion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //coges parametro
-        String cod = req.getParameter("codigo");
-        String user = req.getParameter("username");
+        String cod = req.getParameter(Constantes.CODIGO);
+        String user = req.getParameter(Constantes.USERNAME);
         if (!cod.isEmpty() && !user.isEmpty()) {
             var usuario = serviciosUsuarios.getUsuario(user);
             if (usuario.isRight()) {
                 LocalDateTime fechaAlta = LocalDateTime.now();
                 resp.getWriter().println(serviciosUsuarios.updateUsuario(cod, 1, fechaAlta, user));
-                req.getSession().setAttribute("usuario", usuario.get());
+                req.getSession().setAttribute(Constantes.USUARIO, usuario.get());
 
-                resp.getWriter().println(req.getSession().getAttribute("usuario"));
+                resp.getWriter().println(req.getSession().getAttribute(Constantes.USUARIO));
             } else {
-                resp.getWriter().println("Usuario no valido");
+                resp.getWriter().println(Constantes.USUARIO_NO_VALIDO);
             }
         } else {
-            resp.getWriter().println("No estas registrado");
+            resp.getWriter().println(Constantes.NO_ESTAS_REGISTRADO);
         }
-
-        LocalDateTime d = LocalDateTime.now();
-
-        LocalDateTime d1 = d.plusSeconds(30);
-
-
-        //vas a la BD para ver si existe y si la fecha es mayor, y le activas
 
         //dispacher a un jsp de informacion
 

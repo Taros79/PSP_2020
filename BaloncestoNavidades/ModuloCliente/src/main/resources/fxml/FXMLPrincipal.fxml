@@ -3,27 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
-<BorderPane fx:id="pantallaPrincipal" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pantallaPrincipal" prefHeight="450.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2"
             fx:controller="org.example.ModuloCliente.gui.controllers.FXMLPrincipalController">
     <top>
         <MenuBar fx:id="fxMenuTop">
             <Menu text="Menu">
-                <items>
-                    <MenuItem fx:id="menuInicioSesion" mnemonicParsing="false" onAction="#iniciarSesion"
-                              text="Iniciar" visible="true"/>
-                </items>
+                <MenuItem fx:id="menuInicioSesion" mnemonicParsing="false" onAction="#iniciarSesion"
+                          text="Iniciar"/>
             </Menu>
 
             <Menu text="Registrarse">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#registrarUsuario" text="Registrarse"/>
-                    <MenuItem mnemonicParsing="false" onAction="#datosLigaBaloncesto" text="Resultados"/>
+                    <MenuItem visible="false" mnemonicParsing="false" onAction="#datosLigaBaloncesto"
+                              text="Resultados"/>
                 </items>
 
             </Menu>
 
-            <Menu text="ADMINISTRACION">
+            <Menu fx:id="menuAdmin" visible="false" text="ADMINISTRACION">
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#registrarUsuario" text="Admin de Usuarios"/>
                     <MenuItem mnemonicParsing="false" onAction="#registrarEquipo" text="Admin de Equipos"/>

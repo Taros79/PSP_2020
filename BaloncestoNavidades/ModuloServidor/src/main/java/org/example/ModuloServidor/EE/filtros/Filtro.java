@@ -8,4 +8,5 @@ import java.lang.annotation.RetentionPolicy;
 
 @NameBinding
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Filtro {}
+public @interface Filtro {
+}

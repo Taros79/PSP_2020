@@ -10,11 +10,13 @@ import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Equipo;
 import org.example.Common.modelo.Jornada;
 import org.example.Common.modelo.Partido;
+import org.example.ModuloServidor.EE.filtros.Filtro;
 import org.example.ModuloServidor.servicios.ServiciosPartidos;
+import org.example.ModuloServidor.utils.Constantes;
 
 import java.util.List;
 
-@Path("/partidos")
+@Path(Constantes.PARTIDOS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestPartidos {
@@ -27,6 +29,7 @@ public class RestPartidos {
     }
 
     @GET
+    @Filtro
     public Response getAllPartidos() {
         Response response;
         Either<ApiError, List<Partido>> resultado = su.getPartidos();
@@ -43,7 +46,7 @@ public class RestPartidos {
     }
 
     @POST
-    @Path("/addPartido")
+    @Path(Constantes.ADD_PARTIDO)
     public Response addPartido(Partido partido) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addPartido(partido);
@@ -60,7 +63,7 @@ public class RestPartidos {
     }
 
     @POST
-    @Path("/addEquipo")
+    @Path(Constantes.ADD_EQUIPO)
     public Response addEquipo(Equipo equipo) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addEquipo(equipo);
@@ -77,7 +80,7 @@ public class RestPartidos {
     }
 
     @POST
-    @Path("/addJornada")
+    @Path(Constantes.ADD_JORNADA)
     public Response addJornada(Jornada jornada) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addJornada(jornada);

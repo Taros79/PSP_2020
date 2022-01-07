@@ -1,20 +1,22 @@
 package org.example.ModuloServidor.EE.rest;
 
 import io.vavr.control.Either;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.Common.EE.errores.ApiError;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.core.MediaType;
 import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
-import org.example.ModuloServidor.EE.filtros.Filtro;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
+import org.example.ModuloServidor.utils.Constantes;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
-@Path("/usuarios")
+@Path(Constantes.USUARIOS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestUsuarios {
@@ -28,7 +30,6 @@ public class RestUsuarios {
 
 
     @GET
-    @Filtro
     public Response getAllUsuarios() {
         Response response;
         Either<ApiError, List<Usuario>> resultado = su.getUsuarios();
@@ -45,8 +46,8 @@ public class RestUsuarios {
     }
 
     @GET
-    @Path("/userLogin")
-    public Response getUsuarioLogin(@QueryParam("username") String username) {
+    @Path(Constantes.USER_LOGIN)
+    public Response getUsuarioLogin(@QueryParam(Constantes.USERNAME) String username) {
         Response response;
         Either<ApiError, UsuarioLoginDTO> resultado = su.getUsuarioLogin(username);
         if (resultado.isRight()) {
@@ -62,7 +63,7 @@ public class RestUsuarios {
     }
 
     @DELETE
-    public Response delPersona(@QueryParam("id") String u) {
+    public Response delPersona(@QueryParam(Constantes.ID) String u) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.delUsuario(u);
         if (resultado.isRight()) {
@@ -77,5 +78,20 @@ public class RestUsuarios {
         return response;
     }
 
+    @PUT
+    public Response updateDigimon(Usuario u) {
+        Response response;
+        if (Objects.equals(su.updateUsuario(u.getCodActivacion(), u.getIsActivo(),
+                u.getFechaAlta(), u.getUsername()), Constantes.USUARIO_ACTUALIZADO)) {
+            response = Response.status(Response.Status.CREATED)
+                    .entity(new ApiRespuesta(Constantes.USUARIO_ACTUALIZADO, LocalDateTime.now()))
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ApiError(Constantes.USUARIO_NO_EXISTE, LocalDateTime.now()))
+                    .build();
+        }
 
+        return response;
+    }
 }

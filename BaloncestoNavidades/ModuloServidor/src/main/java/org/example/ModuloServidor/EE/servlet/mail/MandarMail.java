@@ -8,6 +8,7 @@ import jakarta.mail.Transport;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.log4j.Log4j2;
+import org.example.ModuloServidor.utils.Constantes;
 
 import java.util.Properties;
 
@@ -68,8 +69,8 @@ public class MandarMail {
         // if you have 2FA enabled then provide App Specific Password
 
         transport.connect("smtp.gmail.com",
-                "promocarlos1.1@gmail.com",
-                "admin2.0");
+                Constantes.GMAIL_COM,
+                Constantes.PASSWORD);
         transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
         transport.close();
     }

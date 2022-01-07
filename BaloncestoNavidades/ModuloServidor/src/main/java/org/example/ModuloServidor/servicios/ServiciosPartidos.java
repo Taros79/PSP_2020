@@ -25,15 +25,15 @@ public class ServiciosPartidos {
         return dao.getPartidos();
     }
 
-    public Either<ApiError, ApiRespuesta>  addPartido(Partido p) {
+    public Either<ApiError, ApiRespuesta> addPartido(Partido p) {
         return dao.addPartido(p);
     }
 
-    public Either<ApiError, ApiRespuesta>  addEquipo(Equipo equipo) {
+    public Either<ApiError, ApiRespuesta> addEquipo(Equipo equipo) {
         return dao.addEquipo(equipo);
     }
 
-    public Either<ApiError, ApiRespuesta>  addJornada(Jornada jornada) {
+    public Either<ApiError, ApiRespuesta> addJornada(Jornada jornada) {
         return dao.addJornada(jornada);
     }
 }

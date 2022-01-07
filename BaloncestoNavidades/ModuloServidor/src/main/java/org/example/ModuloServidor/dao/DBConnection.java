@@ -2,6 +2,7 @@ package org.example.ModuloServidor.dao;
 
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
+import org.example.ModuloServidor.utils.Constantes;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,14 +12,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Log4j2
-
 public class DBConnection {
 
     DBConnectionPool pool;
 
     @Inject
     public DBConnection(DBConnectionPool pool) {
-         this.pool = pool;
+        this.pool = pool;
     }
 
     public Connection getConnection() throws Exception {
@@ -44,9 +44,10 @@ public class DBConnection {
                 connection.close();
             }
         } catch (SQLException ex) {
-            log.error("no se ha podido cerrar conexion", ex);
+            log.error(Constantes.ERROR_CERRAR_CONEXION, ex);
         }
     }
+
     public void cerrarStatement(Statement stmt) {
         try {
             if (stmt != null) {
@@ -56,6 +57,7 @@ public class DBConnection {
             log.error("", ex);
         }
     }
+
     public void cerrarResultSet(ResultSet rs) {
         try {
             if (rs != null) {
@@ -65,6 +67,7 @@ public class DBConnection {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void rollbackCon(Connection con) {
         try {
             if (con != null)
