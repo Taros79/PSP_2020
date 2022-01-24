@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/11.0.2"
-            fx:controller="org.example.ModuloCliente.gui.controllers.AdministracionEquipos">
+            fx:controller="org.example.ModuloCliente.gui.controllers.AdministracionJornadas">
 
     <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="egistrar" textAlignment="CENTER"
            textOverrun="CLIP" wrapText="true">
@@ -34,11 +34,11 @@
     <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0"/>
 
     <TextField fx:id="textFieldNombre" layoutX="413.0" layoutY="115.0" promptText="Nombre" />
-    <ListView fx:id="listViewEquipos" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="251.0" prefWidth="356.0" />
-    <Button layoutX="436.0" layoutY="170.0" mnemonicParsing="false" onAction="#AddEquipo" prefHeight="60.0" prefWidth="104.0" text="Añadir">
+    <ListView fx:id="listViewPartidos" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="251.0" prefWidth="356.0" />
+    <Button layoutX="436.0" layoutY="170.0" mnemonicParsing="false" onAction="#AddJornada" prefHeight="60.0" prefWidth="104.0" text="Añadir">
         <font>
             <Font name="Forte" size="18.0" />
         </font>
     </Button>
-    <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#borrarEquipo" prefHeight="37.0" prefWidth="356.0" text="Borrar" />
+    <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#borrarJornada" prefHeight="37.0" prefWidth="356.0" text="Borrar" />
 </AnchorPane>

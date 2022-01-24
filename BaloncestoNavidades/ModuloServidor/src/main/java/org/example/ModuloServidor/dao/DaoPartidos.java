@@ -71,6 +71,21 @@ public class DaoPartidos {
         return resultado;
     }
 
+    public Either<ApiError, List<Equipo>> getEquipos() {
+        Either<ApiError, List<Equipo>> resultado;
+        JdbcTemplate jtm = new JdbcTemplate(
+                dbConnection.getDataSource());
+
+        if (!jtm.query("select * from equipos",
+                BeanPropertyRowMapper.newInstance(Equipo.class)).isEmpty()) {
+            resultado = Either.right(jtm.query("select * from equipos",
+                    BeanPropertyRowMapper.newInstance(Equipo.class)));
+        } else {
+            resultado = Either.left(new ApiError(Constantes.NO_HAY_ELEMENTOS, LocalDateTime.now()));
+        }
+        return resultado;
+    }
+
     public Either<ApiError, ApiRespuesta> addEquipo(Equipo equipo) {
         Either<ApiError, ApiRespuesta> resultado;
         if (equipo != null) {
@@ -87,6 +102,21 @@ public class DaoPartidos {
             resultado = Either.left(new ApiError(Constantes.NO_HAY_ELEMENTOS, LocalDateTime.now()));
         }
 
+        return resultado;
+    }
+
+    public Either<ApiError, List<Jornada>> getJornadas() {
+        Either<ApiError, List<Jornada>> resultado;
+        JdbcTemplate jtm = new JdbcTemplate(
+                dbConnection.getDataSource());
+
+        if (!jtm.query("select * from jornadas",
+                BeanPropertyRowMapper.newInstance(Jornada.class)).isEmpty()) {
+            resultado = Either.right(jtm.query("select * from jornadas",
+                    BeanPropertyRowMapper.newInstance(Jornada.class)));
+        } else {
+            resultado = Either.left(new ApiError(Constantes.NO_HAY_ELEMENTOS, LocalDateTime.now()));
+        }
         return resultado;
     }
 

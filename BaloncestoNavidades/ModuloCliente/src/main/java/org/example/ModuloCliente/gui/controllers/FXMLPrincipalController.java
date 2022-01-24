@@ -21,10 +21,12 @@ public class FXMLPrincipalController implements Initializable {
     private final FXMLLoader fxmlLoaderRegistroEquipo;
     private final FXMLLoader fxmlLoaderResultadoPartidos;
     private final FXMLLoader fxmlLoaderDatosLigaBaloncesto;
+
     @FXML
     private Menu menuAdmin;
     @FXML
     private BorderPane pantallaPrincipal;
+
     private AnchorPane pantallaIniciarSesion;
     private IniciarSesion iniciarSesionController;
     private AnchorPane pantallaRegistrarUsuario;
@@ -143,11 +145,13 @@ public class FXMLPrincipalController implements Initializable {
     @FXML
     private void registrarEquipo() {
         pantallaPrincipal.setCenter(pantallaRegistroEquipo);
+       administracionEquiposController.actualizar();
     }
 
     @FXML
     private void resultadoPartidos() {
         pantallaPrincipal.setCenter(pantallaResultadoPartidos);
+        administracionPartidosController.actualizar();
     }
 
     @FXML

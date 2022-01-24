@@ -28,39 +28,39 @@ public class DaoUsuario extends DaoGenerics {
     }
 
     public Either<ApiError, List<Usuario>> getAllUsuario() {
-        UsuariosApi usuariosApi = producers.createApi(producers.createRetrofit());
+        UsuariosApi usuariosApi = producers.createApi();
         return safeApicall(usuariosApi.getUsuarios());
     }
 
     public Either<ApiError, UsuarioRegistro> addUsuarioRegistro(UsuarioRegistro u) {
-        UsuariosApi usuariosApi = producers.createApi(producers.createRetrofit());
+        UsuariosApi usuariosApi = producers.createApi();
         return safeApicall(usuariosApi.addUsuarioRegistro(u));
     }
 
     public Either<ApiError, UsuarioLoginDTO> getUsuarioLogin(String u) {
-        UsuariosApi usuariosApi = producers.createApi(producers.createRetrofit());
+        UsuariosApi usuariosApi = producers.createApi();
         return safeApicall(usuariosApi.getUsuarioLogin(u));
     }
 
     public String mandarMail(String correo, String username) {
-        UsuariosApi usuariosApi = producers.createApi(producers.createRetrofit());
+        UsuariosApi usuariosApi = producers.createApi();
         return this.apiCallPersonalizado(usuariosApi.mandarMail(correo, username));
     }
 
     public Either<ApiError, ApiRespuesta> deleteUsuario(String u) {
-        UsuariosApi usuariosApi = producers.createApi(producers.createRetrofit());
+        UsuariosApi usuariosApi = producers.createApi();
         return this.safeApicall(usuariosApi.deletePersona(u));
     }
 
     public Either<ApiError, ApiRespuesta> updateUsuario(Usuario u) {
-        UsuariosApi usuariosApi = producers.createApi(producers.createRetrofit());
+        UsuariosApi usuariosApi = producers.createApi();
         return this.safeApicall(usuariosApi.updateUsuario(u));
     }
 
     public String login(String username, String password) {
 
         String resultado;
-        UsuariosApi usuariosApi = producers.createApi(producers.createRetrofit());
+        UsuariosApi usuariosApi = producers.createApi();
         String passwordHash = hash.hashPassword(password);
         try {
             Response<Void> response = usuariosApi.login(username, passwordHash).execute();

@@ -27,34 +27,33 @@ public class DaoPartidos extends DaoGenerics {
     }
 
     public Either<ApiError, List<Partido>> getAllPartidos() {
-        Either<ApiError, List<Partido>> partidos;
-        PartidosApi partidosApi = producers.createApiPartidos(producers.createRetrofit());
-        try {
-            Response<List<Partido>> response = partidosApi.getPartidos().execute();
-            if (response.isSuccessful()) {
-                partidos = Either.right(response.body());
-            } else {
-                partidos = Either.left(new ApiError(Constantes.OBJETO_NO_VALIDO, LocalDateTime.now()));
-            }
-        } catch (IOException e) {
-            partidos = Either.left(new ApiError(Constantes.PROBLEMA_SERVIDOR, LocalDateTime.now()));
-            log.error(e.getMessage(), e);
-        }
+        PartidosApi partidosApi = producers.createApiPartidos();
         return safeApicall(partidosApi.getPartidos());
     }
 
+
     public Either<ApiError, Partido> addPartido(Partido partido) {
-        PartidosApi partidosApi = producers.createApiPartidos(producers.createRetrofit());
+        PartidosApi partidosApi = producers.createApiPartidos();
         return this.safeApicall(partidosApi.addPartido(partido));
     }
 
+    public Either<ApiError, List<Equipo>> getAllEquipos() {
+        PartidosApi partidosApi = producers.createApiPartidos();
+        return safeApicall(partidosApi.getEquipos());
+    }
+
     public Either<ApiError, Equipo> addEquipo(Equipo equipo) {
-        PartidosApi partidosApi = producers.createApiPartidos(producers.createRetrofit());
+        PartidosApi partidosApi = producers.createApiPartidos();
         return this.safeApicall(partidosApi.addEquipo(equipo));
     }
 
+    public Either<ApiError, List<Jornada>> getAllJornadas() {
+        PartidosApi partidosApi = producers.createApiPartidos();
+        return safeApicall(partidosApi.getJornadas());
+    }
+
     public Either<ApiError, Jornada> addJornada(Jornada jornada) {
-        PartidosApi partidosApi = producers.createApiPartidos(producers.createRetrofit());
+        PartidosApi partidosApi = producers.createApiPartidos();
         return this.safeApicall(partidosApi.addJornada(jornada));
     }
 

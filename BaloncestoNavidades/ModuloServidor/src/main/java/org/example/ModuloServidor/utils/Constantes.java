@@ -39,6 +39,8 @@ public class Constantes {
     public static final String ADD_PARTIDO = "/addPartido";
     public static final String ADD_EQUIPO = "/addEquipo";
     public static final String ADD_JORNADA = "/addJornada";
+    public static final String GET_JORNADAS = "/getJornadas";
+    public static final String GET_EQUIPOS = "/getEquipos";
     public static final String USUARIOS = "/usuarios";
     public static final String USER_LOGIN = "/userLogin";
     public static final String GMAIL_COM = "promocarlos1.1@gmail.com";

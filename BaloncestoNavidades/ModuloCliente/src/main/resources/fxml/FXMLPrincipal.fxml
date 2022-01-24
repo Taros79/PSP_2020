@@ -3,6 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pantallaPrincipal" prefHeight="450.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/11.0.2"
             fx:controller="org.example.ModuloCliente.gui.controllers.FXMLPrincipalController">

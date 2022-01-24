@@ -28,7 +28,7 @@ public class RestPartidos {
         this.su = su;
     }
 
-    @GET
+  /*  @GET
     @Filtro
     public Response getAllPartidos() {
         Response response;
@@ -61,14 +61,47 @@ public class RestPartidos {
         }
         return response;
     }
+*/
+    @GET
+    public Response getAllEquipos() {
+        Response response;
+        Either<ApiError, List<Equipo>> resultado = su.getEquipos();
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.OK)
+                    .entity(resultado.get())
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(resultado.getLeft())
+                    .build();
+        }
+        return response;
+    }
 
-    @POST
+    /*@POST
     @Path(Constantes.ADD_EQUIPO)
     public Response addEquipo(Equipo equipo) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addEquipo(equipo);
         if (resultado.isRight()) {
             response = Response.status(Response.Status.ACCEPTED)
+                    .entity(resultado.get())
+                    .build();
+        } else {
+            response = Response.status(Response.Status.NOT_FOUND)
+                    .entity(resultado.getLeft())
+                    .build();
+        }
+        return response;
+    }
+
+    @GET
+    @Path(Constantes.GET_JORNADAS)
+    public Response getAllJornadas() {
+        Response response;
+        Either<ApiError, List<Jornada>> resultado = su.getJornadas();
+        if (resultado.isRight()) {
+            response = Response.status(Response.Status.OK)
                     .entity(resultado.get())
                     .build();
         } else {
@@ -94,5 +127,5 @@ public class RestPartidos {
                     .build();
         }
         return response;
-    }
+    }*/
 }

@@ -4,6 +4,7 @@ import com.google.gson.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import org.example.ModuloCliente.config.ConfigurationSingletonClient;
+import org.example.ModuloCliente.config.ConfigurationSingletonOkHttpClient;
 import org.example.ModuloCliente.dao.retrofit.PartidosApi;
 import org.example.ModuloCliente.dao.retrofit.UsuariosApi;
 import org.jetbrains.annotations.NotNull;
@@ -20,11 +21,11 @@ import java.util.List;
 
 public class Producers {
 
-    private final ConfigurationSingletonClient configurationSingletonClient;
+    private final ConfigurationSingletonOkHttpClient configSingleton;
 
     @Inject
-    public Producers(ConfigurationSingletonClient configurationSingletonClient) {
-        this.configurationSingletonClient = configurationSingletonClient;
+    public Producers(ConfigurationSingletonOkHttpClient configSingleton) {
+        this.configSingleton = configSingleton;
     }
 
     @Produces
@@ -47,25 +48,16 @@ public class Producers {
                         (LocalDateTime, type, jsonSerializationContext) -> new JsonPrimitive(LocalDateTime.toString())).setLenient().create();
     }
 
-    @Produces
-    @Singleton
-    public Retrofit createRetrofit() {
-        return new Retrofit.Builder()
-                .baseUrl(configurationSingletonClient.getPathbase())
-                .addConverterFactory(GsonConverterFactory.create(getGson()))
-                .client(getOKHttpClient())
-                .build();
-    }
 
     @Produces
-    public UsuariosApi createApi(@NotNull Retrofit retrofit) {
-        return retrofit.create(UsuariosApi.class);
+    public UsuariosApi createApi() {
+        return configSingleton.getRetrofit().create(UsuariosApi.class);
     }
 
 
     @Produces
-    public PartidosApi createApiPartidos(@NotNull Retrofit retrofit) {
-        return retrofit.create(PartidosApi.class);
+    public PartidosApi createApiPartidos() {
+        return configSingleton.getRetrofit().create(PartidosApi.class);
     }
 
 }
