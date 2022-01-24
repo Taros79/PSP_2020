@@ -7,7 +7,7 @@ import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
-import org.example.ModuloServidor.dao.DaoUsuario;
+import org.example.ModuloServidor.dao.DaoUsuarios;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,11 +15,11 @@ import java.util.List;
 
 public class ServiciosUsuarios {
 
-    private DaoUsuario dao;
+    private DaoUsuarios dao;
 
 
     @Inject
-    public ServiciosUsuarios(DaoUsuario dao) {
+    public ServiciosUsuarios(DaoUsuarios dao) {
         this.dao = dao;
     }
 

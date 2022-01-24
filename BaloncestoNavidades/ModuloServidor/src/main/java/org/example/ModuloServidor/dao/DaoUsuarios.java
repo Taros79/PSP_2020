@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Log4j2
-public class DaoUsuario {
+public class DaoUsuarios {
 
     public static final String UPDATE_USUARIO =
             "UPDATE usuarios SET codActivacion = ?, isActivo = ? , fechaAlta = ? WHERE username = ?";
@@ -33,7 +33,7 @@ public class DaoUsuario {
     private HashPassword hash = new HashPassword();
 
     @Inject
-    public DaoUsuario(DBConnectionPool dbConnection) {
+    public DaoUsuarios(DBConnectionPool dbConnection) {
         this.dbConnection = dbConnection;
     }
 
@@ -69,7 +69,7 @@ public class DaoUsuario {
 
         } catch (IncorrectResultSizeDataAccessException e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left(new ApiError(Constantes.USUARIO_NO_EXISTE, LocalDateTime.now()));
+            resultado = Either.left(new ApiError(Constantes.NO_EXISTE_OBJETO, LocalDateTime.now()));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
@@ -98,7 +98,7 @@ public class DaoUsuario {
 
         } catch (IncorrectResultSizeDataAccessException e) {
             log.error(e.getMessage(), e);
-            resultado = Either.left(new ApiError(Constantes.USUARIO_NO_EXISTE, LocalDateTime.now()));
+            resultado = Either.left(new ApiError(Constantes.NO_EXISTE_OBJETO, LocalDateTime.now()));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
@@ -117,9 +117,9 @@ public class DaoUsuario {
                 u.getIsActivo(), LocalDateTime.now(), u.getTipoUsuario());
 
         if (resultado == 1) {
-            añadido = Constantes.USUARIO_CREADO;
+            añadido = Constantes.CREADO;
         } else {
-            añadido = Constantes.FALLO_AL_CREAR_USUARIO;
+            añadido = Constantes.FALLO_AL_CREAR;
         }
         return añadido;
     }
@@ -130,7 +130,7 @@ public class DaoUsuario {
             JdbcTemplate jtm = new JdbcTemplate(
                     dbConnection.getDataSource());
             jtm.update(UPDATE_USUARIO, codActivacion, isActivo, fechaAlta, username);
-            resultado = Constantes.USUARIO_ACTUALIZADO;
+            resultado = Constantes.ACTUALIZADO;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             resultado = Constantes.FALLO_EN_LA_BBDD;
@@ -146,13 +146,13 @@ public class DaoUsuario {
                 JdbcTemplate jtm = new JdbcTemplate(
                         dbConnection.getDataSource());
                 jtm.update(DELETE_USUARIO, u);
-                resultado = Either.right(new ApiRespuesta(Constantes.USUARIO_BORRADO, LocalDateTime.now()));
+                resultado = Either.right(new ApiRespuesta(Constantes.BORRADO, LocalDateTime.now()));
             } catch (DataAccessException e) {
                 resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
                 log.error(e.getMessage(), e);
             }
         } else {
-            resultado = Either.left(new ApiError(Constantes.USUARIO_NO_EXISTE, LocalDateTime.now()));
+            resultado = Either.left(new ApiError(Constantes.NO_EXISTE_OBJETO, LocalDateTime.now()));
         }
 
         return resultado;

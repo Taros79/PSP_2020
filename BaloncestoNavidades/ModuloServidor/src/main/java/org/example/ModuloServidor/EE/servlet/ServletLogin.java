@@ -43,7 +43,7 @@ public class ServletLogin extends HttpServlet {
                             i.get().getMessage());
                 }
             } else {
-                response.sendError(404, Constantes.USUARIO_NO_EXISTE);
+                response.sendError(404, Constantes.NO_EXISTE_OBJETO);
             }
         } else {
             response.sendError(500, Constantes.USUARIO_NO_VALIDO);

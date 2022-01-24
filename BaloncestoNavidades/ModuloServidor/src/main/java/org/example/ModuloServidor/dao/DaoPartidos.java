@@ -71,40 +71,6 @@ public class DaoPartidos {
         return resultado;
     }
 
-    public Either<ApiError, List<Equipo>> getEquipos() {
-        Either<ApiError, List<Equipo>> resultado;
-        JdbcTemplate jtm = new JdbcTemplate(
-                dbConnection.getDataSource());
-
-        if (!jtm.query("select * from equipos",
-                BeanPropertyRowMapper.newInstance(Equipo.class)).isEmpty()) {
-            resultado = Either.right(jtm.query("select * from equipos",
-                    BeanPropertyRowMapper.newInstance(Equipo.class)));
-        } else {
-            resultado = Either.left(new ApiError(Constantes.NO_HAY_ELEMENTOS, LocalDateTime.now()));
-        }
-        return resultado;
-    }
-
-    public Either<ApiError, ApiRespuesta> addEquipo(Equipo equipo) {
-        Either<ApiError, ApiRespuesta> resultado;
-        if (equipo != null) {
-            try {
-                JdbcTemplate jtm = new JdbcTemplate(
-                        dbConnection.getDataSource());
-                jtm.update(INSERT_EQUIPO, equipo.getNombre());
-                resultado = Either.right(new ApiRespuesta(Constantes.EQUIPO_CREADO, LocalDateTime.now()));
-            } catch (DataAccessException e) {
-                resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
-                log.error(e.getMessage(), e);
-            }
-        } else {
-            resultado = Either.left(new ApiError(Constantes.NO_HAY_ELEMENTOS, LocalDateTime.now()));
-        }
-
-        return resultado;
-    }
-
     public Either<ApiError, List<Jornada>> getJornadas() {
         Either<ApiError, List<Jornada>> resultado;
         JdbcTemplate jtm = new JdbcTemplate(

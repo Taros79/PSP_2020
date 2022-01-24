@@ -3,12 +3,12 @@ package org.example.ModuloServidor.utils;
 public class Constantes {
     public static final String ERROR_CERRAR_CONEXION = "no se ha podido cerrar conexion";
     public static final String NO_HAY_ELEMENTOS = "No hay elementos";
-    public static final String USUARIO_NO_EXISTE = "Usuario no existe";
+    public static final String NO_EXISTE_OBJETO = "El objeto no existe";
     public static final String FALLO_EN_LA_BBDD = "Fallo en la bbdd";
-    public static final String USUARIO_BORRADO = "Usuario borrado";
-    public static final String USUARIO_ACTUALIZADO = "Usuario actualizado";
-    public static final String USUARIO_CREADO = "Usuario creado";
-    public static final String FALLO_AL_CREAR_USUARIO = "Fallo al crear usuario";
+    public static final String BORRADO = "Borrado";
+    public static final String ACTUALIZADO = "Actualizado";
+    public static final String CREADO = "Creado";
+    public static final String FALLO_AL_CREAR = "Fallo en la creacion";
 
 
     public static final String ID = "id";
@@ -40,7 +40,6 @@ public class Constantes {
     public static final String ADD_EQUIPO = "/addEquipo";
     public static final String ADD_JORNADA = "/addJornada";
     public static final String GET_JORNADAS = "/getJornadas";
-    public static final String GET_EQUIPOS = "/getEquipos";
     public static final String USUARIOS = "/usuarios";
     public static final String USER_LOGIN = "/userLogin";
     public static final String GMAIL_COM = "promocarlos1.1@gmail.com";
@@ -56,4 +55,6 @@ public class Constantes {
     public static final String PASSWORD2 = "password";
     public static final String RUTA = "ruta";
     public static final String DRIVER = "driver";
+
+    public static final String EQUIPOS = "/equipos";
 }

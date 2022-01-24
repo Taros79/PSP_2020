@@ -17,13 +17,13 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Log4j2
-public class DaoUsuario extends DaoGenerics {
+public class DaoUsuarios extends DaoGenerics {
 
     private final Producers producers;
     private HashPassword hash = new HashPassword();
 
     @Inject
-    public DaoUsuario(Producers producers) {
+    public DaoUsuarios(Producers producers) {
         this.producers = producers;
     }
 

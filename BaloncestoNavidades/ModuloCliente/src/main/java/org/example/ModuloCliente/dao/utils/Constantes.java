@@ -6,10 +6,10 @@ public class Constantes {
     public static final String GET_USUARIO_LOGIN = "api/usuarios/userLogin";
 
     public static final String ADD_PARTIDO = "api/partidos/addPartido";
-    public static final String ADD_EQUIPO = "api/partidos/addEquipo";
+    public static final String ADD_EQUIPO = "api/equipos/addEquipo";
     public static final String ADD_JORNADA = "api/partidos/addJornada";
     public static final String PARTIDO_GET_ALL = "api/partidos";
-    public static final String EQUIPO_GET_ALL = "api/partidos";
+    public static final String EQUIPO_GET_ALL = "api/equipos";
     public static final String JORNADA_GET_ALL = "api/partidos/getJornadas";
     public static final String DELETE_USUARIO = "api/usuarios";
 

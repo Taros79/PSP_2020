@@ -6,17 +6,17 @@ import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
-import org.example.ModuloCliente.dao.DaoUsuario;
+import org.example.ModuloCliente.dao.DaoUsuarios;
 
 import javax.inject.Inject;
 import java.util.List;
 
 public class ServiciosUsuario {
 
-    private DaoUsuario dao;
+    private DaoUsuarios dao;
 
     @Inject
-    public ServiciosUsuario(DaoUsuario dao) {
+    public ServiciosUsuario(DaoUsuarios dao) {
         this.dao = dao;
     }
 

@@ -57,18 +57,18 @@ public class AdministracionPartidos implements Initializable {
     @FXML
     private void borrarAutor(ActionEvent actionEvent) {
         textFieldNombre.clear();
-        listViewPartidos.getItems().clear();
-        listViewPartidos.getItems().addAll(daoPartidos.getAllEquipos().get());
+      //  listViewPartidos.getItems().clear();
+       // listViewPartidos.getItems().addAll(daoPartidos.getAllEquipos().get());
     }
 
     public void actualizar() {
         textFieldNombre.clear();
-        listViewPartidos.getItems().clear();
-        listViewPartidos.getItems().addAll(daoPartidos.getAllEquipos().get());
+       // listViewPartidos.getItems().clear();
+       // listViewPartidos.getItems().addAll(daoPartidos.getAllEquipos().get());
     }
 
     @FXML
     private void AddEquipo(ActionEvent actionEvent) {
-        daoPartidos.addEquipo(new Equipo("ClusNovilllin"));
+       // daoPartidos.addEquipo(new Equipo("ClusNovilllin"));
     }
 }

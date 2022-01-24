@@ -7,32 +7,32 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.ApiRespuesta;
+import org.example.Common.modelo.Equipo;
 import org.example.Common.modelo.Usuario;
-import org.example.Common.modelo.UsuarioLoginDTO;
-import org.example.ModuloServidor.servicios.ServiciosUsuarios;
+import org.example.ModuloServidor.servicios.ServiciosEquipo;
+import org.example.ModuloServidor.servicios.ServiciosPartidos;
 import org.example.ModuloServidor.utils.Constantes;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Path(Constantes.USUARIOS)
+@Path(Constantes.EQUIPOS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class RestUsuarios {
+public class RestEquipos {
 
-    private ServiciosUsuarios su;
+    private ServiciosEquipo se;
 
     @Inject
-    public RestUsuarios(ServiciosUsuarios su) {
-        this.su = su;
+    public RestEquipos(ServiciosEquipo se) {
+        this.se = se;
     }
 
-
     @GET
-    public Response getAllUsuarios() {
+    public Response getAllEquipos() {
         Response response;
-        Either<ApiError, List<Usuario>> resultado = su.getUsuarios();
+        Either<ApiError, List<Equipo>> resultado = se.getEquipos();
         if (resultado.isRight()) {
             response = Response.status(Response.Status.OK)
                     .entity(resultado.get())
@@ -45,13 +45,13 @@ public class RestUsuarios {
         return response;
     }
 
-    @GET
-    @Path(Constantes.USER_LOGIN)
-    public Response getUsuarioLogin(@QueryParam(Constantes.USERNAME) String username) {
+    @POST
+    @Path(Constantes.ADD_EQUIPO)
+    public Response addEquipo(Equipo equipo) {
         Response response;
-        Either<ApiError, UsuarioLoginDTO> resultado = su.getUsuarioLogin(username);
+        Either<ApiError, ApiRespuesta> resultado = se.addEquipo(equipo);
         if (resultado.isRight()) {
-            response = Response.status(Response.Status.OK)
+            response = Response.status(Response.Status.ACCEPTED)
                     .entity(resultado.get())
                     .build();
         } else {
@@ -63,9 +63,9 @@ public class RestUsuarios {
     }
 
     @DELETE
-    public Response delPersona(@QueryParam(Constantes.ID) String u) {
+    public Response delEquipo(@QueryParam(Constantes.ID) String u) {
         Response response;
-        Either<ApiError, ApiRespuesta> resultado = su.delUsuario(u);
+        Either<ApiError, ApiRespuesta> resultado = se.delEquipo(u);
         if (resultado.isRight()) {
             response = Response.status(Response.Status.ACCEPTED)
                     .entity(resultado.get())
@@ -79,10 +79,9 @@ public class RestUsuarios {
     }
 
     @PUT
-    public Response updateUsuario(Usuario u) {
+    public Response updateEquipo(Equipo e) {
         Response response;
-        if (Objects.equals(su.updateUsuario(u.getCodActivacion(), u.getIsActivo(),
-                u.getFechaAlta(), u.getUsername()), Constantes.ACTUALIZADO)) {
+        if (Objects.equals(se.updateEquipo(e.getNombre(), String.valueOf(e.getIdEquipo())), Constantes.ACTUALIZADO)) {
             response = Response.status(Response.Status.CREATED)
                     .entity(new ApiRespuesta(Constantes.ACTUALIZADO, LocalDateTime.now()))
                     .build();

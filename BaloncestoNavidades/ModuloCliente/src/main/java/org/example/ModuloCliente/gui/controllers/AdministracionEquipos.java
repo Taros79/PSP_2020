@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import org.example.Common.modelo.Equipo;
 import org.example.ModuloCliente.dao.DaoPartidos;
+import org.example.ModuloCliente.servicios.ServiciosEquipo;
 
 import javax.inject.Inject;
 import java.net.URL;
@@ -23,11 +24,11 @@ public class AdministracionEquipos implements Initializable {
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
 
-    private DaoPartidos daoPartidos;
+    private ServiciosEquipo serviciosEquipo;
 
     @Inject
-    public AdministracionEquipos(DaoPartidos daoPartidos) {
-        this.daoPartidos = daoPartidos;
+    public AdministracionEquipos(ServiciosEquipo serviciosEquipo) {
+        this.serviciosEquipo = serviciosEquipo;
     }
 
     public void setPantallaPrincipal(FXMLPrincipalController pantallaPrincipal) {
@@ -51,18 +52,19 @@ public class AdministracionEquipos implements Initializable {
     public void actualizar() {
         textFieldNombre.clear();
         listViewEquipos.getItems().clear();
-        listViewEquipos.getItems().addAll(daoPartidos.getAllEquipos().get());
+        listViewEquipos.getItems().addAll(serviciosEquipo.getAllEquipos().get());
     }
 
     @FXML
     private void AddEquipo() {
-        daoPartidos.addEquipo(new Equipo(textFieldNombre.getText()));
+        serviciosEquipo.addEquipo(new Equipo(textFieldNombre.getText()));
+        actualizar();
     }
 
     @FXML
     private void borrarEquipo() {
         textFieldNombre.clear();
-       listViewEquipos.getItems().clear();
-        listViewEquipos.getItems().addAll(daoPartidos.getAllEquipos().get());
+        serviciosEquipo.deleteEquipo(listViewEquipos.getSelectionModel().getSelectedItem().getNombre());
+        actualizar();
     }
 }
