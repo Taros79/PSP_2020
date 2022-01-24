@@ -1,5 +1,6 @@
 package org.example.ModuloCliente.gui.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -65,6 +66,13 @@ public class AdministracionEquipos implements Initializable {
     private void borrarEquipo() {
         textFieldNombre.clear();
         serviciosEquipo.deleteEquipo(listViewEquipos.getSelectionModel().getSelectedItem().getNombre());
+        actualizar();
+    }
+
+    @FXML
+    private void ActualizarEquipo() {
+        var id = listViewEquipos.getSelectionModel().getSelectedItem().getIdEquipo();
+        serviciosEquipo.updateEquipo(new Equipo(id, textFieldNombre.getText()));
         actualizar();
     }
 }

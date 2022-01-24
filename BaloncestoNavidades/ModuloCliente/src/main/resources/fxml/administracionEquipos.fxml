@@ -40,5 +40,10 @@
             <Font name="Forte" size="18.0" />
         </font>
     </Button>
+    <Button layoutX="436.0" layoutY="270.0" mnemonicParsing="false" onAction="#ActualizarEquipo" prefHeight="60.0" prefWidth="104.0" text="Actualizar">
+        <font>
+            <Font name="Forte" size="18.0" />
+        </font>
+    </Button>
     <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#borrarEquipo" prefHeight="37.0" prefWidth="356.0" text="Borrar" />
 </AnchorPane>
