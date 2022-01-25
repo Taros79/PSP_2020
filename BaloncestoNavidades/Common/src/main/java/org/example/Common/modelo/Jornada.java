@@ -14,4 +14,8 @@ import java.time.LocalDateTime;
 public class Jornada {
     private int id;
     private LocalDateTime fecha;
+
+    public Jornada(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
 }

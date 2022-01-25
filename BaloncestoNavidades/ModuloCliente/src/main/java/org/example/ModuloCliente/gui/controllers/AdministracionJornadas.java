@@ -1,14 +1,11 @@
 package org.example.ModuloCliente.gui.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 import org.example.Common.modelo.Jornada;
-import org.example.ModuloCliente.servicios.ServiciosEquipo;
 import org.example.ModuloCliente.servicios.ServiciosJornada;
 
 import javax.inject.Inject;
@@ -46,17 +43,21 @@ public class AdministracionJornadas implements Initializable {
     }
 
     @FXML
-    private void AddJornada(ActionEvent actionEvent) {
-
+    private void AddJornada() {
+        serviciosJornada.addJornada(new Jornada(datePicker.getValue().atStartOfDay()));
+        actualizar();
     }
 
     @FXML
-    private void borrarJornada(ActionEvent actionEvent) {
-
+    private void borrarJornada() {
+        serviciosJornada.deleteJornada(String.valueOf(listViewJornadas.getSelectionModel().getSelectedItem().getId()));
+        actualizar();
     }
 
     @FXML
-    private void actualizarJornada(ActionEvent actionEvent) {
-
+    private void actualizarJornada() {
+        var id = listViewJornadas.getSelectionModel().getSelectedItem().getId();
+        serviciosJornada.updateJornada(new Jornada(id, datePicker.getValue().atStartOfDay()));
+        actualizar();
     }
 }
