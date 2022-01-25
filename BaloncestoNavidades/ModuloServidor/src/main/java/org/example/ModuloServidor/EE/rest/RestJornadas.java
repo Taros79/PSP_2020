@@ -80,7 +80,7 @@ public class RestJornadas {
     @PUT
     public Response updateJornada(Jornada j) {
         Response response;
-        if (Objects.equals(sj.updateJornada(String.valueOf(j.getId()), String.valueOf(j.getFecha())), Constantes.ACTUALIZADO)) {
+        if (Objects.equals(sj.updateJornada(String.valueOf(j.getFecha()),String.valueOf(j.getId())), Constantes.ACTUALIZADO)) {
             response = Response.status(Response.Status.CREATED)
                     .entity(new ApiRespuesta(Constantes.ACTUALIZADO, LocalDateTime.now()))
                     .build();

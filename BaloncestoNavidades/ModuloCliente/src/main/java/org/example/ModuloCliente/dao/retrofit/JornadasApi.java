@@ -22,5 +22,5 @@ public interface JornadasApi {
     Call<ApiRespuesta> deleteJornada(@Query(Constantes.ID) String id);
 
     @PUT(Constantes.JORNADA_GET_ALL)
-    Call<ApiRespuesta> updateJornada(@Body Jornada jotnada);
+    Call<ApiRespuesta> updateJornada(@Body Jornada jornada);
 }
