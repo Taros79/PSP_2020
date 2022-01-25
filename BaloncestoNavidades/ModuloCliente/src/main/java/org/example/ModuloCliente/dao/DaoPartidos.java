@@ -37,15 +37,4 @@ public class DaoPartidos extends DaoGenerics {
         return this.safeApicall(partidosApi.addPartido(partido));
     }
 
-    public Either<ApiError, List<Jornada>> getAllJornadas() {
-        PartidosApi partidosApi = producers.createApiPartidos();
-        return safeApicall(partidosApi.getJornadas());
-    }
-
-    public Either<ApiError, Jornada> addJornada(Jornada jornada) {
-        PartidosApi partidosApi = producers.createApiPartidos();
-        return this.safeApicall(partidosApi.addJornada(jornada));
-    }
-
-
 }

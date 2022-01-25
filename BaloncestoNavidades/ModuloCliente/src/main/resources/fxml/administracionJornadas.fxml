@@ -1,44 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/11.0.2"
-            fx:controller="org.example.ModuloCliente.gui.controllers.AdministracionJornadas">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-    <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="egistrar" textAlignment="CENTER"
-           textOverrun="CLIP" wrapText="true">
-        <font>
-            <Font name="Forte" size="24.0"/>
-        </font>
-    </Label>
-    <Label layoutX="47.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP"
-           wrapText="true">
-        <font>
-            <Font name="Forte" size="80.0"/>
-        </font>
-    </Label>
-    <Label layoutX="256.0" layoutY="37.0" prefHeight="31.0" prefWidth="73.0" text="quipo" textAlignment="CENTER"
-           textOverrun="CLIP" wrapText="true">
-        <font>
-            <Font name="Forte" size="24.0"/>
-        </font>
-    </Label>
-    <Label layoutX="211.0" prefHeight="72.0" prefWidth="60.0" text="E" textAlignment="CENTER" textOverrun="CLIP"
-           wrapText="true">
-        <font>
-            <Font name="Forte" size="80.0"/>
-        </font>
-    </Label>
-    <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0"/>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.ModuloCliente.gui.controllers.AdministracionJornadas">
 
-    <TextField fx:id="textFieldNombre" layoutX="413.0" layoutY="115.0" promptText="Nombre" />
-    <ListView fx:id="listViewPartidos" layoutX="14.0" layoutY="85.0" onMouseClicked="#handleMouseClick" prefHeight="251.0" prefWidth="356.0" />
+    <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="egistrar" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="24.0" />
+        </font>
+    </Label>
+    <Label layoutX="47.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="80.0" />
+        </font>
+    </Label>
+    <Label layoutX="256.0" layoutY="37.0" prefHeight="31.0" prefWidth="73.0" text="quipo" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="24.0" />
+        </font>
+    </Label>
+    <Label layoutX="211.0" prefHeight="72.0" prefWidth="60.0" text="E" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+        <font>
+            <Font name="Forte" size="80.0" />
+        </font>
+    </Label>
+    <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0" />
+    <ListView fx:id="listViewJornadas" layoutX="14.0" layoutY="85.0" prefHeight="251.0" prefWidth="356.0" />
     <Button layoutX="436.0" layoutY="170.0" mnemonicParsing="false" onAction="#AddJornada" prefHeight="60.0" prefWidth="104.0" text="Añadir">
         <font>
             <Font name="Forte" size="18.0" />
         </font>
     </Button>
     <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#borrarJornada" prefHeight="37.0" prefWidth="356.0" text="Borrar" />
+   <DatePicker fx:id="datePicker" layoutX="401.0" layoutY="113.0" />
+   <Button layoutX="441.0" layoutY="274.0" mnemonicParsing="false" onAction="#actualizarJornada" prefHeight="43.0" prefWidth="104.0" text="Actualizar" />
 </AnchorPane>

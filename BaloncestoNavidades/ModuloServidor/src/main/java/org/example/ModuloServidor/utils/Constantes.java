@@ -57,4 +57,5 @@ public class Constantes {
     public static final String DRIVER = "driver";
 
     public static final String EQUIPOS = "/equipos";
+    public static final String JORNADAS = "/jornadas";
 }

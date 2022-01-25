@@ -10,7 +10,7 @@ public class Constantes {
     public static final String ADD_JORNADA = "api/partidos/addJornada";
     public static final String PARTIDO_GET_ALL = "api/partidos";
     public static final String EQUIPO_GET_ALL = "api/equipos";
-    public static final String JORNADA_GET_ALL = "api/partidos/getJornadas";
+    public static final String JORNADA_GET_ALL = "api/jornadas";
     public static final String DELETE_USUARIO = "api/usuarios";
 
 

@@ -23,8 +23,7 @@ public class DaoPartidos {
             "insert into partidos (idJornada, idLocal, idVisitante, resultadoLocal, resultadoVisitante) values (?,?,?,?,?)";
     private static final String INSERT_EQUIPO =
             "insert into equipos (nombre) values (?)";
-    private static final String INSERT_JORNADA =
-            "insert into jornadas (fecha) values (?)";
+
     private DBConnectionPool dbConnection;
 
     @Inject
@@ -86,23 +85,6 @@ public class DaoPartidos {
         return resultado;
     }
 
-    public Either<ApiError, ApiRespuesta> addJornada(Jornada jornada) {
-        Either<ApiError, ApiRespuesta> resultado;
-        if (jornada != null) {
-            try {
-                JdbcTemplate jtm = new JdbcTemplate(
-                        dbConnection.getDataSource());
-                jtm.update(INSERT_JORNADA, jornada.getFecha());
-                resultado = Either.right(new ApiRespuesta(Constantes.JORNADA_CREADA, LocalDateTime.now()));
-            } catch (DataAccessException e) {
-                resultado = Either.left(new ApiError(Constantes.FALLO_EN_LA_BBDD, LocalDateTime.now()));
-                log.error(e.getMessage(), e);
-            }
-        } else {
-            resultado = Either.left(new ApiError(Constantes.NO_HAY_ELEMENTOS, LocalDateTime.now()));
-        }
 
-        return resultado;
-    }
 
 }

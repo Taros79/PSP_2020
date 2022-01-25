@@ -33,7 +33,4 @@ public class ServiciosPartidos {
         return dao.getJornadas();
     }
 
-    public Either<ApiError, ApiRespuesta> addJornada(Jornada jornada) {
-        return dao.addJornada(jornada);
-    }
 }

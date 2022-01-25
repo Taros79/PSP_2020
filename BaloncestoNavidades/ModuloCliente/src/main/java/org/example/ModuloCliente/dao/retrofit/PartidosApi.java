@@ -16,12 +16,8 @@ public interface PartidosApi {
     @GET(Constantes.PARTIDO_GET_ALL)
     Call<List<Partido>> getPartidos();
 
-    @GET(Constantes.JORNADA_GET_ALL)
-    Call<List<Jornada>> getJornadas();
-
     @POST(Constantes.ADD_PARTIDO)
     Call<Partido> addPartido(@Body Partido partido);
 
-    @POST(Constantes.ADD_JORNADA)
-    Call<Jornada> addJornada(@Body Jornada jornada);
+
 }

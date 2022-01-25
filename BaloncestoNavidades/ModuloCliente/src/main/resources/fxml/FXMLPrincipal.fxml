@@ -28,6 +28,7 @@
                 <items>
                     <MenuItem mnemonicParsing="false" onAction="#registrarUsuario" text="Admin de Usuarios"/>
                     <MenuItem mnemonicParsing="false" onAction="#registrarEquipo" text="Admin de Equipos"/>
+                    <MenuItem mnemonicParsing="false" onAction="#registrarJornada" text="Admin de Jornadas"/>
                     <MenuItem mnemonicParsing="false" onAction="#resultadoPartidos" text="Admin de Partidos"/>
                 </items>
 

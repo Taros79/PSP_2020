@@ -6,6 +6,7 @@ import okhttp3.Protocol;
 import org.example.ModuloCliente.config.ConfigurationSingletonClient;
 import org.example.ModuloCliente.config.ConfigurationSingletonOkHttpClient;
 import org.example.ModuloCliente.dao.retrofit.EquiposApi;
+import org.example.ModuloCliente.dao.retrofit.JornadasApi;
 import org.example.ModuloCliente.dao.retrofit.PartidosApi;
 import org.example.ModuloCliente.dao.retrofit.UsuariosApi;
 import org.jetbrains.annotations.NotNull;
@@ -64,6 +65,11 @@ public class Producers {
     @Produces
     public EquiposApi createApiEquipos() {
         return configSingleton.getRetrofit().create(EquiposApi.class);
+    }
+
+    @Produces
+    public JornadasApi createApiJornadas() {
+        return configSingleton.getRetrofit().create(JornadasApi.class);
     }
 
 }
