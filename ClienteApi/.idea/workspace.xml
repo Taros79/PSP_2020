@@ -5,41 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0509961-e2a3-4856-a4ff-08bebc38d86e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/GID/Commons/EE/errores/ApiError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/GID/Commons/EE/utils/ApiRespuesta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/controllers/SalidasYEntradas.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/resources/META-INF/beans.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/resources/fxml/salidasYEntradas.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/resources/META-INF/beans.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/GID/Commons/dao/modelo/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/GID/Commons/dao/modelo/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/Commons/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/config/config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/config/config.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/config/ConfigurationSingleton_Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/config/ConfigurationSingletonClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/DaoPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/DaoPersona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/daoImplementacion/DaoPersonaImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/daoImplementacion/DaoPersonaImp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/retrofit/PersonaApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/retrofit/PersonaApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/utils/ConfigurationSingleton_OkHttpClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/utils/ConfigurationSingleton_OkHttpClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/utils/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/dao/utils/Constantes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/Producers.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/controllers/PantallaPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/controllers/PantallaPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/utils/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/gui/utils/Constantes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/servicios/ServiciosPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/servicios/ServiciosPersona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/servicios/serviciosImplementacion/ServiciosPersonaImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/GID/ModuloCliente/servicios/serviciosImplementacion/ServiciosPersonaImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/resources/fxml/addPersona.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/resources/fxml/pantallaPrincipal.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloCliente/src/main/resources/fxml/pantallaPrincipal.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/Constantes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/EE/rest/RestPersona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/dao/DaoPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/dao/DaoPersona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/servicios/ServiciosPersona.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/GID/ModuloServidor/servicios/ServiciosPersona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/webapp/WEB-INF/beans.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/webapp/WEB-INF/beans.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/webapp/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PracticaExamen/ModuloServidor/src/main/webapp/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/servicios/ServiciosPartido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/Common/src/main/java/org/example/Common/modelo/Partido.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/Common/src/main/java/org/example/Common/modelo/Partido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/DaoPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/DaoPartidos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/retrofit/PartidosApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/retrofit/PartidosApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/controllers/AdministracionPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/controllers/AdministracionPartidos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/utils/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/utils/Constantes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/resources/fxml/administracionPartidos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/resources/fxml/administracionPartidos.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/EE/rest/RestPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/EE/rest/RestPartidos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/dao/DaoPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/dao/DaoPartidos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/servicios/ServiciosPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/servicios/ServiciosPartidos.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +51,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ApiRest_Request" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ApiAnime" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -147,6 +122,7 @@
       <workItem from="1638020745895" duration="946000" />
       <workItem from="1638093695278" duration="987000" />
       <workItem from="1638100541697" duration="989000" />
+      <workItem from="1643160508827" duration="82000" />
     </task>
     <task id="LOCAL-00001" summary="Servidor/Cliente 1.0">
       <created>1637411850818</created>

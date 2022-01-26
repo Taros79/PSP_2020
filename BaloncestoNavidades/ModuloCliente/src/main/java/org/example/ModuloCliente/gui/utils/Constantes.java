@@ -16,4 +16,5 @@ public class Constantes {
             "que no se encuentra en su bandeja de spam";
 
     public static final String SELECCIONA_UN_USUARIO = "Selecciona un usuario";
+    public static final String CAMPO_INCOMPLETO = "Algun campo incompleto";
 }

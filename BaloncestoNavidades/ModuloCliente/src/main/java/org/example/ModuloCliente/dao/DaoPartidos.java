@@ -3,9 +3,11 @@ package org.example.ModuloCliente.dao;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import org.example.Common.EE.errores.ApiError;
+import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Equipo;
 import org.example.Common.modelo.Jornada;
 import org.example.Common.modelo.Partido;
+import org.example.ModuloCliente.dao.retrofit.EquiposApi;
 import org.example.ModuloCliente.dao.retrofit.PartidosApi;
 import org.example.ModuloCliente.dao.utils.Constantes;
 import org.example.ModuloCliente.gui.Producers;
@@ -31,10 +33,19 @@ public class DaoPartidos extends DaoGenerics {
         return safeApicall(partidosApi.getPartidos());
     }
 
-
     public Either<ApiError, Partido> addPartido(Partido partido) {
         PartidosApi partidosApi = producers.createApiPartidos();
         return this.safeApicall(partidosApi.addPartido(partido));
     }
 
+    public Either<ApiError, ApiRespuesta> deletePartido(String ip) {
+        PartidosApi partidosApi = producers.createApiPartidos();
+        return this.safeApicall(partidosApi.deletePartido(ip));
+    }
+
+    public Either<ApiError, ApiRespuesta> updatePartido(Partido p) {
+        PartidosApi partidosApi = producers.createApiPartidos();
+        return this.safeApicall(partidosApi.updatePartido(p));
+
+    }
 }
