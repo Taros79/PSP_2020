@@ -1,6 +1,7 @@
 package org.example.ModuloServidor.EE.rest;
 
 import io.vavr.control.Either;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -30,6 +31,7 @@ public class RestUsuarios {
 
 
     @GET
+    @RolesAllowed("user")
     public Response getAllUsuarios() {
         Response response;
         Either<ApiError, List<Usuario>> resultado = su.getUsuarios();

@@ -22,6 +22,7 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import javax.inject.Inject;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -119,11 +120,35 @@ public class RegistrarUsuario implements Initializable {
     }
 
     public void actualizar() {
-        txtNombre.clear();
-        txtContraseña.clear();
-        txtCorreo.clear();
-        listViewUsuarios.getItems().clear();
-        listViewUsuarios.getItems().addAll(serviciosUsuario.getAllUsuario().get());
+        if (listViewUsuarios.getItems() != null) {
+            @NonNull Single<Either<ApiError, List<Usuario>>> s = Single.fromCallable(() ->
+                            serviciosUsuario.getAllUsuario())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            s.subscribe(result ->
+                            result.peek(apiRespuesta -> {
+                                        txtNombre.clear();
+                                        txtContraseña.clear();
+                                        txtCorreo.clear();
+                                        listViewUsuarios.getItems().clear();
+                                        listViewUsuarios.getItems().addAll(result.get());
+                                    })
+                                    .peekLeft(error -> {
+                                        a.setContentText(error.getMessage());
+                                        a.showAndWait();
+                                    }),
+                    throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a.setContentText(Constantes.CAMPO_INCOMPLETO);
+            a.showAndWait();
+        }
     }
 
     public void activarAdmin() {
@@ -173,8 +198,27 @@ public class RegistrarUsuario implements Initializable {
         if (listViewUsuarios.getSelectionModel().getSelectedItem() != null) {
             Usuario u = listViewUsuarios.getSelectionModel().getSelectedItem();
             u.setUsername(txtNombre.getText());
-            a.setContentText(serviciosUsuario.updateUsuario(u).get().getMessage());
-            a.showAndWait();
+            @NonNull Single<Either<ApiError, ApiRespuesta>> s = Single.fromCallable(() ->
+                            serviciosUsuario.updateUsuario(u))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            s.subscribe(result ->
+                            result.peek(apiRespuesta -> {
+                                        a.setContentText(result.get().getMessage());
+                                        a.showAndWait();
+                                    })
+                                    .peekLeft(error -> {
+                                        a.setContentText(error.getMessage());
+                                        a.showAndWait();
+                                    }),
+                    throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
         } else {
             a.setContentText(Constantes.SELECCIONA_UN_USUARIO);
             a.showAndWait();

@@ -19,6 +19,7 @@ import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Equipo;
 import org.example.Common.modelo.Jornada;
 import org.example.Common.modelo.Partido;
+import org.example.Common.modelo.Usuario;
 import org.example.ModuloCliente.gui.utils.Constantes;
 import org.example.ModuloCliente.servicios.ServiciosEquipo;
 import org.example.ModuloCliente.servicios.ServiciosJornada;
@@ -27,6 +28,7 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdministracionPartidos implements Initializable {
@@ -99,16 +101,41 @@ public class AdministracionPartidos implements Initializable {
     }
 
     public void actualizar() {
-        listViewPartidos.getItems().clear();
-        listViewPartidos.getItems().addAll(serviciosPartido.getAllPartido().get());
-        listViewJornadas.getItems().clear();
-        listViewJornadas.getItems().addAll(serviciosJornada.getAllJornadas().get());
-        comboLocal.getItems().clear();
-        comboLocal.getItems().addAll(serviciosEquipo.getAllEquipos().get());
-        comboVisitante.getItems().clear();
-        comboVisitante.getItems().addAll(serviciosEquipo.getAllEquipos().get());
-        textVisitante.clear();
-        textLocal.clear();
+        if (listViewPartidos.getItems() != null && listViewJornadas.getItems() != null &&
+                comboVisitante.getItems() != null && comboLocal.getItems() != null) {
+            @NonNull Single<Either<ApiError, List<Partido>>> s = Single.fromCallable(() ->
+                            serviciosPartido.getAllPartido())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            s.subscribe(result ->
+                            result.peek(apiRespuesta -> {
+                                        listViewPartidos.getItems().clear();
+                                        listViewPartidos.getItems().addAll(result.get());
+                                        listViewJornadas.getItems().clear();
+                                        listViewJornadas.getItems().addAll(serviciosJornada.getAllJornadas().get());
+                                        comboLocal.getItems().clear();
+                                        comboLocal.getItems().addAll(serviciosEquipo.getAllEquipos().get());
+                                        comboVisitante.getItems().clear();
+                                        comboVisitante.getItems().addAll(serviciosEquipo.getAllEquipos().get());
+                                        textVisitante.clear();
+                                        textLocal.clear();
+                                    })
+                                    .peekLeft(error -> {
+                                        a.setContentText(error.getMessage());
+                                        a.showAndWait();
+                                    }),
+                    throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a.setContentText(Constantes.CAMPO_INCOMPLETO);
+            a.showAndWait();
+        }
     }
 
     @FXML

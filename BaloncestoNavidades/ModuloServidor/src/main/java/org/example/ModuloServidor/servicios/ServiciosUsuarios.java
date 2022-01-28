@@ -4,6 +4,7 @@ import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.ApiRespuesta;
+import org.example.Common.EE.utils.HashPassword;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ServiciosUsuarios {
 
     private DaoUsuarios dao;
+    private HashPassword hash;
 
 
     @Inject

@@ -17,4 +17,5 @@ public class Constantes {
 
     public static final String SELECCIONA_UN_USUARIO = "Selecciona un usuario";
     public static final String CAMPO_INCOMPLETO = "Algun campo incompleto";
+    public static final String NO_HAY_EQUIPOS = "No hay equipos";
 }

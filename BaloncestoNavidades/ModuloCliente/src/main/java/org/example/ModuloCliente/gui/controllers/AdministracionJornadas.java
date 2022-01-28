@@ -12,6 +12,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.ApiRespuesta;
+import org.example.Common.modelo.Equipo;
 import org.example.Common.modelo.Jornada;
 import org.example.Common.modelo.Partido;
 import org.example.ModuloCliente.gui.utils.Constantes;
@@ -20,6 +21,7 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdministracionJornadas implements Initializable {
@@ -48,8 +50,32 @@ public class AdministracionJornadas implements Initializable {
     }
 
     public void actualizar() {
-        listViewJornadas.getItems().clear();
-        listViewJornadas.getItems().addAll(serviciosJornada.getAllJornadas().get());
+        if (listViewJornadas.getItems() != null) {
+            @NonNull Single<Either<ApiError, List<Jornada>>> s = Single.fromCallable(() ->
+                            serviciosJornada.getAllJornadas())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            s.subscribe(result ->
+                            result.peek(apiRespuesta -> {
+                                        listViewJornadas.getItems().clear();
+                                        listViewJornadas.getItems().addAll(result.get());
+                                    })
+                                    .peekLeft(error -> {
+                                        a.setContentText(error.getMessage());
+                                        a.showAndWait();
+                                    }),
+                    throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a.setContentText(Constantes.CAMPO_INCOMPLETO);
+            a.showAndWait();
+        }
     }
 
     @FXML

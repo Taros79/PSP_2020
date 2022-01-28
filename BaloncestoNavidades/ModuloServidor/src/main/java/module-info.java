@@ -11,6 +11,7 @@ module Servidor {
     requires spring.tx;
     requires Common;
     requires log4j;
+    requires jjwt.api;
 
 
     opens org.example.ModuloServidor.config;

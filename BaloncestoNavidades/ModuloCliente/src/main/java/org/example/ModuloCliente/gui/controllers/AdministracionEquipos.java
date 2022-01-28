@@ -23,6 +23,7 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -62,9 +63,33 @@ public class AdministracionEquipos implements Initializable {
     }
 
     public void actualizar() {
-        textFieldNombre.clear();
-        listViewEquipos.getItems().clear();
-        listViewEquipos.getItems().addAll(serviciosEquipo.getAllEquipos().get());
+        if (listViewEquipos.getItems() != null) {
+            @NonNull Single<Either<ApiError, List<Equipo>>> s = Single.fromCallable(() ->
+                            serviciosEquipo.getAllEquipos())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            s.subscribe(result ->
+                            result.peek(apiRespuesta -> {
+                                        textFieldNombre.clear();
+                                        listViewEquipos.getItems().clear();
+                                        listViewEquipos.getItems().addAll(result.get());
+                                    })
+                                    .peekLeft(error -> {
+                                        a.setContentText(error.getMessage());
+                                        a.showAndWait();
+                                    }),
+                    throwable -> {
+                        a.setContentText(throwable.getMessage());
+                        a.showAndWait();
+                    });
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a.setContentText(Constantes.NO_HAY_EQUIPOS);
+            a.showAndWait();
+        }
     }
 
     @FXML
