@@ -21,6 +21,7 @@ module ModuloCliente {
     requires org.pdfsam.rxjavafx;
     requires Common;
     requires org.jetbrains.annotations;
+    requires retrofit2.adapter.rxjava3;
 
     //requires java.validation;          --module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
 

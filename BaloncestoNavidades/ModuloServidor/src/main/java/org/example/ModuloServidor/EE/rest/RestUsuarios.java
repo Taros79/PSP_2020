@@ -1,8 +1,13 @@
 package org.example.ModuloServidor.EE.rest;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import io.vavr.control.Either;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -13,6 +18,13 @@ import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
 import org.example.ModuloServidor.utils.Constantes;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -24,9 +36,12 @@ public class RestUsuarios {
 
     private ServiciosUsuarios su;
 
+    private final Key key;
+
     @Inject
-    public RestUsuarios(ServiciosUsuarios su) {
+    public RestUsuarios(ServiciosUsuarios su, @Named("JWT") Key key) {
         this.su = su;
+        this.key = key;
     }
 
 
@@ -96,4 +111,30 @@ public class RestUsuarios {
 
         return response;
     }
+
+    @GET
+    @Path("verify")
+    public Response verify(@HeaderParam("JWT") String auth) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+
+        // clave aleatoria
+        //Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+
+        final MessageDigest digest =
+                MessageDigest.getInstance("SHA-512");
+        digest.update("clave".getBytes(StandardCharsets.UTF_8));
+        final SecretKeySpec key2 = new SecretKeySpec(
+                digest.digest(), 0, 64, "AES");
+        SecretKey key22 = Keys.hmacShaKeyFor(key2.getEncoded());
+
+
+        Jws<Claims> jws = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(auth);
+
+        return Response.ok(jws.getBody().get("user"))
+                .build();
+    }
+
 }

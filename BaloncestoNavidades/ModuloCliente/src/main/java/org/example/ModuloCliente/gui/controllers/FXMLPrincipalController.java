@@ -1,6 +1,6 @@
 package org.example.ModuloCliente.gui.controllers;
 
-import javafx.event.ActionEvent;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +8,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.log4j.Log4j2;
+import org.example.ModuloCliente.servicios.ServiciosUsuario;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -45,7 +46,8 @@ public class FXMLPrincipalController implements Initializable {
     @Inject
     public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderRegistrarUsuario,
                                    FXMLLoader fxmlLoaderRegistroEquipo, FXMLLoader fxmlLoaderResultadoPartidos,
-                                   FXMLLoader fxmlLoaderDatosLigaBaloncesto, FXMLLoader fxmlLoaderRegistroJornada) {
+                                   FXMLLoader fxmlLoaderDatosLigaBaloncesto, FXMLLoader fxmlLoaderRegistroJornada,
+                                   ServiciosUsuario serviciosUsuario) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
         this.fxmlLoaderRegistrarUsuario = fxmlLoaderRegistrarUsuario;
         this.fxmlLoaderRegistroEquipo = fxmlLoaderRegistroEquipo;
@@ -151,7 +153,7 @@ public class FXMLPrincipalController implements Initializable {
     @FXML
     private void registrarEquipo() {
         pantallaPrincipal.setCenter(pantallaRegistroEquipo);
-       administracionEquiposController.actualizar();
+        administracionEquiposController.actualizar();
     }
 
     @FXML
@@ -176,17 +178,17 @@ public class FXMLPrincipalController implements Initializable {
 
     @FXML
     private void preloadRegistrarJornada() {
-            if (pantallaRegistroJornada == null) {
-                try {
-                    pantallaRegistroJornada = fxmlLoaderRegistroJornada.load(getClass()
-                            .getResourceAsStream("/fxml/administracionJornadas.fxml"));
-                    administracionJornadasController = fxmlLoaderRegistroJornada.getController();
-                    administracionJornadasController.setPantallaPrincipal(this);
-                } catch (IOException e) {
-                    log.error(e.getMessage());
-                }
+        if (pantallaRegistroJornada == null) {
+            try {
+                pantallaRegistroJornada = fxmlLoaderRegistroJornada.load(getClass()
+                        .getResourceAsStream("/fxml/administracionJornadas.fxml"));
+                administracionJornadasController = fxmlLoaderRegistroJornada.getController();
+                administracionJornadasController.setPantallaPrincipal(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
             }
         }
+    }
 
     @FXML
     private void registrarJornada() {

@@ -3,6 +3,7 @@ package org.example.ModuloCliente.gui;
 import com.google.gson.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
+import org.example.ModuloCliente.config.CacheAuthorization;
 import org.example.ModuloCliente.config.ConfigurationSingletonClient;
 import org.example.ModuloCliente.config.ConfigurationSingletonOkHttpClient;
 import org.example.ModuloCliente.dao.retrofit.EquiposApi;
@@ -52,7 +53,12 @@ public class Producers {
 
 
     @Produces
-    public UsuariosApi createApi() {
+    public UsuariosApi createApi(CacheAuthorization ca) {
+       /* ca.setUser("grinch");
+        ca.setPass("531d5ddd52f607ebf9b94bbe30d8ed03d5d76dc5d8a4bc24e3995e537517f1b0d77ce65fc38a7f98d1321de859e28e6caf84e1fe42eeba91ecf4d8b86b6b84a6");
+*/
+        configSingleton.getCache().setUser(ca.getUser());
+        configSingleton.getCache().setPass(ca.getPass());
         return configSingleton.getRetrofit().create(UsuariosApi.class);
     }
 

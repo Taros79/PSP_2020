@@ -2,10 +2,10 @@ package org.example.ModuloCliente.config;
 
 import com.google.gson.*;
 import lombok.Getter;
+import lombok.Setter;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
@@ -22,12 +22,14 @@ import java.time.temporal.ChronoUnit;
 public class ConfigurationSingletonOkHttpClient {
     private final OkHttpClient client;
     private final Retrofit retrofit;
+    private final CacheAuthorization cache;
 
     private final ConfigurationSingletonClient configurationSingletonClient;
 
     @Inject
-    private ConfigurationSingletonOkHttpClient(ConfigurationSingletonClient configurationSingletonClient) {
+    private ConfigurationSingletonOkHttpClient(ConfigurationSingletonClient configurationSingletonClient, CacheAuthorization cache) {
         this.configurationSingletonClient = configurationSingletonClient;
+        this.cache = cache;
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -35,14 +37,7 @@ public class ConfigurationSingletonOkHttpClient {
                 .readTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .callTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .connectTimeout(Duration.of(2, ChronoUnit.MINUTES))
-                .addInterceptor(chain -> {
-                    Request original = chain.request();
-
-                    Request.Builder builder = original.newBuilder()
-                            .url(original.url().newBuilder().build());
-                    Request request = builder.build();
-                    return chain.proceed(request);
-                }).build();
+                .addInterceptor(new AuthorizationInterceptor(cache)).build();
 
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>)
                         (json, type, jsonDeserializationContext) -> LocalDateTime.parse(json.getAsJsonPrimitive().getAsString()))
@@ -54,10 +49,9 @@ public class ConfigurationSingletonOkHttpClient {
                 .baseUrl(configurationSingletonClient.getPathbase())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .client(client)
                 .build();
     }
 
 }
-

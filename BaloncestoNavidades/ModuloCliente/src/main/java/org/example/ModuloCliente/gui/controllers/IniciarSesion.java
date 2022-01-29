@@ -44,6 +44,8 @@ public class IniciarSesion implements Initializable {
 
     @FXML
     private void hacerLogin() {
+        serviciosUsuario.login("", "");
+
         if (!textFieldNombre.getText().isEmpty() && !textFieldPass.getText().isEmpty()) {
             Single<String> s = Single.fromCallable(() -> serviciosUsuario.login(textFieldNombre.getText(), textFieldPass.getText()))
                     .subscribeOn(Schedulers.io())

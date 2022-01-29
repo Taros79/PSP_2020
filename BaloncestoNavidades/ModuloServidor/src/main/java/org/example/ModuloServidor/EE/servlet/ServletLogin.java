@@ -1,5 +1,6 @@
 package org.example.ModuloServidor.EE.servlet;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import org.example.ModuloServidor.utils.Constantes;
 import java.io.IOException;
 
 @WebServlet(name = "Login", urlPatterns = {Constantes.DO_LOGIN})
+@RolesAllowed("user")
 public class ServletLogin extends HttpServlet {
 
     private ServiciosUsuarios su;
