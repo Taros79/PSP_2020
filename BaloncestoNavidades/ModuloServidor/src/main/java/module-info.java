@@ -17,7 +17,6 @@ module Servidor {
     opens org.example.ModuloServidor.config;
     opens org.example.ModuloServidor.dao;
     opens org.example.ModuloServidor.EE.rest;
-    opens org.example.ModuloServidor.EE.filtros;
     opens org.example.ModuloServidor.EE.servlet;
     opens org.example.ModuloServidor.EE.servlet.mail;
     opens org.example.ModuloServidor.servicios;
@@ -26,7 +25,6 @@ module Servidor {
     exports org.example.ModuloServidor.config;
     exports org.example.ModuloServidor.dao;
     exports org.example.ModuloServidor.EE.rest;
-    exports org.example.ModuloServidor.EE.filtros;
     exports org.example.ModuloServidor.EE.servlet;
     exports org.example.ModuloServidor.EE.servlet.mail;
     exports org.example.ModuloServidor.servicios;

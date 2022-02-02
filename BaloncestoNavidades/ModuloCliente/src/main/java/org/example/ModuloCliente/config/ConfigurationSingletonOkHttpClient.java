@@ -31,8 +31,6 @@ public class ConfigurationSingletonOkHttpClient {
         this.configurationSingletonClient = configurationSingletonClient;
         this.cache = cache;
 
-        CookieManager cookieManager = new CookieManager();
-        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         client = new OkHttpClient.Builder()
                 .readTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .callTimeout(Duration.of(10, ChronoUnit.MINUTES))

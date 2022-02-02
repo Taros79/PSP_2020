@@ -1,6 +1,5 @@
 package org.example.ModuloServidor.EE.servlet;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,7 +12,6 @@ import org.example.ModuloServidor.utils.Constantes;
 import java.io.IOException;
 
 @WebServlet(name = "Login", urlPatterns = {Constantes.DO_LOGIN})
-@RolesAllowed("user")
 public class ServletLogin extends HttpServlet {
 
     private ServiciosUsuarios su;
@@ -36,7 +34,7 @@ public class ServletLogin extends HttpServlet {
             var usuario = su.getUsuario(user);
             if (usuario.isRight()) {
                 if (usuario.get().getIsActivo() == 1) {
-                    request.getSession().setAttribute(Constantes.USER, usuario.get());
+                    request.getSession().setAttribute(Constantes.USER_min, usuario.get());
                     response.setStatus(200);
                 } else {
                     var i = su.delUsuario(user);

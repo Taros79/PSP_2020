@@ -74,7 +74,14 @@ public class RegistrarUsuario implements Initializable {
             UsuarioRegistro u = new UsuarioRegistro(txtCorreo.getText(), txtNombre.getText(), pass, "", 0, LocalDateTime.now(), 2);
 
             addUsuarioTask(u);
-            serviciosUsuario.mandarMail(u.getCorreo(), u.getUsername());
+            @NonNull Single<String> s = Single.fromCallable(() ->
+                            serviciosUsuario.mandarMail(u.getCorreo(), u.getUsername()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal
+                            .getPantallaPrincipal().setCursor(Cursor.DEFAULT));
+            this.pantallaPrincipal
+                    .getPantallaPrincipal().setCursor(Cursor.WAIT);
         } else {
             a.setContentText(Constantes.ALGUN_CAMPO_VACIO);
             a.showAndWait();
@@ -156,6 +163,13 @@ public class RegistrarUsuario implements Initializable {
         listViewUsuarios.setVisible(true);
         labelTipo.setVisible(true);
         botonBorrar.setVisible(true);
+    }
+
+    public void activarUser() {
+        comboBoxTipoUser.setVisible(false);
+        listViewUsuarios.setVisible(false);
+        labelTipo.setVisible(false);
+        botonBorrar.setVisible(false);
     }
 
     @Override

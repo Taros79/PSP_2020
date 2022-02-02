@@ -12,7 +12,7 @@ public class KeyProvider {
 
     @Produces
     @Singleton
-    @Named("JWT")
+    @Named(ConstantesSecurity.JWT)
     public Key key() {
         return Keys.secretKeyFor(SignatureAlgorithm.HS512);
     }

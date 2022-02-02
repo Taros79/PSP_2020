@@ -1,6 +1,7 @@
 package org.example.ModuloServidor.EE.rest;
 
 import io.vavr.control.Either;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -47,6 +48,7 @@ public class RestEquipos {
 
     @POST
     @Path(Constantes.ADD_EQUIPO)
+    @RolesAllowed(Constantes.ADMIN)
     public Response addEquipo(Equipo equipo) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = se.addEquipo(equipo);
@@ -63,6 +65,7 @@ public class RestEquipos {
     }
 
     @DELETE
+    @RolesAllowed(Constantes.ADMIN)
     public Response delEquipo(@QueryParam(Constantes.ID) String u) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = se.delEquipo(u);
@@ -79,6 +82,7 @@ public class RestEquipos {
     }
 
     @PUT
+    @RolesAllowed(Constantes.ADMIN)
     public Response updateEquipo(Equipo e) {
         Response response;
         if (Objects.equals(se.updateEquipo(e.getNombre(), String.valueOf(e.getIdEquipo())), Constantes.ACTUALIZADO)) {

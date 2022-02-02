@@ -36,9 +36,9 @@ public class InMemoryIdentityStore implements IdentityStore {
 
                     switch (usuario.get().getTipoUsuario()) {
                         case 1:
-                            return new CredentialValidationResult(user.getCaller(), Collections.singleton("ADMIN"));
+                            return new CredentialValidationResult(user.getCaller(), Collections.singleton(ConstantesSecurity.ADMIN));
                         case 2:
-                            return new CredentialValidationResult(user.getCaller(), Collections.singleton("user"));
+                            return new CredentialValidationResult(user.getCaller(), Collections.singleton(ConstantesSecurity.USER));
                         default:
                             return INVALID_RESULT;
                     }

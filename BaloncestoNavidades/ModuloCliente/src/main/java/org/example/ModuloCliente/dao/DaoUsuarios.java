@@ -61,10 +61,12 @@ public class DaoUsuarios extends DaoGenerics {
     }
 
     public String login(String username, String password) {
-
         String resultado;
-        UsuariosApi usuariosApi = producers.createApi(cache);
         String passwordHash = hash.hashPassword(password);
+        cache.setUser(username);
+        cache.setPass(passwordHash);
+
+        UsuariosApi usuariosApi = producers.createApi(cache);
         try {
             Response<Void> response = usuariosApi.login(username, passwordHash).execute();
             if (response.isSuccessful()) {

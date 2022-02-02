@@ -1,5 +1,7 @@
 package org.example.ModuloServidor.EE.security;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -24,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Base64;
@@ -39,7 +42,7 @@ public class JWTAuth implements HttpAuthenticationMechanism {
 
 
     @Inject
-    public JWTAuth(InMemoryIdentityStore identity, @Named("JWT") Key key) {
+    public JWTAuth(InMemoryIdentityStore identity, @Named(ConstantesSecurity.JWT) Key key) {
         this.identity = identity;
         this.key = key;
     }
@@ -55,29 +58,13 @@ public class JWTAuth implements HttpAuthenticationMechanism {
         if (header != null) {
             String[] valores = header.split(" ");
 
-            if (valores[0].equalsIgnoreCase("Basic")) {
+            if (valores[0].equalsIgnoreCase(ConstantesSecurity.BASIC)) {
                 String userPass = new String(Base64.getUrlDecoder().decode(valores[1]));
                 String[] userPassSeparado = userPass.split(":");
                 c = identity.validate(new UsernamePasswordCredential(userPassSeparado[0], userPassSeparado[1]));
 
                 if (c.getStatus() == CredentialValidationResult.Status.VALID) {
-                    httpServletRequest.getSession().setAttribute("LOGIN", c);
-
-                    // clave aleatoria
-                    Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-
-                    //Clave personal
-                    MessageDigest digest = null;
-                    try {
-                        digest = MessageDigest.getInstance("SHA-512");
-                    } catch (NoSuchAlgorithmException e) {
-                        log.error(e.getMessage(), e);
-                    }
-                    digest.update("clave".getBytes(StandardCharsets.UTF_8));
-                    final SecretKeySpec key2 = new SecretKeySpec(
-                            digest.digest(), 0, 64, "AES");
-                    SecretKey keyConfig = Keys.hmacShaKeyFor(key2.getEncoded());
-
+                    httpServletRequest.getSession().setAttribute(ConstantesSecurity.LOGIN, c);
 
                     String jws = Jwts.builder()
                             .setSubject("Joe")
@@ -86,25 +73,27 @@ public class JWTAuth implements HttpAuthenticationMechanism {
                             .setExpiration(Date
                                     .from(LocalDateTime.now().plusSeconds(1200).atZone(ZoneId.systemDefault())
                                             .toInstant()))
-                            .claim("user", c.getCallerPrincipal().getName())
-                            .claim("group", c.getCallerGroups())
+                            .claim(ConstantesSecurity.USER_min, c.getCallerPrincipal().getName())
+                            .claim(ConstantesSecurity.GROUP, c.getCallerGroups())
                             .signWith(key).compact();
 
                     Response.ok(Base64.getUrlEncoder().encodeToString(key.getEncoded()))
                             .header(HttpHeaders.AUTHORIZATION, jws).build();
-
-                    //añadir al response
-                    httpServletResponse.setContentType("application/json");
-                    httpServletResponse.setCharacterEncoding(Base64.getUrlEncoder().encodeToString(key.getEncoded()));
-                    httpServletResponse.setHeader(HttpHeaders.AUTHORIZATION, jws);
                 }
-            } else if (valores[0].equalsIgnoreCase("Bearer")) {
-                System.out.println("tonto");
+            } else if (valores[0].equalsIgnoreCase(ConstantesSecurity.BEARER)) {
+                Jws<Claims> jws = Jwts.parserBuilder()
+                        .setSigningKey(key)
+
+                        .build()
+                        .parseClaimsJws(valores[1]);
+
+                httpServletResponse.setContentType(ConstantesSecurity.BEARER);
+                httpServletResponse.setHeader(HttpHeaders.AUTHORIZATION, valores[1]);
             }
 
         } else {
-            if (httpServletRequest.getSession().getAttribute("LOGIN") != null)
-                c = (CredentialValidationResult) httpServletRequest.getSession().getAttribute("LOGIN");
+            if (httpServletRequest.getSession().getAttribute(ConstantesSecurity.LOGIN) != null)
+                c = (CredentialValidationResult) httpServletRequest.getSession().getAttribute(ConstantesSecurity.LOGIN);
         }
 
         if (c.getStatus().equals(CredentialValidationResult.Status.INVALID)) {

@@ -25,7 +25,7 @@ public class Constantes {
     public static final String PARTIDO_CREADO = "Partido creado";
     public static final String JORNADA_CREADA = "Jornada creada";
 
-    public static final String USER = "user";
+    public static final String USER_min = "user";
     public static final String ERROR_PERMISOS = "Error de autentificacion y/o permisos";
     public static final String LOGOUT = "/logout";
     public static final String ACTIVACION = "/activacion";
@@ -58,4 +58,7 @@ public class Constantes {
 
     public static final String EQUIPOS = "/equipos";
     public static final String JORNADAS = "/jornadas";
+
+    public static final String ADMIN = "ADMIN";
+    public static final String USER = "USER";
 }

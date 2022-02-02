@@ -17,7 +17,7 @@ public class ServletLogout extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute(Constantes.USER, null);
+        request.getSession().setAttribute(Constantes.USER_min, null);
         request.getSession().invalidate();
 
     }

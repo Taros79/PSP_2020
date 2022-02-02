@@ -24,24 +24,24 @@ public class AuthorizationInterceptor implements Interceptor {
 
         if (ca.getJwt() == null) {
             request = original.newBuilder()
-                    .header("Authorization", Credentials.basic(ca.getUser(), ca.getPass())).build();
+                    .header(ConstantesConfig.AUTHORIZATION, Credentials.basic(ca.getUser(), ca.getPass())).build();
         } else {
             request = original.newBuilder()
-                    .header("JWT", ca.getJwt()).build();
+                    .header(ConstantesConfig.JWT, ca.getJwt()).build();
 
         }
 
         Response response = chain.proceed(request);
-        if (response.header("Authorization") != null)
-            ca.setJwt(response.header("Authorization"));
+        if (response.header(ConstantesConfig.AUTHORIZATION) != null)
+            ca.setJwt(response.header(ConstantesConfig.AUTHORIZATION));
         if (!response.isSuccessful()) {
             //reintentar
             response.close();
             request = original.newBuilder()
-                    .header("Authorization", Credentials.basic(ca.getUser(), ca.getPass())).build();
+                    .header(ConstantesConfig.AUTHORIZATION, Credentials.basic(ca.getUser(), ca.getPass())).build();
             response = chain.proceed(request);
-            if (response.header("Authorization") != null)
-                ca.setJwt(response.header("Authorization"));
+            if (response.header(ConstantesConfig.AUTHORIZATION) != null)
+                ca.setJwt(response.header(ConstantesConfig.AUTHORIZATION));
         }
 
         return response;

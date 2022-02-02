@@ -41,7 +41,7 @@ public class Configuration {
             Map<String, String> m = (Map) it.iterator().next();
             this.ruta = m.get(Constantes.RUTA);
             this.password = m.get(Constantes.PASSWORD2);
-            this.user = m.get(Constantes.USER);
+            this.user = m.get(Constantes.USER_min);
             this.driver = m.get(Constantes.DRIVER);
 
 

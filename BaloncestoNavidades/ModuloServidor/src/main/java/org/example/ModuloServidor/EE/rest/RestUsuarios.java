@@ -18,13 +18,7 @@ import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
 import org.example.ModuloServidor.utils.Constantes;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -46,7 +40,7 @@ public class RestUsuarios {
 
 
     @GET
-    @RolesAllowed("user")
+    @RolesAllowed(Constantes.ADMIN)
     public Response getAllUsuarios() {
         Response response;
         Either<ApiError, List<Usuario>> resultado = su.getUsuarios();
@@ -80,6 +74,7 @@ public class RestUsuarios {
     }
 
     @DELETE
+    @RolesAllowed(Constantes.ADMIN)
     public Response delPersona(@QueryParam(Constantes.ID) String u) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.delUsuario(u);
@@ -96,6 +91,7 @@ public class RestUsuarios {
     }
 
     @PUT
+    @RolesAllowed(Constantes.ADMIN)
     public Response updateUsuario(Usuario u) {
         Response response;
         if (Objects.equals(su.updateUsuario(u.getCodActivacion(), u.getIsActivo(),
@@ -110,31 +106,6 @@ public class RestUsuarios {
         }
 
         return response;
-    }
-
-    @GET
-    @Path("verify")
-    public Response verify(@HeaderParam("JWT") String auth) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-
-        // clave aleatoria
-        //Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
-
-
-        final MessageDigest digest =
-                MessageDigest.getInstance("SHA-512");
-        digest.update("clave".getBytes(StandardCharsets.UTF_8));
-        final SecretKeySpec key2 = new SecretKeySpec(
-                digest.digest(), 0, 64, "AES");
-        SecretKey key22 = Keys.hmacShaKeyFor(key2.getEncoded());
-
-
-        Jws<Claims> jws = Jwts.parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(auth);
-
-        return Response.ok(jws.getBody().get("user"))
-                .build();
     }
 
 }

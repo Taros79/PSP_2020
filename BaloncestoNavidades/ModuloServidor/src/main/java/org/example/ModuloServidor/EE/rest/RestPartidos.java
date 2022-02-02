@@ -1,6 +1,7 @@
 package org.example.ModuloServidor.EE.rest;
 
 import io.vavr.control.Either;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -44,6 +45,7 @@ public class RestPartidos {
     }
 
     @POST
+    @RolesAllowed(Constantes.ADMIN)
     public Response addPartido(Partido partido) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.addPartido(partido);
@@ -60,6 +62,7 @@ public class RestPartidos {
     }
 
     @DELETE
+    @RolesAllowed(Constantes.ADMIN)
     public Response delPartido(@QueryParam(Constantes.ID) String ip) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = su.delPartido(ip);
@@ -76,6 +79,7 @@ public class RestPartidos {
     }
 
     @PUT
+    @RolesAllowed(Constantes.ADMIN)
     public Response updatePartido(Partido p) {
         Response response;
         if (Objects.equals(su.updatePartido(p), Constantes.ACTUALIZADO)) {

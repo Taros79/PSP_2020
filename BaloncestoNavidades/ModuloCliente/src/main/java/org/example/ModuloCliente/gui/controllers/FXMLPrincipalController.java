@@ -174,6 +174,12 @@ public class FXMLPrincipalController implements Initializable {
         registrarUsuario();
     }
 
+    public void activarUser() {
+        menuAdmin.setVisible(false);
+        registrarUsuarioController.activarUser();
+        registrarUsuario();
+    }
+
     //----------------------------------
 
     @FXML

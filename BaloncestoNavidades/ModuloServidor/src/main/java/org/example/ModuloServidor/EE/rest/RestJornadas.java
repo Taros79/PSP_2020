@@ -1,6 +1,7 @@
 package org.example.ModuloServidor.EE.rest;
 
 import io.vavr.control.Either;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -46,6 +47,7 @@ public class RestJornadas {
     }
 
     @POST
+    @RolesAllowed(Constantes.ADMIN)
     public Response addJornada(Jornada jornada) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = sj.addJornada(jornada);
@@ -62,6 +64,7 @@ public class RestJornadas {
     }
 
     @DELETE
+    @RolesAllowed(Constantes.ADMIN)
     public Response delJornada(@QueryParam(Constantes.ID) String id) {
         Response response;
         Either<ApiError, ApiRespuesta> resultado = sj.delJornada(id);
@@ -78,6 +81,7 @@ public class RestJornadas {
     }
 
     @PUT
+    @RolesAllowed(Constantes.ADMIN)
     public Response updateJornada(Jornada j) {
         Response response;
         if (Objects.equals(sj.updateJornada(String.valueOf(j.getFecha()),String.valueOf(j.getId())), Constantes.ACTUALIZADO)) {

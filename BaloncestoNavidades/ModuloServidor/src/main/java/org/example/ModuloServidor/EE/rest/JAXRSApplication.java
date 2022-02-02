@@ -5,7 +5,7 @@ import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import org.example.ModuloServidor.utils.Constantes;
 
-@DeclareRoles({"ADMIN", "user"})
+@DeclareRoles({Constantes.ADMIN, Constantes.USER_min})
 @ApplicationPath(Constantes.API)
 public class JAXRSApplication extends Application {
 }
