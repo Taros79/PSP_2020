@@ -18,7 +18,7 @@ public class Configuration {
     private String passw;
     private String driver;
 
-    void cargar() {
+     public void cargar() {
 
         try {
             Yaml yaml = new Yaml();

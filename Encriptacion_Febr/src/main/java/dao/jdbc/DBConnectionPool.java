@@ -20,20 +20,22 @@ public class DBConnectionPool {
 
     }
 
+
+
     private DataSource getDataSourceHikari() {
         HikariConfig hikariConfig = new HikariConfig();
 
-        /*hikariConfig.setJdbcUrl(configYaml.getPath());
+        hikariConfig.setJdbcUrl(configYaml.getPath());
         hikariConfig.setUsername(configYaml.getUser());
         hikariConfig.setPassword(configYaml.getPassw());
         hikariConfig.setDriverClassName(configYaml.getDriver());
-        hikariConfig.setMaximumPoolSize(1);*/
+        hikariConfig.setMaximumPoolSize(1);
 
-        hikariConfig.setJdbcUrl("jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Stefan_Encriptacion");
+      /*  hikariConfig.setJdbcUrl("jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Stefan_Encriptacion");
         hikariConfig.setUsername("root");
         hikariConfig.setPassword("quevedo2dam");
         hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setMaximumPoolSize(1);
+        hikariConfig.setMaximumPoolSize(1);*/
 
         hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
         hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
