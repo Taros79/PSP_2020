@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e0509961-e2a3-4856-a4ff-08bebc38d86e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/servicios/ServiciosPartido.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/Common/src/main/java/org/example/Common/modelo/Partido.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/Common/src/main/java/org/example/Common/modelo/Partido.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/DaoPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/DaoPartidos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/retrofit/PartidosApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/dao/retrofit/PartidosApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/controllers/AdministracionPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/controllers/AdministracionPartidos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/utils/Constantes.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/java/org/example/ModuloCliente/gui/utils/Constantes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/resources/fxml/administracionPartidos.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/src/main/resources/fxml/administracionPartidos.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/EE/rest/RestPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/EE/rest/RestPartidos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/dao/DaoPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/dao/DaoPartidos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/servicios/ServiciosPartidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloServidor/src/main/java/org/example/ModuloServidor/servicios/ServiciosPartidos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BaloncestoNavidades/ModuloCliente/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +43,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ApiAnime" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -123,6 +115,7 @@
       <workItem from="1638093695278" duration="987000" />
       <workItem from="1638100541697" duration="989000" />
       <workItem from="1643160508827" duration="82000" />
+      <workItem from="1643826214821" duration="54000" />
     </task>
     <task id="LOCAL-00001" summary="Servidor/Cliente 1.0">
       <created>1637411850818</created>
