@@ -1,0 +1,13 @@
+path: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/LigaBasket_MarioOnetti?serverTimeZone=GMT+1&useSSL=false
+user: root
+passw: quevedo2dam
+driver: com.mysql.cj.jdbc.Driver
+host: smtp.gmail.com
+
+#En caso de error con el correo de clase, usar este
+user_mail: cuentaalumnoquevedo@gmail.com
+passw_mail: quevedo2dam
+
+
+#user_mail: alumnosdamquevedo@gmail.com
+#passw_mail: quevedo2021

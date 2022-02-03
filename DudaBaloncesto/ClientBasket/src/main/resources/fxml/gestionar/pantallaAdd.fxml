@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="608.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quevedo.ClientBasket.ui.controllers.gestionar.AddController">
+   <children>
+      <Button layoutX="90.0" layoutY="151.0" mnemonicParsing="false" onAction="#addEquipo" text="Añadir Equipo" />
+      <Button layoutX="366.0" layoutY="317.0" mnemonicParsing="false" onAction="#addJornada" text="Añadir Jornada" />
+      <Button layoutX="760.0" layoutY="342.0" mnemonicParsing="false" onAction="#addPartido" text="Añadir Partido" />
+      <Label layoutX="67.0" layoutY="37.0" text="Añadir Equipo:" />
+      <Label layoutX="362.0" layoutY="37.0" text="Añadir Jornada:" />
+      <Label layoutX="611.0" layoutY="37.0" prefHeight="17.0" prefWidth="83.0" text="Añadir Partido:" />
+      <DatePicker fx:id="dpJornada" layoutX="327.0" layoutY="90.0" />
+      <TextField fx:id="taNombreEquipo" layoutX="61.0" layoutY="90.0" />
+      <ListView fx:id="lvEquiposLocales" layoutX="611.0" layoutY="90.0"  prefHeight="122.0" prefWidth="128.0" />
+      <ListView fx:id="lvEquiposVisitantes" layoutX="802.0" layoutY="90.0"  prefHeight="122.0" prefWidth="143.0" />
+      <ListView fx:id="lvJornadas" layoutX="343.0" layoutY="138.0" prefHeight="148.0" prefWidth="143.0" />
+      <Label layoutX="617.0" layoutY="66.0" text="Equipo Local" />
+      <Label layoutX="802.0" layoutY="66.0" text="Equipo Visitante" />
+      <TextField fx:id="taResultadoLocal" layoutX="611.0" layoutY="264.0" />
+      <TextField fx:id="taResultadoVisitante" layoutX="799.0" layoutY="264.0" />
+      <Label layoutX="611.0" layoutY="231.0" text="Resultado Local:" />
+      <Label layoutX="802.0" layoutY="231.0" text="Resultado Visitante:" />
+   </children>
+</AnchorPane>

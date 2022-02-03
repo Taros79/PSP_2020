@@ -1,0 +1,12 @@
+
+~
+java:S14508"aRemove the "addAdminController" field and declare it as a local variable in the relevant methods.(òóØ¬8ªÛè/
+€
+java:S1450."^Remove the "loginController" field and declare it as a local variable in the relevant methods.(”¨ üÿÿÿÿ8ªÛè/
+ƒ
+java:S14500"aRemove the "registerController" field and declare it as a local variable in the relevant methods.(®×§Áùÿÿÿÿ8ªÛè/
+[
+java:S1068("9Remove this unused "identificacionService" private field.(Ş§½øùÿÿÿÿ8íä”ê/
+E
+java:S10689")Remove this unused "alert" private field.(”ØÑ8îä”ê/
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ƒåšÖÿÿÿÿÿ8ÍªÛè/

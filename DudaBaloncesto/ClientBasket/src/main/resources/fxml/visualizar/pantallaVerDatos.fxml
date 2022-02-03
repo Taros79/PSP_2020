@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quevedo.ClientBasket.ui.controllers.visualizar.VisualizarController">
+
+    <children>
+        <ListView fx:id="lvTodosLosPartidos" layoutX="57.0" layoutY="81.0" prefHeight="282.0" prefWidth="216.0" />
+        <Label layoutX="68.0" layoutY="39.0" text="Todos los partidos" />
+        <Label layoutX="344.0" layoutY="39.0" text="Filtrar por Equipo" />
+        <ListView fx:id="lvEquiposFiltrados" layoutX="329.0" layoutY="107.0" prefHeight="257.0" prefWidth="194.0" />
+        <Label layoutX="653.0" layoutY="39.0" text="Filtrar Por Jornada" />
+        <ListView fx:id="lvEquiposJornadas" layoutX="593.0" layoutY="103.0" prefHeight="265.0" prefWidth="184.0" />
+      <ComboBox fx:id="cbJornadas" layoutX="610.0" layoutY="69.0" onAction="#filtroJornada" prefWidth="150.0" />
+      <ComboBox fx:id="cbEquipos" layoutX="335.0" layoutY="69.0" onAction="#filtroEquipo" prefWidth="150.0" />
+    </children>
+
+
+</AnchorPane>

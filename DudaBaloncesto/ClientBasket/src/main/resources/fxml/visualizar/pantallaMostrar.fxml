@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="509.0" prefWidth="877.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quevedo.ClientBasket.ui.controllers.visualizar.VisualizarController">
+   <children>
+      <ListView fx:id="lvTodosLosPartidos" layoutX="57.0" layoutY="81.0" prefHeight="282.0" prefWidth="216.0" />
+      <Label layoutX="68.0" layoutY="39.0" text="Todos los partidos" />
+      <Label layoutX="344.0" layoutY="39.0" text="Filtrar por Equipo" />
+      <Button layoutX="492.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnFiltroEquipo" text="Filtrar" />
+      <TextField fx:id="taNombreEquipo" layoutX="329.0" layoutY="69.0" promptText="Nombre Equipo" />
+      <ListView fx:id="lvEquiposFiltrados" layoutX="329.0" layoutY="107.0" prefHeight="257.0" prefWidth="194.0" />
+      <Label layoutX="653.0" layoutY="39.0" text="Filtrar Por Jornada" />
+      <ListView fx:id="lvEquiposJornadas" layoutX="593.0" layoutY="103.0" prefHeight="265.0" prefWidth="184.0" />
+      <Button layoutX="777.0" layoutY="69.0" mnemonicParsing="false" onAction="#btnFiltroJornada" text="Filtrar" />
+      <DatePicker fx:id="dpJornada" layoutX="593.0" layoutY="69.0" />
+   </children>
+</AnchorPane>

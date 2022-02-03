@@ -1,0 +1,6 @@
+
+\
+java:S1118":Add a private constructor to hide the implicit public one.(µÚ¾Âøÿÿÿÿ8ô­™ïé/
+C
+java:S1905"&Remove this unnecessary cast to "int".(ƒ¦ğ»8„®™ïé/
+{	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(À‹ÌÙÿÿÿÿÿ8”®™ïé/

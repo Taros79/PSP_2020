@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="539.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quevedo.ClientBasket.ui.controllers.entrar.LoginController">
+   <children>
+      <Label layoutX="284.0" layoutY="48.0" text="Iniciar Sesión:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="349.0" layoutY="110.0" text="Correo">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="343.0" layoutY="223.0" text="Contraseña">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="taCorreo" layoutX="308.0" layoutY="159.0" />
+      <TextField fx:id="taPasswd" layoutX="308.0" layoutY="278.0" />
+      <Button layoutX="217.0" layoutY="345.0" mnemonicParsing="false" onAction="#acceder" text="Acceder" />
+      <Button layoutX="457.0" layoutY="345.0" mnemonicParsing="false" onAction="#recuperarPassw" text="He olvidado mi Contraseña" />
+   </children>
+</AnchorPane>
