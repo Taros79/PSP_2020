@@ -16,7 +16,19 @@ public class ServiciosUsuario {
         this.dao = dao;
     }
 
+    public Either<String, Usuario> addUsuario(Usuario usuario) {
+        return dao.addUsuario(usuario);
+    }
+
+    public Either<String, String> getSecretos(String nombre, String password) {
+        return dao.getSecretos(nombre, password);
+    }
+
     public Either<String, List<Usuario>> getUsuarios() {
         return dao.getUsuarios();
+    }
+
+    public Either<String, List<String>> getSecretosPorPass(String password) {
+        return dao.getSecretosPorPass(password);
     }
 }

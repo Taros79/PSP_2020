@@ -1,7 +1,5 @@
 package gui.controllers;
 
-
-import config.Configuration;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,12 +22,9 @@ public class FXMLPrincipalController implements Initializable {
     private AnchorPane pantallaResultadoPartidos;
     private AdministracionPartidos administracionPartidosController;
 
-    private final Configuration configYaml;
-
     @Inject
-    public FXMLPrincipalController(FXMLLoader fxmlLoaderResultadoPartidos, Configuration configYaml){
+    public FXMLPrincipalController(FXMLLoader fxmlLoaderResultadoPartidos){
         this.fxmlLoaderResultadoPartidos = fxmlLoaderResultadoPartidos;
-        this.configYaml = configYaml;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -38,7 +33,6 @@ public class FXMLPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        configYaml.cargar();
         preloadResultadoPartidos();
     }
 

@@ -17,10 +17,7 @@ public class DBConnectionPool {
     public DBConnectionPool(Configuration configYaml) {
         this.configYaml = configYaml;
         hikariDataSource = getDataSourceHikari();
-
     }
-
-
 
     private DataSource getDataSourceHikari() {
         HikariConfig hikariConfig = new HikariConfig();
@@ -31,15 +28,9 @@ public class DBConnectionPool {
         hikariConfig.setDriverClassName(configYaml.getDriver());
         hikariConfig.setMaximumPoolSize(1);
 
-      /*  hikariConfig.setJdbcUrl("jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Stefan_Encriptacion");
-        hikariConfig.setUsername("root");
-        hikariConfig.setPassword("quevedo2dam");
-        hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        hikariConfig.setMaximumPoolSize(1);*/
-
-        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
-        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
-        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+        hikariConfig.addDataSourceProperty(JDBConstantes.CACHE_PREP_STMTS, JDBConstantes.TRUE);
+        hikariConfig.addDataSourceProperty(JDBConstantes.PREP_STMT_CACHE_SIZE, JDBConstantes.VALUE);
+        hikariConfig.addDataSourceProperty(JDBConstantes.PREP_STMT_CACHE_SQL_LIMIT, JDBConstantes.VALUE_SQL_LIMIT);
 
         return new HikariDataSource(hikariConfig);
     }

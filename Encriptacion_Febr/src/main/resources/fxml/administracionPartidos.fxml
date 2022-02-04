@@ -6,43 +6,32 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controllers.AdministracionPartidos">
 
-    <ListView fx:id="listView1" layoutX="14.0" layoutY="85.0" prefHeight="89.0" prefWidth="338.0" />
-    <Label layoutX="98.0" layoutY="27.0" prefHeight="51.0" prefWidth="95.0" text="egistrar" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <ListView fx:id="listView1" layoutX="19.0" layoutY="101.0" prefHeight="145.0" prefWidth="303.0" />
+    <Label layoutX="116.0" layoutY="35.0" prefHeight="51.0" prefWidth="95.0" text="ecretos" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
         <font>
             <Font name="Forte" size="24.0" />
         </font>
     </Label>
-    <Label layoutX="47.0" prefHeight="72.0" prefWidth="60.0" text="R" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
+    <Label layoutX="80.0" layoutY="1.0" prefHeight="72.0" prefWidth="60.0" text="S" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
         <font>
             <Font name="Forte" size="80.0" />
         </font>
     </Label>
-    <Button layoutX="424.0" layoutY="78.0" mnemonicParsing="false" onAction="#get" prefHeight="60.0" prefWidth="104.0" text="Añadir">
+    <Button layoutX="398.0" layoutY="334.0" mnemonicParsing="false" onAction="#get" prefHeight="45.0" prefWidth="150.0" text="Añadir Secreto">
         <font>
             <Font name="Forte" size="18.0" />
         </font>
     </Button>
-    <Button layoutX="412.0" layoutY="181.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="128.0" text="Borrar" />
-    <Label layoutX="214.0" layoutY="41.0" prefHeight="31.0" prefWidth="117.0" text="artidos" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
-        <font>
-            <Font name="Forte" size="24.0" />
-        </font>
-    </Label>
-    <Label layoutX="193.0" layoutY="-4.0" prefHeight="89.0" prefWidth="60.0" text="P" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
-        <font>
-            <Font name="Forte" size="80.0" />
-        </font>
-    </Label>
-    <Separator layoutX="370.0" layoutY="10.0" orientation="VERTICAL" prefHeight="375.0" prefWidth="15.0" />
-    <Label layoutX="20.0" layoutY="338.0" text="Equipo Local" />
-    <Label layoutX="211.0" layoutY="338.0" text="Equipo Visitante" />
-    <ComboBox layoutX="13.0" layoutY="360.0" prefWidth="150.0" />
-    <ComboBox layoutX="203.0" layoutY="360.0" prefWidth="150.0" />
-    <Label layoutX="20.0" layoutY="273.0" text="Resultado Local" />
-    <Label layoutX="209.0" layoutY="273.0" text="Resultado Visitante" />
-    <TextField layoutX="14.0" layoutY="297.0" />
-    <TextField layoutX="204.0" layoutY="297.0" />
-    <Label layoutX="20.0" layoutY="181.0" text="Jornadas disponibles:" />
-    <ListView layoutX="14.0" layoutY="200.0" prefHeight="60.0" prefWidth="338.0" />
-    <Button layoutX="412.0" layoutY="292.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="128.0" text="Actualizar" />
+    <Separator layoutX="339.0" layoutY="15.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="15.0" />
+    <Label layoutX="19.0" layoutY="264.0" text="Usuarios" />
+    <Label layoutX="183.0" layoutY="264.0" text="Contraseña" />
+    <ComboBox layoutX="19.0" layoutY="281.0" prefWidth="150.0" />
+    <Label layoutX="376.0" layoutY="238.0" text="Contraseña" />
+    <Label layoutX="396.0" layoutY="63.0" text="Secreto" />
+    <TextField layoutX="440.0" layoutY="234.0" prefHeight="25.0" prefWidth="140.0" />
+    <TextField layoutX="441.0" layoutY="63.0" prefHeight="159.0" prefWidth="140.0" />
+    <Button layoutX="119.0" layoutY="334.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="128.0" text="Ver Secretos" />
+   <TextField layoutX="183.0" layoutY="281.0" prefHeight="25.0" prefWidth="140.0" />
+   <TextField layoutX="440.0" layoutY="281.0" prefHeight="25.0" prefWidth="140.0" />
+   <Label layoutX="393.0" layoutY="285.0" prefHeight="17.0" prefWidth="46.0" text="Usuario" />
 </AnchorPane>

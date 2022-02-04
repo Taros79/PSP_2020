@@ -14,6 +14,7 @@ module ModuloCliente {
     requires com.zaxxer.hikari;
     requires java.annotation;
     requires jakarta.enterprise.cdi.api;
+    requires com.google.common;
 
 
     //requires java.validation;          --module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
