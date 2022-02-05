@@ -10,5 +10,9 @@ import lombok.NoArgsConstructor;
 public class Usuario {
     private String nombre;
     private String mensaje;
-    private String password;
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

@@ -20,7 +20,7 @@ import java.util.Base64;
 @Log4j2
 public class Encriptaciones {
 
-    public Either<String,String> encriptarTexto(Usuario u) {
+    public Either<String,String> encriptarTexto(Usuario u, String pass) {
         Either<String,String> mensajeEncriptado;
         try {
             byte[] iv = new byte[12];
@@ -30,17 +30,16 @@ public class Encriptaciones {
             sr.nextBytes(salt);
             GCMParameterSpec parameterSpec = new GCMParameterSpec(128, iv);
 
-
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             // en el jdk8 esta limitado a 128 bits, desde el 9 puede ser de 256
-            KeySpec spec = new PBEKeySpec(u.getPassword().toCharArray(), salt, 65536, 256);
+            KeySpec spec = new PBEKeySpec(pass.toCharArray(), salt, 65536, 256);
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 
             Cipher cipher = Cipher.getInstance("AES/GCM/noPadding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec);
-            mensajeEncriptado = Either.right(Base64.getUrlEncoder().encodeToString(Bytes.concat(iv, salt,
-                    cipher.doFinal(u.getMensaje().getBytes(StandardCharsets.UTF_8)))));
+            mensajeEncriptado = Either.right(Base64.getUrlEncoder().encodeToString(
+                    Bytes.concat(iv, salt,cipher.doFinal(u.getMensaje().getBytes(StandardCharsets.UTF_8)))));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             mensajeEncriptado = Either.left("Error al desencriptar");
@@ -48,18 +47,17 @@ public class Encriptaciones {
         return mensajeEncriptado;
     }
 
-    public Either<String,String> desencriptarTexto(Usuario u) {
+    public Either<String,String> desencriptarTexto(Usuario u, String pass) {
         Either<String,String> mensajeDesencriptado;
         try {
             byte[] decoded = Base64.getUrlDecoder().decode(u.getMensaje());
 
             byte[] iv = Arrays.copyOf(decoded, 12);
             byte[] salt = Arrays.copyOfRange(decoded, 12, 28);
-
             GCMParameterSpec parameterSpec = new GCMParameterSpec(128, iv);
 
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            KeySpec spec = new PBEKeySpec(u.getPassword().toCharArray(), salt, 65536, 256);
+            KeySpec spec = new PBEKeySpec(pass.toCharArray(), salt, 65536, 256);
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
 

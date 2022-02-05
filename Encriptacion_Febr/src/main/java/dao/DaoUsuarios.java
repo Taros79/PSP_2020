@@ -25,12 +25,12 @@ public class DaoUsuarios {
     private Encriptaciones encriptaciones = new Encriptaciones();
 
     private static final String INSERT_USUARIO =
-            "insert into usuarios (nombre, mensaje, password) values (?, ?, ?)";
+            "insert into usuarios (nombre, mensaje) values (?, ?)";
 
     private static final String SELECT_USUARIOS = "select * from usuarios;";
 
     private static final String GET_USUARIO =
-            "select * from usuarios where nombre = ? and password = ?";
+            "select * from usuarios where nombre = ?";
 
     private static final String GET_SECRETOS_POR_PASS =
             "select * from usuarios where password = ?";
@@ -56,11 +56,10 @@ public class DaoUsuarios {
         return result;
     }
 
-    public Either<String, Usuario> addUsuario(Usuario usuario) {
+    public Either<String, Usuario> addUsuario(Usuario usuario, String pass) {
         Either<String, Usuario> result = null;
-        String passwordHasheada = hashP.hashPassword(usuario.getPassword());
-        Usuario usuarioCompleto = new Usuario(usuario.getNombre(), usuario.getMensaje(), passwordHasheada);
-        var mensajeEncriptado = encriptaciones.encriptarTexto(usuarioCompleto);
+        String passwordHasheada = hashP.hashPassword(pass);
+        var mensajeEncriptado = encriptaciones.encriptarTexto(usuario, passwordHasheada);
         if (mensajeEncriptado.isRight()) {
             String secreto = mensajeEncriptado.get();
             try {
@@ -69,7 +68,6 @@ public class DaoUsuarios {
                     PreparedStatement preparedStatement = con.prepareStatement(INSERT_USUARIO);
                     preparedStatement.setString(1, usuario.getNombre());
                     preparedStatement.setString(2, secreto);
-                    preparedStatement.setString(3, passwordHasheada);
                     return preparedStatement;
                 });
 
@@ -86,20 +84,19 @@ public class DaoUsuarios {
     }
 
 
-    public Either<String, String> getSecretos(String nombre, String password) {
-        Usuario c;
-        String passwordHasheada = hashP.hashPassword(password);
+    public Either<String, String> getSecretos(String nombre, String pass) {
+        Usuario usuario;
+        String passwordHasheada = hashP.hashPassword(pass);
         Either<String, String> result;
 
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            c = jdbcTemplate.queryForObject(GET_USUARIO, new Object[]{nombre, passwordHasheada}, (rs, rowNum) ->
+            usuario = jdbcTemplate.queryForObject(GET_USUARIO, new Object[]{nombre}, (rs, rowNum) ->
                     new Usuario(
                             rs.getString("nombre"),
-                            rs.getString("mensaje"),
-                            rs.getString("password")));
+                            rs.getString("mensaje")));
 
-            var mensajeDesencriptado = encriptaciones.desencriptarTexto(c);
+            var mensajeDesencriptado = encriptaciones.desencriptarTexto(usuario,passwordHasheada);
 
             if (mensajeDesencriptado.isRight()) {
                 result = Either.right(mensajeDesencriptado.get());
@@ -116,7 +113,7 @@ public class DaoUsuarios {
         return result;
     }
 
-    public Either<String, List<String>> getSecretosPorPass(String password) {
+   public Either<String, List<String>> getSecretosPorPass(String password) {
         List<Usuario> c;
         String passwordHasheada = hashP.hashPassword(password);
         Either<String, List<String>> result = null;
@@ -125,10 +122,10 @@ public class DaoUsuarios {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
 
-            c = jdbcTemplate.query(GET_SECRETOS_POR_PASS, BeanPropertyRowMapper.newInstance(Usuario.class), passwordHasheada);
+            c = jdbcTemplate.query(SELECT_USUARIOS, BeanPropertyRowMapper.newInstance(Usuario.class));
 
             for (int i = 0; i < c.size(); i++) {
-                var mensajeDesencriptado = encriptaciones.desencriptarTexto(c.get(i));
+                var mensajeDesencriptado = encriptaciones.desencriptarTexto(c.get(i),passwordHasheada);
 
                 if (mensajeDesencriptado.isRight()) {
                     listaMensajes.add(mensajeDesencriptado.get());

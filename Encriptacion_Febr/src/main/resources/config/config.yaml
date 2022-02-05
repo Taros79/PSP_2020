@@ -1,4 +1,4 @@
-path: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Stefan_Encriptacion
+path: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/CM_Enc
 user: root
 passw: quevedo2dam
 driver: com.mysql.cj.jdbc.Driver
