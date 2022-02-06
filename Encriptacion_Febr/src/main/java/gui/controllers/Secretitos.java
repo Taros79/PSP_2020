@@ -1,9 +1,10 @@
 package gui.controllers;
+
 import dao.modelo.Usuario;
+import gui.utils.ConstantesGUI;
 import io.vavr.control.Either;
 import io.vavr.control.Try;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -18,7 +19,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AdministracionPartidos implements Initializable {
+public class Secretitos implements Initializable {
 
     @FXML
     private ComboBox<Usuario> comboBoxUser;
@@ -39,7 +40,7 @@ public class AdministracionPartidos implements Initializable {
     private ServiciosUsuario serviciosUsuario;
 
     @Inject
-    public AdministracionPartidos(ServiciosUsuario serviciosUsuario) {
+    public Secretitos(ServiciosUsuario serviciosUsuario) {
         this.serviciosUsuario = serviciosUsuario;
     }
 
@@ -59,13 +60,14 @@ public class AdministracionPartidos implements Initializable {
             Usuario u = new Usuario(textUserAdd.getText(), textSecretAdd.getText());
             var tarea = new Task<Either<String, Usuario>>() {
                 @Override
-                protected Either<String, Usuario> call(){
+                protected Either<String, Usuario> call() {
                     return serviciosUsuario.addUsuario(u, textPassAdd.getText());
                 }
             };
             tarea.setOnSucceeded(workerStateEvent -> {
                 Try.of(() -> tarea.get().peek(usuario -> {
-                                    a.setContentText(usuario + " creado con exito");
+                                    actualizar();
+                                    a.setContentText(usuario + ConstantesGUI.CREADO_CON_EXITO);
                                     a.showAndWait();
                                 })
                                 .peekLeft(s -> {
@@ -86,7 +88,7 @@ public class AdministracionPartidos implements Initializable {
             new Thread(tarea).start();
             this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
         } else {
-            a.setContentText("Rellena los datos");
+            a.setContentText(ConstantesGUI.RELLENAR_DATOS);
             a.showAndWait();
         }
     }
@@ -103,7 +105,10 @@ public class AdministracionPartidos implements Initializable {
             };
             tarea.setOnSucceeded(workerStateEvent -> {
                 listViewSecret.getItems().clear();
-                Try.of(() -> tarea.get().peek(secretos -> listViewSecret.getItems().addAll(secretos))
+                Try.of(() -> tarea.get().peek(secretos -> {
+                                    actualizar();
+                                    listViewSecret.getItems().addAll(secretos);
+                                })
                                 .peekLeft(s -> {
                                     a.setContentText(String.valueOf(s));
                                     a.showAndWait();
@@ -122,7 +127,7 @@ public class AdministracionPartidos implements Initializable {
             new Thread(tarea).start();
             this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
         } else {
-            a.setContentText("Rellena los datos");
+            a.setContentText(ConstantesGUI.RELLENAR_DATOS);
             a.showAndWait();
         }
     }
@@ -168,7 +173,10 @@ public class AdministracionPartidos implements Initializable {
             };
             tarea.setOnSucceeded(workerStateEvent -> {
                 listViewSecret.getItems().clear();
-                Try.of(() -> tarea.get().peek(secretos -> listViewSecret.getItems().addAll(secretos))
+                Try.of(() -> tarea.get().peek(secretos -> {
+                                    actualizar();
+                                    listViewSecret.getItems().addAll(secretos);
+                                })
                                 .peekLeft(s -> {
                                     a.setContentText(String.valueOf(s));
                                     a.showAndWait();
@@ -187,8 +195,17 @@ public class AdministracionPartidos implements Initializable {
             new Thread(tarea).start();
             this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
         } else {
-            a.setContentText("Esto en verdad no se pide pero shhh... Rellena la password");
+            a.setContentText(ConstantesGUI.RELLENAR_DATOS_ALL);
             a.showAndWait();
         }
+    }
+
+    private void actualizar() {
+        textUserAdd.clear();
+        textPassAdd.clear();
+        textSecretAdd.clear();
+        textPassVer.clear();
+        listViewSecret.getItems().clear();
+        comboBoxUser.getSelectionModel().clearSelection();
     }
 }

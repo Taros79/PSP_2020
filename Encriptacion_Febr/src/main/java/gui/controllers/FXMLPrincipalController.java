@@ -1,5 +1,6 @@
 package gui.controllers;
 
+import gui.utils.ConstantesGUI;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,13 +19,13 @@ public class FXMLPrincipalController implements Initializable {
     @FXML
     private BorderPane pantallaPrincipal;
 
-    private final FXMLLoader fxmlLoaderResultadoPartidos;
-    private AnchorPane pantallaResultadoPartidos;
-    private AdministracionPartidos administracionPartidosController;
+    private final FXMLLoader fxmlLoaderSecretitos;
+    private AnchorPane pantallaSecretitos;
+    private Secretitos secretitosController;
 
     @Inject
-    public FXMLPrincipalController(FXMLLoader fxmlLoaderResultadoPartidos){
-        this.fxmlLoaderResultadoPartidos = fxmlLoaderResultadoPartidos;
+    public FXMLPrincipalController(FXMLLoader fxmlLoaderSecretitos){
+        this.fxmlLoaderSecretitos = fxmlLoaderSecretitos;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -33,19 +34,19 @@ public class FXMLPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        preloadResultadoPartidos();
+        preloadSecretitos();
     }
 
 
     @FXML
-    private void preloadResultadoPartidos() {
-        if (pantallaResultadoPartidos == null) {
+    private void preloadSecretitos() {
+        if (pantallaSecretitos == null) {
             try {
-                pantallaResultadoPartidos = fxmlLoaderResultadoPartidos.load(getClass()
-                        .getResourceAsStream("/fxml/administracionPartidos.fxml"));
-                administracionPartidosController = fxmlLoaderResultadoPartidos.getController();
-                administracionPartidosController.setPantallaPrincipal(this);
-                pantallaPrincipal.setCenter(pantallaResultadoPartidos);
+                pantallaSecretitos = fxmlLoaderSecretitos.load(getClass()
+                        .getResourceAsStream(ConstantesGUI.ROUTE_FXML_SECRETS));
+                secretitosController = fxmlLoaderSecretitos.getController();
+                secretitosController.setPantallaPrincipal(this);
+                pantallaPrincipal.setCenter(pantallaSecretitos);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }

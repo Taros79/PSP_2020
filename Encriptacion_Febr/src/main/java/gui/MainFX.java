@@ -1,6 +1,6 @@
 package gui;
 
-import gui.utils.Constantes;
+import gui.utils.ConstantesGUI;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,9 +19,9 @@ public class MainFX {
 
     public void start(@Observes @StartupScene Stage stage) {
         try {
-            Parent fxmlparent = fxmlLoader.load(getClass().getResourceAsStream(Constantes.FXML_FXMLPRINCIPAL_FXML));
+            Parent fxmlparent = fxmlLoader.load(getClass().getResourceAsStream(ConstantesGUI.FXML_FXMLPRINCIPAL_FXML));
             stage.setScene(new Scene(fxmlparent));
-            stage.setTitle(Constantes.TITULO_PRINCIPAL);
+            stage.setTitle(ConstantesGUI.TITULO_PRINCIPAL);
             stage.show();
 
         } catch (IOException e) {

@@ -1,5 +1,6 @@
 package gui;
 
+import gui.utils.ConstantesGUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -17,8 +18,8 @@ public class CDIJavaFX extends Application {
     public void start(Stage stage) {
         SeContainerInitializer initializer = SeContainerInitializer.newInstance();
         final SeContainer container = initializer.initialize();
-        stage.setMinWidth(600);
-        stage.setMinHeight(450);
+        stage.setMinWidth(ConstantesGUI.STAGE_MIN_WIDTH);
+        stage.setMinHeight(ConstantesGUI.STAGE_MIN_HEIGHT);
         stage.setResizable(true);
         container.getBeanManager().fireEvent(stage, new AnnotationLiteral<StartupScene>() {
         });
