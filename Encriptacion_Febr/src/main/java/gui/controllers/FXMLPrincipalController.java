@@ -16,15 +16,14 @@ import java.util.ResourceBundle;
 @Log4j2
 public class FXMLPrincipalController implements Initializable {
 
+    private final FXMLLoader fxmlLoaderSecretitos;
     @FXML
     private BorderPane pantallaPrincipal;
-
-    private final FXMLLoader fxmlLoaderSecretitos;
     private AnchorPane pantallaSecretitos;
     private Secretitos secretitosController;
 
     @Inject
-    public FXMLPrincipalController(FXMLLoader fxmlLoaderSecretitos){
+    public FXMLPrincipalController(FXMLLoader fxmlLoaderSecretitos) {
         this.fxmlLoaderSecretitos = fxmlLoaderSecretitos;
     }
 

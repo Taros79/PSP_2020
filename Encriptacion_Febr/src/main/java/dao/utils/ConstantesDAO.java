@@ -10,9 +10,9 @@ public class ConstantesDAO {
     public static final int BYTES_IV = 12;
     public static final int BYTES_SALT = 16;
     public static final int BYTES_SALT_MAX = 28;  //Da error por alguna razon
-    public static final int TAG_T_LENGTH= 128;
-    public static final int ITERATION_COUNT= 65536;
-    public static final int KEY_LENGTH= 256;
+    public static final int TAG_T_LENGTH = 128;
+    public static final int ITERATION_COUNT = 65536;
+    public static final int KEY_LENGTH = 256;
 
 
     public static final String ERROR_BBDD = "Error bbdd";

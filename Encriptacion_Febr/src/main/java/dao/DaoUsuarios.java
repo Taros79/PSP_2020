@@ -19,18 +19,14 @@ import java.util.List;
 @Log4j2
 public class DaoUsuarios {
 
-    private final DBConnectionPool pool;
-
-    private HashPassword hashP = new HashPassword();
-    private Encriptaciones encriptaciones = new Encriptaciones();
-
     private static final String INSERT_USUARIO =
             "insert into usuarios (nombre, mensaje) values (?, ?)";
-
     private static final String SELECT_USUARIOS = "select * from usuarios;";
-
     private static final String GET_USUARIO =
             "select * from usuarios where nombre = ?";
+    private final DBConnectionPool pool;
+    private HashPassword hashP = new HashPassword();
+    private Encriptaciones encriptaciones = new Encriptaciones();
 
 
     @Inject
