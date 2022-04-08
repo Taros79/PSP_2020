@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.example.Common.EE.errores.ApiError;
 import org.example.Common.EE.utils.ApiRespuesta;
 import org.example.Common.modelo.Partido;
+import org.example.ModuloServidor.dao.jdbc.DBConnectionPool;
 import org.example.ModuloServidor.utils.Constantes;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

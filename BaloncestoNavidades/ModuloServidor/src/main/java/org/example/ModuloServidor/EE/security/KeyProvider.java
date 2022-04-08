@@ -1,3 +1,4 @@
+/*
 package org.example.ModuloServidor.EE.security;
 
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,3 +18,4 @@ public class KeyProvider {
         return Keys.secretKeyFor(SignatureAlgorithm.HS512);
     }
 }
+*/

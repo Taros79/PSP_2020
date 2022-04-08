@@ -29,4 +29,6 @@ module Servidor {
     exports org.example.ModuloServidor.EE.servlet.mail;
     exports org.example.ModuloServidor.servicios;
     exports org.example.ModuloServidor.utils;
+    exports org.example.ModuloServidor.dao.jdbc;
+    opens org.example.ModuloServidor.dao.jdbc;
 }

@@ -14,10 +14,6 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.InputStream;
 import java.util.Map;
 
-
-/**
- * @author dam2
- */
 @Getter
 @Log4j2
 @Singleton
@@ -27,12 +23,14 @@ public class Configuration {
     private String user;
     private String password;
     private String driver;
+    private String host;
+    private String userCorreo;
+    private String passwCorreo;
 
     void cargar(InputStream file) {
 
         try {
             Yaml yaml = new Yaml();
-
             Iterable<Object> it = null;
 
             it = yaml
@@ -43,7 +41,9 @@ public class Configuration {
             this.password = m.get(Constantes.PASSWORD2);
             this.user = m.get(Constantes.USER_min);
             this.driver = m.get(Constantes.DRIVER);
-
+            this.host = m.get(Constantes.HOST);
+            this.userCorreo = m.get(Constantes.USER_MAIL);
+            this.passwCorreo = m.get(Constantes.PASSW_MAIL);
 
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);

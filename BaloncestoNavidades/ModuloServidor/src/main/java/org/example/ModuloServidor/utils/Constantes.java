@@ -55,6 +55,9 @@ public class Constantes {
     public static final String PASSWORD2 = "password";
     public static final String RUTA = "ruta";
     public static final String DRIVER = "driver";
+    public static final String HOST = "smtp.gmail.com";
+    public static final String USER_MAIL = "cuentaalumnoquevedo@gmail.com";
+    public static final String PASSW_MAIL = "quevedo2dam";
 
     public static final String EQUIPOS = "/equipos";
     public static final String JORNADAS = "/jornadas";

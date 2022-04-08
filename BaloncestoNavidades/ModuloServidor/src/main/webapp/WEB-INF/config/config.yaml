@@ -2,3 +2,7 @@ ruta: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Stefan_Baloncesto?useSSL=false
 user: root
 password: quevedo2dam
 driver: com.mysql.cj.jdbc.Driver
+host: smtp.gmail.com
+
+user_mail: cuentaalumnoquevedo@gmail.com
+passw_mail: quevedo2dam

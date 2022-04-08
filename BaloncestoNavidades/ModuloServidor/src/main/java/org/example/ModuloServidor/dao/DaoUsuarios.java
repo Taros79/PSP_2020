@@ -9,6 +9,7 @@ import org.example.Common.EE.utils.HashPassword;
 import org.example.Common.modelo.Usuario;
 import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.Common.modelo.UsuarioRegistro;
+import org.example.ModuloServidor.dao.jdbc.DBConnectionPool;
 import org.example.ModuloServidor.utils.Constantes;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
@@ -82,8 +83,7 @@ public class DaoUsuarios {
         Either<ApiError, Usuario> resultado;
 
         try {
-            JdbcTemplate jtm = new JdbcTemplate(
-                    dbConnection.getDataSource());
+            JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
             c = jtm.queryForObject(GET_USUARIO, new Object[]{username}, (rs, rowNum) ->
                     new Usuario(
                             rs.getInt(Constantes.ID),

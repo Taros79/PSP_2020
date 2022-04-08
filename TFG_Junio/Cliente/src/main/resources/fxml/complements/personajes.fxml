@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="645.0" prefWidth="948.0"
+            xmlns="http://javafx.com/javafx/11.0.2" fx:controller="rol.Cliente.gui.controllers.complements.Personajes">
+    <children>
+        <ListView fx:id="listViewPersonajes" layoutX="25.0" layoutY="427.0" onMouseClicked="#handleMouseClick"
+                  prefHeight="194.0" prefWidth="801.0"/>
+        <Label layoutX="122.0" layoutY="36.0" text="Datos Personaje">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+        <Label layoutX="607.0" layoutY="36.0" text="Estadisticas">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+        <Label layoutX="476.0" layoutY="161.0" text="AC"/>
+        <Label layoutX="463.0" layoutY="129.0" text="VIDA"/>
+        <Label layoutX="435.0" layoutY="191.0" text="FORTALEZA"/>
+        <Label layoutX="444.0" layoutY="223.0" text="REFLEJOS"/>
+        <Label layoutX="435.0" layoutY="257.0" text="VOLUNTAD"/>
+        <Label layoutX="731.0" layoutY="111.0" text="FUERZA"/>
+        <Label layoutX="714.0" layoutY="141.0" text="DESTREZA"/>
+        <Label layoutX="690.0" layoutY="170.0" text="CONSTITUCION"/>
+        <Label layoutX="695.0" layoutY="202.0" text="INTELIGENCIA"/>
+        <Label layoutX="712.0" layoutY="239.0" text="SABIDURIA"/>
+        <Label layoutX="720.0" layoutY="270.0" text="CARISMA"/>
+        <TextField fx:id="tfAc" layoutX="509.0" layoutY="157.0"/>
+        <TextField fx:id="tfVida" layoutX="509.0" layoutY="125.0"/>
+        <TextField fx:id="tfFortaleza" layoutX="509.0" layoutY="187.0"/>
+        <TextField fx:id="tfReflejos" layoutX="509.0" layoutY="219.0" prefHeight="25.0" prefWidth="149.0"/>
+        <TextField fx:id="tfVoluntad" layoutX="509.0" layoutY="253.0"/>
+        <TextField fx:id="tfFuerza" layoutX="785.0" layoutY="104.0" prefHeight="25.0" prefWidth="149.0"/>
+        <TextField fx:id="tfDestreza" layoutX="785.0" layoutY="137.0"/>
+        <TextField fx:id="tfConstitution" layoutX="785.0" layoutY="166.0"/>
+        <TextField fx:id="tfInteligencia" layoutX="785.0" layoutY="198.0"/>
+        <TextField fx:id="tfSabiduria" layoutX="785.0" layoutY="233.0"/>
+        <TextField fx:id="tfCarisma" layoutX="785.0" layoutY="266.0"/>
+        <Button layoutX="607.0" layoutY="327.0" mnemonicParsing="false" onAction="#addPersonaje" prefHeight="44.0"
+                prefWidth="142.0" text="Crear Personaje"/>
+        <Separator layoutX="377.0" layoutY="15.0" orientation="VERTICAL" prefHeight="311.0" prefWidth="7.0"/>
+        <Label layoutX="96.0" layoutY="113.0" text="NOMBRE"/>
+        <Label layoutX="113.0" layoutY="145.0" text="RAZA"/>
+        <Label layoutX="111.0" layoutY="177.0" text="CLASE"/>
+        <Label layoutX="62.0" layoutY="208.0" text="ALINEAMIENTO"/>
+        <Label layoutX="112.0" layoutY="240.0" text="NIVEL"/>
+        <Label layoutX="112.0" layoutY="274.0" text="EXP"/>
+        <TextField fx:id="tfRaza" layoutX="163.0" layoutY="141.0"/>
+        <TextField fx:id="tfNombre" layoutX="163.0" layoutY="109.0"/>
+        <TextField fx:id="tfClase" layoutX="163.0" layoutY="171.0"/>
+        <TextField fx:id="tfAlin" layoutX="163.0" layoutY="203.0"/>
+        <TextField fx:id="tfNivel" layoutX="163.0" layoutY="237.0"/>
+        <TextField fx:id="tfExp" layoutX="163.0" layoutY="270.0"/>
+        <Label layoutX="32.0" layoutY="407.0"
+               text="Personajes del Usuario (Actualmente de todos por que no hay login)"/>
+        <Separator layoutX="17.0" layoutY="322.0" prefHeight="9.0" prefWidth="362.0"/>
+        <Button layoutX="836.0" layoutY="450.0" mnemonicParsing="false" onAction="#delPersonaje" prefHeight="148.0"
+                prefWidth="104.0" text="Borrar Personaje"/>
+    </children>
+</AnchorPane>

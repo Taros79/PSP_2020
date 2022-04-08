@@ -18,7 +18,6 @@ import org.example.Common.modelo.UsuarioLoginDTO;
 import org.example.ModuloServidor.servicios.ServiciosUsuarios;
 import org.example.ModuloServidor.utils.Constantes;
 
-import java.security.Key;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -30,12 +29,9 @@ public class RestUsuarios {
 
     private ServiciosUsuarios su;
 
-    private final Key key;
-
     @Inject
-    public RestUsuarios(ServiciosUsuarios su, @Named("JWT") Key key) {
+    public RestUsuarios(ServiciosUsuarios su) {
         this.su = su;
-        this.key = key;
     }
 
 
