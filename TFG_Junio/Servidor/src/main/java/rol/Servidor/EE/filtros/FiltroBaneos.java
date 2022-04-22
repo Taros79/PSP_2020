@@ -19,6 +19,7 @@ public class FiltroBaneos implements ContainerRequestFilter {
     @Context
     private HttpServletRequest httpServletRequest;
 
+
     @Override
     public void filter(ContainerRequestContext containerRequestContext) {
         Usuario usuario = (Usuario) httpServletRequest.getSession().getAttribute(ConstantesRest.USUARIO_LOGIN);

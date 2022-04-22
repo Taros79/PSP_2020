@@ -123,7 +123,7 @@ public class DaoPartida {
         return result;
     }
 
-    public List<Partida> getPartidasByMaster(int id) {
+/*    public List<Partida> getPartidasByMaster(int id) {
         List<Partida> result;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
@@ -182,5 +182,5 @@ public class DaoPartida {
             log.error(e.getMessage());
             throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
-    }
+    }*/
 }

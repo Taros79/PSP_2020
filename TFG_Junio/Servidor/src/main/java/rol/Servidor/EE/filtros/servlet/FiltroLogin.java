@@ -1,9 +1,11 @@
 package rol.Servidor.EE.filtros.servlet;
 
+import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.Context;
 import rol.Common.constantes.ConstantesRest;
 import rol.Common.modelo.Usuario;
 
@@ -15,7 +17,7 @@ import java.io.IOException;
 public class FiltroLogin implements Filter {
 
 
-    public void destroy() {
+   /* public void destroy() {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
@@ -26,7 +28,31 @@ public class FiltroLogin implements Filter {
         else
             //((HttpServletResponse) resp).sendRedirect(ConstantesRest.PATH_REGISTRO);
            req.getRequestDispatcher(ConstantesRest.LOGIN_INCORRECTO_JSP).forward(req, resp);
+    }*/
+
+
+    private final SecurityContext securityContext;
+
+
+    @Inject
+    public FiltroLogin(@Context SecurityContext securityContext) {
+        this.securityContext = securityContext;
     }
+
+    public void destroy() {
+    }
+
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+        // codigo para comprobar session usuario
+        Usuario ususario = (Usuario) securityContext.getCallerPrincipal();
+        if (ususario != null)
+            chain.doFilter(req, resp);
+        else
+            ((HttpServletResponse)resp).sendError(HttpServletResponse.SC_FORBIDDEN,"FORBIDEN");
+
+
+    }
+
 
     public void init(FilterConfig config) throws ServletException {
 

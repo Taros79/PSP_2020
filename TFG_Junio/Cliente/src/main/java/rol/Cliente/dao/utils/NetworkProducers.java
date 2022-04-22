@@ -39,6 +39,7 @@ public class NetworkProducers {
                 .readTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .callTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .connectTimeout(Duration.of(10, ChronoUnit.MINUTES))
+                .addInterceptor(new AuthorizationInterceptor(new CacheAuthorization("admin", "admin")))
                 .cookieJar(new JavaNetCookieJar(getCookieManager()))
                 .build();
     }
