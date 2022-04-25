@@ -10,6 +10,7 @@ public class CacheAuthorization {
 
     private String user;
     private String pass;
+    private String token;
 
     public CacheAuthorization() {
     }

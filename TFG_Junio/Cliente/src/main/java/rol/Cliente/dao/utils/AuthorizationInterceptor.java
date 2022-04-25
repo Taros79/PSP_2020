@@ -12,7 +12,6 @@ public class AuthorizationInterceptor implements Interceptor {
 
     private CacheAuthorization ca ;
 
-
     public AuthorizationInterceptor(CacheAuthorization ca) {
         this.ca = ca;
     }
@@ -22,18 +21,20 @@ public class AuthorizationInterceptor implements Interceptor {
         Request original = chain.request();
         Request request ;
 
-        if (ca != null) {
+        if (ca.getToken() == null) {
             request = original.newBuilder()
                     .header("Authorization", Credentials.basic(ca.getUser(), ca.getPass())).build();
-        }
-        else
-        {
-            //MAL
-            request = original.newBuilder()
-                    .header("JWT", ca.getUser()).build();
+        } else {
+            //Manda llamada sin cabezera
+            request = original.newBuilder().build();
 
         }
 
-        return chain.proceed(request);
+        Response response = chain.proceed(request);
+
+        if (request.header("Authorization") != null)
+            ca.setToken(request.header("Authorization"));
+
+        return response;
     }
 }

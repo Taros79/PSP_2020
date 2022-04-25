@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.ws.rs.core.Context;
 import rol.Common.constantes.ConstantesRest;
-import rol.Common.modelo.Usuario;
 
 import java.io.IOException;
 
@@ -44,12 +43,11 @@ public class FiltroLogin implements Filter {
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         // codigo para comprobar session usuario
-        Usuario ususario = (Usuario) securityContext.getCallerPrincipal();
-        if (ususario != null)
+
+        if (securityContext != null && securityContext.getCallerPrincipal() != null && securityContext.getCallerPrincipal().getName() != null)
             chain.doFilter(req, resp);
         else
-            ((HttpServletResponse)resp).sendError(HttpServletResponse.SC_FORBIDDEN,"FORBIDEN");
-
+            ((HttpServletResponse) resp).sendError(HttpServletResponse.SC_FORBIDDEN, "FORBIDEN");
 
     }
 

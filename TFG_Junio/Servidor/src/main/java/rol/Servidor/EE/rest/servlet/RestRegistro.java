@@ -26,7 +26,7 @@ public class RestRegistro {
     }
 
     @GET
-    public Usuario hacerLoging(@QueryParam("correo") String correo, @QueryParam("pass") String pass) {
+    public Usuario hacerLoging(@HeaderParam("correo") String correo, @HeaderParam("pass") String pass) {
         /* var usuarioLogin = su.getUsuarioByCorreo(correo, pass);
        if (usuarioLogin != null) {
             httpServletRequest.getSession().setAttribute(ConstantesRest.USUARIO_LOGIN, usuarioLogin);

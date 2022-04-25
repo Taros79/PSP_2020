@@ -34,4 +34,8 @@ public class ServiciosUsuario {
     public Usuario getUsuarioByCorreo(String correo, String pass) {
         return daoUsuario.getUsuarioByCorreo(correo, pass);
     }
+
+    public Usuario getUsuarioByName(String correo) {
+        return daoUsuario.getUsuarioByName(correo);
+    }
 }

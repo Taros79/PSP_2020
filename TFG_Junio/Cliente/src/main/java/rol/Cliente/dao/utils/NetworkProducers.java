@@ -11,6 +11,7 @@ import rol.Cliente.config.ConfigurationSingleton_Client;
 import rol.Cliente.dao.retrofit.*;
 
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.lang.reflect.Type;
@@ -22,6 +23,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class NetworkProducers {
+
+    private CacheAuthorization cacheAuthorization;
+
+    @Inject
+    public NetworkProducers(CacheAuthorization cacheAuthorization) {
+        this.cacheAuthorization = cacheAuthorization;
+    }
 
     @Produces
     @Singleton
@@ -39,7 +47,7 @@ public class NetworkProducers {
                 .readTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .callTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .connectTimeout(Duration.of(10, ChronoUnit.MINUTES))
-                .addInterceptor(new AuthorizationInterceptor(new CacheAuthorization("admin", "admin")))
+                .addInterceptor(new AuthorizationInterceptor(cacheAuthorization))
                 .cookieJar(new JavaNetCookieJar(getCookieManager()))
                 .build();
     }

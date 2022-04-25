@@ -153,4 +153,26 @@ public class DaoUsuario {
         }
         return result;
     }
+
+    public Usuario getUsuarioByName(String correo) {
+        Usuario sql;
+        Usuario result = null;
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_CORREO,
+                    new BeanPropertyRowMapper<>(Usuario.class), correo);
+
+            if (sql != null) {
+                result = sql;
+            }
+
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
 }
