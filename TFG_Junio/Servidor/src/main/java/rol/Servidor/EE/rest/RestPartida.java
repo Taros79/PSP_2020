@@ -36,7 +36,7 @@ public class RestPartida {
     }
 
     @DELETE
-    public String delPartida(@QueryParam("id") int id) {
+    public String delPartida(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosPartida.delPartida(id);
     }
 

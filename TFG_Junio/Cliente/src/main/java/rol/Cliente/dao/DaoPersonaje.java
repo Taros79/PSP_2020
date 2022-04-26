@@ -43,4 +43,8 @@ public class DaoPersonaje extends DaoGenerics {
     public Single<Either<String, List<Personaje>>> getPersonajesByIdUsuario(int id) {
         return safeSingleApicall(apiPersonaje.getPersonajesByIdUsuario(id));
     }
+
+    public Single<Either<String, String>> addPersonajeToUsuario(PersonajeBBDD p) {
+        return safeSingleApicall(apiPersonaje.addPersonajeToUsuario(p));
+    }
 }

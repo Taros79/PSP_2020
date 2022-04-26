@@ -36,7 +36,7 @@ public class RestUsuario {
     }
 
     @DELETE
-    public String delUsuario(@QueryParam("id") int id) {
+    public String delUsuario(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosUsuario.delUsuario(id);
     }
 

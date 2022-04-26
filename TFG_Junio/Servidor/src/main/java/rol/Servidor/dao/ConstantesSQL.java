@@ -68,6 +68,8 @@ public class ConstantesSQL {
     public static final String SELECT_PARTIDAS_BY_USUARIO =
             "SELECT * FROM partidas WHERE id IN (SELECT id_Partida FROM usuariosPartida WHERE id_Usuario = ?)";
 
+    public static final String ADD_PERSONAJE_TO_USUARIO = "insert into personajesUsuario (id_Personaje, id_Usuario) values (?,?)";
+
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";
     public static final String BASE_DE_DATOS_CAIDA = "Base de datos caida";

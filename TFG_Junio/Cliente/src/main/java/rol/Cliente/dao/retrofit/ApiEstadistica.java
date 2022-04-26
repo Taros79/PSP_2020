@@ -8,13 +8,13 @@ import rol.Common.modelo.Estadistica;
 public interface ApiEstadistica {
 
     @GET(ConstantesRest.PATH_ESTADISTICAS)
-    Single<Estadistica> getEstadisticaById(@Query("id") int id);
+    Single<Estadistica> getEstadisticaById(@Query(ConstantesRest.ID) int id);
 
     @POST(ConstantesRest.PATH_ESTADISTICAS)
     Single<String> addEstadistica(@Body Estadistica e);
 
     @DELETE(ConstantesRest.PATH_ESTADISTICAS)
-    Single<String> delEstadistica(@Query("id") int id);
+    Single<String> delEstadistica(@Query(ConstantesRest.ID) int id);
 
     @PUT(ConstantesRest.PATH_ESTADISTICAS)
     Single<String> updateEstadistica(@Body Estadistica e);

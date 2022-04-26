@@ -18,13 +18,13 @@ public interface ApiHechizo {
     Call<String> addHechizo(@Body Hechizo h);
 
     @DELETE(ConstantesRest.PATH_HECHIZOS)
-    Call<String> delHechizo(@Query("id") int id);
+    Call<String> delHechizo(@Query(ConstantesRest.ID) int id);
 
     @PUT(ConstantesRest.PATH_HECHIZOS)
     Single<String> updateHechizo(@Body Hechizo h);
 
     @GET(ConstantesRest.PATH_HECHIZOS + ConstantesRest.PATH_HECHIZOS_BY_ID_PERSONAJE)
-    Single<List<Hechizo>> getHechizosByIdPersonaje(@Query("id") int id);
+    Single<List<Hechizo>> getHechizosByIdPersonaje(@Query(ConstantesRest.ID) int id);
 
     @POST(ConstantesRest.PATH_HECHIZOS + ConstantesRest.PATH_HECHIZO_ADD_TO_PERSONAJE)
     Single<String> addHechizoToPersonaje(@Body RelacionId r);

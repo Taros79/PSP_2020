@@ -202,7 +202,7 @@ public class Personajes implements Initializable {
                             Integer.parseInt(tfInteligencia.getText()), Integer.parseInt(tfSabiduria.getText()),
                             Integer.parseInt(tfCarisma.getText())));
 
-            serviciosPersonaje.addPersonaje(personaje)
+            serviciosPersonaje.addPersonajeToUsuario(personaje)
                     .observeOn(JavaFxScheduler.platform())
                     .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                     .subscribe(resultado ->

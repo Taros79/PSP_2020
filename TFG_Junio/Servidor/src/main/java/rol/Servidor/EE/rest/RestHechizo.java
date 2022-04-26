@@ -1,5 +1,6 @@
 package rol.Servidor.EE.rest;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -7,9 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import rol.Common.constantes.ConstantesRest;
 import rol.Common.modelo.Hechizo;
 import rol.Common.modeloAO.RelacionId;
-import rol.Servidor.EE.filtros.Admin;
 import rol.Servidor.EE.filtros.UsuarioBaneado;
 import rol.Servidor.servicios.ServiciosHechizo;
+import rol.Servidor.utils.Constantes;
 
 import java.util.List;
 
@@ -32,19 +33,19 @@ public class RestHechizo {
         return serviciosHechizo.getAllHechizo();
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @POST
     public String addHechizo(Hechizo h) {
         return serviciosHechizo.addHechizo(h);
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @DELETE
-    public String delHechizo(@QueryParam("id") int id) {
+    public String delHechizo(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosHechizo.delHechizo(id);
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @PUT
     public String updateHechizo(Hechizo h) {
         return serviciosHechizo.updateHechizo(h);
@@ -52,7 +53,7 @@ public class RestHechizo {
 
     @GET
     @Path(ConstantesRest.PATH_HECHIZOS_BY_ID_PERSONAJE)
-    public List<Hechizo> getHechizosByIdPersonaje(@QueryParam("id") int id) {
+    public List<Hechizo> getHechizosByIdPersonaje(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosHechizo.getHechizosByIdPersonaje(id);
     }
 

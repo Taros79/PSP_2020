@@ -1,5 +1,6 @@
 package rol.Servidor.EE.rest;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -7,9 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import rol.Common.constantes.ConstantesRest;
 import rol.Common.modelo.Dote;
 import rol.Common.modeloAO.RelacionId;
-import rol.Servidor.EE.filtros.Admin;
 import rol.Servidor.EE.filtros.UsuarioBaneado;
 import rol.Servidor.servicios.ServiciosDote;
+import rol.Servidor.utils.Constantes;
 
 import java.util.List;
 
@@ -32,19 +33,19 @@ public class RestDote {
         return serviciosDote.getAllDotes();
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @POST
     public String addDote(Dote d) {
         return serviciosDote.addDote(d);
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @DELETE
-    public String delDote(@QueryParam("id") int id) {
+    public String delDote(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosDote.delDote(id);
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @PUT
     public String updateDote(Dote d) {
         return serviciosDote.updateDote(d);
@@ -52,7 +53,7 @@ public class RestDote {
 
     @GET
     @Path(ConstantesRest.PATH_DOTES_BY_ID_PERSONAJE)
-    public List<Dote> getDotesByIdPersonaje(@QueryParam("id") int id) {
+    public List<Dote> getDotesByIdPersonaje(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosDote.getDotesByIdPersonaje(id);
     }
 

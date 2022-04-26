@@ -8,7 +8,7 @@ import jakarta.ws.rs.core.MediaType;
 import rol.Common.constantes.ConstantesRest;
 import rol.Common.modelo.Usuario;
 import rol.Servidor.servicios.ServiciosUsuario;
-
+import rol.Servidor.utils.UserSecurity;
 
 @Path(ConstantesRest.PATH_REGISTRO)
 @Produces(MediaType.APPLICATION_JSON)
@@ -16,22 +16,20 @@ import rol.Servidor.servicios.ServiciosUsuario;
 public class RestRegistro {
 
     private final ServiciosUsuario su;
+    private final UserSecurity us;
 
     @Context
     private HttpServletRequest httpServletRequest;
 
     @Inject
-    public RestRegistro(ServiciosUsuario su) {
+    public RestRegistro(ServiciosUsuario su, UserSecurity us) {
         this.su = su;
+        this.us = us;
     }
 
     @GET
-    public Usuario hacerLoging(@HeaderParam("correo") String correo, @HeaderParam("pass") String pass) {
-        /* var usuarioLogin = su.getUsuarioByCorreo(correo, pass);
-       if (usuarioLogin != null) {
-            httpServletRequest.getSession().setAttribute(ConstantesRest.USUARIO_LOGIN, usuarioLogin);
-        }*/
-        return su.getUsuarioByCorreo(correo, pass);
+    public Usuario hacerLoging(@HeaderParam(ConstantesRest.AUTHORIZATION) String Authorization) {
+        return us.getUserSession();
     }
 
     @GET

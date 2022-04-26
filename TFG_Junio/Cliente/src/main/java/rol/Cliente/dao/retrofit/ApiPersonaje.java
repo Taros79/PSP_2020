@@ -23,5 +23,8 @@ public interface ApiPersonaje {
     Single<String> updatePersonaje(@Body Personaje p);
 
     @GET(ConstantesRest.PATH_PERSONAJES + ConstantesRest.PATH_PERSONAJES_BY_ID_USUARIO)
-    Single<List<Personaje>> getPersonajesByIdUsuario(@Query("id") int id);
+    Single<List<Personaje>> getPersonajesByIdUsuario(@Query(ConstantesRest.ID) int id);
+
+    @POST(ConstantesRest.PATH_PERSONAJES + ConstantesRest.PATH_PERSONAJE_ADD_TO_USUARIO)
+    Single<String> addPersonajeToUsuario(@Body PersonajeBBDD p);
 }

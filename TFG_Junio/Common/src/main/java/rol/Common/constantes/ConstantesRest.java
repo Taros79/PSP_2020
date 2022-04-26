@@ -27,7 +27,7 @@ public class ConstantesRest {
     public static final String PATH_DEL_OBJETO_TO_PERSONAJE = "/delObjetoToPersonaje";
 
     public static final String PATH_PERSONAJES_BY_ID_USUARIO = "/personajesByIdUsuario";
-
+    public static final String PATH_PERSONAJE_ADD_TO_USUARIO = "/personajeAddToUsuario";
 
     public static final String LOGIN_INCORRECTO_JSP = "/loginIncorrecto.jsp";
 
@@ -35,4 +35,8 @@ public class ConstantesRest {
     public static final String NO_PUEDE_ACCEDER_A_ESTE_LUGAR_BANEADO = "No puede acceder a estas funciones, estas baneado";
     public static final String NO_PUEDE_ACCEDER_A_ESTE_LUGAR = "No puede acceder a este lugar";
     public static final String SESION_FINALIZADA = "Sesion finalizada";
+
+
+    public static final String AUTHORIZATION = "Authorization";
+    public static final String ID = "id";
 }

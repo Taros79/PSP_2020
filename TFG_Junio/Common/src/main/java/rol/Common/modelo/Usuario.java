@@ -21,4 +21,9 @@ public class Usuario {
         this.tipo_Usuario = tipo_Usuario;
         this.baneado = baneado;
     }
+
+    public Usuario(String correo, String contraseña) {
+        this.correo = correo;
+        this.contraseña = contraseña;
+    }
 }

@@ -11,8 +11,6 @@ import rol.Servidor.servicios.ServiciosUsuario;
 import rol.Servidor.utils.Constantes;
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import static jakarta.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
 
@@ -39,7 +37,7 @@ public class InMemoryIdentityStore implements IdentityStore {
 
             switch (usuario.getTipo_Usuario()) {
                 case 1:
-                    return new CredentialValidationResult(usuario.getCorreo(), Collections.singleton(Constantes.USUARIO));
+                    return new CredentialValidationResult(usuario.getCorreo(), Collections.singleton(Constantes.MASTER));
                 case 2:
                     return new CredentialValidationResult(usuario.getCorreo(), Collections.singleton(Constantes.JUGADOR));
                 case 3:

@@ -15,21 +15,6 @@ import java.io.IOException;
         ConstantesRest.API + ConstantesRest.PATH_PERSONAJES, ConstantesRest.API + ConstantesRest.PATH_OBJETOS})
 public class FiltroLogin implements Filter {
 
-
-   /* public void destroy() {
-    }
-
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-
-        Usuario u = (Usuario) ((HttpServletRequest) req).getSession().getAttribute(ConstantesRest.USUARIO_LOGIN);
-        if (u != null)
-            chain.doFilter(req, resp);
-        else
-            //((HttpServletResponse) resp).sendRedirect(ConstantesRest.PATH_REGISTRO);
-           req.getRequestDispatcher(ConstantesRest.LOGIN_INCORRECTO_JSP).forward(req, resp);
-    }*/
-
-
     private final SecurityContext securityContext;
 
 

@@ -18,13 +18,13 @@ public interface ApiDote {
     Call<String> addDote(@Body Dote d);
 
     @DELETE(ConstantesRest.PATH_DOTES)
-    Call<String> delDote(@Query("id") int id);
+    Call<String> delDote(@Query(ConstantesRest.ID) int id);
 
     @PUT(ConstantesRest.PATH_DOTES)
     Single<String> updateDote(@Body Dote d);
 
     @GET(ConstantesRest.PATH_DOTES + ConstantesRest.PATH_DOTES_BY_ID_PERSONAJE)
-    Single<List<Dote>> getDotesByIdPersonaje(@Query("id") int id);
+    Single<List<Dote>> getDotesByIdPersonaje(@Query(ConstantesRest.ID) int id);
 
     @POST(ConstantesRest.PATH_DOTES + ConstantesRest.PATH_DOTE_ADD_TO_PERSONAJE)
     Single<String> addDoteToPersonaje(@Body RelacionId r);

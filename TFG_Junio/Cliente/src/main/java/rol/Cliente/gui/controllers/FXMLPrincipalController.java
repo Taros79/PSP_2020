@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.log4j.Log4j2;
@@ -33,6 +34,8 @@ public class FXMLPrincipalController implements Initializable {
     private Menu menuAdmin;
     @FXML
     private Menu menuUsuario;
+    @FXML
+    private MenuItem menuItemRegistro;
 
     @FXML
     private BorderPane pantallaPrincipal;
@@ -258,19 +261,25 @@ public class FXMLPrincipalController implements Initializable {
         if (menuAdmin.isVisible()) {
             menuAdmin.setVisible(false);
         }
+        if (!menuItemRegistro.isVisible()) {
+            menuItemRegistro.setVisible(true);
+        }
     }
+
     //----------------------------------
 
     public void irAPrincipalAdmin() {
         pantallaPrincipal.setCenter(pantallaPerfil);
         menuUsuario.setVisible(true);
         menuAdmin.setVisible(true);
+        menuItemRegistro.setVisible(false);
     }
 
     public void irAPrincipalUsuario() {
         pantallaPrincipal.setCenter(pantallaPerfil);
         pantallaPrincipal.setVisible(true);
         menuUsuario.setVisible(true);
+        menuItemRegistro.setVisible(false);
     }
 
 

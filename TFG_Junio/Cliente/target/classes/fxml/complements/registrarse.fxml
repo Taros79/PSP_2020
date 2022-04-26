@@ -25,7 +25,7 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <Button layoutX="339.0" layoutY="470.0" mnemonicParsing="false" onAction="#addUsuario" prefHeight="46.0"
+        <Button layoutX="339.0" layoutY="470.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="46.0"
                 prefWidth="190.0" text="Registrar"/>
     </children>
 </AnchorPane>

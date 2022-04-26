@@ -24,7 +24,7 @@ public class RestEstadistica {
     }
 
     @GET
-    public Estadistica getEstadisticaById(@QueryParam("id") int id) {
+    public Estadistica getEstadisticaById(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosEstadistica.getEstadisticaById(id);
     }
 
@@ -34,7 +34,7 @@ public class RestEstadistica {
     }
 
     @DELETE
-    public String delEstadistica(@QueryParam("id") int id) {
+    public String delEstadistica(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosEstadistica.delEstadistica(id);
     }
 

@@ -16,7 +16,7 @@ public interface ApiPartida {
     Single<String> addPartida(@Body Partida p);
 
     @DELETE(ConstantesRest.PATH_PARTIDAS)
-    Single<String> delPartida(@Query("id") int id);
+    Single<String> delPartida(@Query(ConstantesRest.ID) int id);
 
     @PUT(ConstantesRest.PATH_PARTIDAS)
     Single<String> updatePartida(@Body Partida p);

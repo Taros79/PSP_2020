@@ -1,5 +1,6 @@
 package rol.Servidor.EE.rest;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -7,9 +8,9 @@ import lombok.extern.log4j.Log4j2;
 import rol.Common.constantes.ConstantesRest;
 import rol.Common.modelo.Objeto;
 import rol.Common.modeloAO.RelacionId;
-import rol.Servidor.EE.filtros.Admin;
 import rol.Servidor.EE.filtros.UsuarioBaneado;
 import rol.Servidor.servicios.ServiciosObjeto;
+import rol.Servidor.utils.Constantes;
 
 import java.util.List;
 
@@ -32,19 +33,19 @@ public class RestObjeto {
         return serviciosObjeto.getAllObjetos();
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @POST
     public String addObjeto(Objeto o) {
         return serviciosObjeto.addObjeto(o);
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @DELETE
-    public String delObjeto(@QueryParam("id") int id) {
+    public String delObjeto(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosObjeto.delObjeto(id);
     }
 
-    @Admin
+    @RolesAllowed(Constantes.ADMIN)
     @PUT
     public String updateObjeto(Objeto o) {
         return serviciosObjeto.updateObjeto(o);
@@ -52,7 +53,7 @@ public class RestObjeto {
 
     @GET
     @Path(ConstantesRest.PATH_OBJETOS_BY_ID_PERSONAJE)
-    public List<Objeto> getObjetosByIdPersonaje(@QueryParam("id") int id) {
+    public List<Objeto> getObjetosByIdPersonaje(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosObjeto.getObjetosByIdPersonaje(id);
     }
 

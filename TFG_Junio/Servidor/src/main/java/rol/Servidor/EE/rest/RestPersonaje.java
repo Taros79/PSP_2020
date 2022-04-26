@@ -9,6 +9,7 @@ import rol.Common.modelo.Personaje;
 import rol.Common.modeloAO.PersonajeBBDD;
 import rol.Servidor.EE.filtros.UsuarioBaneado;
 import rol.Servidor.servicios.ServiciosPersonaje;
+import rol.Servidor.utils.UserSecurity;
 
 import java.util.List;
 
@@ -20,10 +21,12 @@ import java.util.List;
 public class RestPersonaje {
 
     private final ServiciosPersonaje serviciosPersonaje;
+    private final UserSecurity userSecurity;
 
     @Inject
-    public RestPersonaje(ServiciosPersonaje serviciosPersonaje) {
+    public RestPersonaje(ServiciosPersonaje serviciosPersonaje, UserSecurity userSecurity) {
         this.serviciosPersonaje = serviciosPersonaje;
+        this.userSecurity = userSecurity;
     }
 
 
@@ -49,7 +52,13 @@ public class RestPersonaje {
 
     @GET
     @Path(ConstantesRest.PATH_PERSONAJES_BY_ID_USUARIO)
-    public List<Personaje> getPersonajesByIdUsuario(@QueryParam("id") int id) {
+    public List<Personaje> getPersonajesByIdUsuario(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosPersonaje.getPersonajesByIdUsuario(id);
+    }
+
+    @POST
+    @Path(ConstantesRest.PATH_PERSONAJE_ADD_TO_USUARIO)
+    public String addPersonajeToUsuario(PersonajeBBDD p) {
+        return serviciosPersonaje.addPersonajeToUsuario(p, userSecurity.getUserSession().getId());
     }
 }

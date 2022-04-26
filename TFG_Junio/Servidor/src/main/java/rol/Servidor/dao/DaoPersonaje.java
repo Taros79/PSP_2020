@@ -197,4 +197,67 @@ public class DaoPersonaje {
         }
         return result;
     }
+
+    public String addPersonajeToUsuario(PersonajeBBDD p, int id_Usuario) {
+        String result;
+        int i;
+        JdbcTemplate jtm;
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(
+                pool.getDataSource());
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+
+        try {
+            KeyHolder holder = new GeneratedKeyHolder();
+            jtm = new JdbcTemplate(pool.getDataSource());
+            jtm.update(connection -> {
+                PreparedStatement preparedStatement = connection.prepareStatement(ConstantesSQL.INSERT_ESTADISTICAS,
+                        PreparedStatement.RETURN_GENERATED_KEYS);
+                preparedStatement.setInt(1, p.getEstadistica().getVida());
+                preparedStatement.setInt(2, p.getEstadistica().getAc());
+                preparedStatement.setInt(3, p.getEstadistica().getFortaleza());
+                preparedStatement.setInt(4, p.getEstadistica().getReflejos());
+                preparedStatement.setInt(5, p.getEstadistica().getVoluntad());
+                preparedStatement.setInt(6, p.getEstadistica().getFuerza());
+                preparedStatement.setInt(7, p.getEstadistica().getDestreza());
+                preparedStatement.setInt(8, p.getEstadistica().getConstitucion());
+                preparedStatement.setInt(9, p.getEstadistica().getInteligencia());
+                preparedStatement.setInt(10, p.getEstadistica().getSabiduria());
+                preparedStatement.setInt(11, p.getEstadistica().getCarisma());
+                return preparedStatement;
+            }, holder);
+
+            jtm.update(connection -> {
+                PreparedStatement preparedStatement = connection.prepareStatement(ConstantesSQL.INSERT_PERSONAJES,
+                        PreparedStatement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, p.getPersonaje().getNombre());
+                preparedStatement.setString(2, p.getPersonaje().getRaza());
+                preparedStatement.setString(3, p.getPersonaje().getClase());
+                preparedStatement.setString(4, p.getPersonaje().getAlineamiento());
+                preparedStatement.setInt(5, p.getPersonaje().getNivel());
+                preparedStatement.setInt(6, p.getPersonaje().getExperiencia());
+                preparedStatement.setInt(7, Objects.requireNonNull(holder.getKey()).intValue());
+                return preparedStatement;
+            }, holder);
+
+            i = jtm.update(ConstantesSQL.ADD_PERSONAJE_TO_USUARIO,
+                    holder.getKey().intValue(),
+                    id_Usuario);
+            if (i != 0) {
+                result = ConstantesSQL.ACTUALIZADO_CON_EXITO;
+            } else {
+                result = ConstantesSQL.NO_SE_HA_ACTUALIZADO;
+            }
+            transactionManager.commit(txStatus);
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            transactionManager.rollback(txStatus);
+            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            transactionManager.rollback(txStatus);
+            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
 }

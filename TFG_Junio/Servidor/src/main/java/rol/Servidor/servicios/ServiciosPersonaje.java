@@ -35,4 +35,8 @@ public class ServiciosPersonaje {
     public List<Personaje> getPersonajesByIdUsuario(int id) {
         return daoPersonaje.getPersonajesByIdUsuario(id);
     }
+
+    public String addPersonajeToUsuario(PersonajeBBDD p, int id_Usuario) {
+        return daoPersonaje.addPersonajeToUsuario(p, id_Usuario);
+    }
 }

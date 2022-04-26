@@ -7,7 +7,7 @@ import rol.Common.constantes.ConstantesRest;
 import rol.Servidor.utils.Constantes;
 
 @ApplicationPath(ConstantesRest.API)
-@DeclareRoles({Constantes.USUARIO,Constantes.JUGADOR,Constantes.ADMIN})
+@DeclareRoles({Constantes.MASTER, Constantes.JUGADOR, Constantes.ADMIN})
 public class JAXRSApplication extends Application {
 
 }

@@ -19,7 +19,7 @@
             </Menu>
             <Menu text="Inicio Sesion">
                 <MenuItem mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>
-                <MenuItem mnemonicParsing="false" onAction="#registrarse" text="Registro"/>
+                <MenuItem fx:id="menuItemRegistro" mnemonicParsing="false" onAction="#registrarse" text="Registro"/>
                 <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
             </Menu>
         </MenuBar>

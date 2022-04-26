@@ -18,13 +18,13 @@ public interface ApiObjeto {
     Call<String> addObjeto(@Body Objeto o);
 
     @DELETE(ConstantesRest.PATH_OBJETOS)
-    Call<String> delObjeto(@Query("id") int id);
+    Call<String> delObjeto(@Query(ConstantesRest.ID) int id);
 
     @PUT(ConstantesRest.PATH_OBJETOS)
     Single<String> updateObjeto(@Body Objeto o);
 
     @GET(ConstantesRest.PATH_OBJETOS + ConstantesRest.PATH_OBJETOS_BY_ID_PERSONAJE)
-    Single<List<Objeto>> getObjetosByIdPersonaje(@Query("id") int id);
+    Single<List<Objeto>> getObjetosByIdPersonaje(@Query(ConstantesRest.ID) int id);
 
     @POST(ConstantesRest.PATH_OBJETOS + ConstantesRest.PATH_OBJETO_ADD_TO_PERSONAJE)
     Single<String> addObjetoToPersonaje(@Body RelacionId r);

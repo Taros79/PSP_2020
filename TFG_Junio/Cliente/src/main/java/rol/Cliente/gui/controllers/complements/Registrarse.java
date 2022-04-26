@@ -78,7 +78,7 @@ public class Registrarse implements Initializable {
     }
 
     @FXML
-    private void addUsuario() {
+    private void registrarse() {
         if (!tfCorreo.getText().isEmpty() || !tfPass.getText().isEmpty() || !comboTipoUsuario.getSelectionModel().isEmpty()) {
             serviciosUsuario.addUsuario(new Usuario(
                             tfCorreo.getText(),

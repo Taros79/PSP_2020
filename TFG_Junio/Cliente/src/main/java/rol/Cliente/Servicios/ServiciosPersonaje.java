@@ -37,4 +37,8 @@ public class ServiciosPersonaje {
     public Single<Either<String, List<Personaje>>> getPersonajesByIdUsuario(int id) {
         return daoPersonaje.getPersonajesByIdUsuario(id);
     }
+
+    public Single<Either<String, String>> addPersonajeToUsuario(PersonajeBBDD p) {
+        return daoPersonaje.addPersonajeToUsuario(p);
+    }
 }

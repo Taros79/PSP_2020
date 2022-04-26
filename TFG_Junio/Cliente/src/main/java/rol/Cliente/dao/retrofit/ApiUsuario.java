@@ -16,13 +16,13 @@ public interface ApiUsuario {
     Single<String> addUsuario(@Body Usuario u);
 
     @DELETE(ConstantesRest.PATH_USUARIOS)
-    Single<String> delUsuario(@Query("id") int id);
+    Single<String> delUsuario(@Query(ConstantesRest.ID) int id);
 
     @PUT(ConstantesRest.PATH_USUARIOS)
     Single<String> updateUsuario(@Body Usuario u);
 
     @GET(ConstantesRest.PATH_REGISTRO)
-    Single<Usuario> hacerLoging(@Header("correo") String correo, @Header("pass") String pass);
+    Single<Usuario> hacerLoging(@Header(ConstantesRest.AUTHORIZATION) String Authorization);
 
     @GET(ConstantesRest.PATH_REGISTRO + ConstantesRest.PATH_REGISTRO_LOGOUT)
     Single<String> hacerLogout();
