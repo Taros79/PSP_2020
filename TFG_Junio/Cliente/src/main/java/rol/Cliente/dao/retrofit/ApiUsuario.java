@@ -22,7 +22,7 @@ public interface ApiUsuario {
     Single<String> updateUsuario(@Body Usuario u);
 
     @GET(ConstantesRest.PATH_REGISTRO)
-    Single<Usuario> hacerLoging(@Header(ConstantesRest.AUTHORIZATION) String Authorization);
+    Single<Usuario> hacerLogin();
 
     @GET(ConstantesRest.PATH_REGISTRO + ConstantesRest.PATH_REGISTRO_LOGOUT)
     Single<String> hacerLogout();

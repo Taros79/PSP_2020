@@ -2,7 +2,10 @@ package rol.Servidor.EE.rest.servlet;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import rol.Common.constantes.ConstantesRest;
@@ -28,7 +31,7 @@ public class RestRegistro {
     }
 
     @GET
-    public Usuario hacerLoging(@HeaderParam(ConstantesRest.AUTHORIZATION) String Authorization) {
+    public Usuario hacerLoging() {
         return us.getUserSession();
     }
 

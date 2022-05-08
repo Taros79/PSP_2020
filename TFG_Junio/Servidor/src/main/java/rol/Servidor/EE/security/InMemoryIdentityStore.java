@@ -1,7 +1,7 @@
 package rol.Servidor.EE.security;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import jakarta.security.enterprise.credential.Credential;
 import jakarta.security.enterprise.credential.UsernamePasswordCredential;
 import jakarta.security.enterprise.identitystore.CredentialValidationResult;
@@ -14,7 +14,7 @@ import java.util.Collections;
 
 import static jakarta.security.enterprise.identitystore.CredentialValidationResult.INVALID_RESULT;
 
-@ApplicationScoped
+@Singleton
 public class InMemoryIdentityStore implements IdentityStore {
 
     @Inject

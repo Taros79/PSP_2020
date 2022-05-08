@@ -8,15 +8,15 @@ import javax.inject.Singleton;
 @Singleton
 public class CacheAuthorization {
 
-    private String user;
+    private String correo;
     private String pass;
     private String token;
 
     public CacheAuthorization() {
     }
 
-    public CacheAuthorization(String user, String pass) {
-        this.user = user;
+    public CacheAuthorization(String correo, String pass) {
+        this.correo = correo;
         this.pass = pass;
     }
 }

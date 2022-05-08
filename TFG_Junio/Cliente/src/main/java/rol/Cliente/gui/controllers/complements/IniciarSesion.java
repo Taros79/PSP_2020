@@ -7,6 +7,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import rol.Cliente.Servicios.ServiciosUsuario;
+import rol.Cliente.dao.utils.CacheAuthorization;
 import rol.Cliente.gui.ConstantesGUI;
 import rol.Cliente.gui.controllers.FXMLPrincipalController;
 
@@ -24,10 +25,12 @@ public class IniciarSesion implements Initializable {
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
     private ServiciosUsuario serviciosUsuario;
+    private CacheAuthorization cacheAuthorization;
 
     @Inject
-    public IniciarSesion(ServiciosUsuario serviciosUsuario) {
+    public IniciarSesion(ServiciosUsuario serviciosUsuario, CacheAuthorization cacheAuthorization) {
         this.serviciosUsuario = serviciosUsuario;
+        this.cacheAuthorization = cacheAuthorization;
     }
 
     public void setPantallaPrincipal(FXMLPrincipalController pantallaPrincipal) {
@@ -41,7 +44,9 @@ public class IniciarSesion implements Initializable {
 
     @FXML
     private void hacerLogin() {
-        serviciosUsuario.hacerLoging(textFieldNombre.getText(), textFieldPass.getText())
+        cacheAuthorization.setCorreo(textFieldNombre.getText());
+        cacheAuthorization.setPass(textFieldPass.getText());
+        serviciosUsuario.hacerLogin()
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                 .subscribe(resultado ->
@@ -51,7 +56,7 @@ public class IniciarSesion implements Initializable {
                                             a.showAndWait();
                                             if (action.getTipo_Usuario() == 3) {
                                                 pantallaPrincipal.irAPrincipalAdmin();
-                                                    } else {
+                                            } else {
                                                         pantallaPrincipal.irAPrincipalUsuario();
                                                     }
                                                     pantallaPrincipal.setUsuarioLoginPrincipal(action);

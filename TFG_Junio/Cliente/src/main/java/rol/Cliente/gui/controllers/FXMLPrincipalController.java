@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.log4j.Log4j2;
 import rol.Cliente.Servicios.ServiciosUsuario;
+import rol.Cliente.dao.utils.CacheAuthorization;
 import rol.Cliente.gui.ConstantesGUI;
 import rol.Cliente.gui.controllers.complements.*;
 import rol.Common.modelo.Usuario;
@@ -59,12 +60,13 @@ public class FXMLPrincipalController implements Initializable {
 
     private ServiciosUsuario serviciosUsuario;
     private Usuario usuarioLogin;
+    private CacheAuthorization ca;
 
 
     @Inject
     public FXMLPrincipalController(ServiciosUsuario serviciosUsuario, FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderPerfil, FXMLLoader fxmlLoaderHechizosPj,
                                    FXMLLoader fxmlLoaderObjetosPj, FXMLLoader fxmlLoaderDotesPj, FXMLLoader fxmlLoaderPersonajes,
-                                   FXMLLoader fxmlLoaderCrudHOD, FXMLLoader fxmlLoaderRegistrarse) {
+                                   FXMLLoader fxmlLoaderCrudHOD, FXMLLoader fxmlLoaderRegistrarse, CacheAuthorization ca) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
         this.fxmlLoaderPerfil = fxmlLoaderPerfil;
         this.fxmlLoaderHechizosPj = fxmlLoaderHechizosPj;
@@ -74,6 +76,7 @@ public class FXMLPrincipalController implements Initializable {
         this.fxmlLoaderCrudHOD = fxmlLoaderCrudHOD;
         this.fxmlLoaderRegistrarse = fxmlLoaderRegistrarse;
         this.serviciosUsuario = serviciosUsuario;
+        this.ca = ca;
     }
 
     public BorderPane getPantallaPrincipal() {
@@ -205,11 +208,6 @@ public class FXMLPrincipalController implements Initializable {
     }
 
     @FXML
-    private void iniciarSesion() {
-        pantallaPrincipal.setCenter(pantallaIniciarSesion);
-    }
-
-    @FXML
     private void perfil() {
         pantallaPrincipal.setCenter(pantallaPerfil);
         perfilController.actualizarDatos();
@@ -246,7 +244,22 @@ public class FXMLPrincipalController implements Initializable {
     }
 
     @FXML
+    private void iniciarSesion() {
+        if (ca.getCorreo() != null) {
+            ca.setCorreo(null);
+            ca.setPass(null);
+            ca.setToken(null);
+        }
+        pantallaPrincipal.setCenter(pantallaIniciarSesion);
+    }
+
+    @FXML
     private void registrarse() {
+        if (ca.getCorreo() != null) {
+            ca.setCorreo(null);
+            ca.setPass(null);
+            ca.setToken(null);
+        }
         pantallaPrincipal.setCenter(pantallaRegistrarse);
         registrarseController.actualizarDatos();
     }
@@ -263,6 +276,11 @@ public class FXMLPrincipalController implements Initializable {
         }
         if (!menuItemRegistro.isVisible()) {
             menuItemRegistro.setVisible(true);
+        }
+        if (ca.getCorreo() != null) {
+            ca.setCorreo(null);
+            ca.setPass(null);
+            ca.setToken(null);
         }
     }
 
@@ -281,6 +299,4 @@ public class FXMLPrincipalController implements Initializable {
         menuUsuario.setVisible(true);
         menuItemRegistro.setVisible(false);
     }
-
-
 }

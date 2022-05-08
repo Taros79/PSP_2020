@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import rol.Cliente.Servicios.ServiciosUsuario;
+import rol.Cliente.dao.utils.CacheAuthorization;
 import rol.Cliente.gui.ConstantesGUI;
 import rol.Cliente.gui.controllers.FXMLPrincipalController;
 import rol.Common.modelo.Usuario;
@@ -30,10 +31,12 @@ public class Registrarse implements Initializable {
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
     private ServiciosUsuario serviciosUsuario;
+    private CacheAuthorization cacheAuthorization;
 
     @Inject
-    public Registrarse(ServiciosUsuario serviciosUsuario) {
+    public Registrarse(ServiciosUsuario serviciosUsuario, CacheAuthorization cacheAuthorization) {
         this.serviciosUsuario = serviciosUsuario;
+        this.cacheAuthorization = cacheAuthorization;
     }
 
     public void setPerfil(FXMLPrincipalController pantallaPrincipal) {
@@ -52,17 +55,19 @@ public class Registrarse implements Initializable {
     }
 
     private void hacerLogin() {
-        serviciosUsuario.hacerLoging(tfCorreo.getText(), tfPass.getText())
+        cacheAuthorization.setCorreo(tfCorreo.getText());
+        cacheAuthorization.setPass(tfPass.getText());
+        serviciosUsuario.hacerLogin()
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                 .subscribe(resultado ->
                                 resultado
                                         .peek(action -> {
-                                                    if (action.getTipo_Usuario() == 3) {
-                                                        pantallaPrincipal.irAPrincipalAdmin();
-                                                    } else {
-                                                        pantallaPrincipal.irAPrincipalUsuario();
-                                                    }
+                                            if (action.getTipo_Usuario() == 3) {
+                                                pantallaPrincipal.irAPrincipalAdmin();
+                                            } else {
+                                                pantallaPrincipal.irAPrincipalUsuario();
+                                            }
                                                 }
                                         )
                                         .peekLeft(error -> {

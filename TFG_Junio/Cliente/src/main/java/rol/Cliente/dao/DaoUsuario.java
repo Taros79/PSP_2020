@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import io.reactivex.rxjava3.core.Single;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
-import okhttp3.Credentials;
 import rol.Cliente.dao.retrofit.ApiUsuario;
 import rol.Common.modelo.Usuario;
 
@@ -40,8 +39,8 @@ public class DaoUsuario extends DaoGenerics {
         return safeSingleApicall(apiUsuario.updateUsuario(u));
     }
 
-    public Single<Either<String, Usuario>> hacerLoging(String correo, String pass) {
-        return safeSingleApicall(apiUsuario.hacerLoging(Credentials.basic(correo, pass)));
+    public Single<Either<String, Usuario>> hacerLogin() {
+        return safeSingleApicall(apiUsuario.hacerLogin());
     }
 
     public Single<Either<String, String>> hacerLogout() {

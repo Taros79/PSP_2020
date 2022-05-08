@@ -11,11 +11,10 @@ import rol.Cliente.config.ConfigurationSingleton_Client;
 import rol.Cliente.dao.retrofit.*;
 
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.lang.reflect.Type;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -23,19 +22,11 @@ import java.util.List;
 
 public class NetworkProducers {
 
-  /*  private CacheAuthorization cacheAuthorization;
+    private CacheAuthorization cacheAuthorization;
 
     @Inject
     public NetworkProducers(CacheAuthorization cacheAuthorization) {
         this.cacheAuthorization = cacheAuthorization;
-    }*/
-
-    @Produces
-    @Singleton
-    public CookieManager getCookieManager() {
-        CookieManager cookieManager = new CookieManager();
-        cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        return cookieManager;
     }
 
     @Produces
@@ -46,8 +37,7 @@ public class NetworkProducers {
                 .readTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .callTimeout(Duration.of(10, ChronoUnit.MINUTES))
                 .connectTimeout(Duration.of(10, ChronoUnit.MINUTES))
-                //.addInterceptor(new AuthorizationInterceptor(cacheAuthorization))
-                .cookieJar(new JavaNetCookieJar(getCookieManager()))
+                .addInterceptor(new AuthorizationInterceptor(cacheAuthorization))
                 .build();
     }
 
