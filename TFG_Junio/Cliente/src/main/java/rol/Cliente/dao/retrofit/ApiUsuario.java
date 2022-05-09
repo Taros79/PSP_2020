@@ -22,7 +22,7 @@ public interface ApiUsuario {
     Single<String> updateUsuario(@Body Usuario u);
 
     @GET(ConstantesRest.PATH_REGISTRO)
-    Single<Usuario> hacerLogin();
+    Single<Usuario> hacerLogin(@Query("correo") String correo, @Query("password") String password);
 
     @GET(ConstantesRest.PATH_REGISTRO + ConstantesRest.PATH_REGISTRO_LOGOUT)
     Single<String> hacerLogout();

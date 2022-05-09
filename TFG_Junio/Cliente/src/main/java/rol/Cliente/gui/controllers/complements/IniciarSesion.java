@@ -46,7 +46,7 @@ public class IniciarSesion implements Initializable {
     private void hacerLogin() {
         cacheAuthorization.setCorreo(textFieldNombre.getText());
         cacheAuthorization.setPass(textFieldPass.getText());
-        serviciosUsuario.hacerLogin()
+        serviciosUsuario.hacerLogin(textFieldNombre.getText(), textFieldPass.getText())
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                 .subscribe(resultado ->

@@ -33,8 +33,8 @@ public class ServiciosUsuario {
         return daoUsuario.updateUsuario(u);
     }
 
-    public Single<Either<String, Usuario>> hacerLogin() {
-        return daoUsuario.hacerLogin();
+    public Single<Either<String, Usuario>> hacerLogin(String correo, String password) {
+        return daoUsuario.hacerLogin(correo, password);
     }
 
     public Single<Either<String, String>> hacerLogout() {

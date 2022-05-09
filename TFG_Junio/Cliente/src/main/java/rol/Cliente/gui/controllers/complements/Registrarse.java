@@ -57,7 +57,7 @@ public class Registrarse implements Initializable {
     private void hacerLogin() {
         cacheAuthorization.setCorreo(tfCorreo.getText());
         cacheAuthorization.setPass(tfPass.getText());
-        serviciosUsuario.hacerLogin()
+        serviciosUsuario.hacerLogin(tfCorreo.getText(), tfPass.getText())
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                 .subscribe(resultado ->
