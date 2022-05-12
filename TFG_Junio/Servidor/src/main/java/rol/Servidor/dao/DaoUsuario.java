@@ -1,5 +1,6 @@
 package rol.Servidor.dao;
 
+import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataAccessException;
@@ -172,6 +173,35 @@ public class DaoUsuario {
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
+
+    public Either <String,Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
+        Either<String, Usuario> result = null;
+        Usuario sql;
+        String passwordHasheada = hashPassword.hashPassword(pass);
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_CORREO,
+                    new BeanPropertyRowMapper<>(Usuario.class), correo);
+
+            if (sql != null) {
+                if (passwordHasheada.equals(sql.getContraseña())) {
+                    result = Either.right(sql);
+                } else {
+                    result = Either.left(ConstantesSQL.CONTRASEÑA_CORREO_INCORRECTO);
+                }
+            }
+        } catch (DataIntegrityViolationException e) {
+            log.error(e.getMessage());
+            result = Either.left(ConstantesSQL.CONTRASEÑA_CORREO_INCORRECTO);
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            result = Either.left(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            result = Either.left(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
         return result;
     }

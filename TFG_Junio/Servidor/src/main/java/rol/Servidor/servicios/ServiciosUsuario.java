@@ -1,5 +1,6 @@
 package rol.Servidor.servicios;
 
+import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import rol.Common.modelo.Usuario;
 import rol.Servidor.dao.DaoUsuario;
@@ -37,5 +38,9 @@ public class ServiciosUsuario {
 
     public Usuario getUsuarioByName(String correo) {
         return daoUsuario.getUsuarioByName(correo);
+    }
+
+    public Either<String,Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
+        return daoUsuario.getUsuarioByCorreoCredentials(correo, pass);
     }
 }
