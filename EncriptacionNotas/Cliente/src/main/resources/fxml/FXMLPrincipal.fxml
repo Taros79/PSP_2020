@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pantallaPrincipal" prefHeight="450.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2" fx:controller="notas.Cliente.gui.controllers.FXMLPrincipalController">
+    <top>
+        <MenuBar>
+            <Menu fx:id="menuUsuario" visible="false" text="Menu">
+                <MenuItem mnemonicParsing="false" onAction="#perfil" text="Ver Perfil"/>
+
+            </Menu>
+            <Menu fx:id="menuAdmin" visible="false" text="Admin">
+            </Menu>
+            <Menu text="Inicio Sesion">
+                <MenuItem mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>
+               <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <Label layoutX="172.0" layoutY="116.0" text="Welcome to my API " textFill="#000000a1">
+            <font>
+                <Font size="36.0"/>
+            </font>
+        </Label>
+    </center>
+</BorderPane>
