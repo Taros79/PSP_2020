@@ -22,12 +22,17 @@ import java.util.ResourceBundle;
 public class FXMLPrincipalController implements Initializable {
 
     private final FXMLLoader fxmlLoaderIniciarSesion;
-    private final FXMLLoader fxmlLoaderPerfil;
+    private final FXMLLoader fxmlLoaderJefatura;
+    private final FXMLLoader fxmlLoaderConsultasPadre;
+    private final FXMLLoader fxmlLoaderPonerParte;
+
 
     @FXML
-    private Menu menuAdmin;
+    private Menu menuPadre;
     @FXML
-    private Menu menuUsuario;
+    private Menu menuProfe;
+    @FXML
+    private Menu menuJefatura;
     @FXML
     private MenuItem menuItemRegistro;
 
@@ -36,18 +41,25 @@ public class FXMLPrincipalController implements Initializable {
 
     private AnchorPane pantallaIniciarSesion;
     private IniciarSesion iniciarSesionController;
-    private AnchorPane pantallaPerfil;
-    private Perfil perfilController;
+    private AnchorPane pantallaPonerParte;
+    private PonerParte ponerParteController;
+    private AnchorPane pantallaJefatura;
+    private Jefatura jefaturaController;
+    private AnchorPane pantallaConsultasPadre;
+    private ConsultasPadre consultasPadreController;
 
     private Usuario usuarioLogin;
     private CacheAuthorization ca;
 
 
     @Inject
-    public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion, FXMLLoader fxmlLoaderPerfil,
-                                   CacheAuthorization ca) {
+    public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion,
+                                   FXMLLoader fxmlLoaderJefatura, FXMLLoader fxmlLoaderConsultasPadre,
+                                   FXMLLoader fxmlLoaderPonerParte, CacheAuthorization ca) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
-        this.fxmlLoaderPerfil = fxmlLoaderPerfil;
+        this.fxmlLoaderJefatura = fxmlLoaderJefatura;
+        this.fxmlLoaderConsultasPadre = fxmlLoaderConsultasPadre;
+        this.fxmlLoaderPonerParte = fxmlLoaderPonerParte;
         this.ca = ca;
     }
 
@@ -58,7 +70,10 @@ public class FXMLPrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         preloadIniciarSesion();
-        preloadPerfil();
+        preloadJefatura();
+        preloadConsultasPadre();
+        preloadPonerParte();
+        pantallaPrincipal.setCenter(pantallaIniciarSesion);
     }
 
     public Usuario getUsuarioLoginPrincipal() {
@@ -82,23 +97,101 @@ public class FXMLPrincipalController implements Initializable {
         }
     }
 
-    private void preloadPerfil() {
-        if (pantallaPerfil == null) {
+    private void preloadJefatura() {
+        if (pantallaJefatura == null) {
             try {
-                pantallaPerfil = fxmlLoaderPerfil.load(getClass()
-                        .getResourceAsStream(ConstantesGUI.FXML_COMPLEMENTS_PERFIL_FXML));
-                perfilController = fxmlLoaderPerfil.getController();
-                perfilController.setPerfil(this);
+                pantallaJefatura = fxmlLoaderJefatura.load(getClass()
+                        .getResourceAsStream(ConstantesGUI.FXML_COMPLEMENTS_JEFATURA_FXML));
+                jefaturaController = fxmlLoaderJefatura.getController();
+                jefaturaController.setPerfil(this);
             } catch (IOException e) {
                 log.error(e.getMessage());
             }
         }
     }
 
+    private void preloadPonerParte() {
+        if (pantallaPonerParte == null) {
+            try {
+                pantallaPonerParte = fxmlLoaderPonerParte.load(getClass()
+                        .getResourceAsStream(ConstantesGUI.FXML_COMPLEMENTS_PONERPARTE_FXML));
+                ponerParteController = fxmlLoaderPonerParte.getController();
+                ponerParteController.setPerfil(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
+    private void preloadConsultasPadre() {
+        if (pantallaConsultasPadre == null) {
+            try {
+                pantallaConsultasPadre = fxmlLoaderConsultasPadre.load(getClass()
+                        .getResourceAsStream(ConstantesGUI.FXML_COMPLEMENTS_CONSULTASPADRE_FXML));
+                consultasPadreController = fxmlLoaderConsultasPadre.getController();
+                consultasPadreController.setPerfil(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------//
+
+    public void mostrarPantallaIniciarSesion() {
+        if (pantallaIniciarSesion != null) {
+            if (pantallaPrincipal.getCenter() != null) {
+                pantallaPrincipal.setCenter(null);
+            }
+            pantallaPrincipal.setCenter(pantallaIniciarSesion);
+        }
+    }
+
+    public void mostrarPantallaJefatura() {
+        if (pantallaJefatura != null) {
+            if (pantallaPrincipal.getCenter() != null) {
+                pantallaPrincipal.setCenter(null);
+            }
+            pantallaPrincipal.setCenter(pantallaJefatura);
+        }
+    }
+
+    public void mostrarPantallaPonerParte() {
+        if (pantallaPonerParte != null) {
+            if (pantallaPrincipal.getCenter() != null) {
+                pantallaPrincipal.setCenter(null);
+            }
+            pantallaPrincipal.setCenter(pantallaPonerParte);
+        }
+    }
+
+    public void mostrarPantallaConsultasPadre() {
+        if (pantallaConsultasPadre != null) {
+            if (pantallaPrincipal.getCenter() != null) {
+                pantallaPrincipal.setCenter(null);
+            }
+            pantallaPrincipal.setCenter(pantallaConsultasPadre);
+        }
+    }
+
+    //--------------------------------------------------------------------------------------------------------//
+
     @FXML
-    private void perfil() {
-        pantallaPrincipal.setCenter(pantallaPerfil);
-        perfilController.actualizarDatos();
+    private void jefatura() {
+        mostrarPantallaJefatura();
+        jefaturaController.actualizarDatos();
+    }
+
+    @FXML
+    private void ponerParte() {
+        mostrarPantallaPonerParte();
+        ponerParteController.actualizarDatos();
+    }
+
+    @FXML
+    private void consultasPadre() {
+        mostrarPantallaConsultasPadre();
+        consultasPadreController.actualizarDatos();
     }
 
     @FXML
@@ -114,12 +207,12 @@ public class FXMLPrincipalController implements Initializable {
     @FXML
     private void logout() {
         //serviciosUsuario.hacerLogout();
-        pantallaPrincipal.setCenter(pantallaIniciarSesion);
-        if (menuUsuario.isVisible()) {
-            menuUsuario.setVisible(false);
+        mostrarPantallaIniciarSesion();
+        if (menuJefatura.isVisible()) {
+            menuJefatura.setVisible(false);
         }
-        if (menuAdmin.isVisible()) {
-            menuAdmin.setVisible(false);
+        if (menuProfe.isVisible()) {
+            menuProfe.setVisible(false);
         }
         if (!menuItemRegistro.isVisible()) {
             menuItemRegistro.setVisible(true);
@@ -134,16 +227,16 @@ public class FXMLPrincipalController implements Initializable {
     //----------------------------------
 
     public void irAPrincipalAdmin() {
-        pantallaPrincipal.setCenter(pantallaPerfil);
-        menuUsuario.setVisible(true);
-        menuAdmin.setVisible(true);
+        pantallaPrincipal.setCenter(pantallaJefatura);
+        menuJefatura.setVisible(true);
+        menuProfe.setVisible(true);
         menuItemRegistro.setVisible(false);
     }
 
     public void irAPrincipalUsuario() {
-        pantallaPrincipal.setCenter(pantallaPerfil);
+        pantallaPrincipal.setCenter(pantallaJefatura);
         pantallaPrincipal.setVisible(true);
-        menuUsuario.setVisible(true);
+        menuJefatura.setVisible(true);
         menuItemRegistro.setVisible(false);
     }
 }

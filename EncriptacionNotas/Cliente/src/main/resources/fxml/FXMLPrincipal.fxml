@@ -7,11 +7,15 @@
             xmlns="http://javafx.com/javafx/11.0.2" fx:controller="notas.Cliente.gui.controllers.FXMLPrincipalController">
     <top>
         <MenuBar>
-            <Menu fx:id="menuUsuario" visible="false" text="Menu">
-                <MenuItem mnemonicParsing="false" onAction="#perfil" text="Ver Perfil"/>
+            <Menu fx:id="menuJefatura" visible="false" text="JEFATURA">
+                <MenuItem mnemonicParsing="false" onAction="#jefatura" text="Validar parte"/>
 
             </Menu>
-            <Menu fx:id="menuAdmin" visible="false" text="Admin">
+            <Menu fx:id="menuProfe" visible="false" text="PROFESORADO">
+                <MenuItem mnemonicParsing="false" onAction="#ponerParte" text="Poner parte"/>
+            </Menu>
+            <Menu fx:id="menuPadre" visible="false" text="PADRES">
+                <MenuItem mnemonicParsing="false" onAction="#consultasPadre" text="Poner parte"/>
             </Menu>
             <Menu text="Inicio Sesion">
                 <MenuItem mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>

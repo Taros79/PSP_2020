@@ -5,13 +5,9 @@ public class ConstantesGUI {
     public static final String TFG_CHARLESTON = "TFG Charleston";
     public static final String FXML_FXMLPRINCIPAL_FXML = "/fxml/FXMLPrincipal.fxml";
     public static final String FXML_COMPLEMENTS_INICIAR_SESION_FXML = "/fxml/complements/iniciarSesion.fxml";
-    public static final String FXML_COMPLEMENTS_PERFIL_FXML = "/fxml/complements/perfil.fxml";
-    public static final String FXML_COMPLEMENTS_HECHIZOS_PJ_FXML = "/fxml/complements/hechizosPj.fxml";
-    public static final String FXML_COMPLEMENTS_OBJETOS_PJ_FXML = "/fxml/complements/objetosPj.fxml";
-    public static final String FXML_COMPLEMENTS_DOTES_PJ_FXML = "/fxml/complements/dotesPj.fxml";
-    public static final String FXML_COMPLEMENTS_CREAR_PERSONAJES_FXML = "/fxml/complements/personajes.fxml";
-    public static final String FXML_COMPLEMENTS_CRUD_HOD_FXML = "/fxml/complements/crudHOD.fxml";
-    public static final String FXML_COMPLEMENTS_REGISTRARSE_FXML = "/fxml/complements/registrarse.fxml";
+    public static final String FXML_COMPLEMENTS_JEFATURA_FXML = "/fxml/complements/jefatura.fxml";
+    public static final String FXML_COMPLEMENTS_CONSULTASPADRE_FXML = "/fxml/complements/consultaPadre.fxml";
+    public static final String FXML_COMPLEMENTS_PONERPARTE_FXML = "/fxml/complements/ponerParte.fxml";
 
 
     public static final String FALLO_DEL_SERVIDOR = "Fallo del Servidor";

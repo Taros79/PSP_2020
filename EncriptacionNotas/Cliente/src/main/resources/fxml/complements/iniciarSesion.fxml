@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notas.Cliente.gui.controllers.complements.IniciarSesion">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notas.Cliente.gui.controllers.complements.IniciarSesion">
     <children>
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="141.0" layoutY="101.0" prefHeight="35.0" prefWidth="88.0" text="Correo">
+        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="141.0" layoutY="101.0" prefHeight="35.0" prefWidth="88.0" text="Nombre">
             <font>
                 <Font name="Forte" size="24.0" />
             </font>
@@ -16,7 +16,7 @@
                 <Font name="Forte" size="24.0" />
             </font>
         </Label>
-        <TextField fx:id="textFieldNombre" layoutX="232.0" layoutY="102.0" prefHeight="25.0" prefWidth="233.0" promptText="Correo" />
+        <TextField fx:id="textFieldNombre" layoutX="232.0" layoutY="102.0" prefHeight="25.0" prefWidth="233.0" promptText="Correo" text="nombre" />
         <TextField fx:id="textFieldPass" accessibleRole="PASSWORD_FIELD" layoutX="234.0" layoutY="146.0" prefHeight="25.0" prefWidth="233.0" promptText="Contraseña" />
         <Button layoutX="230.0" layoutY="216.0" mnemonicParsing="false" onAction="#hacerLogin" prefHeight="58.0" prefWidth="141.0" text="Ingresar">
             <font>

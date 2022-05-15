@@ -6,6 +6,8 @@ import jakarta.security.enterprise.credential.Credential;
 import jakarta.security.enterprise.credential.UsernamePasswordCredential;
 import jakarta.security.enterprise.identitystore.CredentialValidationResult;
 import jakarta.security.enterprise.identitystore.IdentityStore;
+import notas.Common.modelo.Usuario;
+import notas.Servidor.servicios.ServiciosUsuario;
 import notas.Servidor.utils.Constantes;
 
 import java.util.Collections;
@@ -15,7 +17,7 @@ import static jakarta.security.enterprise.identitystore.CredentialValidationResu
 @Singleton
 public class InMemoryIdentityStore implements IdentityStore {
 
-   /* @Inject
+   @Inject
     private ServiciosUsuario serviciosUsuario;
 
     @Override
@@ -34,22 +36,22 @@ public class InMemoryIdentityStore implements IdentityStore {
             if (serviciosUsuario.getUsuarioByCorreoCredentials(user.getCaller(), user.getPasswordAsString()).isLeft()) {
                 return INVALID_RESULT;
             } else {
-                usuario = serviciosUsuario.getUsuarioByCorreo(user.getCaller(), user.getPasswordAsString());
+                usuario = serviciosUsuario.getUsuarioByNombre(user.getCaller(), user.getPasswordAsString());
             }
 
-            switch (usuario.getTipo_Usuario()) {
+            switch (usuario.getIdTipo_Usuario()) {
                 case 1:
-                    return new CredentialValidationResult(usuario.getCorreo(), Collections.singleton(Constantes.MASTER));
+                    return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.JEFE_DE_ESTUDIOS));
                 case 2:
-                    return new CredentialValidationResult(usuario.getCorreo(), Collections.singleton(Constantes.JUGADOR));
+                    return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.PROFESOR));
                 case 3:
-                    return new CredentialValidationResult(usuario.getCorreo(), Collections.singleton(Constantes.ADMIN));
+                    return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.PADRE));
                 default:
                     return INVALID_RESULT;
             }
 
         }
         return INVALID_RESULT;
-    }*/
+    }
 
 }

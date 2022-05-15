@@ -9,7 +9,7 @@ public class ConstantesRest {
     public static final String PATH_OBJETOS = "objetos";
     public static final String PATH_PARTIDAS = "partidas";
     public static final String PATH_USUARIOS = "usuarios";
-    public static final String PATH_REGISTRO = "registro";
+    public static final String PATH_LOGIN = "login";
 
     public static final String PATH_REGISTRO_LOGOUT = "/logout";
 
