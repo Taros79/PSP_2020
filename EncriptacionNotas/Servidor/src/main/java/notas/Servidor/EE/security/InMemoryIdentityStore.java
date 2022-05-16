@@ -39,7 +39,7 @@ public class InMemoryIdentityStore implements IdentityStore {
                 usuario = serviciosUsuario.getUsuarioByNombre(user.getCaller(), user.getPasswordAsString());
             }
 
-            switch (usuario.getIdTipo_Usuario()) {
+            switch (usuario.getIdTipoUsuario()) {
                 case 1:
                     return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.JEFE_DE_ESTUDIOS));
                 case 2:

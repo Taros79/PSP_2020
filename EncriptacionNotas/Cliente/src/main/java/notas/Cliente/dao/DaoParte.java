@@ -24,4 +24,8 @@ public class DaoParte extends DaoGenerics{
     public Single<Either<String, List<Parte>>> getAllPartes() {
         return safeSingleApicall(apiParte.getAllPartes());
     }
+
+    public Single<Either<String, String>> addParte(Parte parte) {
+        return safeSingleApicall(apiParte.addParte(parte));
+    }
 }

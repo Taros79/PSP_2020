@@ -8,6 +8,8 @@ public class ConstantesSQL {
     public static final String SELECT_ALL_PARTES = "SELECT * FROM partes";
     public static final String INSERT_PARTE = "INSERT INTO partes (descripcion, idAlumno, idTipoEstado) VALUES (?, ?, ?)";
 
+    public static final String SELECT_ALL_ALUMNOS = "SELECT * FROM alumnos";
+
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";
     public static final String BASE_DE_DATOS_CAIDA = "Base de datos caida";

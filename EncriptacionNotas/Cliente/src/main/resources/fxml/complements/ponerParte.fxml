@@ -4,6 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notas.Cliente.gui.controllers.complements.PonerParte">
     <children>
         <Label layoutX="45.0" layoutY="27.0" prefHeight="35.0" prefWidth="203.0" text="Motivo del parte:">
@@ -12,8 +14,8 @@
             </font>
         </Label>
         <Label layoutX="347.0" layoutY="38.0" text="Alumnos:" />
-      <TextArea layoutX="38.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" />
-      <ComboBox layoutX="347.0" layoutY="62.0" prefWidth="150.0" />
-      <Button layoutX="248.0" layoutY="321.0" mnemonicParsing="false" text="Button" />
+      <TextArea fx:id="textAreaParte" layoutX="38.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" />
+      <ComboBox fx:id="comboAlumnos" layoutX="347.0" layoutY="62.0" prefWidth="150.0"/>
+      <Button onAction="#añadirParte" layoutX="248.0" layoutY="321.0" mnemonicParsing="false" text="Añadir Parte" />
     </children>
 </AnchorPane>

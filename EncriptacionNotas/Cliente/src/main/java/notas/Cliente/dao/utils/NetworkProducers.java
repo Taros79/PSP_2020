@@ -82,7 +82,18 @@ public class NetworkProducers {
 
 
     @Produces
-    public ApiParte createRegistroApi(Retrofit retrofit) {
+    public ApiParte createApiParte(Retrofit retrofit) {
         return retrofit.create(ApiParte.class);
     }
+
+    @Produces
+    public ApiAlumno createApiAlumno(Retrofit retrofit) {
+        return retrofit.create(ApiAlumno.class);
+    }
+
+    @Produces
+    public ApiUsuario createApiUsuario(Retrofit retrofit) {
+        return retrofit.create(ApiUsuario.class);
+    }
+
 }

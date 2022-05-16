@@ -20,8 +20,8 @@ public class ServiciosUsuario {
         return daoUsuario.getAllUsuarios();
     }
 
-    public Usuario getUsuarioByNombre(String nombre, String contraseña) {
-        return daoUsuario.getUsuarioByNombre(nombre, contraseña);
+    public Usuario getUsuarioByNombre(String nombre, String pass) {
+        return daoUsuario.getUsuarioByNombre(nombre, pass);
     }
 
     public Usuario getUsuarioByName(String correo) {

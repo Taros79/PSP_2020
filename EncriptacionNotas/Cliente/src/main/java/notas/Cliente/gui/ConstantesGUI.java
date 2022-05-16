@@ -6,7 +6,7 @@ public class ConstantesGUI {
     public static final String FXML_FXMLPRINCIPAL_FXML = "/fxml/FXMLPrincipal.fxml";
     public static final String FXML_COMPLEMENTS_INICIAR_SESION_FXML = "/fxml/complements/iniciarSesion.fxml";
     public static final String FXML_COMPLEMENTS_JEFATURA_FXML = "/fxml/complements/jefatura.fxml";
-    public static final String FXML_COMPLEMENTS_CONSULTASPADRE_FXML = "/fxml/complements/consultaPadre.fxml";
+    public static final String FXML_COMPLEMENTS_CONSULTASPADRE_FXML = "/fxml/complements/consutasPadre.fxml";
     public static final String FXML_COMPLEMENTS_PONERPARTE_FXML = "/fxml/complements/ponerParte.fxml";
 
 

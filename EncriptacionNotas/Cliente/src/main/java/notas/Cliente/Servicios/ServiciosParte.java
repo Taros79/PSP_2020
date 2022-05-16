@@ -21,4 +21,7 @@ public class ServiciosParte {
         return daoParte.getAllPartes();
     }
 
+    public Single<Either<String, String>> addParte(Parte parte) {
+        return daoParte.addParte(parte);
+    }
 }

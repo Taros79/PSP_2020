@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import notas.Cliente.Servicios.ServiciosUsuario;
 import notas.Cliente.gui.controllers.FXMLPrincipalController;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import notas.Cliente.dao.utils.CacheAuthorization;
@@ -24,10 +25,12 @@ public class IniciarSesion implements Initializable {
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
     private CacheAuthorization cacheAuthorization;
+    private ServiciosUsuario serviciosUsuario;
 
     @Inject
-    public IniciarSesion( CacheAuthorization cacheAuthorization) {
+    public IniciarSesion(CacheAuthorization cacheAuthorization, ServiciosUsuario serviciosUsuario) {
         this.cacheAuthorization = cacheAuthorization;
+        this.serviciosUsuario = serviciosUsuario;
     }
 
     public void setPantallaPrincipal(FXMLPrincipalController pantallaPrincipal) {
@@ -43,18 +46,20 @@ public class IniciarSesion implements Initializable {
     private void hacerLogin() {
         cacheAuthorization.setNombre(textFieldNombre.getText());
         cacheAuthorization.setContraseña(textFieldPass.getText());
-        /*serviciosUsuario.hacerLogin(textFieldNombre.getText(), textFieldPass.getText())
+        serviciosUsuario.hacerLogin(textFieldNombre.getText(), textFieldPass.getText())
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                 .subscribe(resultado ->
                                 resultado
                                         .peek(action -> {
-                                            a.setContentText(action.getCorreo() + " a iniciado sesion");
-                                            a.showAndWait();
-                                            if (action.getTipo_Usuario() == 3) {
-                                                pantallaPrincipal.irAPrincipalAdmin();
-                                            } else {
+                                                    a.setContentText(action.getNombre() + " a iniciado sesion");
+                                                    a.showAndWait();
+                                                    if (action.getIdTipoUsuario() == 2) {
+                                                        pantallaPrincipal.irAPrincipalAdmin();
+                                                    } else if (action.getIdTipoUsuario() == 3) {
                                                         pantallaPrincipal.irAPrincipalUsuario();
+                                                    } else {
+                                                        pantallaPrincipal.irAPrincipalProfe();
                                                     }
                                                     pantallaPrincipal.setUsuarioLoginPrincipal(action);
                                                 }
@@ -68,6 +73,6 @@ public class IniciarSesion implements Initializable {
                             a.showAndWait();
                         }
                 );
-        pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);*/
+        pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import lombok.extern.log4j.Log4j2;
+import notas.Cliente.Servicios.ServiciosUsuario;
 import notas.Cliente.dao.utils.CacheAuthorization;
 import notas.Cliente.gui.ConstantesGUI;
 import notas.Cliente.gui.controllers.complements.*;
@@ -33,33 +34,36 @@ public class FXMLPrincipalController implements Initializable {
     private Menu menuProfe;
     @FXML
     private Menu menuJefatura;
-    @FXML
-    private MenuItem menuItemRegistro;
 
     @FXML
     private BorderPane pantallaPrincipal;
 
     private AnchorPane pantallaIniciarSesion;
     private IniciarSesion iniciarSesionController;
+
     private AnchorPane pantallaPonerParte;
     private PonerParte ponerParteController;
+
     private AnchorPane pantallaJefatura;
     private Jefatura jefaturaController;
+
     private AnchorPane pantallaConsultasPadre;
     private ConsultasPadre consultasPadreController;
 
     private Usuario usuarioLogin;
+    private ServiciosUsuario serviciosUsuario;
     private CacheAuthorization ca;
 
 
     @Inject
-    public FXMLPrincipalController(FXMLLoader fxmlLoaderIniciarSesion,
+    public FXMLPrincipalController(ServiciosUsuario serviciosUsuario, FXMLLoader fxmlLoaderIniciarSesion,
                                    FXMLLoader fxmlLoaderJefatura, FXMLLoader fxmlLoaderConsultasPadre,
                                    FXMLLoader fxmlLoaderPonerParte, CacheAuthorization ca) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
         this.fxmlLoaderJefatura = fxmlLoaderJefatura;
         this.fxmlLoaderConsultasPadre = fxmlLoaderConsultasPadre;
         this.fxmlLoaderPonerParte = fxmlLoaderPonerParte;
+        this.serviciosUsuario = serviciosUsuario;
         this.ca = ca;
     }
 
@@ -69,16 +73,16 @@ public class FXMLPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        preloadIniciarSesion();
+       preloadIniciarSesion();
         preloadJefatura();
-        preloadConsultasPadre();
+        /*preloadConsultasPadre();*/
         preloadPonerParte();
-        pantallaPrincipal.setCenter(pantallaIniciarSesion);
     }
 
-    public Usuario getUsuarioLoginPrincipal() {
+
+  /*  public Usuario getUsuarioLoginPrincipal() {
         return usuarioLogin;
-    }
+    }*/
 
     public void setUsuarioLoginPrincipal(Usuario usuarioLogin) {
         this.usuarioLogin = usuarioLogin;
@@ -206,7 +210,7 @@ public class FXMLPrincipalController implements Initializable {
 
     @FXML
     private void logout() {
-        //serviciosUsuario.hacerLogout();
+        serviciosUsuario.hacerLogout();
         mostrarPantallaIniciarSesion();
         if (menuJefatura.isVisible()) {
             menuJefatura.setVisible(false);
@@ -214,8 +218,8 @@ public class FXMLPrincipalController implements Initializable {
         if (menuProfe.isVisible()) {
             menuProfe.setVisible(false);
         }
-        if (!menuItemRegistro.isVisible()) {
-            menuItemRegistro.setVisible(true);
+        if (menuPadre.isVisible()) {
+            menuPadre.setVisible(false);
         }
         if (ca.getNombre() != null) {
             ca.setNombre(null);
@@ -229,14 +233,18 @@ public class FXMLPrincipalController implements Initializable {
     public void irAPrincipalAdmin() {
         pantallaPrincipal.setCenter(pantallaJefatura);
         menuJefatura.setVisible(true);
-        menuProfe.setVisible(true);
-        menuItemRegistro.setVisible(false);
     }
 
     public void irAPrincipalUsuario() {
-        pantallaPrincipal.setCenter(pantallaJefatura);
+        pantallaPrincipal.setCenter(pantallaConsultasPadre);
         pantallaPrincipal.setVisible(true);
-        menuJefatura.setVisible(true);
-        menuItemRegistro.setVisible(false);
+        menuPadre.setVisible(true);
+    }
+
+    public void irAPrincipalProfe() {
+        mostrarPantallaPonerParte();
+        ponerParteController.actualizarDatos();
+        pantallaPrincipal.setVisible(true);
+        menuProfe.setVisible(true);
     }
 }

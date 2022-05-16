@@ -25,8 +25,8 @@ public class RestInicioSesion {
     }
 
     @GET
-    public Usuario hacerLogin(@QueryParam("nombre") String nombre, @QueryParam("contraseña") String contraseña) {
-        return su.getUsuarioByNombre(nombre, contraseña);
+    public Usuario hacerLogin(@QueryParam("nombre") String nombre, @QueryParam("pass") String pass) {
+        return su.getUsuarioByNombre(nombre, pass);
     }
 
     @GET

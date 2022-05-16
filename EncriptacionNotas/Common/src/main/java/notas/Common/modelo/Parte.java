@@ -11,7 +11,11 @@ public class Parte {
 
     private int id;
     private String descripcion;
-    private String idAlumno;
-    private String idTipoEstado;
+    private int idAlumno;
+    private int idTipoEstado;
 
+    public Parte(String descripcion, int idAlumno) {
+        this.descripcion = descripcion;
+        this.idAlumno = idAlumno;
+    }
 }

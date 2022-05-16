@@ -15,9 +15,6 @@ import static notas.Cliente.gui.utils.OnlyNumbers.onlyNum;
 
 public class ConsultasPadre implements Initializable {
 
-    @FXML
-    private TextField tfFuerza;
-
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
 
@@ -28,13 +25,8 @@ public class ConsultasPadre implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         a = new Alert(Alert.AlertType.INFORMATION);
-
-        onlyNum(tfFuerza);
     }
 
-    private void getEstadisticas() {
-
-    }
 
     public void actualizarDatos() {
 

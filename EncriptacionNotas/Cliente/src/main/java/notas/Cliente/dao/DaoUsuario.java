@@ -27,8 +27,8 @@ public class DaoUsuario extends DaoGenerics {
         return safeSingleApicall(apiUsuario.getAllUsuarios());
     }
 
-    public Single<Either<String, Usuario>> hacerLogin(String nombre, String contraseña) {
-        return safeSingleApicall(apiUsuario.hacerLogin(nombre, contraseña));
+    public Single<Either<String, Usuario>> hacerLogin(String nombre, String pass) {
+        return safeSingleApicall(apiUsuario.hacerLogin(nombre, pass));
     }
 
     public Single<Either<String, String>> hacerLogout() {

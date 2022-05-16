@@ -4,7 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="645.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="notas.Cliente.gui.controllers.complements.Jefatura">
+<AnchorPane prefHeight="645.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="notas.Cliente.gui.controllers.complements.Jefatura">
     <children>
         <ListView fx:id="listViewHechizos" layoutX="87.0" layoutY="100.0" prefHeight="450.0" prefWidth="675.0" />
         <Label layoutX="334.0" layoutY="37.0" prefHeight="53.0" prefWidth="181.0" text="JEFATURA">

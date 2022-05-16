@@ -13,7 +13,7 @@ public interface ApiUsuario {
     Single<List<Usuario>> getAllUsuarios();
 
     @GET(ConstantesRest.PATH_LOGIN)
-    Single<Usuario> hacerLogin(@Query("nombre") String nombre, @Query("contraseña") String contraseña);
+    Single<Usuario> hacerLogin(@Query("nombre") String nombre, @Query("pass") String pass);
 
     @GET(ConstantesRest.PATH_LOGIN + ConstantesRest.PATH_REGISTRO_LOGOUT)
     Single<String> hacerLogout();

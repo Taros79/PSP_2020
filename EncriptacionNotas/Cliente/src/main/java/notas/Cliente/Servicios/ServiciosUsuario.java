@@ -21,8 +21,8 @@ public class ServiciosUsuario {
         return daoUsuario.getAllUsuarios();
     }
 
-    public Single<Either<String, Usuario>> hacerLogin(String nombre, String contraseña) {
-        return daoUsuario.hacerLogin(nombre, contraseña);
+    public Single<Either<String, Usuario>> hacerLogin(String nombre, String pass) {
+        return daoUsuario.hacerLogin(nombre, pass);
     }
 
     public Single<Either<String, String>> hacerLogout() {

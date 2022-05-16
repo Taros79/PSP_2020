@@ -45,17 +45,17 @@ public class DaoUsuario {
         return result;
     }
 
-    public Usuario getUsuarioByNombre(String nombre, String contraseña) {
+    public Usuario getUsuarioByNombre(String nombre, String pass) {
         Usuario sql;
         Usuario result = null;
-        String passwordHasheada = hashPassword.hashPassword(contraseña);
+        String passwordHasheada = hashPassword.hashPassword(pass);
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
             sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_USUARIO,
                     new BeanPropertyRowMapper<>(Usuario.class), nombre);
 
             if (sql != null) {
-                if (passwordHasheada.equals(sql.getContraseña())) {
+                if (passwordHasheada.equals(sql.getPass())) {
                     result = sql;
                 } else {
                     throw new OtraException(ConstantesSQL.CONTRASEÑA_CORREO_INCORRECTO);
@@ -104,7 +104,7 @@ public class DaoUsuario {
                     new BeanPropertyRowMapper<>(Usuario.class), correo);
 
             if (sql != null) {
-                if (passwordHasheada.equals(sql.getContraseña())) {
+                if (passwordHasheada.equals(sql.getPass())) {
                     result = Either.right(sql);
                 } else {
                     result = Either.left(ConstantesSQL.CONTRASEÑA_CORREO_INCORRECTO);
