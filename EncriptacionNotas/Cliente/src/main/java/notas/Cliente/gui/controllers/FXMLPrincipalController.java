@@ -73,16 +73,16 @@ public class FXMLPrincipalController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       preloadIniciarSesion();
+        preloadIniciarSesion();
         preloadJefatura();
-        /*preloadConsultasPadre();*/
+        preloadConsultasPadre();
         preloadPonerParte();
     }
 
 
-  /*  public Usuario getUsuarioLoginPrincipal() {
+    public Usuario getUsuarioLoginPrincipal() {
         return usuarioLogin;
-    }*/
+    }
 
     public void setUsuarioLoginPrincipal(Usuario usuarioLogin) {
         this.usuarioLogin = usuarioLogin;
@@ -232,11 +232,13 @@ public class FXMLPrincipalController implements Initializable {
 
     public void irAPrincipalAdmin() {
         pantallaPrincipal.setCenter(pantallaJefatura);
+        jefaturaController.actualizarDatos();
         menuJefatura.setVisible(true);
     }
 
     public void irAPrincipalUsuario() {
         pantallaPrincipal.setCenter(pantallaConsultasPadre);
+        consultasPadreController.actualizarDatos();
         pantallaPrincipal.setVisible(true);
         menuPadre.setVisible(true);
     }

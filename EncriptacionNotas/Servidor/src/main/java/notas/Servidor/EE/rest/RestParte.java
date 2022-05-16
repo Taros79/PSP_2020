@@ -9,6 +9,7 @@ import notas.Common.constantes.ConstantesRest;
 import notas.Common.modelo.Parte;
 import notas.Common.modelo.Usuario;
 import notas.Servidor.servicios.ServiciosParte;
+import notas.Servidor.utils.Constantes;
 
 import java.util.List;
 
@@ -29,9 +30,20 @@ public class RestParte {
         return serviciosParte.getAllPartes();
     }
 
+    @GET
+    @Path(ConstantesRest.PATH_PARTES_ALUMNOS_BY_USUARIO)
+    public List<Parte> getPartesByUser(@QueryParam("idPadre") int idPadre) {
+        return serviciosParte.getPartesByUser(idPadre);
+    }
+
     @POST
     public String addParte(Parte parte) {
         return serviciosParte.addParte(parte);
+    }
+
+    @PUT
+    public String updateParte(@QueryParam("idParte") int idParte, @QueryParam("estado") int estado) {
+        return serviciosParte.updateParte(idParte, estado);
     }
 }
 

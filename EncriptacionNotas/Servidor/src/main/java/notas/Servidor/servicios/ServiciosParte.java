@@ -19,7 +19,15 @@ public class ServiciosParte {
         return daoParte.getAllPartes();
     }
 
+    public List<Parte> getPartesByUser(int idPadre) {
+        return daoParte.getPartesByUser(idPadre);
+    }
+
     public String addParte(Parte parte) {
         return daoParte.addParte(parte);
+    }
+
+    public String updateParte(int idParte, int estado) {
+        return daoParte.updateParte(idParte, estado);
     }
 }

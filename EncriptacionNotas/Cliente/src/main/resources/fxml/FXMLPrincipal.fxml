@@ -15,7 +15,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#ponerParte" text="Poner parte"/>
             </Menu>
             <Menu fx:id="menuPadre" visible="false" text="PADRES">
-                <MenuItem mnemonicParsing="false" onAction="#consultasPadre" text="Poner parte"/>
+                <MenuItem mnemonicParsing="false" onAction="#consultasPadre" text="Consultar partes"/>
             </Menu>
             <Menu text="Inicio Sesion">
                 <MenuItem mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>

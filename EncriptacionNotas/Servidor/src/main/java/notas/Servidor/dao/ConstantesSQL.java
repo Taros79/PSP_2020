@@ -7,6 +7,11 @@ public class ConstantesSQL {
 
     public static final String SELECT_ALL_PARTES = "SELECT * FROM partes";
     public static final String INSERT_PARTE = "INSERT INTO partes (descripcion, idAlumno, idTipoEstado) VALUES (?, ?, ?)";
+    public static final String UPDATE_PARTE = "UPDATE partes SET idTipoEstado = ? WHERE id = ?";
+    public static final String DELETE_PARTE = "DELETE FROM partes WHERE id = ?";
+    public static final String SELECT_PARTES_PADRE_ALUMNOS = "SELECT * FROM partes p\n" +
+            "    inner join alumnosPadre a on p.idAlumno = a.id\n" +
+            "    inner join usuarios u on a.idUsuario = u.id where u.id = ? and p.idTipoEstado = '2'";
 
     public static final String SELECT_ALL_ALUMNOS = "SELECT * FROM alumnos";
 

@@ -54,6 +54,7 @@ public class IniciarSesion implements Initializable {
                                         .peek(action -> {
                                                     a.setContentText(action.getNombre() + " a iniciado sesion");
                                                     a.showAndWait();
+                                                    pantallaPrincipal.setUsuarioLoginPrincipal(action);
                                                     if (action.getIdTipoUsuario() == 2) {
                                                         pantallaPrincipal.irAPrincipalAdmin();
                                                     } else if (action.getIdTipoUsuario() == 3) {
@@ -61,7 +62,6 @@ public class IniciarSesion implements Initializable {
                                                     } else {
                                                         pantallaPrincipal.irAPrincipalProfe();
                                                     }
-                                                    pantallaPrincipal.setUsuarioLoginPrincipal(action);
                                                 }
                                         )
                                         .peekLeft(error -> {

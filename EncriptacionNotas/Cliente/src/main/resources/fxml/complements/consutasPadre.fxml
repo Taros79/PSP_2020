@@ -8,7 +8,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="notas.Cliente.gui.controllers.complements.ConsultasPadre">
     <children>
-        <ListView fx:id="listViewHechizos" layoutX="87.0" layoutY="100.0" prefHeight="450.0" prefWidth="675.0" />
+        <ListView fx:id="listViewPartes" layoutX="87.0" layoutY="100.0" prefHeight="450.0" prefWidth="675.0" />
         <Label layoutX="302.0" layoutY="44.0" prefHeight="27.0" prefWidth="197.0" text="Sanciones de tus hijos:">
             <font>
                 <Font name="System Bold" size="18.0" />

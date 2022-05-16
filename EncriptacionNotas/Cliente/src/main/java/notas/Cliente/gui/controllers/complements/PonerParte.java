@@ -47,6 +47,7 @@ public class PonerParte implements Initializable {
     }
 
     public void actualizarDatos() {
+        textAreaParte.clear();
         serviciosAlumno.getAllAlumnos()
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
@@ -92,6 +93,8 @@ public class PonerParte implements Initializable {
                             }
                     );
             pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+            actualizarDatos();
+
         } else {
             a.setContentText(ConstantesGUI.SELECCIONA_PERSONAJE_Y_DOTE_DE_LA_LISTA_GENERAL_DE_DOTES);
             a.showAndWait();
