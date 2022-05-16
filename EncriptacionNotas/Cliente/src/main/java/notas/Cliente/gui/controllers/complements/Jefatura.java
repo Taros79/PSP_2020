@@ -67,57 +67,44 @@ public class Jefatura implements Initializable {
         pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
+    public void updateParte (int estado) {
+        if (listViewPartes.getSelectionModel().getSelectedItem() != null) {
+            serviciosParte.updateParte(
+                            listViewPartes.getSelectionModel().getSelectedItem().getId(),
+                            estado)
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
+                    .subscribe(resultado ->
+                                    resultado
+                                            .peek(action -> {
+                                                        actualizarDatos();
+                                                        a = new Alert(Alert.AlertType.INFORMATION, action);
+                                                        a.showAndWait();
+                                                    }
+                                            )
+                                            .peekLeft(error -> {
+                                                a = new Alert(Alert.AlertType.ERROR, error);
+                                                a.showAndWait();
+                                            }),
+                            throwable -> {
+                                a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                                a.showAndWait();
+                            }
+                    );
+            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.SELECCIONA_EN_LA_LISTA);
+            a.showAndWait();
+        }
+    }
+
     @FXML
     private void aceptar() {
-        serviciosParte.updateParte(
-                        listViewPartes.getSelectionModel().getSelectedItem().getId(),
-                        2)
-                .observeOn(JavaFxScheduler.platform())
-                .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
-                .subscribe(resultado ->
-                                resultado
-                                        .peek(action -> {
-                                                    actualizarDatos();
-                                                    a = new Alert(Alert.AlertType.INFORMATION, action);
-                                                    a.showAndWait();
-                                                }
-                                        )
-                                        .peekLeft(error -> {
-                                            a = new Alert(Alert.AlertType.ERROR, error);
-                                            a.showAndWait();
-                                        }),
-                        throwable -> {
-                            a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
-                            a.showAndWait();
-                        }
-                );
-        pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+        updateParte(2);
     }
 
     @FXML
     private void rechazar() {
-        serviciosParte.updateParte(
-                        listViewPartes.getSelectionModel().getSelectedItem().getId(),
-                        3)
-                .observeOn(JavaFxScheduler.platform())
-                .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
-                .subscribe(resultado ->
-                                resultado
-                                        .peek(action -> {
-                                                    actualizarDatos();
-                                                    a = new Alert(Alert.AlertType.INFORMATION, action);
-                                                    a.showAndWait();
-                                                }
-                                        )
-                                        .peekLeft(error -> {
-                                            a = new Alert(Alert.AlertType.ERROR, error);
-                                            a.showAndWait();
-                                        }),
-                        throwable -> {
-                            a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
-                            a.showAndWait();
-                        }
-                );
-        pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+        updateParte(3);
     }
 }

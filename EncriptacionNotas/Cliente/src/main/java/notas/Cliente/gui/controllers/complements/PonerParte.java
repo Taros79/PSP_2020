@@ -1,6 +1,5 @@
 package notas.Cliente.gui.controllers.complements;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -11,7 +10,6 @@ import notas.Cliente.gui.ConstantesGUI;
 import notas.Cliente.gui.controllers.FXMLPrincipalController;
 import notas.Common.modelo.Alumno;
 import notas.Common.modelo.Parte;
-import notas.Common.modelo.Usuario;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
@@ -96,7 +94,7 @@ public class PonerParte implements Initializable {
             actualizarDatos();
 
         } else {
-            a.setContentText(ConstantesGUI.SELECCIONA_PERSONAJE_Y_DOTE_DE_LA_LISTA_GENERAL_DE_DOTES);
+            a.setContentText(ConstantesGUI.SELECCIONA_EN_LA_LISTA);
             a.showAndWait();
         }
     }

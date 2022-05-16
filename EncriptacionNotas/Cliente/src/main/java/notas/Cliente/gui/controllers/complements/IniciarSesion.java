@@ -44,35 +44,40 @@ public class IniciarSesion implements Initializable {
 
     @FXML
     private void hacerLogin() {
-        cacheAuthorization.setNombre(textFieldNombre.getText());
-        cacheAuthorization.setContraseña(textFieldPass.getText());
-        serviciosUsuario.hacerLogin(textFieldNombre.getText(), textFieldPass.getText())
-                .observeOn(JavaFxScheduler.platform())
-                .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
-                .subscribe(resultado ->
-                                resultado
-                                        .peek(action -> {
-                                                    a.setContentText(action.getNombre() + " a iniciado sesion");
-                                                    a.showAndWait();
-                                                    pantallaPrincipal.setUsuarioLoginPrincipal(action);
-                                                    if (action.getIdTipoUsuario() == 2) {
-                                                        pantallaPrincipal.irAPrincipalAdmin();
-                                                    } else if (action.getIdTipoUsuario() == 3) {
-                                                        pantallaPrincipal.irAPrincipalUsuario();
-                                                    } else {
-                                                        pantallaPrincipal.irAPrincipalProfe();
-                                                    }
-                                                }
-                                        )
-                                        .peekLeft(error -> {
-                                            a.setContentText(error);
+        if(!textFieldNombre.getText().isEmpty() || !textFieldPass.getText().isEmpty()) {
+            cacheAuthorization.setNombre(textFieldNombre.getText());
+            cacheAuthorization.setContraseña(textFieldPass.getText());
+            serviciosUsuario.hacerLogin(textFieldNombre.getText(), textFieldPass.getText())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
+                    .subscribe(resultado ->
+                            resultado
+                                    .peek(action -> {
+                                                a.setContentText(action.getNombre() + " a iniciado sesion");
                                             a.showAndWait();
-                                        }),
-                        throwable -> {
+                                            pantallaPrincipal.setUsuarioLoginPrincipal(action);
+            if (action.getIdTipoUsuario() == 2) {
+                pantallaPrincipal.irAPrincipalAdmin();
+            } else if (action.getIdTipoUsuario() == 3) {
+                pantallaPrincipal.irAPrincipalUsuario();
+            } else {
+                pantallaPrincipal.irAPrincipalProfe();
+            }
+                                            }
+                                    )
+                                    .peekLeft(error -> {
+                                                a.setContentText(error);
+                                            a.showAndWait();
+        }),
+        throwable -> {
                             a.setContentText(ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
                             a.showAndWait();
-                        }
+        }
                 );
-        pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a.setContentText(ConstantesGUI.CAMPOS_VACIOS);
+            a.showAndWait();
+        }
     }
 }

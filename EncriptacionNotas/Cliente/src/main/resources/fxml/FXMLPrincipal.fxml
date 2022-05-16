@@ -18,7 +18,7 @@
                 <MenuItem mnemonicParsing="false" onAction="#consultasPadre" text="Consultar partes"/>
             </Menu>
             <Menu text="Inicio Sesion">
-                <MenuItem mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>
+                <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>
                <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
             </Menu>
         </MenuBar>

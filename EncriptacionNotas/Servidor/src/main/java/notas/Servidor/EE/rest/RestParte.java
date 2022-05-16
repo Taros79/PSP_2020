@@ -25,6 +25,7 @@ public class RestParte {
         this.serviciosParte = serviciosParte;
     }
 
+    @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS, Constantes.PROFESOR})
     @GET
     public List<Parte> getAllPartes() {
         return serviciosParte.getAllPartes();
@@ -36,11 +37,13 @@ public class RestParte {
         return serviciosParte.getPartesByUser(idPadre);
     }
 
+    @RolesAllowed({Constantes.PROFESOR})
     @POST
     public String addParte(Parte parte) {
         return serviciosParte.addParte(parte);
     }
 
+    @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS})
     @PUT
     public String updateParte(@QueryParam("idParte") int idParte, @QueryParam("estado") int estado) {
         return serviciosParte.updateParte(idParte, estado);

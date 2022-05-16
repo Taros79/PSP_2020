@@ -29,6 +29,8 @@ public class FXMLPrincipalController implements Initializable {
 
 
     @FXML
+    private MenuItem menuLogin;
+    @FXML
     private Menu menuPadre;
     @FXML
     private Menu menuProfe;
@@ -210,8 +212,6 @@ public class FXMLPrincipalController implements Initializable {
 
     @FXML
     private void logout() {
-        serviciosUsuario.hacerLogout();
-        mostrarPantallaIniciarSesion();
         if (menuJefatura.isVisible()) {
             menuJefatura.setVisible(false);
         }
@@ -221,6 +221,11 @@ public class FXMLPrincipalController implements Initializable {
         if (menuPadre.isVisible()) {
             menuPadre.setVisible(false);
         }
+        if (!menuLogin.isVisible()) {
+            menuLogin.setVisible(true);
+        }
+        serviciosUsuario.hacerLogout();
+        mostrarPantallaIniciarSesion();
         if (ca.getNombre() != null) {
             ca.setNombre(null);
             ca.setContraseña(null);
@@ -231,22 +236,23 @@ public class FXMLPrincipalController implements Initializable {
     //----------------------------------
 
     public void irAPrincipalAdmin() {
-        pantallaPrincipal.setCenter(pantallaJefatura);
+        mostrarPantallaJefatura();
         jefaturaController.actualizarDatos();
         menuJefatura.setVisible(true);
+        menuLogin.setVisible(false);
     }
 
     public void irAPrincipalUsuario() {
-        pantallaPrincipal.setCenter(pantallaConsultasPadre);
+        mostrarPantallaConsultasPadre();
         consultasPadreController.actualizarDatos();
-        pantallaPrincipal.setVisible(true);
         menuPadre.setVisible(true);
+        menuLogin.setVisible(false);
     }
 
     public void irAPrincipalProfe() {
         mostrarPantallaPonerParte();
         ponerParteController.actualizarDatos();
-        pantallaPrincipal.setVisible(true);
         menuProfe.setVisible(true);
+        menuLogin.setVisible(false);
     }
 }
