@@ -41,9 +41,9 @@ public class InMemoryIdentityStore implements IdentityStore {
 
             switch (usuario.getIdTipoUsuario()) {
                 case 1:
-                    return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.JEFE_DE_ESTUDIOS));
-                case 2:
                     return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.PROFESOR));
+                case 2:
+                    return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.JEFE_DE_ESTUDIOS));
                 case 3:
                     return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.PADRE));
                 default:
