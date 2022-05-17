@@ -17,7 +17,7 @@ import static jakarta.security.enterprise.identitystore.CredentialValidationResu
 @Singleton
 public class InMemoryIdentityStore implements IdentityStore {
 
-   @Inject
+    @Inject
     private ServiciosUsuario serviciosUsuario;
 
     @Override

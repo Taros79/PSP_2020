@@ -1,14 +1,16 @@
 package notas.Cliente.dao.utils;
 
 import com.google.gson.*;
+import notas.Cliente.config.ConfigurationSingleton_Client;
+import notas.Cliente.dao.retrofit.ApiAlumno;
+import notas.Cliente.dao.retrofit.ApiParte;
+import notas.Cliente.dao.retrofit.ApiUsuario;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import notas.Cliente.config.ConfigurationSingleton_Client;
-import notas.Cliente.dao.retrofit.*;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;

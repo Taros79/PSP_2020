@@ -17,6 +17,7 @@ import java.util.List;
 public class DaoAlumno {
 
     private final DBConnectionPool pool;
+
     @Inject
     public DaoAlumno(DBConnectionPool pool) {
         this.pool = pool;

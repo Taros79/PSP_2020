@@ -6,7 +6,6 @@ import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import notas.Cliente.dao.retrofit.ApiParte;
 import notas.Common.modelo.Parte;
-import retrofit2.http.Query;
 
 import javax.inject.Inject;
 import java.util.List;

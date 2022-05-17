@@ -6,8 +6,8 @@
 package notas.Cliente.config;
 
 import lombok.Getter;
-import org.yaml.snakeyaml.Yaml;
 import notas.Cliente.dao.utils.ConstantesParametros;
+import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -1,7 +1,5 @@
 package notas.Servidor.utils;
 
-import jakarta.inject.Inject;
-import jakarta.security.enterprise.SecurityContext;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2

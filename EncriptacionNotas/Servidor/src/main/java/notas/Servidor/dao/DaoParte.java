@@ -120,11 +120,11 @@ public class DaoParte {
     public String updateParte(int idParte, int estado) {
         String result = null;
         try {
-                JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-                jdbcTemplate.update(ConstantesSQL.UPDATE_PARTE,
-                        estado,
-                        idParte);
-                result = ConstantesSQL.ACTUALIZADO_CON_EXITO;
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            jdbcTemplate.update(ConstantesSQL.UPDATE_PARTE,
+                    estado,
+                    idParte);
+            result = ConstantesSQL.ACTUALIZADO_CON_EXITO;
 
         } catch (DataAccessException e) {
             log.error(e.getMessage());

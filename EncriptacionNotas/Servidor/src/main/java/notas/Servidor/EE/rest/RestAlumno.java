@@ -2,13 +2,14 @@ package notas.Servidor.EE.rest;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import notas.Common.constantes.ConstantesRest;
 import notas.Common.modelo.Alumno;
-import notas.Common.modelo.Parte;
 import notas.Servidor.servicios.ServiciosAlumno;
-import notas.Servidor.servicios.ServiciosParte;
 import notas.Servidor.utils.Constantes;
 
 import java.util.List;

@@ -5,11 +5,11 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
+import notas.Common.errores.ApiError;
 import okhttp3.MediaType;
 import retrofit2.Call;
 import retrofit2.HttpException;
 import retrofit2.Response;
-import notas.Common.errores.ApiError;
 
 import javax.inject.Inject;
 

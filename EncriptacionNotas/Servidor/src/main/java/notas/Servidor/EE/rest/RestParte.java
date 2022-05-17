@@ -4,10 +4,8 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import lombok.extern.log4j.Log4j2;
 import notas.Common.constantes.ConstantesRest;
 import notas.Common.modelo.Parte;
-import notas.Common.modelo.Usuario;
 import notas.Servidor.servicios.ServiciosParte;
 import notas.Servidor.utils.Constantes;
 

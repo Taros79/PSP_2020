@@ -11,7 +11,10 @@ import lombok.extern.log4j.Log4j2;
 import notas.Cliente.Servicios.ServiciosUsuario;
 import notas.Cliente.dao.utils.CacheAuthorization;
 import notas.Cliente.gui.ConstantesGUI;
-import notas.Cliente.gui.controllers.complements.*;
+import notas.Cliente.gui.controllers.complements.ConsultasPadre;
+import notas.Cliente.gui.controllers.complements.IniciarSesion;
+import notas.Cliente.gui.controllers.complements.Jefatura;
+import notas.Cliente.gui.controllers.complements.PonerParte;
 import notas.Common.modelo.Usuario;
 
 import javax.inject.Inject;

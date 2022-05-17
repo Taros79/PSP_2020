@@ -5,8 +5,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import notas.Cliente.Servicios.ServiciosParte;
 import notas.Cliente.gui.ConstantesGUI;
 import notas.Cliente.gui.controllers.FXMLPrincipalController;

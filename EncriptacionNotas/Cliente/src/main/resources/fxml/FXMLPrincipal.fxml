@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pantallaPrincipal" prefHeight="450.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/11.0.2" fx:controller="notas.Cliente.gui.controllers.FXMLPrincipalController">
+            xmlns="http://javafx.com/javafx/11.0.2"
+            fx:controller="notas.Cliente.gui.controllers.FXMLPrincipalController">
     <top>
         <MenuBar>
             <Menu fx:id="menuJefatura" visible="false" text="JEFATURA">
@@ -19,7 +20,7 @@
             </Menu>
             <Menu text="Inicio Sesion">
                 <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>
-               <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
+                <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
             </Menu>
         </MenuBar>
     </top>

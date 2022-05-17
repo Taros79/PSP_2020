@@ -1,13 +1,10 @@
 package notas.Cliente.gui.controllers.complements;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import notas.Cliente.Servicios.ServiciosParte;
 import notas.Cliente.gui.ConstantesGUI;
 import notas.Cliente.gui.controllers.FXMLPrincipalController;
@@ -17,8 +14,6 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static notas.Cliente.gui.utils.OnlyNumbers.onlyNum;
 
 
 public class Jefatura implements Initializable {
@@ -67,7 +62,7 @@ public class Jefatura implements Initializable {
         pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
-    public void updateParte (int estado) {
+    public void updateParte(int estado) {
         if (listViewPartes.getSelectionModel().getSelectedItem() != null) {
             serviciosParte.updateParte(
                             listViewPartes.getSelectionModel().getSelectedItem().getId(),
@@ -77,7 +72,7 @@ public class Jefatura implements Initializable {
                     .subscribe(resultado ->
                                     resultado
                                             .peek(action -> {
-                                                        actualizarDatos();
+                                                actualizarDatos();
                                                         a = new Alert(Alert.AlertType.INFORMATION, action);
                                                         a.showAndWait();
                                                     }
