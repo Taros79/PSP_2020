@@ -1,0 +1,6 @@
+path: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/StefanEncriptacionAsimetrica
+user: root
+passw: quevedo2dam
+driver: com.mysql.cj.jdbc.Driver
+
+#--module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
