@@ -17,6 +17,7 @@ import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class PonerParte implements Initializable {
@@ -73,7 +74,28 @@ public class PonerParte implements Initializable {
     @FXML
     public void añadirParte() {
         if (!comboAlumnos.getSelectionModel().isEmpty()) {
-            serviciosParte.addParte(new Parte(textAreaParte.getText(), comboAlumnos.getSelectionModel().getSelectedItem().getId()))
+          /*  serviciosParte.addParte(new Parte(textAreaParte.getText(), comboAlumnos.getSelectionModel().getSelectedItem().getId()))
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
+                    .subscribe(resultado ->
+                                    resultado
+                                            .peek(action -> {
+                                                        a = new Alert(Alert.AlertType.INFORMATION, "Tu id es: " + action);
+                                                        a.showAndWait();
+                                                    }
+                                            )
+                                            .peekLeft(error -> {
+                                                a = new Alert(Alert.AlertType.ERROR, error);
+                                                a.showAndWait();
+                                            }),
+                            throwable -> {
+                                a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                                a.showAndWait();
+                            }
+                    );
+            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);*/
+
+            serviciosParte.addParteCompartido("carlos", 3)
                     .observeOn(JavaFxScheduler.platform())
                     .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                     .subscribe(resultado ->

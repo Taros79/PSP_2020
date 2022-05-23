@@ -16,7 +16,10 @@ public interface ApiParte {
     Single<List<Parte>> getPartesByUser(@Query("idPadre") int idPadre);
 
     @POST(ConstantesRest.PATH_PARTES)
-    Single<String> addParte(@Body Parte p);
+    Single<Integer> addParte(@Body Parte p);
+
+    @POST(ConstantesRest.PATH_PARTES + ConstantesRest.PATH_ADD_PARTE_COMPARTIDO)
+    Single<String> addParteCompartido(@Query("username")String username, @Query("idParte")int idParte);
 
     @PUT(ConstantesRest.PATH_PARTES)
     Single<String> updateParte(@Query("idParte") int idParte, @Query("estado") int estado);

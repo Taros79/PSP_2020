@@ -25,8 +25,12 @@ public class ServiciosParte {
         return daoParte.getPartesByUser(idPadre);
     }
 
-    public Single<Either<String, String>> addParte(Parte parte) {
+    public Single<Either<String, Integer>> addParte(Parte parte) {
         return daoParte.addParte(parte);
+    }
+
+    public Single<Either<String, String>> addParteCompartido(String username, int idParte) {
+        return daoParte.addParteCompartido(username, idParte);
     }
 
     public Single<Either<String, String>> updateParte(int idParte, int estado) {

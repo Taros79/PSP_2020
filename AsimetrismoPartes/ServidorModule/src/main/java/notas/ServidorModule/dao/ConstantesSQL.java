@@ -15,6 +15,8 @@ public class ConstantesSQL {
 
     public static final String SELECT_ALL_ALUMNOS = "SELECT * FROM alumnos";
 
+    public static final String INSERT_PARTE_COMPARTIDO = "INSERT INTO partesCompartidos (idUserACompartir, idParte, ClaveCifrada) VALUES (?, ?, ?)";
+
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";
     public static final String BASE_DE_DATOS_CAIDA = "Base de datos caida";

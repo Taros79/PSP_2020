@@ -29,8 +29,12 @@ public class DaoParte extends DaoGenerics {
         return safeSingleApicall(apiParte.getPartesByUser(idPadre));
     }
 
-    public Single<Either<String, String>> addParte(Parte parte) {
+    public Single<Either<String, Integer>> addParte(Parte parte) {
         return safeSingleApicall(apiParte.addParte(parte));
+    }
+
+    public Single<Either<String, String>> addParteCompartido(String username, int idParte) {
+        return safeSingleApicall(apiParte.addParteCompartido(username, idParte));
     }
 
     public Single<Either<String, String>> updateParte(int idParte, int estado) {

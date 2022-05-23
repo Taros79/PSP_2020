@@ -8,6 +8,7 @@ public class ConstantesRest {
     public static final String PATH_ALUMNOS = "alumnos";
 
     public static final String PATH_PARTES_ALUMNOS_BY_USUARIO = "/idPadre";
+    public static final String PATH_ADD_PARTE_COMPARTIDO = "/compartido";
 
     public static final String PATH_REGISTRO_LOGOUT = "/logout";
 

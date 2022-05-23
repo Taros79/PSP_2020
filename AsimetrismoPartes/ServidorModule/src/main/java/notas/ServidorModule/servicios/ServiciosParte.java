@@ -21,8 +21,12 @@ public class ServiciosParte {
         return daoParte.getPartesByUser(idPadre);
     }*/
 
-    public String addParte(Parte parte) {
+    public Integer addParte(Parte parte) {
         return daoParte.addParte(parte);
+    }
+
+    public String addParteCompartido(String username, int idParte) {
+        return daoParte.addParteCompartido(username, idParte);
     }
 
     public String updateParte(int idParte, int estado) {

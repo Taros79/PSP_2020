@@ -35,8 +35,15 @@ public class RestParte {
 
     @RolesAllowed({Constantes.PROFESOR})
     @POST
-    public String addParte(Parte parte) {
+    public Integer addParte(Parte parte) {
         return serviciosParte.addParte(parte);
+    }
+
+    @RolesAllowed({Constantes.PROFESOR})
+    @POST
+    @Path(ConstantesRest.PATH_ADD_PARTE_COMPARTIDO)
+    public String addParteCompartido(@QueryParam("username") String username, @QueryParam("idParte") int idParte) {
+        return serviciosParte.addParteCompartido(username, idParte);
     }
 
     @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS})
