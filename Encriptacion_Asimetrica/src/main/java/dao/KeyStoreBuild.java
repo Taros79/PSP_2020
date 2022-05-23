@@ -46,8 +46,8 @@ public class KeyStoreBuild {
                 Date.from(LocalDate.now().plus(ConstantesDAO.AMOUNT_TO_ADD, ChronoUnit.DAYS).atStartOfDay().toInstant(ZoneOffset.UTC)));
         generatorCert.setNotAfter(new Date());
         generatorCert.setSignatureAlgorithm(ConstantesDAO.ALGORITHM_X509);
-        PrivateKey signingKey = clavesRSA.getPrivate();
 
+        PrivateKey signingKey = clavesRSA.getPrivate();
         X509Certificate cert =  generatorCert.generate(signingKey);
 
         File f = new File(u.getNombre() + ConstantesDAO.FILE_PFX);
