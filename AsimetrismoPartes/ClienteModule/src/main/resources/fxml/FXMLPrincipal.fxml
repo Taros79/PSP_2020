@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="pantallaPrincipal" prefHeight="450.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2"
+            fx:controller="notas.ClienteModule.gui.controllers.FXMLPrincipalController">
+    <top>
+        <MenuBar>
+            <Menu fx:id="menuJefatura" visible="false" text="JEFATURA">
+                <MenuItem mnemonicParsing="false" onAction="#jefatura" text="Validar parte"/>
+
+            </Menu>
+            <Menu fx:id="menuProfe" visible="false" text="PROFESORADO">
+                <MenuItem mnemonicParsing="false" onAction="#ponerParte" text="Poner parte"/>
+            </Menu>
+            <Menu fx:id="menuPadre" visible="false" text="PADRES">
+                <MenuItem mnemonicParsing="false" onAction="#consultasPadre" text="Consultar partes"/>
+            </Menu>
+            <Menu text="Inicio Sesion">
+                <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>
+                <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>
+            </Menu>
+        </MenuBar>
+    </top>
+    <center>
+        <Label layoutX="172.0" layoutY="116.0" text="Welcome to my API " textFill="#000000a1">
+            <font>
+                <Font size="36.0"/>
+            </font>
+        </Label>
+    </center>
+</BorderPane>

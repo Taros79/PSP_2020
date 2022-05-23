@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.2"
+            fx:controller="notas.ClienteModule.gui.controllers.complements.PonerParte">
+    <children>
+        <Label layoutX="45.0" layoutY="27.0" prefHeight="35.0" prefWidth="203.0" text="Motivo del parte:">
+            <font>
+                <Font name="System Bold" size="24.0"/>
+            </font>
+        </Label>
+        <Label layoutX="347.0" layoutY="38.0" text="Alumnos:"/>
+        <TextArea fx:id="textAreaParte" layoutX="38.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0"/>
+        <ComboBox fx:id="comboAlumnos" layoutX="347.0" layoutY="62.0" prefWidth="150.0"/>
+        <Button onAction="#añadirParte" layoutX="248.0" layoutY="321.0" mnemonicParsing="false" text="Añadir Parte"/>
+    </children>
+</AnchorPane>
