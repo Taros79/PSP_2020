@@ -14,4 +14,9 @@ public class Usuario {
     private String pass;
     private int idTipoUsuario;
 
+    public Usuario(String nombre, String pass, int idTipoUsuario) {
+        this.nombre = nombre;
+        this.pass = pass;
+        this.idTipoUsuario = idTipoUsuario;
+    }
 }

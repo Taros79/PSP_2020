@@ -2,4 +2,4 @@ path: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/Taros_PARTES_Asimetrico?useSSL=
 user: root
 passw: quevedo2dam
 driver: com.mysql.cj.jdbc.Driver
-passKeyStore: root
+rutaKeyStore: C:\tools\payara5\glassfish\ClavesKeyStore\

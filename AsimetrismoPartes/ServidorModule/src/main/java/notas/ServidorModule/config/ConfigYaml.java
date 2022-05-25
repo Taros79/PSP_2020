@@ -17,7 +17,7 @@ public class ConfigYaml {
     private String passw;
     private String path;
     private String driver;
-    private String passKeyStore;
+    private String rutaKeyStore;
 
     public void cargar() {
 
@@ -33,7 +33,7 @@ public class ConfigYaml {
             this.passw = m.get(ConstantesConfig.PASSW);
             this.user = m.get(ConstantesConfig.USER);
             this.driver = m.get(ConstantesConfig.DRIVER);
-            this.passKeyStore = m.get(ConstantesConfig.PASSKEYSTORE);
+            this.rutaKeyStore = m.get(ConstantesConfig.RUTA_KEY_STORE);
 
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);

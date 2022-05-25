@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import notas.CommonModule.constantes.ConstantesRest;
 import notas.CommonModule.modelo.Usuario;
+import notas.ServidorModule.EE.security.encriptaciones.KeyStoreBuild;
 import notas.ServidorModule.servicios.ServiciosUsuario;
 
 @Path(ConstantesRest.PATH_LOGIN)
@@ -15,13 +16,15 @@ import notas.ServidorModule.servicios.ServiciosUsuario;
 public class RestInicioSesion {
 
     private final ServiciosUsuario su;
+    private final KeyStoreBuild ks;
 
     @Context
     private HttpServletRequest httpServletRequest;
 
     @Inject
-    public RestInicioSesion(ServiciosUsuario su) {
+    public RestInicioSesion(ServiciosUsuario su, KeyStoreBuild ks) {
         this.su = su;
+        this.ks = ks;
     }
 
     @GET
@@ -35,5 +38,15 @@ public class RestInicioSesion {
         httpServletRequest.getSession().setAttribute(ConstantesRest.USUARIO_LOGIN, null);
         httpServletRequest.getSession().invalidate();
         return ConstantesRest.SESION_FINALIZADA;
+    }
+
+    @POST
+    public String crearKeyStore(Usuario u) {
+        var result = ks.crearKeystoreYCertificado(u);
+        if(result.isRight()) {
+            return result.get();
+        } else {
+            return result.getLeft();
+        }
     }
 }

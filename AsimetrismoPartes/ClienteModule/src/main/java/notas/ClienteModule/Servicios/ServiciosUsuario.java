@@ -28,4 +28,8 @@ public class ServiciosUsuario {
     public Single<Either<String, String>> hacerLogout() {
         return daoUsuario.hacerLogout();
     }
+
+    public Single<Either<String, String>> crearKeyStore(Usuario u){
+        return daoUsuario.crearKeyStore(u);
+    }
 }

@@ -3,7 +3,9 @@ package notas.ClienteModule.dao.retrofit;
 import io.reactivex.rxjava3.core.Single;
 import notas.CommonModule.constantes.ConstantesRest;
 import notas.CommonModule.modelo.Usuario;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 import java.util.List;
@@ -18,4 +20,7 @@ public interface ApiUsuario {
 
     @GET(ConstantesRest.PATH_LOGIN + ConstantesRest.PATH_REGISTRO_LOGOUT)
     Single<String> hacerLogout();
+
+    @POST(ConstantesRest.PATH_LOGIN)
+    Single<String> crearKeyStore(@Body Usuario u);
 }

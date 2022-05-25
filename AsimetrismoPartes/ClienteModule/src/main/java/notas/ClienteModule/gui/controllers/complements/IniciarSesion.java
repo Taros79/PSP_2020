@@ -1,5 +1,6 @@
 package notas.ClienteModule.gui.controllers.complements;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -9,6 +10,7 @@ import notas.ClienteModule.Servicios.ServiciosUsuario;
 import notas.ClienteModule.dao.utils.CacheAuthorization;
 import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
+import notas.CommonModule.modelo.Usuario;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
@@ -63,6 +65,35 @@ public class IniciarSesion implements Initializable {
                                                         } else {
                                                             pantallaPrincipal.irAPrincipalProfe();
                                                         }
+                                                    }
+                                            )
+                                            .peekLeft(error -> {
+                                                a.setContentText(error);
+                                                a.showAndWait();
+                                            }),
+                            throwable -> {
+                                a.setContentText(ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                                a.showAndWait();
+                            }
+                    );
+            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+        } else {
+            a.setContentText(ConstantesGUI.CAMPOS_VACIOS);
+            a.showAndWait();
+        }
+    }
+
+    @FXML
+    private void addKeyStore(ActionEvent actionEvent) {
+        if (!textFieldNombre.getText().isEmpty() || !textFieldPass.getText().isEmpty()) {
+            serviciosUsuario.crearKeyStore(new Usuario(textFieldNombre.getText(), textFieldPass.getText(),3))
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
+                    .subscribe(resultado ->
+                                    resultado
+                                            .peek(action -> {
+                                                        a.setContentText(action);
+                                                        a.showAndWait();
                                                     }
                                             )
                                             .peekLeft(error -> {

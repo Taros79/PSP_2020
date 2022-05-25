@@ -6,6 +6,7 @@ import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import notas.ClienteModule.dao.retrofit.ApiUsuario;
 import notas.CommonModule.modelo.Usuario;
+import retrofit2.http.Body;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -33,5 +34,9 @@ public class DaoUsuario extends DaoGenerics {
 
     public Single<Either<String, String>> hacerLogout() {
         return safeSingleApicall(apiUsuario.hacerLogout());
+    }
+
+    public Single<Either<String, String>> crearKeyStore(Usuario u){
+        return safeSingleApicall(apiUsuario.crearKeyStore(u));
     }
 }
