@@ -124,7 +124,7 @@ public class DaoPersonaje {
 
         try {
             jtm = new JdbcTemplate(
-                    transactionManager.getDataSource());
+                    Objects.requireNonNull(transactionManager.getDataSource()));
             jtm.update(ConstantesSQL.DEL_ALL_OBJETO_TO_PERSONAJE, id_Personaje);
 
             jtm.update(ConstantesSQL.DEL_ALL_HECHIZO_TO_PERSONAJE, id_Personaje);

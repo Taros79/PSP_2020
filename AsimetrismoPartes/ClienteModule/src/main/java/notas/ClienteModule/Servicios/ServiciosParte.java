@@ -4,6 +4,7 @@ import io.reactivex.rxjava3.core.Single;
 import io.vavr.control.Either;
 import notas.ClienteModule.dao.DaoParte;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modelo.ParteProfesorPadre;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -25,12 +26,16 @@ public class ServiciosParte {
         return daoParte.getPartesByUser(idPadre);
     }
 
-    public Single<Either<String, Integer>> addParte(Parte parte) {
+    public Single<Either<String, String>> addParte(ParteProfesorPadre parte) {
         return daoParte.addParte(parte);
     }
 
-    public Single<Either<String, String>> addParteCompartido(String username, int idParte) {
-        return daoParte.addParteCompartido(username, idParte);
+    public Either<String, Integer> addParteTO(Parte parte) {
+        return daoParte.addParteTO(parte);
+    }
+
+    public Single<Either<String, String>> addParteCompartido(int idUsuario, int idParte) {
+        return daoParte.addParteCompartido(idUsuario, idParte);
     }
 
     public Single<Either<String, String>> updateParte(int idParte, int estado) {

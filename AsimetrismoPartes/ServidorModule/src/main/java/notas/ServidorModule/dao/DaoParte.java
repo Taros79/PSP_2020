@@ -3,6 +3,7 @@ package notas.ServidorModule.dao;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modelo.ParteProfesorPadre;
 import notas.ServidorModule.EE.security.encriptaciones.Encriptar;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
 import notas.ServidorModule.dao.errores.OtraException;
@@ -10,11 +11,17 @@ import notas.ServidorModule.dao.jdbc.DBConnectionPool;
 import notas.ServidorModule.utils.HashPassword;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -36,7 +43,7 @@ public class DaoParte {
     }
 
 
-    /*public List<Parte> getAllPartes() {
+   /* public List<Parte> getAllPartes() {
         List<Parte> result;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
@@ -44,7 +51,7 @@ public class DaoParte {
                     new BeanPropertyRowMapper<>(Parte.class));
 
             for (Parte parte : result) {
-                var mensajeDesencriptado = encriptarSimetrico.desencriptarTexto(parte.getDescripcion());
+                var mensajeDesencriptado = encriptar.(parte.getDescripcion());
                 if (mensajeDesencriptado.isRight()) {
                     parte.setDescripcion(mensajeDesencriptado.get());
                 }
@@ -82,31 +89,51 @@ public class DaoParte {
         return result;
     }*/
 
-    public Integer addParte(Parte parte) {
-        int result;
+    public String addParte(ParteProfesorPadre parte) {
+        String result;
+        int idParte;
         JdbcTemplate jtm;
+        KeyHolder holder;
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(
+                pool.getDataSource());
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+
         try {
-            var mensajeEncriptado = encriptar.encriptarAESTextoConRandom(parte.getDescripcion());
+            var mensajeEncriptado = encriptar.encriptarAESTextoConRandom(parte.getParte().getDescripcion());
 
             if (mensajeEncriptado.isRight()) {
-                KeyHolder holder = new GeneratedKeyHolder();
-                jtm = new JdbcTemplate(pool.getDataSource());
+                holder = new GeneratedKeyHolder();
+                jtm = new JdbcTemplate(Objects.requireNonNull(transactionManager.getDataSource()));
                 jtm.update(connection -> {
                     PreparedStatement preparedStatement = connection.prepareStatement(ConstantesSQL.INSERT_PARTE,
                             PreparedStatement.RETURN_GENERATED_KEYS);
                     preparedStatement.setString(1, mensajeEncriptado.get());
-                    preparedStatement.setInt(2, parte.getIdAlumno());
+                    preparedStatement.setInt(2, parte.getParte().getIdAlumno());
                     preparedStatement.setInt(3, 1);
                     return preparedStatement;
                 }, holder);
-                result = Objects.requireNonNull(holder.getKey()).intValue();
+                idParte = Objects.requireNonNull(holder.getKey()).intValue();
+
+                //Primero compartimos con el profesor
+                addParteCompartido(parte.getIdProfesor(), idParte);
+
+                //Segundo compartimos con jefatura
+                addParteCompartido(1, idParte);
+
+                result = "Parte creado correctamente";
             } else {
-                result = 0;
+                result = mensajeEncriptado.getLeft();
             }
+
+            transactionManager.commit(txStatus);
+
         } catch (DataAccessException e) {
+            transactionManager.rollback(txStatus);
             log.error(e.getMessage());
             throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
         } catch (Exception e) {
+            transactionManager.rollback(txStatus);
             log.error(e.getMessage());
             throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
@@ -114,22 +141,22 @@ public class DaoParte {
     }
 
 
-    public String addParteCompartido(String username, int idParte) {
-        String result = null;
+    public String addParteCompartido(int idUsuario, int idParte) {
+        String result;
 
         try {
-            var usuario = daoUsuario.getUsuarioByName(username);
+            var usuario = daoUsuario.getUsuarioById(idUsuario);
 
             if (usuario != null) {
-                var claveCifrada = encriptar.encriptarRSARandomConPublica(username);
+                var claveCifrada = encriptar.encriptarRSARandomConPublica(usuario.getNombre(),encriptar.getClaveSimetrica());
 
                 if (claveCifrada.isRight()) {
                     JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
                     jdbcTemplate.update(con -> {
                         PreparedStatement preparedStatement = con.prepareStatement(ConstantesSQL.INSERT_PARTE_COMPARTIDO);
-                        preparedStatement.setInt(1, usuario.getId());
-                        preparedStatement.setString(2, claveCifrada.get());
-                        preparedStatement.setInt(3, idParte);
+                        preparedStatement.setInt(1, idUsuario);
+                        preparedStatement.setInt(2, idParte);
+                        preparedStatement.setString(3, claveCifrada.get());
                         return preparedStatement;
                     });
                     result = "Parte compartido con exito";
@@ -138,7 +165,7 @@ public class DaoParte {
                 }
 
             } else {
-                result = "No existe el usuario";
+                result = "El usuario no existe";
             }
 
         } catch (DataIntegrityViolationException ex) {

@@ -6,6 +6,7 @@ import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import notas.ClienteModule.dao.retrofit.ApiParte;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modelo.ParteProfesorPadre;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -29,12 +30,16 @@ public class DaoParte extends DaoGenerics {
         return safeSingleApicall(apiParte.getPartesByUser(idPadre));
     }
 
-    public Single<Either<String, Integer>> addParte(Parte parte) {
+    public Single<Either<String, String>> addParte(ParteProfesorPadre parte) {
         return safeSingleApicall(apiParte.addParte(parte));
     }
 
-    public Single<Either<String, String>> addParteCompartido(String username, int idParte) {
-        return safeSingleApicall(apiParte.addParteCompartido(username, idParte));
+    public Either<String, Integer> addParteTO(Parte parte) {
+        return construirEither(apiParte.addParteTO(parte));
+    }
+
+    public Single<Either<String, String>> addParteCompartido(int idUsuario, int idParte) {
+        return safeSingleApicall(apiParte.addParteCompartido(idUsuario, idParte));
     }
 
     public Single<Either<String, String>> updateParte(int idParte, int estado) {

@@ -1,5 +1,7 @@
 package notas.ClienteModule.gui.controllers.complements;
 
+import io.reactivex.rxjava3.core.Single;
+import io.vavr.control.Either;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -12,6 +14,7 @@ import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
 import notas.CommonModule.modelo.Alumno;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modelo.ParteProfesorPadre;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
@@ -74,28 +77,8 @@ public class PonerParte implements Initializable {
     @FXML
     public void añadirParte() {
         if (!comboAlumnos.getSelectionModel().isEmpty()) {
-          /*  serviciosParte.addParte(new Parte(textAreaParte.getText(), comboAlumnos.getSelectionModel().getSelectedItem().getId()))
-                    .observeOn(JavaFxScheduler.platform())
-                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
-                    .subscribe(resultado ->
-                                    resultado
-                                            .peek(action -> {
-                                                        a = new Alert(Alert.AlertType.INFORMATION, "Tu id es: " + action);
-                                                        a.showAndWait();
-                                                    }
-                                            )
-                                            .peekLeft(error -> {
-                                                a = new Alert(Alert.AlertType.ERROR, error);
-                                                a.showAndWait();
-                                            }),
-                            throwable -> {
-                                a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
-                                a.showAndWait();
-                            }
-                    );
-            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);*/
-
-            serviciosParte.addParteCompartido("carlos", 3)
+            serviciosParte.addParte(new ParteProfesorPadre(new Parte(textAreaParte.getText(), comboAlumnos.getSelectionModel().getSelectedItem().getId())
+            , pantallaPrincipal.getUsuarioLoginPrincipal().getId()))
                     .observeOn(JavaFxScheduler.platform())
                     .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                     .subscribe(resultado ->
@@ -115,6 +98,30 @@ public class PonerParte implements Initializable {
                             }
                     );
             pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+
+            /*serviciosParte.addParteCompartido("carlos", serviciosParte.addParteTO(
+                    new Parte(textAreaParte.getText(), comboAlumnos.getSelectionModel().getSelectedItem().getId())).get())
+                    .observeOn(JavaFxScheduler.platform())
+                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
+                    .subscribe(resultado ->
+                                    resultado
+                                            .peek(action -> {
+                                                        a = new Alert(Alert.AlertType.INFORMATION, action);
+                                                        a.showAndWait();
+                                                    }
+                                            )
+                                            .peekLeft(error -> {
+                                                a = new Alert(Alert.AlertType.ERROR, error);
+                                                a.showAndWait();
+                                            }),
+                            throwable -> {
+                                a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                                a.showAndWait();
+                            }
+                    );
+            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);*/
+
+
             actualizarDatos();
 
         } else {

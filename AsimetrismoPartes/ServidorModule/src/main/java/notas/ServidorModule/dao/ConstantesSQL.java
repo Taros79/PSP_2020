@@ -3,7 +3,8 @@ package notas.ServidorModule.dao;
 public class ConstantesSQL {
 
     public static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuarios";
-    public static final String SELECT_USUARIO_BY_USUARIO = "SELECT * FROM usuarios where nombre = ?";
+    public static final String SELECT_USUARIO_BY_NAME = "SELECT * FROM usuarios where nombre = ?";
+    public static final String SELECT_USUARIO_BY_ID = "SELECT * FROM usuarios where id = ?";
 
     public static final String SELECT_ALL_PARTES = "SELECT * FROM partes";
     public static final String INSERT_PARTE = "INSERT INTO partes (descripcion, idAlumno, idTipoEstado) VALUES (?, ?, ?)";
@@ -16,6 +17,8 @@ public class ConstantesSQL {
     public static final String SELECT_ALL_ALUMNOS = "SELECT * FROM alumnos";
 
     public static final String INSERT_PARTE_COMPARTIDO = "INSERT INTO partesCompartidos (idUserACompartir, idParte, ClaveCifrada) VALUES (?, ?, ?)";
+
+    public static final String SELECT_ID_USUARIO_ALUMNO = "SELECT * FROM alumnosPadre WHERE idAlumno = ?";
 
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";

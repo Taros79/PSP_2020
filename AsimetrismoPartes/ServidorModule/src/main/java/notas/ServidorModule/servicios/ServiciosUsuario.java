@@ -24,8 +24,8 @@ public class ServiciosUsuario {
         return daoUsuario.getUsuarioByNombre(nombre, pass);
     }
 
-    public Usuario getUsuarioByName(String correo) {
-        return daoUsuario.getUsuarioByName(correo);
+    public Usuario getUsuarioById(int idAlumno) {
+        return daoUsuario.getUsuarioById(idAlumno);
     }
 
     public Either<String, Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {

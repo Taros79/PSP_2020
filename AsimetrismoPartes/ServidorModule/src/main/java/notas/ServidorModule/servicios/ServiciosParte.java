@@ -2,6 +2,7 @@ package notas.ServidorModule.servicios;
 
 import jakarta.inject.Inject;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modelo.ParteProfesorPadre;
 import notas.ServidorModule.dao.DaoParte;
 
 public class ServiciosParte {
@@ -21,12 +22,12 @@ public class ServiciosParte {
         return daoParte.getPartesByUser(idPadre);
     }*/
 
-    public Integer addParte(Parte parte) {
+    public String addParte(ParteProfesorPadre parte) {
         return daoParte.addParte(parte);
     }
 
-    public String addParteCompartido(String username, int idParte) {
-        return daoParte.addParteCompartido(username, idParte);
+    public String addParteCompartido(int idUsuario, int idParte) {
+        return daoParte.addParteCompartido(idUsuario, idParte);
     }
 
     public String updateParte(int idParte, int estado) {

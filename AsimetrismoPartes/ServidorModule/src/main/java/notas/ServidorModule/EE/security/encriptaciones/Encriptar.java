@@ -3,12 +3,18 @@ package notas.ServidorModule.EE.security.encriptaciones;
 import com.google.common.primitives.Bytes;
 import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
+import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modelo.Usuario;
+import notas.ServidorModule.config.ConfigYaml;
 import notas.ServidorModule.utils.HashPassword;
 
 import javax.crypto.*;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import jakarta.inject.Inject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -22,10 +28,21 @@ import java.util.Base64;
 
 @Log4j2
 public class Encriptar {
-    private HashPassword hashP = new HashPassword();
+    private final HashPassword hashP;
+    private final ConfigYaml configYaml;
     private String claveSimetrica;
 
-  public Either<String, String> encriptarAESTextoConRandom(String texto) {
+    @Inject
+    public Encriptar(HashPassword hashP, ConfigYaml configYaml) {
+        this.hashP = hashP;
+        this.configYaml = configYaml;
+    }
+
+    public String getClaveSimetrica() {
+        return claveSimetrica;
+    }
+
+    public Either<String, String> encriptarAESTextoConRandom(String texto) {
         Either<String, String> mensajeEncriptado;
         try {
             byte[] iv = new byte[Constantes.BYTES_IV];
@@ -99,21 +116,21 @@ public class Encriptar {
         return mensajeDesencriptado;
     }*/
 
-    public Either<String, String> encriptarRSARandomConPublica(String usuario) {
+    public Either<String, String> encriptarRSARandomConPublica(String usuario, String random) {
 
         Either<String, String> mensajeEncriptado = null;
         String clave = Constantes.CONTRASENA_ALL_PFX;
         try {
-            File f = new File(usuario + Constantes.FILE_PFX);
+            File f = new File(configYaml.getRutaKeyStore() + usuario + Constantes.KEYSTORE_PFX);
             if (f.exists()) {
                 KeyStore ksLoad = KeyStore.getInstance(Constantes.PKCS_12);
-                ksLoad.load(new FileInputStream(usuario + Constantes.FILE_PFX), clave.toCharArray());
+                ksLoad.load(new FileInputStream(configYaml.getRutaKeyStore() + usuario + Constantes.KEYSTORE_PFX), clave.toCharArray());
 
                 X509Certificate certLoad = (X509Certificate) ksLoad.getCertificate(Constantes.PUBLICA);
 
                 Cipher cifrador = Cipher.getInstance(Constantes.ALGORITHM_RSA);
 
-                byte[] bufferPlano = claveSimetrica.getBytes();
+                byte[] bufferPlano = random.getBytes();
 
                 // PASO 3a: Poner cifrador en modo CIFRADO
                 cifrador.init(Cipher.ENCRYPT_MODE, certLoad.getPublicKey());  // Cifra con la clave publica
@@ -154,74 +171,21 @@ public class Encriptar {
 
 
 
-
-    /*public Either<String, String> encriptarRSAConPublicaDestinatario(Usuario u, String c) {
-        Either<String, String> mensajeEncriptado = null;
-        String clave = ConstantesDAO.CONTRASENA_ALL_PFX;
-        try {
-            File f = new File(u.getNombre() + ConstantesDAO.FILE_PFX);
-            if (f.exists()) {
-                KeyStore ksLoad = KeyStore.getInstance(ConstantesDAO.PKCS_12);
-                ksLoad.load(new FileInputStream(u.getNombre() + ConstantesDAO.FILE_PFX), clave.toCharArray());
-
-                X509Certificate certLoad = (X509Certificate) ksLoad.getCertificate(ConstantesDAO.PUBLICA);
-
-                Cipher cifrador = Cipher.getInstance(ConstantesDAO.ALGORITHM_RSA);
-                byte[] bufferPlano = c.getBytes(StandardCharsets.UTF_8);
-
-                // PASO 3a: Poner cifrador en modo CIFRADO
-                cifrador.init(Cipher.ENCRYPT_MODE, certLoad.getPublicKey());  // Cifra con la clave publica
-
-                byte[] bufferCifrado = cifrador.doFinal(bufferPlano);
-
-                String claveCifrada = Base64.getUrlEncoder().encodeToString(bufferCifrado);
-
-                mensajeEncriptado = Either.right(claveCifrada);
-            }
-        } catch (InvalidKeyException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.INVALID_KEY);
-        } catch (NoSuchAlgorithmException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.ALGORITMO_INVALIDO);
-        } catch (NoSuchPaddingException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.NO_SUCH_PADDING);
-        } catch (BadPaddingException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.BAD_PADDING);
-        } catch (IllegalBlockSizeException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.ILLEGAL_BLOCK_SIZE);
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.ERROR_DE_ENCRIPTACION_ASIMETRICA);
-        } catch (CertificateException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.ERROR_EN_EL_CERTIFICADO);
-        } catch (KeyStoreException e) {
-            log.error(e.getMessage(), e);
-            mensajeEncriptado = Either.left(ConstantesDAO.ERROR_EN_KEY_STORE_BUILD);
-        }
-        return mensajeEncriptado;
-    }
-
-
-    public Either<String, String> desencriptarRSAClaveCifrada(SecretoCompartido s, Usuario u) {
+    public Either<String, String> desencriptarRSAClaveCifrada(String claveCifrada, Usuario u) {
         Either<String, String> mensajeDesencriptado = null;
-        String clave = ConstantesDAO.CONTRASENA_ALL_PFX;
+        String clave = Constantes.CONTRASENA_ALL_PFX;
         try {
-            File f = new File(u.getNombre() + ConstantesDAO.FILE_PFX);
+            File f = new File(configYaml.getRutaKeyStore() + u.getNombre() + Constantes.KEYSTORE_PFX);
             if (f.exists()) {
-                KeyStore ksLoad = KeyStore.getInstance(ConstantesDAO.PKCS_12);
-                ksLoad.load(new FileInputStream(u.getNombre()+ ConstantesDAO.FILE_PFX), clave.toCharArray());
+                KeyStore ksLoad = KeyStore.getInstance(Constantes.PKCS_12);
+                ksLoad.load(new FileInputStream(configYaml.getRutaKeyStore() + u.getNombre() + Constantes.KEYSTORE_PFX), clave.toCharArray());
 
-                KeyStore.PasswordProtection pt = new KeyStore.PasswordProtection(u.getPassword().toCharArray());
-                KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) ksLoad.getEntry(ConstantesDAO.PRIVADA, pt);
+                KeyStore.PasswordProtection pt = new KeyStore.PasswordProtection(u.getPass().toCharArray());
+                KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) ksLoad.getEntry(Constantes.PRIVADA, pt);
                 PrivateKey keyLoad = privateKeyEntry.getPrivateKey();
 
-                Cipher cifrador = Cipher.getInstance(ConstantesDAO.ALGORITHM_RSA);
-                byte[] claveEnBase64 = Base64.getUrlDecoder().decode(s.getClaveCifrada());
+                Cipher cifrador = Cipher.getInstance(Constantes.ALGORITHM_RSA);
+                byte[] claveEnBase64 = Base64.getUrlDecoder().decode(claveCifrada);
 
                 // PASO 3b: Poner cifrador en modo DESCIFRADO
                 cifrador.init(Cipher.DECRYPT_MODE, keyLoad); // Descrifra con la clave privada
@@ -229,38 +193,39 @@ public class Encriptar {
 
                 String str = new String(bufferCifrado, StandardCharsets.UTF_8);
 
+                //como resultado te devuelve la clave random para abrir el mensaje con el AES
                 mensajeDesencriptado = Either.right(str);
             }
         } catch (InvalidKeyException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.INVALID_KEY);
+            mensajeDesencriptado = Either.left(Constantes.INVALID_KEY);
         } catch (NoSuchAlgorithmException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.ALGORITMO_INVALIDO);
+            mensajeDesencriptado = Either.left(Constantes.ALGORITMO_INVALIDO);
         } catch (NoSuchPaddingException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.NO_SUCH_PADDING);
+            mensajeDesencriptado = Either.left(Constantes.NO_SUCH_PADDING);
         } catch (BadPaddingException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.BAD_PADDING);
+            mensajeDesencriptado = Either.left(Constantes.BAD_PADDING);
         } catch (IllegalBlockSizeException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.ILLEGAL_BLOCK_SIZE);
+            mensajeDesencriptado = Either.left(Constantes.ILLEGAL_BLOCK_SIZE);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.ERROR_DE_ENCRIPTACION_ASIMETRICA);
+            mensajeDesencriptado = Either.left(Constantes.ERROR_DE_ENCRIPTACION_ASIMETRICA);
         } catch (CertificateException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.ERROR_EN_EL_CERTIFICADO);
+            mensajeDesencriptado = Either.left(Constantes.ERROR_EN_EL_CERTIFICADO);
         } catch (KeyStoreException e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.ERROR_EN_KEY_STORE_BUILD);
+            mensajeDesencriptado = Either.left(Constantes.ERROR_EN_KEY_STORE_BUILD);
         } catch (UnrecoverableEntryException e) {
-            mensajeDesencriptado = Either.left(ConstantesDAO.ERROR_FATAL);
+            mensajeDesencriptado = Either.left(Constantes.ERROR_FATAL);
             log.error(e.getMessage(), e);
         }
         return mensajeDesencriptado;
-    }*/
+    }
 
 }
 

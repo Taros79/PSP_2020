@@ -3,6 +3,7 @@ package notas.ServidorModule.dao;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
+import notas.CommonModule.modelo.AlumnosPadre;
 import notas.CommonModule.modelo.Usuario;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
 import notas.ServidorModule.dao.errores.OtraException;
@@ -51,7 +52,7 @@ public class DaoUsuario {
         String passwordHasheada = hashPassword.hashPassword(pass);
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_USUARIO,
+            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_NAME,
                     new BeanPropertyRowMapper<>(Usuario.class), nombre);
 
             if (sql != null) {
@@ -72,13 +73,13 @@ public class DaoUsuario {
         return result;
     }
 
-    public Usuario getUsuarioByName(String correo) {
+    public Usuario getUsuarioById(int idUsuario) {
         Usuario sql;
         Usuario result = null;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_USUARIO,
-                    new BeanPropertyRowMapper<>(Usuario.class), correo);
+            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_ID,
+                    new BeanPropertyRowMapper<>(Usuario.class), idUsuario);
 
             if (sql != null) {
                 result = sql;
@@ -100,7 +101,7 @@ public class DaoUsuario {
         String passwordHasheada = hashPassword.hashPassword(pass);
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_USUARIO,
+            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_NAME,
                     new BeanPropertyRowMapper<>(Usuario.class), correo);
 
             if (sql != null) {
@@ -119,6 +120,28 @@ public class DaoUsuario {
         } catch (Exception e) {
             log.error(e.getMessage());
             result = Either.left(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
+
+    public int getUsuarioByAlumno(int idAlumno) {
+        AlumnosPadre sql;
+        int result = 0;
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_ID_USUARIO_ALUMNO,
+                    new BeanPropertyRowMapper<>(AlumnosPadre.class), idAlumno);
+
+            if (sql != null) {
+                result = sql.getIdUsuario();
+            }
+
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
         return result;
     }

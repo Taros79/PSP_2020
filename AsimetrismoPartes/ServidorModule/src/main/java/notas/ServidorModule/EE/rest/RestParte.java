@@ -6,6 +6,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import notas.CommonModule.constantes.ConstantesRest;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modelo.ParteProfesorPadre;
 import notas.ServidorModule.servicios.ServiciosParte;
 import notas.ServidorModule.utils.Constantes;
 
@@ -35,15 +36,15 @@ public class RestParte {
 
     @RolesAllowed({Constantes.PROFESOR})
     @POST
-    public Integer addParte(Parte parte) {
+    public String addParte(ParteProfesorPadre parte) {
         return serviciosParte.addParte(parte);
     }
 
     @RolesAllowed({Constantes.PROFESOR})
     @POST
     @Path(ConstantesRest.PATH_ADD_PARTE_COMPARTIDO)
-    public String addParteCompartido(@QueryParam("username") String username, @QueryParam("idParte") int idParte) {
-        return serviciosParte.addParteCompartido(username, idParte);
+    public String addParteCompartido(@QueryParam("idUsuario") int idUsuario, @QueryParam("idParte") int idParte) {
+        return serviciosParte.addParteCompartido(idUsuario, idParte);
     }
 
     @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS})
