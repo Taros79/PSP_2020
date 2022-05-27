@@ -1,7 +1,5 @@
 package notas.ClienteModule.gui.controllers.complements;
 
-import io.reactivex.rxjava3.core.Single;
-import io.vavr.control.Either;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -14,13 +12,12 @@ import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
 import notas.CommonModule.modelo.Alumno;
 import notas.CommonModule.modelo.Parte;
-import notas.CommonModule.modelo.ParteProfesorPadre;
+import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class PonerParte implements Initializable {

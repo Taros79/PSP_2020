@@ -9,6 +9,7 @@ import notas.ClienteModule.Servicios.ServiciosParte;
 import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 public class Jefatura implements Initializable {
 
     @FXML
-    private ListView<Parte> listViewPartes;
+    private ListView<ParteDesencriptadoDTO> listViewPartes;
 
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
@@ -40,7 +41,7 @@ public class Jefatura implements Initializable {
     }
 
     public void actualizarDatos() {
-        serviciosParte.getAllPartes()
+        serviciosParte.getAllPartesJefatura()
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                 .subscribe(resultado ->
@@ -72,7 +73,7 @@ public class Jefatura implements Initializable {
                     .subscribe(resultado ->
                                     resultado
                                             .peek(action -> {
-                                                actualizarDatos();
+                                                        actualizarDatos();
                                                         a = new Alert(Alert.AlertType.INFORMATION, action);
                                                         a.showAndWait();
                                                     }

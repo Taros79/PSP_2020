@@ -5,10 +5,12 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import notas.CommonModule.constantes.ConstantesRest;
-import notas.CommonModule.modelo.Parte;
-import notas.CommonModule.modelo.ParteProfesorPadre;
+import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
+import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import notas.ServidorModule.servicios.ServiciosParte;
 import notas.ServidorModule.utils.Constantes;
+
+import java.util.List;
 
 @Path(ConstantesRest.PATH_PARTES)
 @Produces(MediaType.APPLICATION_JSON)
@@ -22,13 +24,13 @@ public class RestParte {
         this.serviciosParte = serviciosParte;
     }
 
- /*   @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS, Constantes.PROFESOR})
+   @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS})
     @GET
-    public List<Parte> getAllPartes() {
-        return serviciosParte.getAllPartes();
+    public List<ParteDesencriptadoDTO> getAllPartesJefatura() {
+        return serviciosParte.getAllPartesJefatura();
     }
 
-    @GET
+    /* @GET
     @Path(ConstantesRest.PATH_PARTES_ALUMNOS_BY_USUARIO)
     public List<Parte> getPartesByUser(@QueryParam("idPadre") int idPadre) {
         return serviciosParte.getPartesByUser(idPadre);

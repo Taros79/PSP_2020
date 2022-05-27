@@ -1,9 +1,11 @@
 package notas.ServidorModule.servicios;
 
 import jakarta.inject.Inject;
-import notas.CommonModule.modelo.Parte;
-import notas.CommonModule.modelo.ParteProfesorPadre;
+import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
+import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import notas.ServidorModule.dao.DaoParte;
+
+import java.util.List;
 
 public class ServiciosParte {
 
@@ -14,11 +16,11 @@ public class ServiciosParte {
         this.daoParte = daoParte;
     }
 
- /*   public List<Parte> getAllPartes() {
-        return daoParte.getAllPartes();
+    public List<ParteDesencriptadoDTO> getAllPartesJefatura() {
+        return daoParte.getAllPartesJefatura();
     }
 
-    public List<Parte> getPartesByUser(int idPadre) {
+    /*public List<Parte> getPartesByUser(int idPadre) {
         return daoParte.getPartesByUser(idPadre);
     }*/
 

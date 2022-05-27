@@ -7,6 +7,7 @@ public class ConstantesSQL {
     public static final String SELECT_USUARIO_BY_ID = "SELECT * FROM usuarios where id = ?";
 
     public static final String SELECT_ALL_PARTES = "SELECT * FROM partes";
+    public static final String SELECT_PARTE_BY_ID = "SELECT * FROM partes where id = ?";
     public static final String INSERT_PARTE = "INSERT INTO partes (descripcion, idAlumno, idTipoEstado) VALUES (?, ?, ?)";
     public static final String UPDATE_PARTE = "UPDATE partes SET idTipoEstado = ? WHERE id = ?";
     public static final String DELETE_PARTE = "DELETE FROM partes WHERE id = ?";
@@ -14,15 +15,22 @@ public class ConstantesSQL {
             "    inner join alumnosPadre a on p.idAlumno = a.id\n" +
             "    inner join usuarios u on a.idUsuario = u.id where u.id = ? and p.idTipoEstado = '2'";
 
+    public static final String SELECT_ALL_PARTESCOMPARTIDOS_JEFATURA = "SELECT * FROM partesCompartidos where idUserACompartir = 1";
     public static final String SELECT_ALL_ALUMNOS = "SELECT * FROM alumnos";
 
     public static final String INSERT_PARTE_COMPARTIDO = "INSERT INTO partesCompartidos (idUserACompartir, idParte, ClaveCifrada) VALUES (?, ?, ?)";
+    public static final String SELECT_PARTECOMPARTIDO_BY_IDS = "SELECT * FROM partesCompartidos WHERE idParte = ? and idUserACompartir = 1";
 
     public static final String SELECT_ID_USUARIO_ALUMNO = "SELECT * FROM alumnosPadre WHERE idAlumno = ?";
+
+    //select de usuario por la id del alumno
+public static final String SELECT_USUARIO_BY_ID_ALUMNO = "SELECT * FROM usuarios WHERE id = (SELECT idUsuario FROM alumnosPadre WHERE idAlumno = ?)";
 
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";
     public static final String BASE_DE_DATOS_CAIDA = "Base de datos caida";
+    public static final String ERROR_AL_DESENCRIPTAR_CLAVECIFRADA = "Error al desencriptar la clave cifrada";
+    public static final String ERROR_AL_DESENCRIPTAR_MENSAJE = "Error al desencriptar el mensaje";
     public static final String YA_EXISTE = "ya existe";
     public static final String ANADIDO_CON_EXITO = "Añadido con exito";
     public static final String NO_SE_PUDO_ANADIR = "No se pudo añadir";

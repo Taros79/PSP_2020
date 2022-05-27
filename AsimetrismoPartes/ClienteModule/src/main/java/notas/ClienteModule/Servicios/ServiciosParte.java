@@ -4,7 +4,8 @@ import io.reactivex.rxjava3.core.Single;
 import io.vavr.control.Either;
 import notas.ClienteModule.dao.DaoParte;
 import notas.CommonModule.modelo.Parte;
-import notas.CommonModule.modelo.ParteProfesorPadre;
+import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
+import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -18,8 +19,8 @@ public class ServiciosParte {
         this.daoParte = daoParte;
     }
 
-    public Single<Either<String, List<Parte>>> getAllPartes() {
-        return daoParte.getAllPartes();
+    public Single<Either<String, List<ParteDesencriptadoDTO>>> getAllPartesJefatura() {
+        return daoParte.getAllPartesJefatura();
     }
 
     public Single<Either<String, List<Parte>>> getPartesByUser(int idPadre) {

@@ -45,4 +45,5 @@ public class Constantes {
     public static final String FALLO_AL_CREAR_LA_KEYSTORE = "Fallo al crear la keystore";
     public static final String KEYSTORE_YA_EXISTE = "Keystore ya existe";
     public static final String ERROR_FATAL = "Error fatal";
+    public static final String TAG_ERROR = "TAG_ERROR";
 }

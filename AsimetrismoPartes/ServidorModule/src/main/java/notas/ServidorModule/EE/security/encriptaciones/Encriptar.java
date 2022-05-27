@@ -24,6 +24,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 import java.util.Base64;
 
 @Log4j2
@@ -36,10 +37,6 @@ public class Encriptar {
     public Encriptar(HashPassword hashP, ConfigYaml configYaml) {
         this.hashP = hashP;
         this.configYaml = configYaml;
-    }
-
-    public String getClaveSimetrica() {
-        return claveSimetrica;
     }
 
     public Either<String, String> encriptarAESTextoConRandom(String texto) {
@@ -89,34 +86,34 @@ public class Encriptar {
         return mensajeEncriptado;
     }
 
-  /*public Either<String, String> desencriptarAESTextoConRandom(Secreto s, String pass) {
+  public Either<String, String> desencriptarAESTextoConRandom(String texto, String random) {
         Either<String, String> mensajeDesencriptado;
         try {
-            byte[] decoded = Base64.getUrlDecoder().decode(s.getSecretoEncriptado());
+            byte[] decoded = Base64.getUrlDecoder().decode(texto);
+            byte[] iv = Arrays.copyOf(decoded, Constantes.BYTES_IV);
+            byte[] salt = Arrays.copyOfRange(decoded, Constantes.BYTES_IV, Constantes.BYTES_SALT_MAX);
+            GCMParameterSpec parameterSpec = new GCMParameterSpec(Constantes.TAG_T_LENGTH, iv);
 
-            byte[] iv = Arrays.copyOf(decoded, ConstantesDAO.BYTES_IV);
-            byte[] salt = Arrays.copyOfRange(decoded, ConstantesDAO.BYTES_IV, ConstantesDAO.BYTES_SALT_MAX);
-            GCMParameterSpec parameterSpec = new GCMParameterSpec(ConstantesDAO.TAG_T_LENGTH, iv);
-
-            SecretKeyFactory factory = SecretKeyFactory.getInstance(ConstantesDAO.INSTANCE_SK_FACTORY);
-            KeySpec spec = new PBEKeySpec(pass.toCharArray(), salt, ConstantesDAO.ITERATION_COUNT, ConstantesDAO.KEY_LENGTH);
+            SecretKeyFactory factory = SecretKeyFactory.getInstance(Constantes.INSTANCE_SK_FACTORY);
+            KeySpec spec = new PBEKeySpec(random.toCharArray(), salt, Constantes.ITERATION_COUNT, Constantes.KEY_LENGTH);
             SecretKey tmp = factory.generateSecret(spec);
-            SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), ConstantesDAO.ALGORITHM_AES);
+            SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), Constantes.ALGORITHM_AES);
 
-            Cipher cipher = Cipher.getInstance(ConstantesDAO.INSTANCE_CIPHER);
+            Cipher cipher = Cipher.getInstance(Constantes.INSTANCE_CIPHER);
             cipher.init(Cipher.DECRYPT_MODE, secretKey, parameterSpec);
-            mensajeDesencriptado = Either.right(new String(cipher.doFinal(Arrays.copyOfRange(decoded, ConstantesDAO.BYTES_SALT_MAX, decoded.length))));
+            mensajeDesencriptado = Either.right(new String(
+                    cipher.doFinal(Arrays.copyOfRange(decoded, Constantes.BYTES_SALT_MAX, decoded.length))));
         } catch (AEADBadTagException be) {
             log.error(be.getMessage(), be);
-            mensajeDesencriptado = Either.left(ConstantesDAO.TAG_ERROR);
+            mensajeDesencriptado = Either.left(Constantes.TAG_ERROR);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            mensajeDesencriptado = Either.left(ConstantesDAO.ERROR_DESCIFRAR);
+            mensajeDesencriptado = Either.left(Constantes.ERROR_DESCIFRAR);
         }
         return mensajeDesencriptado;
-    }*/
+    }
 
-    public Either<String, String> encriptarRSARandomConPublica(String usuario, String random) {
+    public Either<String, String> encriptarRSARandomConPublica(String usuario) {
 
         Either<String, String> mensajeEncriptado = null;
         String clave = Constantes.CONTRASENA_ALL_PFX;
@@ -130,7 +127,7 @@ public class Encriptar {
 
                 Cipher cifrador = Cipher.getInstance(Constantes.ALGORITHM_RSA);
 
-                byte[] bufferPlano = random.getBytes();
+                byte[] bufferPlano = claveSimetrica.getBytes(StandardCharsets.UTF_8); //nuevo//
 
                 // PASO 3a: Poner cifrador en modo CIFRADO
                 cifrador.init(Cipher.ENCRYPT_MODE, certLoad.getPublicKey());  // Cifra con la clave publica
@@ -168,7 +165,6 @@ public class Encriptar {
         }
         return mensajeEncriptado;
     }
-
 
 
     public Either<String, String> desencriptarRSAClaveCifrada(String claveCifrada, Usuario u) {
@@ -226,6 +222,65 @@ public class Encriptar {
         }
         return mensajeDesencriptado;
     }
+
+
+
+
+    //----------------------------------------------------------------------------------------------------------------------//
+
+    public Either<String, String> encriptarRSA_Padres(String usuario, String random) {
+
+        Either<String, String> mensajeEncriptado = null;
+        String clave = Constantes.CONTRASENA_ALL_PFX;
+        try {
+            File f = new File(configYaml.getRutaKeyStore() + usuario + Constantes.KEYSTORE_PFX);
+            if (f.exists()) {
+                KeyStore ksLoad = KeyStore.getInstance(Constantes.PKCS_12);
+                ksLoad.load(new FileInputStream(configYaml.getRutaKeyStore() + usuario + Constantes.KEYSTORE_PFX), clave.toCharArray());
+
+                X509Certificate certLoad = (X509Certificate) ksLoad.getCertificate(Constantes.PUBLICA);
+
+                Cipher cifrador = Cipher.getInstance(Constantes.ALGORITHM_RSA);
+
+                byte[] bufferPlano = random.getBytes(StandardCharsets.UTF_8); //nuevo//
+
+                // PASO 3a: Poner cifrador en modo CIFRADO
+                cifrador.init(Cipher.ENCRYPT_MODE, certLoad.getPublicKey());  // Cifra con la clave publica
+
+                byte[] bufferCifrado = cifrador.doFinal(bufferPlano);
+
+                String claveCifrada = Base64.getUrlEncoder().encodeToString(bufferCifrado);
+
+                mensajeEncriptado = Either.right(claveCifrada);
+            }
+        } catch (InvalidKeyException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.INVALID_KEY);
+        } catch (NoSuchAlgorithmException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.ALGORITMO_INVALIDO);
+        } catch (NoSuchPaddingException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.NO_SUCH_PADDING);
+        } catch (BadPaddingException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.BAD_PADDING);
+        } catch (IllegalBlockSizeException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.ILLEGAL_BLOCK_SIZE);
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.ERROR_DE_ENCRIPTACION_ASIMETRICA);
+        } catch (CertificateException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.ERROR_EN_EL_CERTIFICADO);
+        } catch (KeyStoreException e) {
+            log.error(e.getMessage(), e);
+            mensajeEncriptado = Either.left(Constantes.ERROR_EN_KEY_STORE_BUILD);
+        }
+        return mensajeEncriptado;
+    }
+
 
 }
 
