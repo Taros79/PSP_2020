@@ -1,6 +1,5 @@
 package notas.ClienteModule.gui.controllers.complements;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -10,7 +9,6 @@ import notas.ClienteModule.Servicios.ServiciosUsuario;
 import notas.ClienteModule.dao.utils.CacheAuthorization;
 import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
-import notas.CommonModule.modelo.Usuario;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;

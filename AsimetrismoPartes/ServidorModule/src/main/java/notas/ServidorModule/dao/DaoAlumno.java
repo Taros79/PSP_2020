@@ -3,7 +3,6 @@ package notas.ServidorModule.dao;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import notas.CommonModule.modelo.Alumno;
-import notas.CommonModule.modelo.Parte;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
 import notas.ServidorModule.dao.errores.OtraException;
 import notas.ServidorModule.dao.jdbc.DBConnectionPool;

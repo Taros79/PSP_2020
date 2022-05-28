@@ -6,7 +6,7 @@ public class Constantes {
     public static final String PATH_KEYSTORE = "keystore\\";
     public static final String PRIVADA = ".privada";
     public static final String PUBLICA = ".publica";
-   public static final String PKCS_12 = "PKCS12";
+    public static final String PKCS_12 = "PKCS12";
     public static final String KEYSTORE_PFX = "KeyStore.pfx";
     public static final int AMOUNT_TO_ADD = 365;
     public static final String USUARIO_Y_O_CONTRASENA_NO_VALIDO = "Usuario y/o contraseña no válido";

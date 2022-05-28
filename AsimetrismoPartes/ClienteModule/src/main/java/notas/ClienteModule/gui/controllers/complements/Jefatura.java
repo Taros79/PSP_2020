@@ -1,6 +1,5 @@
 package notas.ClienteModule.gui.controllers.complements;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -12,13 +11,13 @@ import notas.ClienteModule.Servicios.ServiciosParte;
 import notas.ClienteModule.Servicios.ServiciosUsuario;
 import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
-import notas.CommonModule.modelo.Parte;
 import notas.CommonModule.modelo.Usuario;
 import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 
@@ -121,7 +120,7 @@ public class Jefatura implements Initializable {
     private void registrar() {
         if (!textFieldNombre.getText().isEmpty() || !textFieldPass.getText().isEmpty() || comboBox.getSelectionModel().getSelectedItem() != null) {
             int id;
-            if (comboBox.getSelectionModel().getSelectedItem() == "Profesor")
+            if (Objects.equals(comboBox.getSelectionModel().getSelectedItem(), "Profesor"))
                 id = 1;
             else {
                 id = 3;

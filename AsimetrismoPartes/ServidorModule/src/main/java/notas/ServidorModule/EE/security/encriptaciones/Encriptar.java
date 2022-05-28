@@ -2,8 +2,8 @@ package notas.ServidorModule.EE.security.encriptaciones;
 
 import com.google.common.primitives.Bytes;
 import io.vavr.control.Either;
+import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
-import notas.CommonModule.modelo.Parte;
 import notas.CommonModule.modelo.Usuario;
 import notas.ServidorModule.config.ConfigYaml;
 import notas.ServidorModule.utils.HashPassword;
@@ -12,9 +12,6 @@ import javax.crypto.*;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import jakarta.inject.Inject;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -86,7 +83,7 @@ public class Encriptar {
         return mensajeEncriptado;
     }
 
-  public Either<String, String> desencriptarAESTextoConRandom(String texto, String random) {
+    public Either<String, String> desencriptarAESTextoConRandom(String texto, String random) {
         Either<String, String> mensajeDesencriptado;
         try {
             byte[] decoded = Base64.getUrlDecoder().decode(texto);
@@ -222,8 +219,6 @@ public class Encriptar {
         }
         return mensajeDesencriptado;
     }
-
-
 
 
     //----------------------------------------------------------------------------------------------------------------------//

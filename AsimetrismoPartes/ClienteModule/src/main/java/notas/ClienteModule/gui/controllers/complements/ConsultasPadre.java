@@ -8,7 +8,6 @@ import javafx.scene.control.ListView;
 import notas.ClienteModule.Servicios.ServiciosParte;
 import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
-import notas.CommonModule.modelo.Parte;
 import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 

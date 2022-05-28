@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <?import java.lang.String?>
-<AnchorPane prefHeight="645.0" prefWidth="948.0" xmlns="http://javafx.com/javafx/11.0.2"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="645.0" prefWidth="948.0"
+            xmlns="http://javafx.com/javafx/11.0.2"
             fx:controller="notas.ClienteModule.gui.controllers.complements.Jefatura">
     <children>
         <ListView fx:id="listViewPartes" layoutX="27.0" layoutY="98.0" prefHeight="450.0" prefWidth="447.0"/>

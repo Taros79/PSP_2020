@@ -28,9 +28,9 @@ public class ConstantesSQL {
     public static final String SELECT_ID_USUARIO_ALUMNO = "SELECT * FROM alumnosPadre WHERE idAlumno = ?";
 
     //select de usuario por la id del alumno
-public static final String SELECT_USUARIO_BY_ID_ALUMNO = "SELECT * FROM usuarios WHERE id = (SELECT idUsuario FROM alumnosPadre WHERE idAlumno = ?)";
+    public static final String SELECT_USUARIO_BY_ID_ALUMNO = "SELECT * FROM usuarios WHERE id = (SELECT idUsuario FROM alumnosPadre WHERE idAlumno = ?)";
 
-public static final String INSERT_USUARIO = "INSERT INTO usuarios (nombre, pass, idTipoUsuario) VALUES (?, ?, ?)";
+    public static final String INSERT_USUARIO = "INSERT INTO usuarios (nombre, pass, idTipoUsuario) VALUES (?, ?, ?)";
 
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";
@@ -47,5 +47,5 @@ public static final String INSERT_USUARIO = "INSERT INTO usuarios (nombre, pass,
     public static final String NO_SE_HA_ACTUALIZADO = "No se ha actualizado ningún registro";
     public static final String DATOS_RELACIONADOS_NO_SE_PUEDE_BORRAR = "Existen datos relacionados, no se puede borrar";
     public static final String CONTRASEÑA_CORREO_INCORRECTO = "Contraseña o correo incorrecto";
-       public static final String ALUMNO_NO_ENCONTRADO = "Alumno no encontrado";
+    public static final String ALUMNO_NO_ENCONTRADO = "Alumno no encontrado";
 }

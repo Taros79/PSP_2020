@@ -1,11 +1,11 @@
 package notas.ServidorModule.dao.jdbc;
 
-import notas.ServidorModule.config.ConfigYaml;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.annotation.PreDestroy;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import notas.ServidorModule.config.ConfigYaml;
 
 import javax.sql.DataSource;
 

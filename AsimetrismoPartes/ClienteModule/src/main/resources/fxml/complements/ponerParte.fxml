@@ -3,18 +3,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="756.0"
             xmlns="http://javafx.com/javafx/11.0.2"
             fx:controller="notas.ClienteModule.gui.controllers.complements.PonerParte">
     <children>
-        <Label layoutX="45.0" layoutY="27.0" prefHeight="35.0" prefWidth="203.0" text="Motivo del parte:">
+        <Label layoutX="37.0" layoutY="27.0" prefHeight="35.0" prefWidth="203.0" text="Motivo del parte:">
             <font>
                 <Font name="System Bold" size="24.0"/>
             </font>
         </Label>
-        <Label layoutX="347.0" layoutY="38.0" text="Alumnos:"/>
+        <Label layoutX="54.0" layoutY="311.0" text="Alumnos:"/>
         <TextArea fx:id="textAreaParte" layoutX="38.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0"/>
-        <ComboBox fx:id="comboAlumnos" layoutX="347.0" layoutY="62.0" prefWidth="150.0"/>
-        <Button onAction="#añadirParte" layoutX="248.0" layoutY="321.0" mnemonicParsing="false" text="Añadir Parte"/>
+        <ComboBox fx:id="comboAlumnos" layoutX="54.0" layoutY="335.0" prefWidth="150.0"/>
+        <Button layoutX="88.0" layoutY="384.0" mnemonicParsing="false" onAction="#añadirParte" text="Añadir Parte"/>
+        <ListView fx:id="listViewPartesRechazados" layoutX="284.0" layoutY="85.0" prefHeight="292.0" prefWidth="435.0"/>
+        <Separator layoutX="259.0" layoutY="19.0" orientation="VERTICAL" prefHeight="451.0" prefWidth="15.0"/>
+        <Label layoutX="284.0" layoutY="62.0" text="Partes rechazados"/>
     </children>
 </AnchorPane>

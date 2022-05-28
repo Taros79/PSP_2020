@@ -3,10 +3,10 @@ package notas.ServidorModule.dao;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import notas.CommonModule.modelo.Parte;
-import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
-import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import notas.CommonModule.modelo.PartesCompartidos;
 import notas.CommonModule.modelo.Usuario;
+import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
+import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import notas.ServidorModule.EE.security.encriptaciones.Encriptar;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
 import notas.ServidorModule.dao.errores.OtraException;
@@ -77,17 +77,18 @@ public class DaoParte {
 
             for (PartesCompartidos partesCompartidos : pc) {
                 var parte = getParteById(partesCompartidos.getIdParte());
-                if(parte.getIdTipoEstado() == 1 && idUsuario == 1 || parte.getIdTipoEstado() == 2 && idUsuario != 1) {
+                if (parte.getIdTipoEstado() == 1 && idUsuario == 1 || parte.getIdTipoEstado() == 2 && idUsuario != 1
+                        || parte.getIdTipoEstado() == 3 && usuario.getIdTipoUsuario() == 1) {
                     var randomDesencriptada =
                             encriptar.desencriptarRSAClaveCifrada(partesCompartidos.getClaveCifrada(), usuario);
                     if (randomDesencriptada.isRight()) {
                         var mensajeParte = encriptar.desencriptarAESTextoConRandom(parte.getDescripcion(), randomDesencriptada.get());
                         if (mensajeParte.isRight()) {
                             var alumno = daoAlumno.getAlumnoById(parte.getIdAlumno());
-                            if(Objects.nonNull(alumno)) {
+                            if (Objects.nonNull(alumno)) {
                                 partesDesencriptados.add(new ParteDesencriptadoDTO(parte.getId(), mensajeParte.get(),
                                         alumno.getNombre(), parte.getIdTipoEstado()));
-                            }else{
+                            } else {
                                 log.error("No se ha encontrado el alumno con id: " + parte.getIdAlumno());
                                 throw new OtraException(ConstantesSQL.ALUMNO_NO_ENCONTRADO);
                             }

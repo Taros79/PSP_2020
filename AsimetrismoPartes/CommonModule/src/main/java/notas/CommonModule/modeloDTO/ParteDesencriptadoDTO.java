@@ -3,7 +3,6 @@ package notas.CommonModule.modeloDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import notas.CommonModule.modelo.Parte;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +17,6 @@ public class ParteDesencriptadoDTO {
     @Override
     public String toString() {
         return "Alumno: " + alumno +
-        "\nMotivo Parte: " + descripcion;
+                "\nMotivo Parte: " + descripcion;
     }
 }

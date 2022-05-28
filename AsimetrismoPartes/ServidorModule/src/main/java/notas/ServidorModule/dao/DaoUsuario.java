@@ -137,8 +137,9 @@ public class DaoUsuario {
                     usuario.getNombre(),
                     passwordHasheada,
                     usuario.getIdTipoUsuario());
-                    var string = keyStoreBuild.crearKeystoreYCertificado(usuario);
-            result = Either.right(string.get());
+
+            keyStoreBuild.crearKeystoreYCertificado(usuario);
+            result = Either.right(ConstantesSQL.ANADIDO_CON_EXITO);
         } catch (DataAccessException e) {
             log.error(e.getMessage());
             result = Either.left(ConstantesSQL.BASE_DE_DATOS_CAIDA);

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import notas.ClienteModule.Servicios.ServiciosAlumno;
 import notas.ClienteModule.Servicios.ServiciosParte;
@@ -12,6 +13,7 @@ import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
 import notas.CommonModule.modelo.Alumno;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
@@ -22,6 +24,8 @@ import java.util.ResourceBundle;
 
 public class PonerParte implements Initializable {
 
+    @FXML
+    private ListView<ParteDesencriptadoDTO> listViewPartesRechazados;
     @FXML
     private ComboBox<Alumno> comboAlumnos;
     @FXML
@@ -69,13 +73,34 @@ public class PonerParte implements Initializable {
                         }
                 );
         pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+
+        serviciosParte.getPartesByUser(pantallaPrincipal.getUsuarioLoginPrincipal().getId())
+                .observeOn(JavaFxScheduler.platform())
+                .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
+                .subscribe(resultado ->
+                                resultado
+                                        .peek(action -> {
+                                                    listViewPartesRechazados.getItems().clear();
+                                                    listViewPartesRechazados.getItems().addAll(action);
+                                                }
+                                        )
+                                        .peekLeft(error -> {
+                                            a = new Alert(Alert.AlertType.ERROR, error);
+                                            a.showAndWait();
+                                        }),
+                        throwable -> {
+                            a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                            a.showAndWait();
+                        }
+                );
+        pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
 
     @FXML
     public void añadirParte() {
         if (!comboAlumnos.getSelectionModel().isEmpty()) {
             serviciosParte.addParte(new ParteProfesorPadre(new Parte(textAreaParte.getText(), comboAlumnos.getSelectionModel().getSelectedItem().getId())
-            , pantallaPrincipal.getUsuarioLoginPrincipal().getId()))
+                            , pantallaPrincipal.getUsuarioLoginPrincipal().getId()))
                     .observeOn(JavaFxScheduler.platform())
                     .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                     .subscribe(resultado ->
@@ -95,29 +120,6 @@ public class PonerParte implements Initializable {
                             }
                     );
             pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
-
-            /*serviciosParte.addParteCompartido("carlos", serviciosParte.addParteTO(
-                    new Parte(textAreaParte.getText(), comboAlumnos.getSelectionModel().getSelectedItem().getId())).get())
-                    .observeOn(JavaFxScheduler.platform())
-                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
-                    .subscribe(resultado ->
-                                    resultado
-                                            .peek(action -> {
-                                                        a = new Alert(Alert.AlertType.INFORMATION, action);
-                                                        a.showAndWait();
-                                                    }
-                                            )
-                                            .peekLeft(error -> {
-                                                a = new Alert(Alert.AlertType.ERROR, error);
-                                                a.showAndWait();
-                                            }),
-                            throwable -> {
-                                a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
-                                a.showAndWait();
-                            }
-                    );
-            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);*/
-
 
             actualizarDatos();
 

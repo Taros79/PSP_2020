@@ -1,5 +1,6 @@
 package notas.ServidorModule.EE.rest;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -24,7 +25,7 @@ public class RestParte {
         this.serviciosParte = serviciosParte;
     }
 
-    @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS, Constantes.PADRE})
+    @PermitAll
     @GET
     public List<ParteDesencriptadoDTO> getPartesByUser(@QueryParam("idUsuario") int idUsuario) {
         return serviciosParte.getPartesByUser(idUsuario);
