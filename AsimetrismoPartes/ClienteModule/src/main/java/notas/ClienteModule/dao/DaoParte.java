@@ -23,12 +23,8 @@ public class DaoParte extends DaoGenerics {
         this.apiParte = apiParte;
     }
 
-    public Single<Either<String, List<ParteDesencriptadoDTO>>> getAllPartesJefatura() {
-        return safeSingleApicall(apiParte.getAllPartesJefatura());
-    }
-
-    public Single<Either<String, List<Parte>>> getPartesByUser(int idPadre) {
-        return safeSingleApicall(apiParte.getPartesByUser(idPadre));
+    public Single<Either<String, List<ParteDesencriptadoDTO>>> getPartesByUser(int idUsuario) {
+        return safeSingleApicall(apiParte.getPartesByUser(idUsuario));
     }
 
     public Single<Either<String, String>> addParte(ParteProfesorPadre parte) {

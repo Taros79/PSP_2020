@@ -15,8 +15,12 @@ public class ConstantesSQL {
             "    inner join alumnosPadre a on p.idAlumno = a.id\n" +
             "    inner join usuarios u on a.idUsuario = u.id where u.id = ? and p.idTipoEstado = '2'";
 
+    public static final String DELETE_PARTE_Y_PARTE_COMPARTIDO = "DELETE FROM partes where id = ?;\n" +
+            "DELETE FROM partesCompartidos where idParte = ?";
     public static final String SELECT_ALL_PARTESCOMPARTIDOS_JEFATURA = "SELECT * FROM partesCompartidos where idUserACompartir = 1";
+    public static final String SELECT_ALL_PARTESCOMPARTIDOS_BY_USER = "SELECT * FROM partesCompartidos where idUserACompartir = ?";
     public static final String SELECT_ALL_ALUMNOS = "SELECT * FROM alumnos";
+    public static final String SELECT_ALUMNO_BY_ID = "SELECT * FROM alumnos where id = ?";
 
     public static final String INSERT_PARTE_COMPARTIDO = "INSERT INTO partesCompartidos (idUserACompartir, idParte, ClaveCifrada) VALUES (?, ?, ?)";
     public static final String SELECT_PARTECOMPARTIDO_BY_IDS = "SELECT * FROM partesCompartidos WHERE idParte = ? and idUserACompartir = 1";
@@ -25,6 +29,8 @@ public class ConstantesSQL {
 
     //select de usuario por la id del alumno
 public static final String SELECT_USUARIO_BY_ID_ALUMNO = "SELECT * FROM usuarios WHERE id = (SELECT idUsuario FROM alumnosPadre WHERE idAlumno = ?)";
+
+public static final String INSERT_USUARIO = "INSERT INTO usuarios (nombre, pass, idTipoUsuario) VALUES (?, ?, ?)";
 
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";
@@ -41,7 +47,5 @@ public static final String SELECT_USUARIO_BY_ID_ALUMNO = "SELECT * FROM usuarios
     public static final String NO_SE_HA_ACTUALIZADO = "No se ha actualizado ningún registro";
     public static final String DATOS_RELACIONADOS_NO_SE_PUEDE_BORRAR = "Existen datos relacionados, no se puede borrar";
     public static final String CONTRASEÑA_CORREO_INCORRECTO = "Contraseña o correo incorrecto";
-    private static final String GET_SERIES_DISPONIBLES =
-            "select * from series where id not in (select id_serie from actoresSeries where id_actor = ?)";
-
+       public static final String ALUMNO_NO_ENCONTRADO = "Alumno no encontrado";
 }

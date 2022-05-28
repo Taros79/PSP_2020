@@ -19,12 +19,8 @@ public class ServiciosParte {
         this.daoParte = daoParte;
     }
 
-    public Single<Either<String, List<ParteDesencriptadoDTO>>> getAllPartesJefatura() {
-        return daoParte.getAllPartesJefatura();
-    }
-
-    public Single<Either<String, List<Parte>>> getPartesByUser(int idPadre) {
-        return daoParte.getPartesByUser(idPadre);
+    public Single<Either<String, List<ParteDesencriptadoDTO>>> getPartesByUser(int idUsuario) {
+        return daoParte.getPartesByUser(idUsuario);
     }
 
     public Single<Either<String, String>> addParte(ParteProfesorPadre parte) {

@@ -16,13 +16,9 @@ public class ServiciosParte {
         this.daoParte = daoParte;
     }
 
-    public List<ParteDesencriptadoDTO> getAllPartesJefatura() {
-        return daoParte.getAllPartesJefatura();
+    public List<ParteDesencriptadoDTO> getPartesByUser(int idUsuario) {
+        return daoParte.getPartesByUser(idUsuario);
     }
-
-    /*public List<Parte> getPartesByUser(int idPadre) {
-        return daoParte.getPartesByUser(idPadre);
-    }*/
 
     public String addParte(ParteProfesorPadre parte) {
         return daoParte.addParte(parte);

@@ -9,6 +9,7 @@ import notas.ClienteModule.Servicios.ServiciosParte;
 import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
 import notas.CommonModule.modelo.Parte;
+import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
@@ -18,7 +19,7 @@ import java.util.ResourceBundle;
 public class ConsultasPadre implements Initializable {
 
     @FXML
-    private ListView<Parte> listViewPartes;
+    private ListView<ParteDesencriptadoDTO> listViewPartes;
 
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
@@ -61,5 +62,4 @@ public class ConsultasPadre implements Initializable {
                 );
         pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
     }
-
 }

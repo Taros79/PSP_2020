@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import notas.CommonModule.modelo.AlumnosPadre;
 import notas.CommonModule.modelo.Usuario;
+import notas.ServidorModule.EE.security.encriptaciones.KeyStoreBuild;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
 import notas.ServidorModule.dao.errores.OtraException;
 import notas.ServidorModule.dao.jdbc.DBConnectionPool;
@@ -22,11 +23,13 @@ public class DaoUsuario {
 
     private final DBConnectionPool pool;
     private final HashPassword hashPassword;
+    private final KeyStoreBuild keyStoreBuild;
 
     @Inject
-    public DaoUsuario(DBConnectionPool pool, HashPassword hashPassword) {
+    public DaoUsuario(DBConnectionPool pool, HashPassword hashPassword, KeyStoreBuild keyStoreBuild) {
         this.pool = pool;
         this.hashPassword = hashPassword;
+        this.keyStoreBuild = keyStoreBuild;
     }
 
 
@@ -114,6 +117,28 @@ public class DaoUsuario {
         } catch (DataIntegrityViolationException e) {
             log.error(e.getMessage());
             result = Either.left(ConstantesSQL.CONTRASEÑA_CORREO_INCORRECTO);
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            result = Either.left(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            result = Either.left(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
+
+    public Either<String, String> addUsuario(Usuario usuario) {
+        Either<String, String> result;
+        try {
+            String passwordHasheada = hashPassword.hashPassword(usuario.getPass());
+
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            jdbcTemplate.update(ConstantesSQL.INSERT_USUARIO,
+                    usuario.getNombre(),
+                    passwordHasheada,
+                    usuario.getIdTipoUsuario());
+                    var string = keyStoreBuild.crearKeystoreYCertificado(usuario);
+            result = Either.right(string.get());
         } catch (DataAccessException e) {
             log.error(e.getMessage());
             result = Either.left(ConstantesSQL.BASE_DE_DATOS_CAIDA);

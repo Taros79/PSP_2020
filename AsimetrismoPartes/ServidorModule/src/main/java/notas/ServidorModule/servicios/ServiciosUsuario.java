@@ -31,4 +31,8 @@ public class ServiciosUsuario {
     public Either<String, Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
         return daoUsuario.getUsuarioByCorreoCredentials(correo, pass);
     }
+
+    public Either<String, String> addUsuario(Usuario usuario) {
+        return daoUsuario.addUsuario(usuario);
+    }
 }

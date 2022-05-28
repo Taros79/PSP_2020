@@ -36,54 +36,16 @@ public class DaoParte {
     private final HashPassword hashPassword;
     private final Encriptar encriptar;
     private final DaoUsuario daoUsuario;
+    private final DaoAlumno daoAlumno;
 
     @Inject
     public DaoParte(DBConnectionPool pool, HashPassword hashPassword,
-                    Encriptar encriptar, DaoUsuario daoUsuario) {
+                    Encriptar encriptar, DaoUsuario daoUsuario, DaoAlumno daoAlumno) {
         this.pool = pool;
         this.hashPassword = hashPassword;
         this.encriptar = encriptar;
         this.daoUsuario = daoUsuario;
-    }
-
-    public List<ParteDesencriptadoDTO> getAllPartesJefatura() {
-        List<PartesCompartidos> pc;
-        List<ParteDesencriptadoDTO> partesDesencriptados = new ArrayList<>();
-
-        try {
-            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            pc = jdbcTemplate.query(ConstantesSQL.SELECT_ALL_PARTESCOMPARTIDOS_JEFATURA,
-                    new BeanPropertyRowMapper<>(PartesCompartidos.class));
-
-            Usuario jefatura = daoUsuario.getUsuarioById(1);
-
-            for (PartesCompartidos partesCompartidos : pc) {
-                var randomDesencriptada =
-                        encriptar.desencriptarRSAClaveCifrada(partesCompartidos.getClaveCifrada(), jefatura);
-                if (randomDesencriptada.isRight()) {
-                    var parte = getParteById(partesCompartidos.getIdParte());
-                    var mensajeParte = encriptar.desencriptarAESTextoConRandom(parte.getDescripcion(), randomDesencriptada.get());
-                    if (mensajeParte.isRight()) {
-                        partesDesencriptados.add(new ParteDesencriptadoDTO(
-                                parte.getId(), mensajeParte.get(), parte.getIdAlumno(), parte.getIdTipoEstado()));
-                    } else {
-                        log.error("Error al desencriptar el mensaje de la parte con id: " + partesCompartidos.getIdParte());
-                        throw new OtraException(ConstantesSQL.ERROR_AL_DESENCRIPTAR_MENSAJE);
-                    }
-
-                } else {
-                    log.error(randomDesencriptada.getLeft());
-                    throw new OtraException(ConstantesSQL.ERROR_AL_DESENCRIPTAR_CLAVECIFRADA);
-                }
-            }
-        } catch (DataAccessException e) {
-            log.error(e.getMessage());
-            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
-        }
-        return partesDesencriptados;
+        this.daoAlumno = daoAlumno;
     }
 
     public Parte getParteById(int id) {
@@ -102,17 +64,42 @@ public class DaoParte {
         return result;
     }
 
-/*    public List<Parte> getPartesByUser(int idPadre) {
-        List<Parte> result;
+    public List<ParteDesencriptadoDTO> getPartesByUser(int idUsuario) {
+        List<PartesCompartidos> pc;
+        List<ParteDesencriptadoDTO> partesDesencriptados = new ArrayList<>();
+
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            result = jdbcTemplate.query(ConstantesSQL.SELECT_PARTES_PADRE_ALUMNOS,
-                    new BeanPropertyRowMapper<>(Parte.class), idPadre);
+            pc = jdbcTemplate.query(ConstantesSQL.SELECT_ALL_PARTESCOMPARTIDOS_BY_USER,
+                    new BeanPropertyRowMapper<>(PartesCompartidos.class), idUsuario);
 
-            for (Parte parte : result) {
-                var mensajeDesencriptado = encriptar.desencriptarTexto(parte.getDescripcion());
-                if (mensajeDesencriptado.isRight()) {
-                    parte.setDescripcion(mensajeDesencriptado.get());
+            Usuario usuario = daoUsuario.getUsuarioById(idUsuario);
+
+            for (PartesCompartidos partesCompartidos : pc) {
+                var parte = getParteById(partesCompartidos.getIdParte());
+                if(parte.getIdTipoEstado() == 1 && idUsuario == 1 || parte.getIdTipoEstado() == 2 && idUsuario != 1) {
+                    var randomDesencriptada =
+                            encriptar.desencriptarRSAClaveCifrada(partesCompartidos.getClaveCifrada(), usuario);
+                    if (randomDesencriptada.isRight()) {
+                        var mensajeParte = encriptar.desencriptarAESTextoConRandom(parte.getDescripcion(), randomDesencriptada.get());
+                        if (mensajeParte.isRight()) {
+                            var alumno = daoAlumno.getAlumnoById(parte.getIdAlumno());
+                            if(Objects.nonNull(alumno)) {
+                                partesDesencriptados.add(new ParteDesencriptadoDTO(parte.getId(), mensajeParte.get(),
+                                        alumno.getNombre(), parte.getIdTipoEstado()));
+                            }else{
+                                log.error("No se ha encontrado el alumno con id: " + parte.getIdAlumno());
+                                throw new OtraException(ConstantesSQL.ALUMNO_NO_ENCONTRADO);
+                            }
+                        } else {
+                            log.error("Error al desencriptar el mensaje de la parte con id: " + partesCompartidos.getIdParte());
+                            throw new OtraException(ConstantesSQL.ERROR_AL_DESENCRIPTAR_MENSAJE);
+                        }
+
+                    } else {
+                        log.error(randomDesencriptada.getLeft());
+                        throw new OtraException(ConstantesSQL.ERROR_AL_DESENCRIPTAR_CLAVECIFRADA);
+                    }
                 }
             }
         } catch (DataAccessException e) {
@@ -122,8 +109,8 @@ public class DaoParte {
             log.error(e.getMessage());
             throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
-        return result;
-    }*/
+        return partesDesencriptados;
+    }
 
     public String addParte(ParteProfesorPadre parte) {
         String result;
@@ -233,11 +220,33 @@ public class DaoParte {
         return result;
     }
 
-    public String updateParte(int idParte, int estado) {
+    public String deleteParteYParteCompartido(int idParte) {
         String result;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            jdbcTemplate.update(ConstantesSQL.DELETE_PARTE_Y_PARTE_COMPARTIDO, idParte);
+            result = ConstantesSQL.BORRADO_CON_EXITO;
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
+
+    public String updateParte(int idParte, int estado) {
+        String result;
+        JdbcTemplate jdbcTemplate;
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(
+                pool.getDataSource());
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+
+        try {
             Usuario jefatura = daoUsuario.getUsuarioById(1);
+            jdbcTemplate = new JdbcTemplate(Objects.requireNonNull(transactionManager.getDataSource()));
             var parteComp = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_PARTECOMPARTIDO_BY_IDS,
                     new BeanPropertyRowMapper<>(PartesCompartidos.class), idParte);
 
@@ -267,11 +276,14 @@ public class DaoParte {
             }
 
             result = ConstantesSQL.ACTUALIZADO_CON_EXITO;
+            transactionManager.commit(txStatus);
 
         } catch (DataAccessException e) {
+            transactionManager.rollback(txStatus);
             log.error(e.getMessage());
             throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
         } catch (Exception e) {
+            transactionManager.rollback(txStatus);
             log.error(e.getMessage());
             throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
@@ -317,4 +329,6 @@ public class DaoParte {
         }
         return result;
     }
+
+
 }

@@ -82,33 +82,4 @@ public class IniciarSesion implements Initializable {
             a.showAndWait();
         }
     }
-
-    @FXML
-    private void addKeyStore(ActionEvent actionEvent) {
-        if (!textFieldNombre.getText().isEmpty() || !textFieldPass.getText().isEmpty()) {
-            serviciosUsuario.crearKeyStore(new Usuario(textFieldNombre.getText(), textFieldPass.getText(),3))
-                    .observeOn(JavaFxScheduler.platform())
-                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
-                    .subscribe(resultado ->
-                                    resultado
-                                            .peek(action -> {
-                                                        a.setContentText(action);
-                                                        a.showAndWait();
-                                                    }
-                                            )
-                                            .peekLeft(error -> {
-                                                a.setContentText(error);
-                                                a.showAndWait();
-                                            }),
-                            throwable -> {
-                                a.setContentText(ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
-                                a.showAndWait();
-                            }
-                    );
-            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
-        } else {
-            a.setContentText(ConstantesGUI.CAMPOS_VACIOS);
-            a.showAndWait();
-        }
-    }
 }

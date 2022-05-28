@@ -21,6 +21,6 @@ public interface ApiUsuario {
     @GET(ConstantesRest.PATH_LOGIN + ConstantesRest.PATH_REGISTRO_LOGOUT)
     Single<String> hacerLogout();
 
-    @POST(ConstantesRest.PATH_LOGIN)
-    Single<String> crearKeyStore(@Body Usuario u);
+    @POST(ConstantesRest.PATH_USUARIOS)
+    Single<String> addUsuario(@Body Usuario u);
 }

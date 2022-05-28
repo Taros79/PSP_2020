@@ -43,6 +43,5 @@
                 <Font name="Forte" size="24.0" />
             </font>
         </Label>
-      <Button onAction="#addKeyStore" layoutX="54.0" layoutY="233.0" mnemonicParsing="false" text="addKeyStore" />
-    </children>
+        </children>
 </AnchorPane>

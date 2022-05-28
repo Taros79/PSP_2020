@@ -39,14 +39,4 @@ public class RestInicioSesion {
         httpServletRequest.getSession().invalidate();
         return ConstantesRest.SESION_FINALIZADA;
     }
-
-    @POST
-    public String crearKeyStore(Usuario u) {
-        var result = ks.crearKeystoreYCertificado(u);
-        if(result.isRight()) {
-            return result.get();
-        } else {
-            return result.getLeft();
-        }
-    }
 }

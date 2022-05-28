@@ -12,6 +12,12 @@ public class ParteDesencriptadoDTO {
 
     private int id;
     private String descripcion;
-    private int idAlumno;
+    private String alumno;
     private int idTipoEstado;
+
+    @Override
+    public String toString() {
+        return "Alumno: " + alumno +
+        "\nMotivo Parte: " + descripcion;
+    }
 }

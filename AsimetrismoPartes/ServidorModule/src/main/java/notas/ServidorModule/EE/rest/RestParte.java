@@ -24,17 +24,11 @@ public class RestParte {
         this.serviciosParte = serviciosParte;
     }
 
-   @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS})
+    @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS, Constantes.PADRE})
     @GET
-    public List<ParteDesencriptadoDTO> getAllPartesJefatura() {
-        return serviciosParte.getAllPartesJefatura();
+    public List<ParteDesencriptadoDTO> getPartesByUser(@QueryParam("idUsuario") int idUsuario) {
+        return serviciosParte.getPartesByUser(idUsuario);
     }
-
-    /* @GET
-    @Path(ConstantesRest.PATH_PARTES_ALUMNOS_BY_USUARIO)
-    public List<Parte> getPartesByUser(@QueryParam("idPadre") int idPadre) {
-        return serviciosParte.getPartesByUser(idPadre);
-    }*/
 
     @RolesAllowed({Constantes.PROFESOR})
     @POST

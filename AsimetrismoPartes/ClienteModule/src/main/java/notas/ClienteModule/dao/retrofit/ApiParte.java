@@ -13,10 +13,7 @@ import java.util.List;
 public interface ApiParte {
 
     @GET(ConstantesRest.PATH_PARTES)
-    Single<List<ParteDesencriptadoDTO>> getAllPartesJefatura();
-
-    @GET(ConstantesRest.PATH_PARTES + ConstantesRest.PATH_PARTES_ALUMNOS_BY_USUARIO)
-    Single<List<Parte>> getPartesByUser(@Query("idPadre") int idPadre);
+    Single<List<ParteDesencriptadoDTO>> getPartesByUser(@Query("idUsuario") int idUsuario);
 
     @POST(ConstantesRest.PATH_PARTES)
     Single<String> addParte(@Body ParteProfesorPadre p);
