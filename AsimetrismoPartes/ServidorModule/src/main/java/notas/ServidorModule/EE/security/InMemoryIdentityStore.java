@@ -32,12 +32,8 @@ public class InMemoryIdentityStore implements IdentityStore {
             UsernamePasswordCredential user = UsernamePasswordCredential
                     .class.cast(credential);
 
-            Usuario usuario;
-            if (serviciosUsuario.getUsuarioByCorreoCredentials(user.getCaller(), user.getPasswordAsString()).isLeft()) {
-                return INVALID_RESULT;
-            } else {
-                usuario = serviciosUsuario.getUsuarioByNombre(user.getCaller(), user.getPasswordAsString());
-            }
+            Usuario usuario = serviciosUsuario.getUsuarioByNombre(user.getCaller(), user.getPasswordAsString());
+
 
             switch (usuario.getIdTipoUsuario()) {
                 case 1:

@@ -3,6 +3,7 @@ package notas.ServidorModule.servicios;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import notas.CommonModule.modelo.Usuario;
+import notas.ServidorModule.EE.security.encriptaciones.KeyStoreBuild;
 import notas.ServidorModule.dao.DaoUsuario;
 
 import java.util.List;
@@ -10,10 +11,12 @@ import java.util.List;
 public class ServiciosUsuario {
 
     private final DaoUsuario daoUsuario;
+    private final KeyStoreBuild keyStoreBuild;
 
     @Inject
-    public ServiciosUsuario(DaoUsuario daoUsuario) {
+    public ServiciosUsuario(DaoUsuario daoUsuario, KeyStoreBuild keyStoreBuild) {
         this.daoUsuario = daoUsuario;
+        this.keyStoreBuild = keyStoreBuild;
     }
 
     public List<Usuario> getAllUsuarios() {
@@ -24,15 +27,8 @@ public class ServiciosUsuario {
         return daoUsuario.getUsuarioByNombre(nombre, pass);
     }
 
-    public Usuario getUsuarioById(int idAlumno) {
-        return daoUsuario.getUsuarioById(idAlumno);
-    }
-
-    public Either<String, Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
-        return daoUsuario.getUsuarioByCorreoCredentials(correo, pass);
-    }
-
     public Either<String, String> addUsuario(Usuario usuario) {
-        return daoUsuario.addUsuario(usuario);
+        daoUsuario.addUsuario(usuario);
+        return keyStoreBuild.crearKeystoreYCertificado(usuario);
     }
 }

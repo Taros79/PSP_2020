@@ -44,7 +44,7 @@ public class IniciarSesion implements Initializable {
 
     @FXML
     private void hacerLogin() {
-        if (!textFieldNombre.getText().isEmpty() || !textFieldPass.getText().isEmpty()) {
+        if (!textFieldNombre.getText().isEmpty() && !textFieldPass.getText().isEmpty()) {
             cacheAuthorization.setNombre(textFieldNombre.getText());
             cacheAuthorization.setContraseña(textFieldPass.getText());
             serviciosUsuario.hacerLogin(textFieldNombre.getText(), textFieldPass.getText())

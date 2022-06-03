@@ -46,6 +46,8 @@ public class ConstantesSQL {
     public static final String ACTUALIZADO_CON_EXITO = "Actualizado con exito";
     public static final String NO_SE_HA_ACTUALIZADO = "No se ha actualizado ningún registro";
     public static final String DATOS_RELACIONADOS_NO_SE_PUEDE_BORRAR = "Existen datos relacionados, no se puede borrar";
-    public static final String CONTRASEÑA_CORREO_INCORRECTO = "Contraseña o correo incorrecto";
+    public static final String CONTRASEÑA_USUARIO_INCORRECTO = "Datos incorrectos";
     public static final String ALUMNO_NO_ENCONTRADO = "Alumno no encontrado";
+    public static final String USUARIO_NO_ENCONTRADO = "Usuario no encontrado";
+    public static final String ERROR_AL_INSERTAR_USUARIO = "Error al insertar usuario";
 }
