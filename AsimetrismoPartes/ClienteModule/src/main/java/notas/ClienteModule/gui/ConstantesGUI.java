@@ -8,6 +8,7 @@ public class ConstantesGUI {
     public static final String FXML_COMPLEMENTS_JEFATURA_FXML = "/fxml/complements/jefatura.fxml";
     public static final String FXML_COMPLEMENTS_CONSULTASPADRE_FXML = "/fxml/complements/consutasPadre.fxml";
     public static final String FXML_COMPLEMENTS_PONERPARTE_FXML = "/fxml/complements/ponerParte.fxml";
+    public static final String FXML_COMPLEMENTS_ADMINISTRACION_FXML = "/fxml/complements/administracion.fxml";
 
 
     public static final String FALLO_DEL_SERVIDOR = "Fallo del Servidor";

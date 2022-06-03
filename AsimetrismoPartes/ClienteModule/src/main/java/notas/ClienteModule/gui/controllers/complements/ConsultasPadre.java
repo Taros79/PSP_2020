@@ -39,6 +39,10 @@ public class ConsultasPadre implements Initializable {
     }
 
 
+    public void limpiarDatosPadre() {
+        listViewPartes.getItems().clear();
+    }
+
     public void actualizarDatos() {
         serviciosParte.getPartesByUser(pantallaPrincipal.getUsuarioLoginPrincipal().getId())
                 .observeOn(JavaFxScheduler.platform())

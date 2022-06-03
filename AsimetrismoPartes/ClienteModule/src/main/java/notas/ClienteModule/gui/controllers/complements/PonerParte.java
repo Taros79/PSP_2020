@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 public class PonerParte implements Initializable {
 
     @FXML
-    private ListView<ParteDesencriptadoDTO> listViewPartesRechazados;
+    private ListView<ParteDesencriptadoDTO> listViewPartes;
     @FXML
     private ComboBox<Alumno> comboAlumnos;
     @FXML
@@ -49,6 +49,12 @@ public class PonerParte implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         a = new Alert(Alert.AlertType.INFORMATION);
+    }
+
+
+    public void limpiarDatosParte() {
+        listViewPartes.getItems().clear();
+        textAreaParte.clear();
     }
 
     public void actualizarDatos() {
@@ -80,8 +86,16 @@ public class PonerParte implements Initializable {
                 .subscribe(resultado ->
                                 resultado
                                         .peek(action -> {
-                                                    listViewPartesRechazados.getItems().clear();
-                                                    listViewPartesRechazados.getItems().addAll(action);
+                                            listViewPartes.getItems().clear();
+                                            for (ParteDesencriptadoDTO parte : action) {
+                                                //Para que quede bonito el estado y no sea la id
+                                                parte.setTipoEstado(parte.getIdTipoEstado());
+                                                if (parte.getIdTipoEstado() == 3) {
+                                                    listViewPartes.getItems().add(parte);
+                                                }else if (parte.getIdTipoEstado() == 1 || parte.getIdTipoEstado() == 2){
+                                                    listViewPartes.getItems().add(parte);
+                                                }
+                                            }
                                                 }
                                         )
                                         .peekLeft(error -> {

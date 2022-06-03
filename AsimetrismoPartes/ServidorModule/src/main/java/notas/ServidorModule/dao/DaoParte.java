@@ -75,9 +75,13 @@ public class DaoParte {
 
             Usuario usuario = daoUsuario.getUsuarioById(idUsuario);
 
+            //Recorremos todos los partes compartidos
             for (PartesCompartidos partesCompartidos : pc) {
+                //Con la idParte de partes compartidos obtenemos el parte
                 var parte = getParteById(partesCompartidos.getIdParte());
-                if (parte.getIdTipoEstado() == 1 && idUsuario == 1 || parte.getIdTipoEstado() == 2 && idUsuario != 1
+
+                //Si el usuario es padre solo vera los aceptados, el profesor los suyos y jefatura todos
+                if (usuario.getIdTipoUsuario() == 2 || parte.getIdTipoEstado() == 2 && usuario.getIdTipoUsuario() != 2
                         || parte.getIdTipoEstado() == 3 && usuario.getIdTipoUsuario() == 1) {
                     var randomDesencriptada =
                             encriptar.desencriptarRSAClaveCifrada(partesCompartidos.getClaveCifrada(), usuario);

@@ -3,6 +3,8 @@ package notas.ClienteModule.gui.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
@@ -11,11 +13,9 @@ import lombok.extern.log4j.Log4j2;
 import notas.ClienteModule.Servicios.ServiciosUsuario;
 import notas.ClienteModule.dao.utils.CacheAuthorization;
 import notas.ClienteModule.gui.ConstantesGUI;
-import notas.ClienteModule.gui.controllers.complements.ConsultasPadre;
-import notas.ClienteModule.gui.controllers.complements.IniciarSesion;
-import notas.ClienteModule.gui.controllers.complements.Jefatura;
-import notas.ClienteModule.gui.controllers.complements.PonerParte;
+import notas.ClienteModule.gui.controllers.complements.*;
 import notas.CommonModule.modelo.Usuario;
+import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -29,8 +29,10 @@ public class FXMLPrincipalController implements Initializable {
     private final FXMLLoader fxmlLoaderJefatura;
     private final FXMLLoader fxmlLoaderConsultasPadre;
     private final FXMLLoader fxmlLoaderPonerParte;
+    private final FXMLLoader fxmlLoaderAdministracion;
 
-
+    @FXML
+    private Menu menuAdmin;
     @FXML
     private MenuItem menuLogin;
     @FXML
@@ -55,19 +57,25 @@ public class FXMLPrincipalController implements Initializable {
     private AnchorPane pantallaConsultasPadre;
     private ConsultasPadre consultasPadreController;
 
+    private AnchorPane pantallaAdministracion;
+    private Administracion administracionController;
+
     private Usuario usuarioLogin;
     private ServiciosUsuario serviciosUsuario;
     private CacheAuthorization ca;
+    private Alert a;
 
 
     @Inject
     public FXMLPrincipalController(ServiciosUsuario serviciosUsuario, FXMLLoader fxmlLoaderIniciarSesion,
                                    FXMLLoader fxmlLoaderJefatura, FXMLLoader fxmlLoaderConsultasPadre,
-                                   FXMLLoader fxmlLoaderPonerParte, CacheAuthorization ca) {
+                                   FXMLLoader fxmlLoaderPonerParte, FXMLLoader fxmlLoaderAdministracion,
+                                   CacheAuthorization ca) {
         this.fxmlLoaderIniciarSesion = fxmlLoaderIniciarSesion;
         this.fxmlLoaderJefatura = fxmlLoaderJefatura;
         this.fxmlLoaderConsultasPadre = fxmlLoaderConsultasPadre;
         this.fxmlLoaderPonerParte = fxmlLoaderPonerParte;
+        this.fxmlLoaderAdministracion = fxmlLoaderAdministracion;
         this.serviciosUsuario = serviciosUsuario;
         this.ca = ca;
     }
@@ -82,6 +90,8 @@ public class FXMLPrincipalController implements Initializable {
         preloadJefatura();
         preloadConsultasPadre();
         preloadPonerParte();
+        preloadAdministracion();
+        a = new Alert(Alert.AlertType.INFORMATION);
     }
 
 
@@ -145,6 +155,19 @@ public class FXMLPrincipalController implements Initializable {
         }
     }
 
+    private void preloadAdministracion() {
+        if (pantallaAdministracion == null) {
+            try {
+                pantallaAdministracion = fxmlLoaderAdministracion.load(getClass()
+                        .getResourceAsStream(ConstantesGUI.FXML_COMPLEMENTS_ADMINISTRACION_FXML));
+                administracionController = fxmlLoaderAdministracion.getController();
+                administracionController.setPerfil(this);
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------//
 
     public void mostrarPantallaIniciarSesion() {
@@ -183,12 +206,23 @@ public class FXMLPrincipalController implements Initializable {
         }
     }
 
+    public void mostrarPantallaAdministracion() {
+        if (pantallaAdministracion != null) {
+            if (pantallaPrincipal.getCenter() != null) {
+                pantallaPrincipal.setCenter(null);
+            }
+            pantallaPrincipal.setCenter(pantallaAdministracion);
+        }
+    }
+
     //--------------------------------------------------------------------------------------------------------//
 
     @FXML
     private void jefatura() {
         mostrarPantallaJefatura();
         jefaturaController.actualizarDatos();
+
+
     }
 
     @FXML
@@ -204,6 +238,12 @@ public class FXMLPrincipalController implements Initializable {
     }
 
     @FXML
+    private void administracion() {
+        mostrarPantallaAdministracion();
+        administracionController.actualizarDatos();
+    }
+
+    @FXML
     private void iniciarSesion() {
         if (ca.getNombre() != null) {
             ca.setNombre(null);
@@ -215,47 +255,74 @@ public class FXMLPrincipalController implements Initializable {
 
     @FXML
     private void logout() {
-        if (menuJefatura.isVisible()) {
-            menuJefatura.setVisible(false);
-        }
-        if (menuProfe.isVisible()) {
-            menuProfe.setVisible(false);
-        }
-        if (menuPadre.isVisible()) {
-            menuPadre.setVisible(false);
-        }
-        if (!menuLogin.isVisible()) {
-            menuLogin.setVisible(true);
-        }
-        serviciosUsuario.hacerLogout();
-        mostrarPantallaIniciarSesion();
-        if (ca.getNombre() != null) {
-            ca.setNombre(null);
-            ca.setContraseña(null);
-            ca.setToken(null);
-        }
+        serviciosUsuario.hacerLogout()
+                .observeOn(JavaFxScheduler.platform())
+                .doFinally(() -> this.pantallaPrincipal.setCursor(Cursor.DEFAULT))
+                .subscribe(resultado ->
+                                resultado
+                                        .peek(action -> {
+                                                    if (menuJefatura.isVisible()) {
+                                                        menuJefatura.setVisible(false);
+                                                    }
+                                                    if (menuProfe.isVisible()) {
+                                                        menuProfe.setVisible(false);
+                                                    }
+                                                    if (menuPadre.isVisible()) {
+                                                        menuPadre.setVisible(false);
+                                                    }
+                                                    if (menuAdmin.isVisible()) {
+                                                        menuAdmin.setVisible(false);
+                                                    }
+                                                    if (!menuLogin.isVisible()) {
+                                                        menuLogin.setVisible(true);
+                                                    }
+                                                    mostrarPantallaIniciarSesion();
+                                                    consultasPadreController.limpiarDatosPadre();
+                                                    ponerParteController.limpiarDatosParte();
+                                                    jefaturaController.limpiarDatosJefatura();
+                                                    administracionController.limpiarDatosAdministracion();
+                                                    if (ca.getNombre() != null) {
+                                                        ca.setNombre(null);
+                                                        ca.setContraseña(null);
+                                                        ca.setToken(null);
+                                                    }
+                                                }
+                                        )
+                                        .peekLeft(error -> {
+                                            a.setContentText(error);
+                                            a.showAndWait();
+                                        }),
+                        throwable -> {
+                            a.setContentText(ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                            a.showAndWait();
+                        }
+                );
+        pantallaPrincipal.setCursor(Cursor.WAIT);
     }
 
     //----------------------------------
 
-    public void irAPrincipalAdmin() {
-        mostrarPantallaJefatura();
-        jefaturaController.actualizarDatos();
+    public void irAPrincipalJefatura() {
+        jefatura();
         menuJefatura.setVisible(true);
         menuLogin.setVisible(false);
     }
 
     public void irAPrincipalUsuario() {
-        mostrarPantallaConsultasPadre();
-        consultasPadreController.actualizarDatos();
+        consultasPadre();
         menuPadre.setVisible(true);
         menuLogin.setVisible(false);
     }
 
     public void irAPrincipalProfe() {
-        mostrarPantallaPonerParte();
-        ponerParteController.actualizarDatos();
+        ponerParte();
         menuProfe.setVisible(true);
+        menuLogin.setVisible(false);
+    }
+
+    public void irAPrincipalAdmin() {
+        administracion();
+        menuAdmin.setVisible(true);
         menuLogin.setVisible(false);
     }
 }

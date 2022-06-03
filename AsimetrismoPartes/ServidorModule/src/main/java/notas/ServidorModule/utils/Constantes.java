@@ -8,6 +8,7 @@ public class Constantes {
     public static final String JEFE_DE_ESTUDIOS = "JEFE_DE_ESTUDIOS";
     public static final String PROFESOR = "PROFESOR";
     public static final String PADRE = "PADRE";
+    public static final String ADMIN = "ADMIN";
 
     public static final String CORREO = "correo";
     public static final String GROUP = "group";

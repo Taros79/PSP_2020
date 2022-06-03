@@ -46,6 +46,8 @@ public class InMemoryIdentityStore implements IdentityStore {
                     return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.JEFE_DE_ESTUDIOS));
                 case 3:
                     return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.PADRE));
+                case 4:
+                    return new CredentialValidationResult(usuario.getNombre(), Collections.singleton(Constantes.ADMIN));
                 default:
                     return INVALID_RESULT;
             }

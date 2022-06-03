@@ -18,6 +18,9 @@
             <Menu fx:id="menuPadre" visible="false" text="PADRES">
                 <MenuItem mnemonicParsing="false" onAction="#consultasPadre" text="Consultar partes"/>
             </Menu>
+            <Menu fx:id="menuAdmin" visible="false" text="ADMIN">
+                <MenuItem mnemonicParsing="false" onAction="#administracion" text="Administracion"/>
+            </Menu>
             <Menu text="Inicio Sesion">
                 <MenuItem fx:id="menuLogin" mnemonicParsing="false" onAction="#iniciarSesion" text="Login"/>
                 <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout"/>

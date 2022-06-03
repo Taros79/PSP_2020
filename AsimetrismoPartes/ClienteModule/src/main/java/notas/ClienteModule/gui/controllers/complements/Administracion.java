@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 
-public class Jefatura implements Initializable {
+public class Administracion implements Initializable {
 
     @FXML
     private ComboBox<String> comboBox;
@@ -30,7 +30,7 @@ public class Jefatura implements Initializable {
     @FXML
     private TextField textFieldPass;
     @FXML
-    private ListView<ParteDesencriptadoDTO> listViewPartes;
+    private ListView<Usuario> listViewUsuarios;
 
     private FXMLPrincipalController pantallaPrincipal;
     private Alert a;
@@ -38,7 +38,7 @@ public class Jefatura implements Initializable {
     private ServiciosUsuario serviciosUsuario;
 
     @Inject
-    public Jefatura(ServiciosParte serviciosParte, ServiciosUsuario serviciosUsuario) {
+    public Administracion(ServiciosParte serviciosParte, ServiciosUsuario serviciosUsuario) {
         this.serviciosParte = serviciosParte;
         this.serviciosUsuario = serviciosUsuario;
     }
@@ -52,25 +52,21 @@ public class Jefatura implements Initializable {
         a = new Alert(Alert.AlertType.INFORMATION);
     }
 
-    public void limpiarDatosJefatura() {
-        listViewPartes.getItems().clear();
+    public void limpiarDatosAdministracion() {
+        listViewUsuarios.getItems().clear();
         textFieldNombre.clear();
         textFieldPass.clear();
     }
 
     public void actualizarDatos() {
-        serviciosParte.getPartesByUser(pantallaPrincipal.getUsuarioLoginPrincipal().getId())
+        serviciosUsuario.getAllUsuarios()
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
                 .subscribe(resultado ->
                                 resultado
                                         .peek(action -> {
-                                                    listViewPartes.getItems().clear();
-                                                    for (ParteDesencriptadoDTO parte : action) {
-                                                        //Para que quede bonito el estado y no sea la id
-                                                        parte.setTipoEstado(parte.getIdTipoEstado());
-                                                        listViewPartes.getItems().add(parte);
-                                                    }
+                                                    listViewUsuarios.getItems().clear();
+                                                    listViewUsuarios.getItems().addAll(action);
                                                 }
                                         )
                                         .peekLeft(error -> {
@@ -83,47 +79,6 @@ public class Jefatura implements Initializable {
                         }
                 );
         pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
-    }
-
-    public void updateParte(int estado) {
-        if (listViewPartes.getSelectionModel().getSelectedItem() != null) {
-            serviciosParte.updateParte(
-                            listViewPartes.getSelectionModel().getSelectedItem().getId(),
-                            estado)
-                    .observeOn(JavaFxScheduler.platform())
-                    .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
-                    .subscribe(resultado ->
-                                    resultado
-                                            .peek(action -> {
-                                                        actualizarDatos();
-                                                        a = new Alert(Alert.AlertType.INFORMATION, action);
-                                                        a.showAndWait();
-                                                    }
-                                            )
-                                            .peekLeft(error -> {
-                                                a = new Alert(Alert.AlertType.ERROR, error);
-                                                a.showAndWait();
-                                            }),
-                            throwable -> {
-                                a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
-                                a.showAndWait();
-                            }
-                    );
-            pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
-        } else {
-            a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.SELECCIONA_EN_LA_LISTA);
-            a.showAndWait();
-        }
-    }
-
-    @FXML
-    private void aceptar() {
-        updateParte(2);
-    }
-
-    @FXML
-    private void rechazar() {
-        updateParte(3);
     }
 
     @FXML
@@ -141,6 +96,7 @@ public class Jefatura implements Initializable {
                     .subscribe(resultado ->
                                     resultado
                                             .peek(action -> {
+                                                        actualizarDatos();
                                                         a.setContentText(action);
                                                         a.showAndWait();
                                                     }

@@ -57,6 +57,8 @@ public class IniciarSesion implements Initializable {
                                                         a.showAndWait();
                                                         pantallaPrincipal.setUsuarioLoginPrincipal(action);
                                                         if (action.getIdTipoUsuario() == 2) {
+                                                            pantallaPrincipal.irAPrincipalJefatura();
+                                                        } else if (action.getIdTipoUsuario() == 4) {
                                                             pantallaPrincipal.irAPrincipalAdmin();
                                                         } else if (action.getIdTipoUsuario() == 3) {
                                                             pantallaPrincipal.irAPrincipalUsuario();

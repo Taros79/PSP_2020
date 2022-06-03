@@ -7,7 +7,7 @@ import notas.CommonModule.constantes.ConstantesRest;
 import notas.ServidorModule.utils.Constantes;
 
 @ApplicationPath(ConstantesRest.API)
-@DeclareRoles({Constantes.JEFE_DE_ESTUDIOS, Constantes.PROFESOR, Constantes.PADRE})
+@DeclareRoles({Constantes.JEFE_DE_ESTUDIOS, Constantes.PROFESOR, Constantes.PADRE, Constantes.ADMIN})
 public class JAXRSApplication extends Application {
 
 }

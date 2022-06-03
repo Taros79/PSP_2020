@@ -3,15 +3,14 @@ package notas.ServidorModule.EE.rest;
 import io.vavr.control.Either;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import notas.CommonModule.constantes.ConstantesRest;
 import notas.CommonModule.modelo.Usuario;
 import notas.ServidorModule.servicios.ServiciosUsuario;
 import notas.ServidorModule.utils.Constantes;
+
+import java.util.List;
 
 @Path(ConstantesRest.PATH_USUARIOS)
 @Produces(MediaType.APPLICATION_JSON)
@@ -25,10 +24,16 @@ public class RestUsuario {
         this.serviciosUsuario = serviciosUsuario;
     }
 
-    @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS})
+    @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS, Constantes.ADMIN})
     @POST
     public Either<String, String> addUsuario(Usuario usuario) {
         return serviciosUsuario.addUsuario(usuario);
+    }
+
+    @RolesAllowed({Constantes.ADMIN})
+    @GET
+    public List<Usuario> getAllUsuarios() {
+        return serviciosUsuario.getAllUsuarios();
     }
 
 }
