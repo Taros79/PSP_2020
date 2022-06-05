@@ -38,4 +38,8 @@ public class ServiciosParte {
     public Single<Either<String, String>> updateParte(int idParte, int estado) {
         return daoParte.updateParte(idParte, estado);
     }
+
+    public Single<Either<String, String>> firmarPartePadre(int idUsuario, int idParte, String mensaje) {
+        return daoParte.firmarPartePadre(idUsuario, idParte, mensaje);
+    }
 }

@@ -276,6 +276,74 @@ public class Encriptar {
         return mensajeEncriptado;
     }
 
+    public Either<String, PrivateKey> getPrivateKey(String nombre, String pass) {
+        Either<String, PrivateKey> resultado;
+        //Para leer la privada:
+        try {
+            KeyStore ksLoad = KeyStore.getInstance(Constantes.PKCS_12);
+            char[] password = pass.toCharArray();
+            ksLoad.load(new FileInputStream(configYaml.getRutaKeyStore() + nombre + Constantes.KEYSTORE_PFX), Constantes.CONTRASENA_ALL_PFX.toCharArray());
+            KeyStore.PasswordProtection pt = new KeyStore.PasswordProtection(password);
+            KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) ksLoad.getEntry(Constantes.PRIVADA, pt);
+            PrivateKey privateKey = privateKeyEntry.getPrivateKey();
+            resultado = Either.right(privateKey);
+        } catch (NoSuchAlgorithmException | IOException e) {
+            log.error(e.getMessage(), e);
+            resultado = Either.left(Constantes.NO_HA_SIDO_POSIBLE_RECOGER_LA_CLAVE_PRIVADA_INTENTELO_MAS_TARDE);
+        } catch (UnrecoverableEntryException e) {
+            //Es porque la pass es incorrecta.
+            log.error(e.getMessage(), e);
+            resultado = Either.left(Constantes.USUARIO_Y_O_CONTRASENA_NO_VALIDO);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            resultado = Either.left(Constantes.FALLO_INTERNO);
+        }
+        return resultado;
+    }
+
+    public Either<String, PublicKey> getPublicKey(String nombre) {
+        Either<String, PublicKey> resultado;
+        try {
+            KeyStore ksLoad = KeyStore.getInstance(Constantes.PKCS_12);
+            ksLoad.load(new FileInputStream(configYaml.getRutaKeyStore() + nombre + Constantes.KEYSTORE_PFX), Constantes.CONTRASENA_ALL_PFX.toCharArray());
+            X509Certificate certLoad = (X509Certificate) ksLoad.getCertificate(Constantes.PUBLICA);
+            PublicKey publicKey = certLoad.getPublicKey();
+            resultado = Either.right(publicKey);
+        } catch (NoSuchAlgorithmException | IOException e) {
+            log.error(e.getMessage(), e);
+            resultado = Either.left(Constantes.NO_HA_SIDO_POSIBLE_RECOGER_LA_CLAVE_PUBLICA_INTENTELO_MAS_TARDE);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            resultado = Either.left(Constantes.FALLO_INTERNO);
+        }
+
+        return resultado;
+    }
+
+    public Either<String, String> firmar(Usuario u, String mensaje) {
+        Either<String, String> result;
+        try {
+            Either<String, PrivateKey> eitherGetPrivateKey = getPrivateKey(u.getNombre(), u.getPass());
+
+            if (eitherGetPrivateKey.isRight()) {
+                Signature sign = Signature.getInstance(Constantes.SHA_256_WITH_RSA);
+                MessageDigest hash = MessageDigest.getInstance(Constantes.SHA_512);
+                sign.initSign(eitherGetPrivateKey.get());
+//                    Firmo el secreto encriptado simetricamente
+                sign.update(hash.digest(mensaje.getBytes()));
+                byte[] firmaEnBytes = sign.sign();
+                String firmaEnBase64 = Base64.getUrlEncoder().encodeToString(firmaEnBytes);
+
+                result = Either.right(firmaEnBase64);
+            } else {
+                result = Either.left(eitherGetPrivateKey.getLeft());
+            }
+        } catch (NoSuchAlgorithmException | SignatureException | InvalidKeyException e) {
+            log.error(e.getMessage(), e);
+            result = Either.left(e.getMessage());
+        }
+        return result;
+    }
 
 }
 

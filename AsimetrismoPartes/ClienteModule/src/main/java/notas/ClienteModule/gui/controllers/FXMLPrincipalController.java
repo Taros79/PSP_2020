@@ -192,6 +192,7 @@ public class FXMLPrincipalController implements Initializable {
         if (pantallaPonerParte != null) {
             if (pantallaPrincipal.getCenter() != null) {
                 pantallaPrincipal.setCenter(null);
+                ponerParteController.cargarAlumnos();
             }
             pantallaPrincipal.setCenter(pantallaPonerParte);
         }

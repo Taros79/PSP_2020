@@ -26,4 +26,7 @@ public interface ApiParte {
 
     @PUT(ConstantesRest.PATH_PARTES)
     Single<String> updateParte(@Query("idParte") int idParte, @Query("estado") int estado);
+
+    @PUT(ConstantesRest.PATH_PARTES + ConstantesRest.PATH_FIRMAR_PADRE)
+    Single<String> firmarPartePadre(@Query("idUsuario") int idUsuario, @Query("idParte") int idParte, @Query("mensaje") String mensaje);
 }

@@ -6,6 +6,7 @@ import notas.CommonModule.modelo.PartesCompartidos;
 import notas.CommonModule.modelo.Usuario;
 import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import notas.CommonModule.modeloDTO.ParteProfesorPadre;
+import notas.ServidorModule.EE.security.encriptaciones.Constantes;
 import notas.ServidorModule.EE.security.encriptaciones.Encriptar;
 import notas.ServidorModule.dao.ConstantesSQL;
 import notas.ServidorModule.dao.DaoAlumno;
@@ -13,7 +14,9 @@ import notas.ServidorModule.dao.DaoParte;
 import notas.ServidorModule.dao.DaoUsuario;
 import notas.ServidorModule.dao.errores.OtraException;
 
+import java.security.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,17 +47,51 @@ public class ServiciosParte {
             var parte = daoParte.getParteById(partesCompartidos.getIdParte());
 
             //Si el usuario es padre solo vera los aceptados, el profesor los suyos y jefatura todos
-            if (usuario.getIdTipoUsuario() == 2 || parte.getIdTipoEstado() == 2 && usuario.getIdTipoUsuario() != 2
-                    || parte.getIdTipoEstado() == 3 && usuario.getIdTipoUsuario() == 1) {
+            if (usuario.getIdTipoUsuario() == ConstantesSQL.TIPO_JEFATURA ||
+                    parte.getIdTipoEstado() == ConstantesSQL.ESTADO_CONFIRMADO &&
+                            usuario.getIdTipoUsuario() != ConstantesSQL.TIPO_JEFATURA ||
+                    usuario.getIdTipoUsuario() == ConstantesSQL.TIPO_PROFESOR) {
                 var randomDesencriptada =
                         encriptar.desencriptarRSAClaveCifrada(partesCompartidos.getClaveCifrada(), usuario);
                 if (randomDesencriptada.isRight()) {
                     var mensajeParte = encriptar.desencriptarAESTextoConRandom(parte.getDescripcion(), randomDesencriptada.get());
                     if (mensajeParte.isRight()) {
                         var alumno = daoAlumno.getAlumnoById(parte.getIdAlumno());
+                        //mirar
                         if (Objects.nonNull(alumno)) {
-                            partesDesencriptados.add(new ParteDesencriptadoDTO(parte.getId(), mensajeParte.get(),
-                                    alumno.getNombre(), parte.getIdTipoEstado()));
+                            try {
+                                //ver firma
+                                String firmaAComprobar;
+                                Usuario userPublic;
+                                if (usuario.getIdTipoUsuario() == ConstantesSQL.TIPO_PADRE) {
+                                    userPublic = daoUsuario.getUsuarioById(ConstantesSQL.ID_JEFATURA);
+                                } else {
+                                    userPublic = daoUsuario.getUsuarioById(parte.getIdProfesor());
+                                }
+
+                                PublicKey publicKeyUsuarioQueFirmo = encriptar.getPublicKey(userPublic.getNombre()).get();
+                                //Y ya con la publica, comprobamos:
+                                Signature sign;
+                                sign = Signature.getInstance(Constantes.SHA_256_WITH_RSA);
+                                MessageDigest hash = MessageDigest.getInstance(Constantes.SHA_512);
+                                //Lo ponemos en verificar
+                                sign.initVerify(publicKeyUsuarioQueFirmo);
+                                //Aqui va la pass ya encriptada
+                                sign.update(hash.digest(mensajeParte.get().getBytes()));
+                                if (usuario.getIdTipoUsuario() != ConstantesSQL.TIPO_PADRE) {
+                                    firmaAComprobar = parte.getFirmaProfesor();
+                                } else {
+                                    firmaAComprobar = parte.getFirmaJefatura();
+                                }
+                                byte[] firma = Base64.getUrlDecoder().decode(firmaAComprobar);
+                                if (sign.verify(firma)) {
+                                    //Y aqui implica que es correcto que lo firmo él
+                                    partesDesencriptados.add(new ParteDesencriptadoDTO(parte.getId(), mensajeParte.get(),
+                                            alumno.getNombre(), parte.getIdTipoEstado()));
+                                }
+                            } catch (NoSuchAlgorithmException | SignatureException | InvalidKeyException e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             log.error("No se ha encontrado el alumno con id: " + parte.getIdAlumno());
                             throw new OtraException(ConstantesSQL.ALUMNO_NO_ENCONTRADO);
@@ -102,5 +139,9 @@ public class ServiciosParte {
             throw new OtraException(ConstantesSQL.USUARIO_NO_ENCONTRADO);
         }
         return resultado;
+    }
+
+    public String firmarPartePadre(int idUsuario, int idParte, String mensaje) {
+        return daoParte.firmarPartePadre(idUsuario, idParte, mensaje);
     }
 }

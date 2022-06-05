@@ -8,6 +8,7 @@ import notas.ClienteModule.dao.retrofit.ApiParte;
 import notas.CommonModule.modelo.Parte;
 import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import notas.CommonModule.modeloDTO.ParteProfesorPadre;
+import retrofit2.http.Query;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -41,5 +42,9 @@ public class DaoParte extends DaoGenerics {
 
     public Single<Either<String, String>> updateParte(int idParte, int estado) {
         return safeSingleApicall(apiParte.updateParte(idParte, estado));
+    }
+
+    public Single<Either<String, String>> firmarPartePadre(int idUsuario, int idParte, String mensaje) {
+        return safeSingleApicall(apiParte.firmarPartePadre(idUsuario, idParte, mensaje));
     }
 }

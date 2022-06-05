@@ -49,6 +49,13 @@ public class RestParte {
     public String updateParte(@QueryParam("idParte") int idParte, @QueryParam("estado") int estado) {
         return serviciosParte.updateParte(idParte, estado);
     }
+
+    @RolesAllowed({Constantes.PADRE})
+    @PUT
+    @Path(ConstantesRest.PATH_FIRMAR_PADRE)
+    public String firmarPartePadre(@QueryParam("idUsuario") int idUsuario, @QueryParam("idParte") int idParte, @QueryParam("mensaje") String mensaje) {
+        return serviciosParte.firmarPartePadre(idUsuario, idParte, mensaje);
+    }
 }
 
 /*

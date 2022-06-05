@@ -1,5 +1,6 @@
 package notas.ClienteModule.gui.controllers.complements;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -52,6 +53,32 @@ public class ConsultasPadre implements Initializable {
                                         .peek(action -> {
                                                     listViewPartes.getItems().clear();
                                                     listViewPartes.getItems().addAll(action);
+                                                }
+                                        )
+                                        .peekLeft(error -> {
+                                            a = new Alert(Alert.AlertType.ERROR, error);
+                                            a.showAndWait();
+                                        }),
+                        throwable -> {
+                            a = new Alert(Alert.AlertType.ERROR, ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                            a.showAndWait();
+                        }
+                );
+        pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+    }
+
+    @FXML
+    private void firmarParte() {
+        serviciosParte.firmarPartePadre(pantallaPrincipal.getUsuarioLoginPrincipal().getId(),
+                        listViewPartes.getSelectionModel().getSelectedItem().getId(),
+                        listViewPartes.getSelectionModel().getSelectedItem().getDescripcion())
+                .observeOn(JavaFxScheduler.platform())
+                .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
+                .subscribe(resultado ->
+                                resultado
+                                        .peek(action -> {
+                                                   a.setContentText(action);
+                                                   a.showAndWait();
                                                 }
                                         )
                                         .peekLeft(error -> {

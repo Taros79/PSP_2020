@@ -1,13 +1,14 @@
 package notas.ServidorModule.dao;
 
+import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import notas.CommonModule.modelo.Parte;
 import notas.CommonModule.modelo.PartesCompartidos;
 import notas.CommonModule.modelo.Usuario;
-import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import notas.CommonModule.modeloDTO.UsuarioYRandom;
+import notas.ServidorModule.EE.security.encriptaciones.Constantes;
 import notas.ServidorModule.EE.security.encriptaciones.Encriptar;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
 import notas.ServidorModule.dao.errores.OtraException;
@@ -25,8 +26,11 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.security.MessageDigest;
+import java.security.PrivateKey;
+import java.security.Signature;
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -96,30 +100,40 @@ public class DaoParte {
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
 
         try {
-            var mensajeEncriptado = encriptar.encriptarAESTextoConRandom(parte.getParte().getDescripcion());
+            var usuario = daoUsuario.getUsuarioById(parte.getIdProfesor());
+            //Ahora para firmar, pillamos la privada del usuario.
+            var firmaEnBase64 = encriptar.firmar(usuario, parte.getParte().getDescripcion());
+            if (firmaEnBase64.isRight()) {
 
-            if (mensajeEncriptado.isRight()) {
-                holder = new GeneratedKeyHolder();
-                jtm = new JdbcTemplate(Objects.requireNonNull(transactionManager.getDataSource()));
-                jtm.update(connection -> {
-                    PreparedStatement preparedStatement = connection.prepareStatement(ConstantesSQL.INSERT_PARTE,
-                            PreparedStatement.RETURN_GENERATED_KEYS);
-                    preparedStatement.setString(1, mensajeEncriptado.get());
-                    preparedStatement.setInt(2, parte.getParte().getIdAlumno());
-                    preparedStatement.setInt(3, 1);
-                    return preparedStatement;
-                }, holder);
-                idParte = Objects.requireNonNull(holder.getKey()).intValue();
+                var mensajeEncriptado = encriptar.encriptarAESTextoConRandom(parte.getParte().getDescripcion());
+                if (mensajeEncriptado.isRight()) {
 
-                //Primero compartimos con el profesor
-                addParteCompartido(parte.getIdProfesor(), idParte);
+                    holder = new GeneratedKeyHolder();
+                    jtm = new JdbcTemplate(Objects.requireNonNull(transactionManager.getDataSource()));
+                    jtm.update(connection -> {
+                        PreparedStatement preparedStatement = connection.prepareStatement(ConstantesSQL.INSERT_PARTE,
+                                PreparedStatement.RETURN_GENERATED_KEYS);
+                        preparedStatement.setString(1, mensajeEncriptado.get());
+                        preparedStatement.setInt(2, parte.getParte().getIdAlumno());
+                        preparedStatement.setInt(3, parte.getIdProfesor());
+                        preparedStatement.setInt(4, ConstantesSQL.ESTADO_CREADO);
+                        preparedStatement.setString(5, firmaEnBase64.get());
+                        return preparedStatement;
+                    }, holder);
+                    idParte = Objects.requireNonNull(holder.getKey()).intValue();
 
-                //Segundo compartimos con jefatura
-                addParteCompartido(1, idParte);
+                    //Primero compartimos con el profesor
+                    addParteCompartido(parte.getIdProfesor(), idParte);
 
-                result = "Parte creado correctamente";
+                    //Segundo compartimos con jefatura
+                    addParteCompartido(ConstantesSQL.ID_JEFATURA, idParte);
+
+                    result = "Parte creado correctamente";
+                } else {
+                    result = mensajeEncriptado.getLeft();
+                }
             } else {
-                result = mensajeEncriptado.getLeft();
+                result = firmaEnBase64.getLeft();
             }
 
             transactionManager.commit(txStatus);
@@ -186,7 +200,7 @@ public class DaoParte {
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
 
         try {
-            Usuario jefatura = daoUsuario.getUsuarioById(1);
+            Usuario jefatura = daoUsuario.getUsuarioById(ConstantesSQL.ID_JEFATURA);
             jdbcTemplate = new JdbcTemplate(Objects.requireNonNull(transactionManager.getDataSource()));
             var parteComp = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_PARTECOMPARTIDO_BY_IDS,
                     new BeanPropertyRowMapper<>(PartesCompartidos.class), idParte);
@@ -199,9 +213,19 @@ public class DaoParte {
                     var usuario = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_ID_ALUMNO,
                             new BeanPropertyRowMapper<>(Usuario.class), parte.getIdAlumno());
                     if (usuario != null) {
-                        jdbcTemplate.update(ConstantesSQL.UPDATE_PARTE,
-                                estado,
-                                idParte);
+                        var mensajeParte =
+                                encriptar.desencriptarAESTextoConRandom(parte.getDescripcion(), randomDesencriptada.get());
+
+                        var firmaEnBase64 = encriptar.firmar(jefatura, mensajeParte.get());
+                        if (firmaEnBase64.isRight()) {
+                            jdbcTemplate.update(ConstantesSQL.UPDATE_PARTE,
+                                    estado,
+                                    firmaEnBase64.get(),
+                                    idParte);
+                        } else {
+                            log.error(firmaEnBase64.getLeft());
+                            throw new OtraException(firmaEnBase64.getLeft());
+                        }
 
                         result = new UsuarioYRandom(usuario, randomDesencriptada.get());
                     } else {
@@ -256,5 +280,31 @@ public class DaoParte {
         return result;
     }
 
+    public String firmarPartePadre(int idUsuario, int idParte, String mensaje) {
+        String result;
+        Usuario padre = daoUsuario.getUsuarioById(idUsuario);
+
+        try{
+            var firmaEnBase64 = encriptar.firmar(padre, mensaje);
+            if (firmaEnBase64.isRight()) {
+                JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+                jdbcTemplate.update(ConstantesSQL.UPDATE_PARTE_PADRE,
+                        firmaEnBase64.get(),
+                        idParte);
+
+                result = ConstantesSQL.FIRMADO;
+            } else {
+                log.error(firmaEnBase64.getLeft());
+                throw new OtraException(firmaEnBase64.getLeft());
+            }
+        }catch (DataAccessException e) {
+            log.error(e.getMessage());
+            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
 
 }

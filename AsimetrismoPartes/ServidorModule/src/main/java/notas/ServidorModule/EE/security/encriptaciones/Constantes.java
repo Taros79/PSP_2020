@@ -3,7 +3,6 @@ package notas.ServidorModule.EE.security.encriptaciones;
 public class Constantes {
 
     //GenClaves
-    public static final String PATH_KEYSTORE = "keystore\\";
     public static final String PRIVADA = ".privada";
     public static final String PUBLICA = ".publica";
     public static final String PKCS_12 = "PKCS12";
@@ -30,6 +29,8 @@ public class Constantes {
     public static final int ITERATION_COUNT = 65536;
     public static final int KEY_LENGTH = 256;
     public static final int KEY_SIZE = 2048;
+    public static final String SHA_256_WITH_RSA = "SHA256WithRSA";
+    public static final String SHA_512 = "SHA-512";
 
     public static final String INVALID_KEY = "Invalid key";
     public static final String ALGORITMO_INVALIDO = "Algoritmo invalido";
@@ -40,6 +41,9 @@ public class Constantes {
     public static final String ERROR_EN_KEY_STORE_BUILD = "Error en KeyStoreBuild";
     public static final String ERROR_EN_EL_CERTIFICADO = "Error en el certificado";
     public static final String ERROR_DE_ENCRIPTACION_ASIMETRICA = "Error de encriptacion asimetrica";
+    public static final String NO_HA_SIDO_POSIBLE_RECOGER_LA_CLAVE_PRIVADA_INTENTELO_MAS_TARDE = "No ha sido posible recoger la clave privada, intentelo mas tarde";
+    public static final String NO_HA_SIDO_POSIBLE_RECOGER_LA_CLAVE_PUBLICA_INTENTELO_MAS_TARDE = "No ha sido posible recoger la clave publica, intentelo mas tarde";
+    public static final String FALLO_INTERNO = "Fallo interno";
 
     public static final String KEYSTORE_CREADO_CORRECTAMENTE = "Keystore creado correctamente";
     public static final String FALLO_AL_CREAR_LA_KEYSTORE = "Fallo al crear la keystore";

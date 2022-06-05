@@ -57,8 +57,7 @@ public class PonerParte implements Initializable {
         textAreaParte.clear();
     }
 
-    public void actualizarDatos() {
-        textAreaParte.clear();
+    public void cargarAlumnos(){
         serviciosAlumno.getAllAlumnos()
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
@@ -79,6 +78,10 @@ public class PonerParte implements Initializable {
                         }
                 );
         pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
+    }
+
+    public void actualizarDatos() {
+        textAreaParte.clear();
 
         serviciosParte.getPartesByUser(pantallaPrincipal.getUsuarioLoginPrincipal().getId())
                 .observeOn(JavaFxScheduler.platform())
@@ -136,7 +139,6 @@ public class PonerParte implements Initializable {
             pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.WAIT);
 
             actualizarDatos();
-
         } else {
             a.setContentText(ConstantesGUI.SELECCIONA_EN_LA_LISTA);
             a.showAndWait();

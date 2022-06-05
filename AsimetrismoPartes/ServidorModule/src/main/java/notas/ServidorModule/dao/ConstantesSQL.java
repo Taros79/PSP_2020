@@ -8,8 +8,9 @@ public class ConstantesSQL {
 
     public static final String SELECT_ALL_PARTES = "SELECT * FROM partes";
     public static final String SELECT_PARTE_BY_ID = "SELECT * FROM partes where id = ?";
-    public static final String INSERT_PARTE = "INSERT INTO partes (descripcion, idAlumno, idTipoEstado) VALUES (?, ?, ?)";
-    public static final String UPDATE_PARTE = "UPDATE partes SET idTipoEstado = ? WHERE id = ?";
+    public static final String INSERT_PARTE = "INSERT INTO partes (descripcion, idAlumno, idProfesor, idTipoEstado, firmaProfesor) VALUES (?, ?, ?, ?, ?)";
+    public static final String UPDATE_PARTE_PADRE = "UPDATE partes SET firmaPadre = ? WHERE id = ?";
+    public static final String UPDATE_PARTE = "UPDATE partes SET idTipoEstado = ?, firmaJefatura = ? WHERE id = ?";
     public static final String DELETE_PARTE = "DELETE FROM partes WHERE id = ?";
     public static final String SELECT_PARTES_PADRE_ALUMNOS = "SELECT * FROM partes p\n" +
             "    inner join alumnosPadre a on p.idAlumno = a.id\n" +
@@ -50,4 +51,16 @@ public class ConstantesSQL {
     public static final String ALUMNO_NO_ENCONTRADO = "Alumno no encontrado";
     public static final String USUARIO_NO_ENCONTRADO = "Usuario no encontrado";
     public static final String ERROR_AL_INSERTAR_USUARIO = "Error al insertar usuario";
+    public static final String FIRMADO = "Firmado con exito";
+
+    //Tipos usuarios
+    public static final int TIPO_PROFESOR = 1;
+    public static final int TIPO_JEFATURA = 2;
+    public static final int TIPO_PADRE = 3;
+
+    public static final int ESTADO_CREADO = 1;
+    public static final int ESTADO_CONFIRMADO = 2;
+
+    public static final int ID_JEFATURA = 1;
+    public static final int ID_ADMINISTRADOR = 21;
 }
