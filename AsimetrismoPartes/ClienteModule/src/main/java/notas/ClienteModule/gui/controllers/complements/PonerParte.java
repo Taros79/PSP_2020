@@ -57,7 +57,7 @@ public class PonerParte implements Initializable {
         textAreaParte.clear();
     }
 
-    public void cargarAlumnos(){
+    public void cargarAlumnos() {
         serviciosAlumno.getAllAlumnos()
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
@@ -89,16 +89,16 @@ public class PonerParte implements Initializable {
                 .subscribe(resultado ->
                                 resultado
                                         .peek(action -> {
-                                            listViewPartes.getItems().clear();
-                                            for (ParteDesencriptadoDTO parte : action) {
-                                                //Para que quede bonito el estado y no sea la id
-                                                parte.setTipoEstado(parte.getIdTipoEstado());
-                                                if (parte.getIdTipoEstado() == 3) {
-                                                    listViewPartes.getItems().add(parte);
-                                                }else if (parte.getIdTipoEstado() == 1 || parte.getIdTipoEstado() == 2){
-                                                    listViewPartes.getItems().add(parte);
-                                                }
-                                            }
+                                                    listViewPartes.getItems().clear();
+                                                    for (ParteDesencriptadoDTO parte : action) {
+                                                        //Para que quede bonito el estado y no sea la id
+                                                        parte.setTipoEstado(parte.getIdTipoEstado());
+                                                        if (parte.getIdTipoEstado() == 3) {
+                                                            listViewPartes.getItems().add(parte);
+                                                        } else if (parte.getIdTipoEstado() == 1 || parte.getIdTipoEstado() == 2) {
+                                                            listViewPartes.getItems().add(parte);
+                                                        }
+                                                    }
                                                 }
                                         )
                                         .peekLeft(error -> {

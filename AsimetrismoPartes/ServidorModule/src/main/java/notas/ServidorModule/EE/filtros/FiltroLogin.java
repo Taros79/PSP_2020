@@ -11,7 +11,7 @@ import notas.CommonModule.constantes.ConstantesRest;
 import java.io.IOException;
 
 @WebFilter(filterName = "FilterLogin", urlPatterns = {ConstantesRest.API + ConstantesRest.PATH_PARTES,
-        ConstantesRest.API + ConstantesRest.PATH_ALUMNOS})
+        ConstantesRest.API + ConstantesRest.PATH_ALUMNOS, ConstantesRest.API + ConstantesRest.PATH_USUARIOS})
 public class FiltroLogin implements Filter {
 
     private final SecurityContext securityContext;

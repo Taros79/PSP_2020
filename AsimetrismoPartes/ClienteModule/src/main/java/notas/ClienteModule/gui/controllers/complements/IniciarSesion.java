@@ -72,7 +72,7 @@ public class IniciarSesion implements Initializable {
                                                 a.showAndWait();
                                             }),
                             throwable -> {
-                                a.setContentText(ConstantesGUI.FALLO_AL_REALIZAR_LA_PETICION);
+                                a.setContentText(ConstantesGUI.CONTRASEÑA_USUARIO_INCORRECTO);
                                 a.showAndWait();
                             }
                     );

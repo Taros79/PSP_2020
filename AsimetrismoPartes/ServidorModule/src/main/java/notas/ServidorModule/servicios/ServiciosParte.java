@@ -84,6 +84,7 @@ public class ServiciosParte {
                                     firmaAComprobar = parte.getFirmaJefatura();
                                 }
                                 byte[] firma = Base64.getUrlDecoder().decode(firmaAComprobar);
+
                                 if (sign.verify(firma)) {
                                     //Y aqui implica que es correcto que lo firmo él
                                     partesDesencriptados.add(new ParteDesencriptadoDTO(parte.getId(), mensajeParte.get(),

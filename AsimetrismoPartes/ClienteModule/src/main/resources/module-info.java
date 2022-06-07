@@ -22,7 +22,6 @@ module ModuloCliente {
     requires ModuloCommon;
 
 
-
     //requires java.validation;          --module-path  ${PATH_TO_FX} --add-modules javafx.controls,javafx.fxml
 
     opens notas.ClienteModule.gui;

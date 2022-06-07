@@ -16,6 +16,13 @@ public class ParteDesencriptadoDTO {
     private String tipoEstado;
 
 
+    public ParteDesencriptadoDTO(int id, String descripcion, String alumno, int idTipoEstado) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.alumno = alumno;
+        this.idTipoEstado = idTipoEstado;
+    }
+
     public void setTipoEstado(int idTipoEstado) {
         switch (idTipoEstado) {
             case 1:
@@ -27,28 +34,18 @@ public class ParteDesencriptadoDTO {
             case 3:
                 this.tipoEstado = "rechazado";
                 break;
-            case 4:
-                this.tipoEstado = "visto";
-                break;
             default:
                 this.tipoEstado = "";
                 break;
         }
     }
 
-    public ParteDesencriptadoDTO(int id, String descripcion, String alumno, int idTipoEstado) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.alumno = alumno;
-        this.idTipoEstado = idTipoEstado;
-    }
-
     @Override
     public String toString() {
-        if(tipoEstado == null) {
-           return "Alumno: " + alumno +
-                   "\nMotivo Parte: " + descripcion;
-        }else{
+        if (tipoEstado == null) {
+            return "Alumno: " + alumno +
+                    "\nMotivo Parte: " + descripcion;
+        } else {
             return "Alumno: " + alumno +
                     "\nMotivo Parte: " + descripcion +
                     "\nEstado: " + tipoEstado;

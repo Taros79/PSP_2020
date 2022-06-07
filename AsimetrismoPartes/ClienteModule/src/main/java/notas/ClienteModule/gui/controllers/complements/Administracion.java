@@ -12,7 +12,6 @@ import notas.ClienteModule.Servicios.ServiciosUsuario;
 import notas.ClienteModule.gui.ConstantesGUI;
 import notas.ClienteModule.gui.controllers.FXMLPrincipalController;
 import notas.CommonModule.modelo.Usuario;
-import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import org.pdfsam.rxjavafx.schedulers.JavaFxScheduler;
 
 import javax.inject.Inject;
@@ -83,7 +82,7 @@ public class Administracion implements Initializable {
 
     @FXML
     private void registrar() {
-        if (!textFieldNombre.getText().isEmpty() || !textFieldPass.getText().isEmpty() || comboBox.getSelectionModel().getSelectedItem() != null) {
+        if (!textFieldNombre.getText().isEmpty() && !textFieldPass.getText().isEmpty() && !comboBox.getSelectionModel().isEmpty()) {
             int id;
             if (Objects.equals(comboBox.getSelectionModel().getSelectedItem(), "Profesor"))
                 id = 1;

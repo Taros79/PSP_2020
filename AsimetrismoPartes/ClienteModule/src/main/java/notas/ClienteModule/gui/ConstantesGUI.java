@@ -18,4 +18,6 @@ public class ConstantesGUI {
 
     public static final String SELECCIONA_EN_LA_LISTA = "Selecciona en la lista por favor";
     public static final String CAMPOS_VACIOS = "Hay campos vacios";
+    public static final String PARTE_YA_FIRMADO = "Parte ya firmado";
+    public static final String CONTRASEÑA_USUARIO_INCORRECTO = "Datos incorrectos";
 }

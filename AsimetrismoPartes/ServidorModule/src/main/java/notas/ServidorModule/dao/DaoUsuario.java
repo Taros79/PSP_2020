@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import notas.CommonModule.modelo.Usuario;
 import notas.ServidorModule.EE.security.encriptaciones.KeyStoreBuild;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
+import notas.ServidorModule.dao.errores.DataViolationException;
 import notas.ServidorModule.dao.errores.OtraException;
 import notas.ServidorModule.dao.errores.ServidorException;
 import notas.ServidorModule.dao.jdbc.DBConnectionPool;
@@ -52,26 +53,21 @@ public class DaoUsuario {
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
             sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_NAME,
-                    new BeanPropertyRowMapper<>(Usuario.class), nombre);
+                    new BeanPropertyRowMapper<>(Usuario.class), nombre, passwordHasheada);
+            result = sql;
 
-            if (passwordHasheada.equals(sql.getPass())) {
-                result = sql;
+            if (result == null) {
+                throw new DataViolationException(ConstantesSQL.USUARIO_NO_ENCONTRADO);
             } else {
-                log.error(ConstantesSQL.CONTRASEÑA_USUARIO_INCORRECTO);
-                throw new OtraException(ConstantesSQL.CONTRASEÑA_USUARIO_INCORRECTO);
+                return result;
             }
-        } catch (DataAccessException e) {
+
+        } catch (Exception e) {
             log.error(e.getMessage());
-            throw new OtraException(ConstantesSQL.CONTRASEÑA_USUARIO_INCORRECTO);
-        } catch (BaseDatosCaidaException e) {
-            log.error(e.getMessage());
-            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
-        } catch (ServidorException e) {
-            log.error(e.getMessage());
-            throw new ServidorException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
-        return result;
     }
+
 
     public Usuario getUsuarioById(int idUsuario) {
         Usuario result;
@@ -115,4 +111,5 @@ public class DaoUsuario {
             throw new ServidorException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
     }
+
 }

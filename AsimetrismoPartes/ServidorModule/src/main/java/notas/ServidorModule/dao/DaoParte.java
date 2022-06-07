@@ -1,6 +1,5 @@
 package notas.ServidorModule.dao;
 
-import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import notas.CommonModule.modelo.Parte;
@@ -8,7 +7,6 @@ import notas.CommonModule.modelo.PartesCompartidos;
 import notas.CommonModule.modelo.Usuario;
 import notas.CommonModule.modeloDTO.ParteProfesorPadre;
 import notas.CommonModule.modeloDTO.UsuarioYRandom;
-import notas.ServidorModule.EE.security.encriptaciones.Constantes;
 import notas.ServidorModule.EE.security.encriptaciones.Encriptar;
 import notas.ServidorModule.dao.errores.BaseDatosCaidaException;
 import notas.ServidorModule.dao.errores.OtraException;
@@ -26,11 +24,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.security.MessageDigest;
-import java.security.PrivateKey;
-import java.security.Signature;
 import java.sql.PreparedStatement;
-import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 
@@ -284,7 +278,7 @@ public class DaoParte {
         String result;
         Usuario padre = daoUsuario.getUsuarioById(idUsuario);
 
-        try{
+        try {
             var firmaEnBase64 = encriptar.firmar(padre, mensaje);
             if (firmaEnBase64.isRight()) {
                 JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
@@ -297,7 +291,7 @@ public class DaoParte {
                 log.error(firmaEnBase64.getLeft());
                 throw new OtraException(firmaEnBase64.getLeft());
             }
-        }catch (DataAccessException e) {
+        } catch (DataAccessException e) {
             log.error(e.getMessage());
             throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
         } catch (Exception e) {

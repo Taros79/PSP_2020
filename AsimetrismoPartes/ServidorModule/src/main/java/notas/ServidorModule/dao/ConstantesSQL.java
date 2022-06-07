@@ -3,7 +3,7 @@ package notas.ServidorModule.dao;
 public class ConstantesSQL {
 
     public static final String SELECT_ALL_USUARIOS = "SELECT * FROM usuarios";
-    public static final String SELECT_USUARIO_BY_NAME = "SELECT * FROM usuarios where nombre = ?";
+    public static final String SELECT_USUARIO_BY_NAME = "SELECT * FROM usuarios where nombre = ? and pass = ?";
     public static final String SELECT_USUARIO_BY_ID = "SELECT * FROM usuarios where id = ?";
 
     public static final String SELECT_ALL_PARTES = "SELECT * FROM partes";

@@ -8,7 +8,6 @@ import notas.ClienteModule.dao.retrofit.ApiParte;
 import notas.CommonModule.modelo.Parte;
 import notas.CommonModule.modeloDTO.ParteDesencriptadoDTO;
 import notas.CommonModule.modeloDTO.ParteProfesorPadre;
-import retrofit2.http.Query;
 
 import javax.inject.Inject;
 import java.util.List;

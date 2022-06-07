@@ -43,7 +43,7 @@
                 <Font name="Forte" size="24.0" />
             </font>
         </Label>
-        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="94.0" layoutY="386.0" prefHeight="35.0" prefWidth="310.0" text="Resto de pass: admin">
+        <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" layoutX="94.0" layoutY="386.0" prefHeight="35.0" prefWidth="344.0" text="Administrador: brillo--&gt; admin">
             <font>
                 <Font name="Forte" size="24.0" />
             </font>
