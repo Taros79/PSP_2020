@@ -47,8 +47,8 @@ public class DaoUsuario {
         return result;
     }
 
-    public String addUsuario(Usuario u) {
-        String result;
+    public Either<String, String> addUsuario(Usuario u) {
+        Either<String, String> result;
         int i;
         String passwordHasheada = hashPassword.hashPassword(u.getContraseña());
         try {
@@ -63,17 +63,17 @@ public class DaoUsuario {
             });
 
             if (i != 0) {
-                result = ConstantesSQL.ANADIDO_CON_EXITO;
+                result = Either.right(ConstantesSQL.ANADIDO_CON_EXITO);
             } else {
-                result = ConstantesSQL.NO_SE_PUDO_ANADIR;
+                result = Either.left(ConstantesSQL.NO_SE_PUDO_ANADIR);
             }
 
         } catch (DataAccessException e) {
             log.error(e.getMessage());
-            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+            result = Either.left(ConstantesSQL.BASE_DE_DATOS_CAIDA);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+            result = Either.left(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
         return result;
     }
@@ -177,7 +177,29 @@ public class DaoUsuario {
         return result;
     }
 
-    public Either <String,Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
+    public Usuario getUsuarioById(int id) {
+        Usuario sql;
+        Usuario result = null;
+        try {
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
+            sql = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_USUARIO_BY_CORREO,
+                    new BeanPropertyRowMapper<>(Usuario.class), id);
+
+            if (sql != null) {
+                result = sql;
+            }
+
+        } catch (DataAccessException e) {
+            log.error(e.getMessage());
+            throw new BaseDatosCaidaException(ConstantesSQL.BASE_DE_DATOS_CAIDA);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
+        }
+        return result;
+    }
+
+    public Either<String, Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
         Either<String, Usuario> result = null;
         Usuario sql;
         String passwordHasheada = hashPassword.hashPassword(pass);

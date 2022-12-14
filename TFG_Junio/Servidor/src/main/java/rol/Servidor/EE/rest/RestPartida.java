@@ -11,7 +11,7 @@ import rol.Servidor.servicios.ServiciosPartida;
 
 import java.util.List;
 
-@UsuarioBaneado
+//@UsuarioBaneado
 @Path(ConstantesRest.PATH_PARTIDAS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -26,8 +26,9 @@ public class RestPartida {
     }
 
     @GET
-    public List<Partida> getAllPartida() {
-        return serviciosPartida.getAllPartidas();
+    @Path(ConstantesRest.PATH_PARTIDAS_BY_ID_MASTER)
+    public List<Partida> getAllPartidasByMaster(@QueryParam(ConstantesRest.ID) int id) {
+        return serviciosPartida.getAllPartidasByMaster(id);
     }
 
     @POST
@@ -43,5 +44,16 @@ public class RestPartida {
     @PUT
     public String updatePartida(Partida p) {
         return serviciosPartida.updatePartida(p);
+    }
+
+    @POST
+    @Path(ConstantesRest.PATH_PERSONAJE_TO_PARTIDA)
+    public String addPersonajeToPartida(@QueryParam("idPartida") int idPartida, @QueryParam("idPersonaje") int idPersonaje) {
+        return serviciosPartida.addPersonajeToPartida(idPartida, idPersonaje);
+    }
+
+    @GET
+    public List<Partida> getAllPartidas() {
+        return serviciosPartida.getAllPartidas();
     }
 }

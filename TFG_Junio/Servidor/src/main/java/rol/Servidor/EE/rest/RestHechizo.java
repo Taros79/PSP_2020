@@ -14,7 +14,7 @@ import rol.Servidor.utils.Constantes;
 
 import java.util.List;
 
-@UsuarioBaneado
+//@UsuarioBaneado
 @Path(ConstantesRest.PATH_HECHIZOS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,19 +33,19 @@ public class RestHechizo {
         return serviciosHechizo.getAllHechizo();
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @POST
     public String addHechizo(Hechizo h) {
         return serviciosHechizo.addHechizo(h);
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @DELETE
     public String delHechizo(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosHechizo.delHechizo(id);
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @PUT
     public String updateHechizo(Hechizo h) {
         return serviciosHechizo.updateHechizo(h);

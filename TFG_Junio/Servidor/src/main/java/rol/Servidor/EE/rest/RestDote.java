@@ -14,7 +14,7 @@ import rol.Servidor.utils.Constantes;
 
 import java.util.List;
 
-@UsuarioBaneado
+//@UsuarioBaneado
 @Path(ConstantesRest.PATH_DOTES)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,19 +33,19 @@ public class RestDote {
         return serviciosDote.getAllDotes();
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @POST
     public String addDote(Dote d) {
         return serviciosDote.addDote(d);
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @DELETE
     public String delDote(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosDote.delDote(id);
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @PUT
     public String updateDote(Dote d) {
         return serviciosDote.updateDote(d);

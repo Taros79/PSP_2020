@@ -14,6 +14,8 @@ public class ConstantesRest {
     public static final String PATH_REGISTRO_LOGOUT = "/logout";
 
 
+    public static final String PATH_USUARIO_BY_ID_USUARIO = "/{id}";
+
     public static final String PATH_DOTES_BY_ID_PERSONAJE = "/dotesByIdPersonaje";
     public static final String PATH_DOTE_ADD_TO_PERSONAJE = "/doteAddToPersonaje";
     public static final String PATH_DEL_DOTE_TO_PERSONAJE = "/delDoteToPersonaje";
@@ -28,6 +30,9 @@ public class ConstantesRest {
 
     public static final String PATH_PERSONAJES_BY_ID_USUARIO = "/personajesByIdUsuario";
     public static final String PATH_PERSONAJE_ADD_TO_USUARIO = "/personajeAddToUsuario";
+
+    public static final String PATH_PERSONAJE_TO_PARTIDA = "/personajeToPartida";
+    public static final String PATH_PARTIDAS_BY_ID_MASTER = "/partidasByIdMaster";
 
     public static final String LOGIN_INCORRECTO_JSP = "/loginIncorrecto.jsp";
 

@@ -13,4 +13,7 @@ public class ObjetosPersonaje {
     private int id_Objeto;
     private int id_Personaje;
 
+    public ObjetosPersonaje(int id) {
+        this.id = id;
+    }
 }

@@ -63,11 +63,11 @@ public class Registrarse implements Initializable {
                 .subscribe(resultado ->
                                 resultado
                                         .peek(action -> {
-                                            if (action.getTipo_Usuario() == 3) {
-                                                pantallaPrincipal.irAPrincipalAdmin();
-                                            } else {
-                                                pantallaPrincipal.irAPrincipalUsuario();
-                                            }
+                                                    if (action.getTipo_Usuario() == 3) {
+                                                        pantallaPrincipal.irAPrincipalAdmin();
+                                                    } else {
+                                                        pantallaPrincipal.irAPrincipalUsuario();
+                                                    }
                                                 }
                                         )
                                         .peekLeft(error -> {

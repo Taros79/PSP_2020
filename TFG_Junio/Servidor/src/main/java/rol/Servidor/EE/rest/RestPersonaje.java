@@ -13,7 +13,7 @@ import rol.Servidor.utils.UserSecurity;
 
 import java.util.List;
 
-@UsuarioBaneado
+//@UsuarioBaneado
 @Path(ConstantesRest.PATH_PERSONAJES)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -56,9 +56,15 @@ public class RestPersonaje {
         return serviciosPersonaje.getPersonajesByIdUsuario(id);
     }
 
-    @POST
+   /* @POST
     @Path(ConstantesRest.PATH_PERSONAJE_ADD_TO_USUARIO)
     public String addPersonajeToUsuario(PersonajeBBDD p) {
         return serviciosPersonaje.addPersonajeToUsuario(p, userSecurity.getUserSession().getId());
+    }*/
+
+    @POST
+    @Path(ConstantesRest.PATH_PERSONAJE_ADD_TO_USUARIO)
+    public String addPersonajeToUsuario(PersonajeBBDD p) {
+        return serviciosPersonaje.addPersonajeToUsuario(p);
     }
 }

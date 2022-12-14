@@ -52,11 +52,11 @@ public class IniciarSesion implements Initializable {
                 .subscribe(resultado ->
                                 resultado
                                         .peek(action -> {
-                                            a.setContentText(action.getCorreo() + " a iniciado sesion");
-                                            a.showAndWait();
-                                            if (action.getTipo_Usuario() == 3) {
-                                                pantallaPrincipal.irAPrincipalAdmin();
-                                            } else {
+                                                    a.setContentText(action.getCorreo() + " a iniciado sesion");
+                                                    a.showAndWait();
+                                                    if (action.getTipo_Usuario() == 3) {
+                                                        pantallaPrincipal.irAPrincipalAdmin();
+                                                    } else {
                                                         pantallaPrincipal.irAPrincipalUsuario();
                                                     }
                                                     pantallaPrincipal.setUsuarioLoginPrincipal(action);

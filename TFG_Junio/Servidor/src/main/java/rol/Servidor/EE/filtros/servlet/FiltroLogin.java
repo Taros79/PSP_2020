@@ -10,9 +10,10 @@ import rol.Common.constantes.ConstantesRest;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "FilterLogin", urlPatterns = {ConstantesRest.API + ConstantesRest.PATH_DOTES,
-        ConstantesRest.API + ConstantesRest.PATH_ESTADISTICAS, ConstantesRest.API + ConstantesRest.PATH_HECHIZOS,
-        ConstantesRest.API + ConstantesRest.PATH_PERSONAJES, ConstantesRest.API + ConstantesRest.PATH_OBJETOS})
+@WebFilter(filterName = "FilterLogin", urlPatterns = {//ConstantesRest.API + ConstantesRest.PATH_DOTES,
+       // ConstantesRest.API + ConstantesRest.PATH_ESTADISTICAS, ConstantesRest.API + ConstantesRest.PATH_HECHIZOS,
+       // ConstantesRest.API + ConstantesRest.PATH_PERSONAJES, ConstantesRest.API + ConstantesRest.PATH_OBJETOS
+})
 public class FiltroLogin implements Filter {
 
     private final SecurityContext securityContext;

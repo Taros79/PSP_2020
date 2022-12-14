@@ -198,7 +198,7 @@ public class DaoPersonaje {
         return result;
     }
 
-    public String addPersonajeToUsuario(PersonajeBBDD p, int id_Usuario) {
+    public String addPersonajeToUsuario(PersonajeBBDD p) {
         String result;
         int i;
         JdbcTemplate jtm;
@@ -236,13 +236,14 @@ public class DaoPersonaje {
                 preparedStatement.setString(4, p.getPersonaje().getAlineamiento());
                 preparedStatement.setInt(5, p.getPersonaje().getNivel());
                 preparedStatement.setInt(6, p.getPersonaje().getExperiencia());
+                preparedStatement.setString(8, p.getPersonaje().getImage());
                 preparedStatement.setInt(7, Objects.requireNonNull(holder.getKey()).intValue());
                 return preparedStatement;
             }, holder);
 
             i = jtm.update(ConstantesSQL.ADD_PERSONAJE_TO_USUARIO,
                     holder.getKey().intValue(),
-                    id_Usuario);
+                    p.getIdUsuario());
             if (i != 0) {
                 result = ConstantesSQL.ACTUALIZADO_CON_EXITO;
             } else {

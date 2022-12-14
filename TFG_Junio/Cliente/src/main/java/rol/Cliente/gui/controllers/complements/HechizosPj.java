@@ -97,6 +97,7 @@ public class HechizosPj implements Initializable {
     public void actualizarDatos() {
         listViewHechizos.getItems().clear();
         listViewPersonajes.getItems().clear();
+        getHechizos();
         serviciosPersonaje.getPersonajesByIdUsuario(pantallaPrincipal.getUsuarioLoginPrincipal().getId())
                 .observeOn(JavaFxScheduler.platform())
                 .doFinally(() -> this.pantallaPrincipal.getPantallaPrincipal().setCursor(Cursor.DEFAULT))
@@ -105,7 +106,6 @@ public class HechizosPj implements Initializable {
                                         .peek(action -> {
 
                                                     listViewPersonajes.getItems().addAll(action);
-                                                    getHechizos();
                                                 }
                                         )
                                         .peekLeft(error -> {

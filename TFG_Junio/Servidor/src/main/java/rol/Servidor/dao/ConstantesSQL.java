@@ -14,9 +14,10 @@ public class ConstantesSQL {
     public static final String INSERT_OBJETOS = "insert into objetos (nombre, descripcion, ranura, nivel, peso, precio) values (?,?,?,?,?,?)";
     public static final String INSERT_ESTADISTICAS = "insert into estadisticas (vida, ac, fortaleza, reflejos, voluntad, fuerza, destreza, constitucion, inteligencia, sabiduria, carisma) values (?,?,?,?,?,?,?,?,?,?,?)";
     public static final String INSERT_HECHIZOS = "insert into hechizos (nombre, descripcion, nivel) values (?,?,?)";
-    public static final String INSERT_PARTIDAS = "insert into partidas (horaInicio, duracion, id_Master) values (?,?,?)";
-    public static final String INSERT_PERSONAJES = "insert into personajes (nombre, raza, clase, alineamiento, nivel, experiencia, id_estadistica) values (?,?,?,?,?,?,?)";
+    public static final String INSERT_PARTIDAS = "insert into partidas (horaInicio, duracion, numMaxParticipantes, id_Master) values (?,?,?,?)";
+    public static final String INSERT_PERSONAJES = "insert into personajes (nombre, raza, clase, alineamiento, nivel, experiencia, id_estadistica, image) values (?,?,?,?,?,?,?,?)";
     public static final String INSERT_USUARIOS = "insert into usuarios (correo, contraseña, tipo_Usuario, baneado) values (?,?,?,?)";
+    public static final String INSERT_PERSONAJE_PARTIDA = "insert into personajesPartida (id_Partida, id_Personaje) values (?,?)";
 
     public static final String DEL_DOTES = "delete from dotes where id = ?";
     public static final String DEL_OBJETOS = "delete from objetos where id = ?";
@@ -28,14 +29,19 @@ public class ConstantesSQL {
 
     public static final String UPDATE_DOTES = "update dotes set nombre = ?, descripcion = ? WHERE id = ?";
     public static final String UPDATE_OBJETOS = "update objetos set nombre = ?, descripcion = ?, ranura = ?, nivel = ?, peso = ?, precio = ? WHERE id = ?";
-    public static final String UPDATE_ESTADISTICAS = "update estadisticas set vida = ?, ac = ?, fortaleza = ?, reflejos = ?, voluntad = ?, fuerza = ?, destreza = ?, constitucion = ?, inteligencia = ?, sabiduria = ?, carisma = ? WHERE id = ?";
+    public static final String UPDATE_ESTADISTICAS = "update estadisticas e INNER JOIN personajes p on e.id = p.id_estadistica " +
+            "set vida = ?, ac = ?, fortaleza = ?, reflejos = ?, voluntad = ?, fuerza = ?, destreza = ?, constitucion = ?, " +
+            "inteligencia = ?, sabiduria = ?, carisma = ? WHERE p.id_estadistica = ?";
     public static final String UPDATE_HECHIZOS = "update hechizos set nombre = ?, descripcion = ?, nivel = ? WHERE id = ?";
-    public static final String UPDATE_PARTIDAS = "update partidas set horaInicio = ?, duracion = ?, id_Master = ? WHERE id = ?";
+    public static final String UPDATE_PARTIDAS = "update partidas set horaInicio = ?, duracion = ?, numMaxParticipantes = ?, id_Master = ? WHERE id = ?";
     public static final String UPDATE_PERSONAJES = "update personajes set nombre = ?, raza = ?, clase = ?, alineamiento = ?, nivel = ?, experiencia = ?, id_estadistica = ? WHERE id = ?";
     public static final String UPDATE_USUARIOS = "update usuarios set correo = ?, contraseña = ?, tipo_Usuario = ? WHERE id = ?";
 
 
     public static final String SELECT_ESTADISTICA_BY_ID = "SELECT * FROM estadisticas where id = ?";
+
+    public static final String SELECT_ESTADISTICA_BY_ID_PERSONAJE = "SELECT e.* FROM estadisticas e " +
+            "inner join personajes p on e.id = p.id_estadistica where p.id = ?";
     public static final String SELECT_DOTES_BY_ID_PERSONAJE = "SELECT d.id, d.nombre, d.descripcion FROM dotes d " +
             "inner join dotesPersonaje dP on d.id = dP.id_Dote " +
             "inner join personajes p on dP.id_Personaje = p.id where p.id = ?";
@@ -45,7 +51,7 @@ public class ConstantesSQL {
     public static final String SELECT_OBJETOS_BY_ID_PERSONAJE = "SELECT o.id, o.nombre, o.descripcion, o.ranura, o.nivel, o.peso, o.precio FROM objetos o " +
             "inner join objetosPersonaje oP on o.id = oP.id_Objeto " +
             "inner join personajes p on oP.id_Personaje = p.id where p.id = ?";
-    public static final String SELECT_PERSONAJE_BY_ID_USUARIO = "SELECT p.id,p.nombre,p.raza,p.clase,p.alineamiento,p.nivel,p.experiencia,p.id_estadistica FROM personajes p " +
+    public static final String SELECT_PERSONAJE_BY_ID_USUARIO = "SELECT p.id,p.nombre,p.raza,p.clase,p.alineamiento,p.nivel,p.experiencia,p.id_estadistica,p.image FROM personajes p " +
             "inner join personajesUsuario po on p.id = po.id_Personaje " +
             "inner join usuarios u on po.id_Usuario = u.id where u.id = ?";
 
@@ -68,7 +74,15 @@ public class ConstantesSQL {
     public static final String SELECT_PARTIDAS_BY_USUARIO =
             "SELECT * FROM partidas WHERE id IN (SELECT id_Partida FROM usuariosPartida WHERE id_Usuario = ?)";
 
+    public static final String SELECT_PERSONAJES_PARTIDA_BY_IDPARTIDA =
+            "(SELECT * FROM rol.personajesPartida WHERE id_Partida IN " +
+                    "(SELECT p.id FROM rol.partidas p WHERE p.id = ?))";
+
+    public static final String SELECT_PARTIDA_BY_ID =
+            "SELECT * FROM rol.partidas WHERE id = ?";
     public static final String ADD_PERSONAJE_TO_USUARIO = "insert into personajesUsuario (id_Personaje, id_Usuario) values (?,?)";
+
+
 
     //ERRORES
     public static final String ERROR_DEL_SERVIDOR = "Error del servidor";

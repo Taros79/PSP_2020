@@ -14,6 +14,6 @@ public class Partida {
     private int id;
     private LocalDate horaInicio;
     private double duracion;
+    private int numMaxParticipantes;
     private int id_Master;
-
 }

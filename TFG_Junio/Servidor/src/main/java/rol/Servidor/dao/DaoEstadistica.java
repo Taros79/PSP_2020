@@ -25,11 +25,12 @@ public class DaoEstadistica {
         this.pool = pool;
     }
 
+    //Cambiar getEstadisticas por id
     public Estadistica getEstadisticaById(int id) {
         Estadistica result;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            result = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_ESTADISTICA_BY_ID,
+            result = jdbcTemplate.queryForObject(ConstantesSQL.SELECT_ESTADISTICA_BY_ID_PERSONAJE,
                     new BeanPropertyRowMapper<>(Estadistica.class), id);
 
         } catch (DataAccessException e) {

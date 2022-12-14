@@ -13,5 +13,6 @@ public class PersonajeBBDD {
 
     private Personaje personaje;
     private Estadistica estadistica;
+    private Integer idUsuario;
 
 }

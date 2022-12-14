@@ -266,7 +266,8 @@ public class FXMLPrincipalController implements Initializable {
 
     @FXML
     private void logout() {
-        serviciosUsuario.hacerLogout();
+        usuarioLogin = null;
+        ca = null;
         pantallaPrincipal.setCenter(pantallaIniciarSesion);
         if (menuUsuario.isVisible()) {
             menuUsuario.setVisible(false);

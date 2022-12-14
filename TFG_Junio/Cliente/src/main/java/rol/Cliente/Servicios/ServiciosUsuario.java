@@ -36,8 +36,4 @@ public class ServiciosUsuario {
     public Single<Either<String, Usuario>> hacerLogin(String correo, String password) {
         return daoUsuario.hacerLogin(correo, password);
     }
-
-    public Single<Either<String, String>> hacerLogout() {
-        return daoUsuario.hacerLogout();
-    }
 }

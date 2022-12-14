@@ -15,8 +15,8 @@ public class ServiciosPartida {
         this.daoPartida = daoPartida;
     }
 
-    public List<Partida> getAllPartidas() {
-        return daoPartida.getAllPartidas();
+    public List<Partida> getAllPartidasByMaster(int idMaster) {
+        return daoPartida.getAllPartidasByMaster(idMaster);
     }
 
     public String addPartida(Partida p) {
@@ -29,5 +29,13 @@ public class ServiciosPartida {
 
     public String updatePartida(Partida p) {
         return daoPartida.updatePartida(p);
+    }
+
+    public String addPersonajeToPartida(int idPartida, int idPersonaje) {
+        return daoPartida.addPersonajeToPartida(idPartida, idPersonaje);
+    }
+
+    public List<Partida> getAllPartidas() {
+        return daoPartida.getAllPartidas();
     }
 }

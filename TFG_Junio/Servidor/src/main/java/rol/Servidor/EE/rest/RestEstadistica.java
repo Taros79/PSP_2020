@@ -9,7 +9,7 @@ import rol.Common.modelo.Estadistica;
 import rol.Servidor.EE.filtros.UsuarioBaneado;
 import rol.Servidor.servicios.ServiciosEstadistica;
 
-@UsuarioBaneado
+//@UsuarioBaneado
 @Path(ConstantesRest.PATH_ESTADISTICAS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

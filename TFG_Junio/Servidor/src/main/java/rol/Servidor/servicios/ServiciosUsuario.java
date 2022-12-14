@@ -20,7 +20,7 @@ public class ServiciosUsuario {
         return daoUsuario.getAllUsuarios();
     }
 
-    public String addUsuario(Usuario u) {
+    public Either<String, String> addUsuario(Usuario u) {
         return daoUsuario.addUsuario(u);
     }
 
@@ -40,7 +40,11 @@ public class ServiciosUsuario {
         return daoUsuario.getUsuarioByName(correo);
     }
 
-    public Either<String,Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
+    public Usuario getUsuarioById(int id) {
+        return daoUsuario.getUsuarioById(id);
+    }
+
+    public Either<String, Usuario> getUsuarioByCorreoCredentials(String correo, String pass) {
         return daoUsuario.getUsuarioByCorreoCredentials(correo, pass);
     }
 }

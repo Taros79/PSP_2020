@@ -16,7 +16,10 @@ public class Personaje {
     private String alineamiento;
     private int nivel;
     private int experiencia;
+
     private int id_Estadistica;
+
+    private String image;
 
     public Personaje(String nombre, String raza, String clase, String alineamiento, int nivel, int experiencia) {
         this.nombre = nombre;

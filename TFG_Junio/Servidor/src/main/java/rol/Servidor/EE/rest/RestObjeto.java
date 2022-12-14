@@ -14,7 +14,7 @@ import rol.Servidor.utils.Constantes;
 
 import java.util.List;
 
-@UsuarioBaneado
+//@UsuarioBaneado
 @Path(ConstantesRest.PATH_OBJETOS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -33,19 +33,19 @@ public class RestObjeto {
         return serviciosObjeto.getAllObjetos();
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @POST
     public String addObjeto(Objeto o) {
         return serviciosObjeto.addObjeto(o);
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @DELETE
     public String delObjeto(@QueryParam(ConstantesRest.ID) int id) {
         return serviciosObjeto.delObjeto(id);
     }
 
-    @RolesAllowed(Constantes.ADMIN)
+    //@RolesAllowed(Constantes.ADMIN)
     @PUT
     public String updateObjeto(Objeto o) {
         return serviciosObjeto.updateObjeto(o);

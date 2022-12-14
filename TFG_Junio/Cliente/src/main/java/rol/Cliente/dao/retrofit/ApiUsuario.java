@@ -24,6 +24,6 @@ public interface ApiUsuario {
     @GET(ConstantesRest.PATH_REGISTRO)
     Single<Usuario> hacerLogin(@Query("correo") String correo, @Query("password") String password);
 
-    @GET(ConstantesRest.PATH_REGISTRO + ConstantesRest.PATH_REGISTRO_LOGOUT)
-    Single<String> hacerLogout();
+    @GET(ConstantesRest.PATH_USUARIO_BY_ID_USUARIO)
+    Single<Usuario> getObjetosByIdPersonaje();
 }
