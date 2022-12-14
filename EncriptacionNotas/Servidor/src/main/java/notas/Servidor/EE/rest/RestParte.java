@@ -23,7 +23,7 @@ public class RestParte {
         this.serviciosParte = serviciosParte;
     }
 
-    @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS, Constantes.PROFESOR})
+ /*   @RolesAllowed({Constantes.JEFE_DE_ESTUDIOS, Constantes.PROFESOR})
     @GET
     public List<Parte> getAllPartes() {
         return serviciosParte.getAllPartes();
@@ -33,7 +33,7 @@ public class RestParte {
     @Path(ConstantesRest.PATH_PARTES_ALUMNOS_BY_USUARIO)
     public List<Parte> getPartesByUser(@QueryParam("idPadre") int idPadre) {
         return serviciosParte.getPartesByUser(idPadre);
-    }
+    }*/
 
     @RolesAllowed({Constantes.PROFESOR})
     @POST

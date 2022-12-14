@@ -15,13 +15,13 @@ public class ServiciosParte {
         this.daoParte = daoParte;
     }
 
-    public List<Parte> getAllPartes() {
+ /*   public List<Parte> getAllPartes() {
         return daoParte.getAllPartes();
     }
 
     public List<Parte> getPartesByUser(int idPadre) {
         return daoParte.getPartesByUser(idPadre);
-    }
+    }*/
 
     public String addParte(Parte parte) {
         return daoParte.addParte(parte);

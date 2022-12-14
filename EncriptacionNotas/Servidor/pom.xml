@@ -84,5 +84,12 @@
             <artifactId>guava</artifactId>
             <version>27.0-jre</version>
         </dependency>
+
+        <!--        Bouncycastle-->
+        <!--<dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk12</artifactId>
+            <version>130</version>
+        </dependency>-->
     </dependencies>
 </project>

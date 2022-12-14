@@ -3,6 +3,7 @@ package notas.Servidor.dao;
 import jakarta.inject.Inject;
 import lombok.extern.log4j.Log4j2;
 import notas.Common.modelo.Parte;
+import notas.Servidor.EE.security.encriptaciones.Encriptar;
 import notas.Servidor.dao.encriptaciones.EncriptarSimetrico;
 import notas.Servidor.dao.errores.BaseDatosCaidaException;
 import notas.Servidor.dao.errores.OtraException;
@@ -20,17 +21,17 @@ public class DaoParte {
 
     private final DBConnectionPool pool;
     private final HashPassword hashPassword;
-    private final EncriptarSimetrico encriptarSimetrico;
+    private final Encriptar encriptar;
 
     @Inject
-    public DaoParte(DBConnectionPool pool, HashPassword hashPassword, EncriptarSimetrico encriptarSimetrico) {
+    public DaoParte(DBConnectionPool pool, HashPassword hashPassword, Encriptar encriptar) {
         this.pool = pool;
         this.hashPassword = hashPassword;
-        this.encriptarSimetrico = encriptarSimetrico;
+        this.encriptar = encriptar;
     }
 
 
-    public List<Parte> getAllPartes() {
+    /*public List<Parte> getAllPartes() {
         List<Parte> result;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
@@ -51,9 +52,9 @@ public class DaoParte {
             throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
         return result;
-    }
+    }*/
 
-    public List<Parte> getPartesByUser(int idPadre) {
+/*    public List<Parte> getPartesByUser(int idPadre) {
         List<Parte> result;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
@@ -61,7 +62,7 @@ public class DaoParte {
                     new BeanPropertyRowMapper<>(Parte.class), idPadre);
 
             for (Parte parte : result) {
-                var mensajeDesencriptado = encriptarSimetrico.desencriptarTexto(parte.getDescripcion());
+                var mensajeDesencriptado = encriptar.desencriptarTexto(parte.getDescripcion());
                 if (mensajeDesencriptado.isRight()) {
                     parte.setDescripcion(mensajeDesencriptado.get());
                 }
@@ -74,12 +75,12 @@ public class DaoParte {
             throw new OtraException(ConstantesSQL.ERROR_DEL_SERVIDOR);
         }
         return result;
-    }
+    }*/
 
     public String addParte(Parte parte) {
-        String result = null;
+        String result;
         try {
-            var mensajeEncriptado = encriptarSimetrico.encriptarTexto(parte.getDescripcion());
+            var mensajeEncriptado = encriptar.encriptarAESTextoConRandom(parte.getDescripcion());
 
             if (mensajeEncriptado.isRight()) {
                 JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
