@@ -21,9 +21,6 @@ import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Objects;
 
-import static rol.Servidor.dao.ConstantesSQL.SELECT_ALL_PERSONAJES;
-
-
 @Log4j2
 public class DaoPersonaje {
 
@@ -39,7 +36,7 @@ public class DaoPersonaje {
         List<Personaje> result;
         try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(pool.getDataSource());
-            result = jdbcTemplate.query(SELECT_ALL_PERSONAJES,
+            result = jdbcTemplate.query(ConstantesSQL.SELECT_ALL_PERSONAJES,
                     new BeanPropertyRowMapper<>(Personaje.class));
         } catch (DataAccessException e) {
             log.error(e.getMessage());
@@ -242,7 +239,7 @@ public class DaoPersonaje {
             }, holder);
 
             i = jtm.update(ConstantesSQL.ADD_PERSONAJE_TO_USUARIO,
-                    holder.getKey().intValue(),
+                    Objects.requireNonNull(holder.getKey()).intValue(),
                     p.getIdUsuario());
             if (i != 0) {
                 result = ConstantesSQL.ACTUALIZADO_CON_EXITO;
